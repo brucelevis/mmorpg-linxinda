@@ -1,5 +1,7 @@
 package com.wan37.client;
 
+import com.alibaba.fastjson.JSONObject;
+import com.wan37.req.obj.TestJsonObj;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
@@ -25,6 +27,9 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         System.out.println("Client active ");
         ctx.writeAndFlush("我是 client " + LocalDate.now().toString() + "\n");
+
+        String s = JSONObject.toJSONString(new TestJsonObj(111, "test"))+ "\n";
+        ctx.writeAndFlush(s);
         super.channelActive(ctx);
     }
 
