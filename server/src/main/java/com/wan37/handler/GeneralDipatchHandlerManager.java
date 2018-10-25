@@ -1,11 +1,10 @@
 package com.wan37.handler;
 
 import com.wan37.util.ApplicationContextUtil;
-import org.springframework.stereotype.Service;
 
 import java.util.Map;
+import java.util.Optional;
 
-@Service
 public class GeneralDipatchHandlerManager {
 
     /**
@@ -13,11 +12,12 @@ public class GeneralDipatchHandlerManager {
      */
     private static Map<String, GeneralHandler> handlerMap = null;
 
-    public GeneralHandler get(String key) {
+    public static Optional<GeneralHandler> get(String key) {
         if (handlerMap == null) {
             handlerMap = ApplicationContextUtil.getApplicationContext().getBeansOfType(GeneralHandler.class);
         }
 
-        return handlerMap.get(key);
+        GeneralHandler handler = handlerMap.get(key);
+        return handler == null ? Optional.empty() : Optional.of(handler);
     }
 }

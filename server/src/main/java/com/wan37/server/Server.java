@@ -12,6 +12,7 @@ import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.codec.Delimiters;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * Netty4 服务端代码
@@ -19,6 +20,8 @@ import io.netty.handler.codec.string.StringEncoder;
 public class Server {
 
     public static void main(String[] args) {
+        new ClassPathXmlApplicationContext("applicationContext.xml");
+
         // EventLoop 代替原来的 ChannelFactory
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();

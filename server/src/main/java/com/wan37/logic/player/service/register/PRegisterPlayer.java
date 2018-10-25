@@ -4,5 +4,5 @@ public interface PRegisterPlayer {
 
     long getAccount();
 
-    String password();
+    String getPassword();
 }
