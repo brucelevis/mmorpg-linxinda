@@ -1,28 +1,25 @@
 package com.wan37.server;
 
-import com.alibaba.fastjson.JSON;
 import com.wan37.handler.GeneralDipatchHandlerManager;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-
-import java.net.InetAddress;
-import java.util.Map;
 
 /**
  * 数据处理
  */
 public class ServerHandler extends ChannelInboundHandlerAdapter {
 
-    //private static final Logger LOG = Logger.getLogger(ServerHandler.class);
     private static final String SUFFIX = "\n";
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
-        String msgStr = msg.toString();
-        String req = (String) getParamMap(msgStr).get("req");
+        String command = msg.toString();
 
-        GeneralDipatchHandlerManager.get(req)
-                .ifPresent(h -> h.handle(new GeneralReqMsg(msgStr)));
+        // 请求接口名 参数，参数...
+        String[] words = command.split(" ");
+
+        GeneralDipatchHandlerManager.get(words[0])
+                .ifPresent(h -> h.handle(new GeneralReqMsg(words, ctx.channel())));
     }
 
     /*
@@ -32,12 +29,6 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         System.out.println("RamoteAddress : " + ctx.channel().remoteAddress() + " active !");
-        ctx.writeAndFlush("Welcome to " + InetAddress.getLocalHost().getHostName() + " service!" + SUFFIX);
         super.channelActive(ctx);
-    }
-
-    @SuppressWarnings("unchecked")
-    private Map<String, Object> getParamMap(String msg) {
-        return (Map<String, Object>) JSON.parse(msg);
     }
 }

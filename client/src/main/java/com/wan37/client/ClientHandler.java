@@ -1,7 +1,5 @@
 package com.wan37.client;
 
-import com.alibaba.fastjson.JSONObject;
-import com.wan37.req.obj.ReqRegisterPlayer;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
@@ -10,14 +8,12 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
  */
 public class ClientHandler extends ChannelInboundHandlerAdapter {
 
-    private static final String SUFFIX = "\n";
-
     /*
      * 监听 服务器 发送来的数据
      */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
-        System.out.println("Server say : " + msg.toString());
+        System.out.println(msg.toString());
     }
 
     /*
@@ -25,10 +21,6 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        // 发送注册请求
-        ReqRegisterPlayer req = new ReqRegisterPlayer("player_Register", 111, "123");
-        ctx.writeAndFlush(JSONObject.toJSONString(req) + SUFFIX);
-
         super.channelActive(ctx);
     }
 
