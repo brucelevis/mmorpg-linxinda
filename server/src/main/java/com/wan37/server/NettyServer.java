@@ -1,5 +1,6 @@
 package com.wan37.server;
 
+
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -12,16 +13,10 @@ import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.codec.Delimiters;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-/**
- * Netty4 服务端代码
- */
-public class Server {
+public class NettyServer {
 
-    public static void main(String[] args) {
-        new ClassPathXmlApplicationContext("applicationContext.xml");
-
+    public void start() {
         // EventLoop 代替原来的 ChannelFactory
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();

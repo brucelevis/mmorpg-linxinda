@@ -13,18 +13,16 @@ import java.util.Map;
  */
 public class ServerHandler extends ChannelInboundHandlerAdapter {
 
+    //private static final Logger LOG = Logger.getLogger(ServerHandler.class);
+    private static final String SUFFIX = "\n";
+
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         String msgStr = msg.toString();
-        Map<String, Object> map = (Map<String, Object>) JSON.parse(msg.toString());
-        String req = (String) map.get("req");
+        String req = (String) getParamMap(msgStr).get("req");
 
         GeneralDipatchHandlerManager.get(req)
                 .ifPresent(h -> h.handle(new GeneralReqMsg(msgStr)));
-
-
-        // 返回客户端消息 - 我已经接收到了你的消息
-        ctx.writeAndFlush("server Received your message !\n");
     }
 
     /*
@@ -34,7 +32,12 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         System.out.println("RamoteAddress : " + ctx.channel().remoteAddress() + " active !");
-        ctx.writeAndFlush("Welcome to " + InetAddress.getLocalHost().getHostName() + " service!\n");
+        ctx.writeAndFlush("Welcome to " + InetAddress.getLocalHost().getHostName() + " service!" + SUFFIX);
         super.channelActive(ctx);
+    }
+
+    @SuppressWarnings("unchecked")
+    private Map<String, Object> getParamMap(String msg) {
+        return (Map<String, Object>) JSON.parse(msg);
     }
 }
