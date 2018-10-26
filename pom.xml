@@ -14,6 +14,14 @@
         <module>common</module>
     </modules>
 
+    <!-- 全局属性配置  -->
+    <properties>
+        <project.source.encoding>utf-8</project.source.encoding>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- 防止控制输出台中文乱码 -->
+        <argLine>-Dfile.encoding=UTF-8</argLine>
+    </properties>
+
     <dependencies>
         <!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
         <dependency>
@@ -87,6 +95,16 @@
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
+        </dependency>
+
+        <!-- This error is reported when the org.slf4j.impl.StaticLoggerBinder class could not be loaded into memory.
+        This happens when no appropriate SLF4J binding could be found on the class path. Placing one (and only one)
+        of slf4j-nop.jar, slf4j-simple.jar, slf4j-log4j12.jar, slf4j-jdk14.jar or logback-classic.jar on the class path
+        should solve the problem.-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-nop</artifactId>
+            <version>1.7.2</version>
         </dependency>
     </dependencies>
 
