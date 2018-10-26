@@ -12,16 +12,12 @@ import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 
 import java.net.InetSocketAddress;
-import java.util.Scanner;
 
-/**
- * 客户端
- */
 public class Client {
 
-    private static Channel channel;
+    public static Channel channel = null;
 
-    public static void main(String args[]) {
+    public static void start() {
         // Bootstrap，且构造函数变化很大，这里用无参构造。
         Bootstrap bootstrap = new Bootstrap();
         // 指定channel[通道]类型
@@ -49,11 +45,5 @@ public class Client {
 
         // 连接到本地的8000端口的服务端
         bootstrap.connect(new InetSocketAddress("127.0.0.1", 8000));
-
-        Scanner scanner = new Scanner(System.in);
-        while (scanner.hasNextLine()) {
-            String cmdStr = scanner.nextLine();
-            channel.writeAndFlush(cmdStr + "\n");
-        }
     }
 }

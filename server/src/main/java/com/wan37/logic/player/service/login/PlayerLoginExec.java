@@ -1,6 +1,5 @@
 package com.wan37.logic.player.service.login;
 
-import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +11,7 @@ public class PlayerLoginExec {
     private PlayerGlobalManager playerGlobalManager;
 
     public void exec(PLoginPlayer regPlayer) {
-        Player player = playerGlobalManager.selectPlayerByUid(regPlayer.getPlayerUid());
+        //Player player = playerGlobalManager.selectPlayerByUid(regPlayer.getPlayerUid());
 
     }
 }
