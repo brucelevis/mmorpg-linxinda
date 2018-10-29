@@ -34,7 +34,5 @@ public class PlayerLoginExec {
         loginPlayer.response(dto);
 
         // TODO: 触发登录事件
-
-        // TODO: 通知场景玩家
     }
 }
