@@ -1,8 +1,9 @@
 package com.wan37.logic.player;
 
+import com.wan37.logic.player.dao.PlayerDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -20,18 +21,23 @@ public class PlayerGlobalManager {
      */
     private static ConcurrentMap<String, Long> channelMap = new ConcurrentHashMap<>();
 
+    @Autowired
+    private PlayerDao playerDao;
+
+    @Autowired
+    private Player.Factory factory;
+
     public void add(Player player) {
         playerMap.putIfAbsent(player.getUid(), player);
         channelMap.putIfAbsent(player.getChannel().id().asLongText(), player.getUid());
     }
 
-    public Optional<Player> selectPlayerByUid(Long uid) {
-        if (playerMap.containsKey(uid)) {
-            return Optional.of(playerMap.get(uid));
-        }
-
-        // TODO: 查找数据库
-
-        return Optional.empty();
-    }
+//    public Player selectPlayerByUid(Long uid) {
+//        if (playerMap.containsKey(uid)) {
+//            return playerMap.get(uid);
+//        }
+//
+//        PlayerDb playerDb = playerDao.getByUid(uid);
+//        return factory.create(playerDb);
+//    }
 }

@@ -1,57 +1,23 @@
 package com.wan37.logic.player;
 
 
+import com.wan37.logic.player.database.PlayerDb;
 import io.netty.channel.Channel;
 
-public class Player {
+public interface Player {
 
-    private Long uid;
+    interface Factory {
 
-    private String name;
-
-    private Integer factionId;
-
-    private int level;
-
-    private Channel channel;
-
-    public Long getUid() {
-        return uid;
+        Player create(PlayerDb playerDb, Channel channel);
     }
 
-    public void setUid(Long uid) {
-        this.uid = uid;
-    }
+    Long getUid();
 
-    public String getName() {
-        return name;
-    }
+    String getName();
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    Integer getFactionId();
 
-    public Integer getFactionId() {
-        return factionId;
-    }
+    int getLevel();
 
-    public void setFactionId(Integer factionId) {
-        this.factionId = factionId;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
-    public Channel getChannel() {
-        return channel;
-    }
-
-    public void setChannel(Channel channel) {
-        this.channel = channel;
-    }
+    Channel getChannel();
 }

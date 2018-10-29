@@ -1,18 +1,20 @@
 package com.wan37.logic.player.database;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table
 public class PlayerDb {
 
+    @Id
     private Long uid;
 
     /**
-     * 玩家账号
+     * 玩家名
      */
-    private long account;
-
-    /**
-     * 玩家密码
-     */
-    private String password;
+    private String name;
 
     /**
      * 门派id
@@ -27,20 +29,12 @@ public class PlayerDb {
         this.uid = uid;
     }
 
-    public long getAccount() {
-        return account;
+    public String getName() {
+        return name;
     }
 
-    public void setAccount(long account) {
-        this.account = account;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getFactionId() {
