@@ -1,6 +1,8 @@
 package com.wan37.logic.player;
 
 import com.wan37.logic.player.dao.PlayerDao;
+import com.wan37.logic.player.database.PlayerDb;
+import io.netty.channel.Channel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,12 +34,15 @@ public class PlayerGlobalManager {
         channelMap.putIfAbsent(player.getChannel().id().asLongText(), player.getUid());
     }
 
-//    public Player selectPlayerByUid(Long uid) {
-//        if (playerMap.containsKey(uid)) {
-//            return playerMap.get(uid);
-//        }
-//
-//        PlayerDb playerDb = playerDao.getByUid(uid);
-//        return factory.create(playerDb);
-//    }
+    public Player getPlayerByUid(Long uid, Channel channel) {
+        if (playerMap.containsKey(uid)) {
+            return playerMap.get(uid);
+        }
+
+        PlayerDb playerDb = playerDao.getByUid(uid);
+        Player player = factory.create(playerDb, channel);
+        add(player);
+
+        return player;
+    }
 }

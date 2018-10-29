@@ -34,7 +34,7 @@ public class PlayerRegisterExec {
         Player player = factory.create(playerDb, regPlayer.getChannel());
         playerGlobalManager.add(player);
 
-        GeneralResponseDto dto = respRegisterPlayerDtoEncoder.encode(ResultCode.SUCESS, player.getUid());
+        GeneralResponseDto dto = respRegisterPlayerDtoEncoder.encode(ResultCode.SUCCESS, player.getUid());
         regPlayer.response(dto);
     }
 

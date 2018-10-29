@@ -6,8 +6,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PLoginPlayerFactoryImpl implements PLoginPlayer.Factory {
+
     @Override
     public PLoginPlayer create(GeneralReqMsg msg) {
-        return null;
+        return new PlayerImpl(msg.getParams(), msg.getChannel());
     }
 }

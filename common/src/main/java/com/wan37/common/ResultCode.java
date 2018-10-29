@@ -2,8 +2,11 @@ package com.wan37.common;
 
 public enum ResultCode {
 
-    SUCESS(1, "成功"),
-    ERROR(0, "失败");
+    SUCCESS(1, "成功"),
+    ERROR(0, "失败"),
+
+    LOGIN_SUCCESS(10, "登录成功"),
+    ROLE_NOT_EXIST(11, "找不到角色");
 
     private Long code;
     private String desc;
@@ -27,14 +30,5 @@ public enum ResultCode {
 
     public void setDesc(String desc) {
         this.desc = desc;
-    }
-
-    public static String getDesc(long code) {
-        for (ResultCode c : ResultCode.values()) {
-            if (c.getCode() == code) {
-                return c.getDesc();
-            }
-        }
-        return null;
     }
 }
