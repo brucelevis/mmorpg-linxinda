@@ -10,6 +10,5 @@ public class SceneOnLogin implements GeneralEventListener<LoginEvent> {
     @Override
     public void execute(LoginEvent event) {
         // TODO: 通知场景玩家
-        System.out.print("1");
     }
 }

@@ -14,6 +14,16 @@ public class GenernalEventListenersManager {
 
     private static Map<String, List<GeneralEventListener>> listenersMap = null;
 
+    @SuppressWarnings("unchecked")
+    public void fireEvent(Object object) {
+        if (listenersMap == null) {
+            init();
+        }
+
+        String eventType = object.getClass().getTypeName();
+        getListeners(eventType).forEach(l -> l.execute(object));
+    }
+
     private void init() {
         listenersMap = ApplicationContextUtil.getApplicationContext().getBeansOfType(GeneralEventListener.class)
                 .values().stream()
@@ -23,16 +33,6 @@ public class GenernalEventListenersManager {
 
     private String getEventType(Object object) {
         return ((ParameterizedType) object.getClass().getGenericInterfaces()[0]).getActualTypeArguments()[0].getTypeName();
-    }
-
-    @SuppressWarnings("unchecked")
-    public void fireEvent(Object object) {
-        if (listenersMap == null) {
-            init();
-        }
-
-        String eventType = object.getClass().getTypeName();
-        getListeners(eventType).forEach(l -> l.execute(object));
     }
 
     private List<GeneralEventListener> getListeners(String eventType) {
