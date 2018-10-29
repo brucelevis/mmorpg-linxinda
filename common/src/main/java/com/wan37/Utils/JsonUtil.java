@@ -1,14 +1,14 @@
 package com.wan37.Utils;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSON;
 
 public class JsonUtil {
 
-    public static String parseJson(Object object) {
-        return JSONObject.toJSONString(object);
+    public static <T> String parseJson(T t) {
+        return JSON.toJSONString(t);
     }
 
-    public static Object parseObj(String json) {
-        return JSONObject.parse(json);
+    public static <T> Object parseObj(String json, Class<T> clazz) {
+        return JSON.parseObject(json, clazz);
     }
 }
