@@ -36,6 +36,11 @@ class PlayerImpl implements Player {
         return channel;
     }
 
+    @Override
+    public Integer getSceneId() {
+        return playerDb.getSceneId();
+    }
+
     private final PlayerDb playerDb;
     private final Channel channel;
 }

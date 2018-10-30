@@ -2,9 +2,13 @@ package com.wan37.logic.player.service.login;
 
 import com.wan37.common.GeneralResponseDto;
 import com.wan37.common.ResultCode;
+import com.wan37.event.GenernalEventListenersManager;
+import com.wan37.event.login.LoginEvent;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.player.encode.RespLoginPlayerDtoEncoder;
+import com.wan37.logic.scene.SceneGlobalManager;
+import com.wan37.logic.scene.player.ScenePlayer;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +24,17 @@ public class PlayerLoginExec {
     @Autowired
     private RespLoginPlayerDtoEncoder respLoginPlayerDtoEncoder;
 
+    @Autowired
+    private GenernalEventListenersManager genernalEventListenersManager;
+
+    @Autowired
+    private SceneGlobalManager sceneGlobalManager;
+
+    @Autowired
+    private ScenePlayer.Factory scenePlayerFactory;
+
     public void exec(PLoginPlayer loginPlayer) {
-        Player player = playerGlobalManager.getPlayerByUid(loginPlayer.getPlayerUid(), loginPlayer.getChannel());
+        Player player = playerGlobalManager.getPlayerAndAddChannelByUid(loginPlayer.getPlayerUid(), loginPlayer.getChannel());
         if (player == null) {
             LOG.info(ResultCode.ROLE_NOT_EXIST.getDesc());
 
@@ -30,9 +43,14 @@ public class PlayerLoginExec {
             return;
         }
 
+        // 进入场景
+        ScenePlayer scenePlayer = scenePlayerFactory.create(player);
+        sceneGlobalManager.addPlayer(player.getSceneId(), scenePlayer);
+
         GeneralResponseDto dto = respLoginPlayerDtoEncoder.encode(ResultCode.LOGIN_SUCCESS, player);
         loginPlayer.response(dto);
 
-        // TODO: 触发登录事件
+        // 触发登录事件
+        genernalEventListenersManager.fireEvent(new LoginEvent(player.getUid()));
     }
 }

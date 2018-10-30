@@ -6,6 +6,7 @@ import io.netty.channel.Channel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -34,15 +35,23 @@ public class PlayerGlobalManager {
         channelMap.putIfAbsent(player.getChannel().id().asLongText(), player.getUid());
     }
 
-    public Player getPlayerByUid(Long uid, Channel channel) {
+    public Player getPlayerAndAddChannelByUid(Long uid, Channel channel) {
         if (playerMap.containsKey(uid)) {
             return playerMap.get(uid);
         }
 
         PlayerDb playerDb = playerDao.getByUid(uid);
+        if (playerDb == null) {
+            return null;
+        }
+
         Player player = factory.create(playerDb, channel);
         add(player);
 
         return player;
+    }
+
+    public Optional<Player> findPlayerByUid(Long uid) {
+        return Optional.of(playerMap.get(uid));
     }
 }

@@ -21,6 +21,11 @@ public class PlayerDb {
      */
     private Integer factionId;
 
+    /**
+     * 场景Id
+     */
+    private Integer sceneId;
+
     public Long getUid() {
         return uid;
     }
@@ -43,5 +48,13 @@ public class PlayerDb {
 
     public void setFactionId(Integer factionId) {
         this.factionId = factionId;
+    }
+
+    public Integer getSceneId() {
+        return sceneId;
+    }
+
+    public void setSceneId(Integer sceneId) {
+        this.sceneId = sceneId;
     }
 }

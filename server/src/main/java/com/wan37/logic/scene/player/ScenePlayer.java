@@ -10,4 +10,12 @@ public interface ScenePlayer {
     }
 
     Long getPlayerUid();
+
+    String getPlayerName();
+
+    int getLevel();
+
+    Integer getFactionId();
+
+    void notify(Object object);
 }

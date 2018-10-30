@@ -4,7 +4,9 @@ import com.wan37.logic.scene.config.SceneCfg;
 import com.wan37.logic.scene.player.ScenePlayer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 class SceneImpl implements Scene {
 
@@ -19,14 +21,14 @@ class SceneImpl implements Scene {
 
     @Override
     public List<ScenePlayer> getPlayers() {
-        return players;
+        return new ArrayList<>(players.values());
     }
 
     @Override
     public void addPlayer(ScenePlayer player) {
-        players.add(player);
+        players.put(player.getPlayerUid(), player);
     }
 
     private final SceneCfg sceneCfg;
-    private final List<ScenePlayer> players = new ArrayList<>();
+    private final Map<Long, ScenePlayer> players = new HashMap<>();
 }

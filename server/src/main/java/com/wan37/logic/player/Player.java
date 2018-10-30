@@ -20,4 +20,6 @@ public interface Player {
     int getLevel();
 
     Channel getChannel();
+
+    Integer getSceneId();
 }

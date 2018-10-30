@@ -1,4 +1,4 @@
-package com.wan37.logic.test.config;
+package com.wan37.config.entity;
 
 public class TestCfgExcel {
 
