@@ -2,7 +2,7 @@ package com.wan37.logic.scene.listener;
 
 import com.wan37.common.notify.ScenePlayerNotify;
 import com.wan37.event.GeneralEventListener;
-import com.wan37.event.LoginEvent;
+import com.wan37.event.SceneEnterEvent;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.scene.Scene;
@@ -14,10 +14,10 @@ import org.springframework.stereotype.Service;
 import java.util.Objects;
 
 /**
- * 玩家登录场景监听
+ * 玩家进入场景监听
  */
 @Service
-class SceneOnLogin implements GeneralEventListener<LoginEvent> {
+class SceneOnPlayerEnter implements GeneralEventListener<SceneEnterEvent> {
 
     @Autowired
     private PlayerGlobalManager playerGlobalManager;
@@ -26,7 +26,7 @@ class SceneOnLogin implements GeneralEventListener<LoginEvent> {
     private SceneGlobalManager sceneGlobalManager;
 
     @Override
-    public void execute(LoginEvent event) {
+    public void execute(SceneEnterEvent event) {
         Long playerUid = event.getPlayerUid();
         playerGlobalManager.findPlayerByUid(playerUid)
                 .ifPresent(this::notify);

@@ -1,8 +1,8 @@
 package com.wan37.event;
 
-public class LoginEvent {
+public class SceneEnterEvent {
 
-    public LoginEvent(Long playerUid) {
+    public SceneEnterEvent(Long playerUid) {
         this.playerUid = playerUid;
     }
 

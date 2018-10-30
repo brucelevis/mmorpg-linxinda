@@ -3,7 +3,7 @@ package com.wan37.logic.player.service.login;
 import com.wan37.common.GeneralResponseDto;
 import com.wan37.common.ResultCode;
 import com.wan37.event.GenernalEventListenersManager;
-import com.wan37.event.LoginEvent;
+import com.wan37.event.SceneEnterEvent;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.player.encode.RespLoginPlayerDtoEncoder;
@@ -47,10 +47,12 @@ public class PlayerLoginExec {
         ScenePlayer scenePlayer = scenePlayerFactory.create(player);
         sceneGlobalManager.addPlayer(player.getSceneId(), scenePlayer);
 
+        // 触发进入场景事件
+        genernalEventListenersManager.fireEvent(new SceneEnterEvent(player.getUid()));
+
         GeneralResponseDto dto = respLoginPlayerDtoEncoder.encode(ResultCode.LOGIN_SUCCESS, player);
         loginPlayer.response(dto);
 
-        // 触发登录事件
-        genernalEventListenersManager.fireEvent(new LoginEvent(player.getUid()));
+        //TODO: 触发登录事件
     }
 }

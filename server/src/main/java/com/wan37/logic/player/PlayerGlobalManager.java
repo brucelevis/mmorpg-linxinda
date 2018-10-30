@@ -62,4 +62,13 @@ public class PlayerGlobalManager {
     public Optional<Player> findPlayerByUid(Long uid) {
         return Optional.of(playerMap.get(uid));
     }
+
+    public Optional<Player> findPlayerByChannelId(String channelId) {
+        if (!channelMap.containsKey(channelId)) {
+            return Optional.empty();
+        }
+
+        Long playerUid = channelMap.get(channelId);
+        return Optional.of(playerMap.get(playerUid));
+    }
 }
