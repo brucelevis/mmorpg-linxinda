@@ -1,4 +1,4 @@
-package com.wan37.event.login;
+package com.wan37.event;
 
 public class LoginEvent {
 

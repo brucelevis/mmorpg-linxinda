@@ -3,7 +3,7 @@ package com.wan37.logic.player.service.login;
 import com.wan37.common.GeneralResponseDto;
 import com.wan37.common.ResultCode;
 import com.wan37.event.GenernalEventListenersManager;
-import com.wan37.event.login.LoginEvent;
+import com.wan37.event.LoginEvent;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.player.encode.RespLoginPlayerDtoEncoder;
@@ -38,7 +38,7 @@ public class PlayerLoginExec {
         if (player == null) {
             LOG.info(ResultCode.ROLE_NOT_EXIST.getDesc());
 
-            GeneralResponseDto dto = respLoginPlayerDtoEncoder.encode(ResultCode.ROLE_NOT_EXIST, player);
+            GeneralResponseDto dto = respLoginPlayerDtoEncoder.encode(ResultCode.ROLE_NOT_EXIST, null);
             loginPlayer.response(dto);
             return;
         }

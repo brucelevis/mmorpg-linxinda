@@ -2,7 +2,7 @@ package com.wan37.logic.scene.listener;
 
 import com.wan37.common.notify.ScenePlayerNotify;
 import com.wan37.event.GeneralEventListener;
-import com.wan37.event.login.LoginEvent;
+import com.wan37.event.LoginEvent;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.scene.Scene;
@@ -17,7 +17,7 @@ import java.util.Objects;
  * 玩家登录场景监听
  */
 @Service
-public class SceneOnLogin implements GeneralEventListener<LoginEvent> {
+class SceneOnLogin implements GeneralEventListener<LoginEvent> {
 
     @Autowired
     private PlayerGlobalManager playerGlobalManager;
@@ -55,7 +55,7 @@ public class SceneOnLogin implements GeneralEventListener<LoginEvent> {
         dto.setName(player.getPlayerName());
         dto.setFactionId(player.getFactionId());
         dto.setLevel(player.getLevel());
-        
+
         return dto;
     }
 }

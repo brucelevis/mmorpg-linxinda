@@ -35,6 +35,14 @@ public class PlayerGlobalManager {
         channelMap.putIfAbsent(player.getChannel().id().asLongText(), player.getUid());
     }
 
+    public void offLine(Channel channel) {
+        String channelId = channel.id().asLongText();
+        Long playerUid = channelMap.get(channelId);
+
+        channelMap.remove(channelId);
+        playerMap.remove(playerUid);
+    }
+
     public Player getPlayerAndAddChannelByUid(Long uid, Channel channel) {
         if (playerMap.containsKey(uid)) {
             return playerMap.get(uid);

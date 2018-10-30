@@ -1,15 +1,24 @@
 package com.wan37.server;
 
+import com.wan37.event.GenernalEventListenersManager;
+import com.wan37.event.OfflineEvent;
 import com.wan37.handler.GeneralDipatchHandlerManager;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * 数据处理
  */
+@Service
 public class ServerHandler extends ChannelInboundHandlerAdapter {
 
-    private static final String SUFFIX = "\n";
+    private static final Logger LOG = Logger.getLogger(ServerHandler.class);
+
+    @Autowired
+    private GenernalEventListenersManager genernalEventListenersManager;
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
@@ -28,7 +37,15 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        System.out.println("RamoteAddress : " + ctx.channel().remoteAddress() + " active !");
+        LOG.info("RamoteAddress : " + ctx.channel().remoteAddress() + " active !");
         super.channelActive(ctx);
+    }
+
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) {
+        LOG.info("--- Server is inactive ---");
+
+        //FIXME: 断线处理
+        genernalEventListenersManager.fireEvent(new OfflineEvent(ctx.channel().id().asLongText()));
     }
 }
