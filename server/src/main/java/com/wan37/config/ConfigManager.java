@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,58 +18,46 @@ public class ConfigManager {
     /**
      * key: class name
      */
-    private static Map<String, Map<Integer, T>> cfgMap = null;
+    private static Map<String, List<T>> cfgMap = null;
 
-    public List<T> loads(T t) {
+    @SuppressWarnings("unchecked")
+    public <V> List<V> loads(Class<V> clazz) {
         if (cfgMap == null) {
             init();
         }
 
-        return new ArrayList<>(getConfigs(t).values());
+        return (List<V>) cfgMap.get(clazz.getName());
     }
 
-    public T load(T t, Integer id) {
-        return getConfigs(t).get(id);
-    }
-
-    private Map<Integer, T> getConfigs(T t) {
-        return cfgMap.get(t.getClass().getSimpleName());
-    }
-
+    @SuppressWarnings("unchecked")
     private void init() {
-        File file = new File(EXCEL_PATH);
-        if (!file.isDirectory()) {
+        File directory = new File(EXCEL_PATH);
+        if (!directory.isDirectory()) {
             throw new RuntimeException("错误的导表路径");
         }
 
-        String[] filelist = file.list();
+        String[] filelist = directory.list();
         assert filelist != null;
 
-        for (int i = 0; i < filelist.length; i++) {
-            File readfile = new File(EXCEL_PATH + "\\" + filelist[i]);
+        cfgMap = new HashMap<>();
+        for (String path : filelist) {
+            File file = new File(EXCEL_PATH + "\\" + path);
 
+            String originalFileName = file.getName();
+            String fileName = originalFileName.substring(0, originalFileName.lastIndexOf("."));
+            String className = fileName.substring(fileName.indexOf("_") + 1);
 
-            if (!readfile.isDirectory()) {
-                System.out.println("path=" + readfile.getPath());
-                System.out.println("absolutepath="
-                        + readfile.getAbsolutePath());
-                System.out.println("name=" + readfile.getName());
-            }
+            cfgMap.put(className, (List) readFile(file, className));
         }
     }
 
-    private void readFile(File file) {
-        String fileName = file.getName();
-
+    private List<?> readFile(File file, String className) {
         FileInputStream in = null;
         try {
             in = new FileInputStream(file);
-            Class<?> clazz = Class.forName(fileName);
+            Class<?> clazz = Class.forName(className);
 
-            List<?> list = ExcelUtils.readExcelToEntity(clazz, in, file.getName());
-            for (? : list) {
-                System.out.println(excelUser.getName() + ":" + excelUser.getSex() + ":" + excelUser.getAge() + ":" + excelUser.getAddress());
-            }
+            return ExcelUtils.readExcelToEntity(clazz, in, file.getName());
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -81,5 +69,6 @@ public class ConfigManager {
                 }
             }
         }
+        return null;
     }
 }
