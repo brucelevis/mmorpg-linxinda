@@ -29,6 +29,16 @@ class SceneImpl implements Scene {
         players.put(player.getPlayerUid(), player);
     }
 
+    @Override
+    public ScenePlayer getPlayer(Long playerUid) {
+        return players.get(playerUid);
+    }
+
+    @Override
+    public void removePlayer(Long playerUid) {
+        players.remove(playerUid);
+    }
+
     private final SceneCfg sceneCfg;
     private final Map<Long, ScenePlayer> players = new HashMap<>();
 }

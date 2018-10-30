@@ -17,4 +17,8 @@ public interface Scene {
     List<ScenePlayer> getPlayers();
 
     void addPlayer(ScenePlayer player);
+
+    ScenePlayer getPlayer(Long playerUid);
+
+    void removePlayer(Long playerUid);
 }

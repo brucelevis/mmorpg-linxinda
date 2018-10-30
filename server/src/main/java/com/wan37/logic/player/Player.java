@@ -22,4 +22,8 @@ public interface Player {
     Channel getChannel();
 
     Integer getSceneId();
+
+    void setSceneId(Integer sceneId);
+
+    void save();
 }
