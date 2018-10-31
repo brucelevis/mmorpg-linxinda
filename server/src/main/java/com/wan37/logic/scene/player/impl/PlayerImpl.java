@@ -1,6 +1,7 @@
 package com.wan37.logic.scene.player.impl;
 
 import com.wan37.Utils.MessageSenderFormatter;
+import com.wan37.common.GeneralResponseDto;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.scene.player.ScenePlayer;
 
@@ -31,8 +32,8 @@ class PlayerImpl implements ScenePlayer {
     }
 
     @Override
-    public void notify(Object object) {
-        player.getChannel().writeAndFlush(MessageSenderFormatter.format(object));
+    public void notify(GeneralResponseDto dto) {
+        player.getChannel().writeAndFlush(MessageSenderFormatter.format(dto));
     }
 
     private final Player player;

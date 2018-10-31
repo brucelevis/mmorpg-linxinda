@@ -10,6 +10,8 @@ public class RespLoginPlayerDto {
 
     private Integer factionId;
 
+    private Integer sceneId;
+
     public Long getPlayerUid() {
         return playerUid;
     }
@@ -40,5 +42,13 @@ public class RespLoginPlayerDto {
 
     public void setFactionId(Integer factionId) {
         this.factionId = factionId;
+    }
+
+    public Integer getSceneId() {
+        return sceneId;
+    }
+
+    public void setSceneId(Integer sceneId) {
+        this.sceneId = sceneId;
     }
 }

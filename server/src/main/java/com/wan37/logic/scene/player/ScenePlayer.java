@@ -1,5 +1,6 @@
 package com.wan37.logic.scene.player;
 
+import com.wan37.common.GeneralResponseDto;
 import com.wan37.logic.player.Player;
 
 public interface ScenePlayer {
@@ -17,5 +18,5 @@ public interface ScenePlayer {
 
     Integer getFactionId();
 
-    void notify(Object object);
+    void notify(GeneralResponseDto dto);
 }

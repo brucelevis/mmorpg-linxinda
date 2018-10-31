@@ -30,6 +30,7 @@ public class RespLoginPlayerDtoEncoder {
         dto.setName(player.getName());
         dto.setFactionId(player.getFactionId());
         dto.setLevel(player.getLevel());
+        dto.setSceneId(player.getSceneId());
         return dto;
     }
 }

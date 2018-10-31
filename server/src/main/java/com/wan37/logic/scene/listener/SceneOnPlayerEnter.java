@@ -1,12 +1,14 @@
 package com.wan37.logic.scene.listener;
 
-import com.wan37.common.notify.ScenePlayerNotify;
+import com.wan37.common.GeneralResponseDto;
+import com.wan37.common.ResultCode;
 import com.wan37.event.GeneralEventListener;
 import com.wan37.event.SceneEnterEvent;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.scene.Scene;
 import com.wan37.logic.scene.SceneGlobalManager;
+import com.wan37.logic.scene.encode.ScenePlayerEnterNotifyEncoder;
 import com.wan37.logic.scene.player.ScenePlayer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,9 @@ class SceneOnPlayerEnter implements GeneralEventListener<SceneEnterEvent> {
     @Autowired
     private SceneGlobalManager sceneGlobalManager;
 
+    @Autowired
+    private ScenePlayerEnterNotifyEncoder scenePlayerEnterNotifyEncoder;
+
     @Override
     public void execute(SceneEnterEvent event) {
         Long playerUid = event.getPlayerUid();
@@ -41,21 +46,10 @@ class SceneOnPlayerEnter implements GeneralEventListener<SceneEnterEvent> {
                 .findAny()
                 .orElseThrow(() -> new RuntimeException("场景通知找不到玩家自己"));
 
-        ScenePlayerNotify notify = encodeNotify(scenePlayer);
+        GeneralResponseDto notify = scenePlayerEnterNotifyEncoder.encode(ResultCode.SCENE_PLAYER_ENTER, scenePlayer);
 
         scene.getPlayers().stream()
                 .filter(p -> !Objects.equals(p.getPlayerUid(), uid))
                 .forEach(p -> p.notify(notify));
-    }
-
-    private ScenePlayerNotify encodeNotify(ScenePlayer player) {
-        ScenePlayerNotify dto = new ScenePlayerNotify();
-
-        dto.setPlayerUid(player.getPlayerUid());
-        dto.setName(player.getPlayerName());
-        dto.setFactionId(player.getFactionId());
-        dto.setLevel(player.getLevel());
-
-        return dto;
     }
 }

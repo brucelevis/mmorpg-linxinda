@@ -2,6 +2,7 @@ package com.wan37.logic.scene.service.switch1;
 
 import com.wan37.event.GenernalEventListenersManager;
 import com.wan37.event.SceneEnterEvent;
+import com.wan37.event.SceneLeaveEvent;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.scene.Scene;
@@ -31,8 +32,10 @@ public class SceneSwitchExec {
     }
 
     private void execImpl(Integer sceneId, Player player) {
+        Long playerUid = player.getUid();
+
         Scene oldScene = sceneGlobalManager.getScene(player.getSceneId());
-        ScenePlayer scenePlayer = oldScene.getPlayer(player.getUid());
+        ScenePlayer scenePlayer = oldScene.getPlayer(playerUid);
         if (scenePlayer == null) {
             return;
         }
@@ -40,16 +43,17 @@ public class SceneSwitchExec {
         player.setSceneId(sceneId);
         player.save();
 
-        //TODO: 离开场景推送
+        // 离开场景推送
+        genernalEventListenersManager.fireEvent(new SceneLeaveEvent(oldScene.getSceneId(), playerUid));
 
         // 移除旧场景里的玩家
-        oldScene.removePlayer(player.getUid());
+        oldScene.removePlayer(playerUid);
 
         // 加入新场景
         Scene newScene = sceneGlobalManager.getScene(sceneId);
         newScene.addPlayer(scenePlayer);
 
         // 加入场景推送
-        genernalEventListenersManager.fireEvent(new SceneEnterEvent(player.getUid()));
+        genernalEventListenersManager.fireEvent(new SceneEnterEvent(playerUid));
     }
 }

@@ -1,6 +1,6 @@
 package com.wan37.common.notify;
 
-public class ScenePlayerNotify {
+public class ScenePlayerEnterNotify {
 
     private Long playerUid;
 

@@ -37,7 +37,7 @@ public class SceneAoiExec {
         Integer sceneId = optionalPlayer.get().getSceneId();
         Scene scene = sceneGlobalManager.getScene(sceneId);
 
-        GeneralResponseDto dto = respAoiSceneDtoEncoder.encode(ResultCode.SUCCESS, scene);
+        GeneralResponseDto dto = respAoiSceneDtoEncoder.encode(ResultCode.SCENE_AOI, scene);
         aoiScene.response(dto);
     }
 }
