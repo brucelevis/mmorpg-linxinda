@@ -21,4 +21,6 @@ public interface Scene {
     ScenePlayer getPlayer(Long playerUid);
 
     void removePlayer(Long playerUid);
+
+    SceneCfg getSceneCfg();
 }

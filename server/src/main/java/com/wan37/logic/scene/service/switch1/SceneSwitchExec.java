@@ -7,12 +7,17 @@ import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.scene.Scene;
 import com.wan37.logic.scene.SceneGlobalManager;
+import com.wan37.logic.scene.config.SceneCfg;
+import com.wan37.logic.scene.config.SceneCfgLoader;
 import com.wan37.logic.scene.player.ScenePlayer;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SceneSwitchExec {
+
+    private static final Logger LOG = Logger.getLogger(SceneSwitchExec.class);
 
     @Autowired
     private PlayerGlobalManager playerGlobalManager;
@@ -23,9 +28,14 @@ public class SceneSwitchExec {
     @Autowired
     private GenernalEventListenersManager genernalEventListenersManager;
 
+    @Autowired
+    private SceneCfgLoader sceneCfgLoader;
+
     public void exec(SSwitchScene switchScene) {
         Integer sceneId = switchScene.getSceneId();
-        //TODO: 检查场景id合法性
+        if (!checkScene(sceneId)) {
+            return;
+        }
 
         playerGlobalManager.findPlayerByChannelId(switchScene.getChannelId())
                 .ifPresent(p -> execImpl(sceneId, p));
@@ -35,6 +45,12 @@ public class SceneSwitchExec {
         Long playerUid = player.getUid();
 
         Scene oldScene = sceneGlobalManager.getScene(player.getSceneId());
+        SceneCfg oldSceneCfg = oldScene.getSceneCfg();
+        if (!oldSceneCfg.getNeighbor().contains(sceneId)) {
+            LOG.info("不可达的场景");
+            return;
+        }
+
         ScenePlayer scenePlayer = oldScene.getPlayer(playerUid);
         if (scenePlayer == null) {
             return;
@@ -55,5 +71,17 @@ public class SceneSwitchExec {
 
         // 加入场景推送
         genernalEventListenersManager.fireEvent(new SceneEnterEvent(playerUid));
+    }
+
+    private boolean checkScene(Integer sceneId) {
+        SceneCfg sceneCfg = sceneCfgLoader.load(sceneId).orElse(null);
+        if (sceneCfg == null) {
+            LOG.info("找不到目标场景的配置表");
+            return false;
+        }
+
+        // 其他条件
+
+        return true;
     }
 }

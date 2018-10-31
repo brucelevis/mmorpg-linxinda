@@ -3,10 +3,7 @@ package com.wan37.logic.scene;
 import com.wan37.logic.scene.config.SceneCfg;
 import com.wan37.logic.scene.player.ScenePlayer;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 class SceneImpl implements Scene {
 
@@ -37,6 +34,11 @@ class SceneImpl implements Scene {
     @Override
     public void removePlayer(Long playerUid) {
         players.remove(playerUid);
+    }
+
+    @Override
+    public SceneCfg getSceneCfg() {
+        return sceneCfg;
     }
 
     private final SceneCfg sceneCfg;
