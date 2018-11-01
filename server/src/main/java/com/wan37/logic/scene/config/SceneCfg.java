@@ -15,8 +15,7 @@ public interface SceneCfg {
 
     Set<Integer> getNeighbor();
 
-    // 场景NPC配置
+    List<Integer> getNpcs();
 
-    // 场景怪物配置
     List<SceneMonsterCfg> getMonsters();
 }

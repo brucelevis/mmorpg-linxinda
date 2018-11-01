@@ -1,6 +1,7 @@
 package com.wan37.logic.scene;
 
 import com.wan37.logic.monster.Monster;
+import com.wan37.logic.npc.Npc;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.scene.config.SceneCfg;
 
@@ -13,6 +14,8 @@ public class Scene implements IScene {
     private List<Player> players;
 
     private List<Monster> monsters;
+
+    private List<Npc> npcs;
 
     public SceneCfg getSceneCfg() {
         return sceneCfg;
@@ -36,6 +39,14 @@ public class Scene implements IScene {
 
     public void setMonsters(List<Monster> monsters) {
         this.monsters = monsters;
+    }
+
+    public List<Npc> getNpcs() {
+        return npcs;
+    }
+
+    public void setNpcs(List<Npc> npcs) {
+        this.npcs = npcs;
     }
 
     @Override

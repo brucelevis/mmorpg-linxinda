@@ -44,6 +44,18 @@ public class SceneCfgImpl implements SceneCfg {
     }
 
     @Override
+    public List<Integer> getNpcs() {
+        String npcs = cfgExcel.getNpcs();
+        if (npcs == null) {
+            return new ArrayList<>();
+        }
+
+        return Arrays.stream(npcs.split("\\|"))
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<SceneMonsterCfg> getMonsters() {
         String monsters = cfgExcel.getMonsters();
         if (monsters == null) {

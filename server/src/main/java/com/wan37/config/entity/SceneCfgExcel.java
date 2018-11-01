@@ -12,6 +12,8 @@ public class SceneCfgExcel {
 
     private String monsters;
 
+    private String npcs;
+
     /**
      * 分隔符|
      */
@@ -63,5 +65,13 @@ public class SceneCfgExcel {
 
     public void setMonsters(String monsters) {
         this.monsters = monsters;
+    }
+
+    public String getNpcs() {
+        return npcs;
+    }
+
+    public void setNpcs(String npcs) {
+        this.npcs = npcs;
     }
 }
