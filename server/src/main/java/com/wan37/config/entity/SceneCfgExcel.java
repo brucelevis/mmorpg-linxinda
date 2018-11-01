@@ -10,6 +10,8 @@ public class SceneCfgExcel {
 
     private boolean defaultScene;
 
+    private String monsters;
+
     /**
      * 分隔符|
      */
@@ -53,5 +55,13 @@ public class SceneCfgExcel {
 
     public void setNeighbor(String neighbor) {
         this.neighbor = neighbor;
+    }
+
+    public String getMonsters() {
+        return monsters;
+    }
+
+    public void setMonsters(String monsters) {
+        this.monsters = monsters;
     }
 }

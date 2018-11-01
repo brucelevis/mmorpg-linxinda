@@ -3,8 +3,10 @@ package com.wan37.logic.scene.encode;
 import com.wan37.common.GeneralResponseDto;
 import com.wan37.common.ResultCode;
 import com.wan37.common.resp.RespAoiSceneDto;
+import com.wan37.common.resp.RespAoiSceneMonsterDto;
 import com.wan37.common.resp.RespAoiScenePlayerDto;
 import com.wan37.logic.GeneralResponseDtoEncoder;
+import com.wan37.logic.monster.Monster;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.scene.Scene;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,18 @@ public class RespAoiSceneDtoEncoder {
                 .map(this::encodePlayers)
                 .collect(Collectors.toList()));
 
+        dto.setMonsters(scene.getMonsters().stream()
+                .map(this::encodeMonster)
+                .collect(Collectors.toList()));
+
+        return dto;
+    }
+
+    private RespAoiSceneMonsterDto encodeMonster(Monster monster) {
+        RespAoiSceneMonsterDto dto = new RespAoiSceneMonsterDto();
+        dto.setUid(monster.getUid());
+        dto.setCfgId(monster.getCfgId());
+        dto.setName(monster.getName());
         return dto;
     }
 

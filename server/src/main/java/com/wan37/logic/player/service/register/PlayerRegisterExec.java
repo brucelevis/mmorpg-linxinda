@@ -10,10 +10,9 @@ import com.wan37.logic.player.encode.RespRegisterPlayerDtoEncoder;
 import com.wan37.logic.player.init.PlayerCreator;
 import com.wan37.logic.scene.config.SceneCfg;
 import com.wan37.logic.scene.config.SceneCfgLoader;
+import com.wan37.util.IdTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 @Service
 public class PlayerRegisterExec {
@@ -33,6 +32,9 @@ public class PlayerRegisterExec {
     @Autowired
     private PlayerCreator playerCreator;
 
+    @Autowired
+    private IdTool idTool;
+
     public void exec(PRegisterPlayer regPlayer) {
         PlayerDb playerDb = createPlayerDb(regPlayer);
         playerDao.save(playerDb);
@@ -46,7 +48,7 @@ public class PlayerRegisterExec {
 
     private PlayerDb createPlayerDb(PRegisterPlayer regPlayer) {
         PlayerDb db = new PlayerDb();
-        db.setUid(Math.abs(UUID.randomUUID().getLeastSignificantBits()));
+        db.setUid(idTool.generate());
         db.setName(regPlayer.getName());
         db.setFactionId(regPlayer.getFactionId());
         db.setLevel(1);
