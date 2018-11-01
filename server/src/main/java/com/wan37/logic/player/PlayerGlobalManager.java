@@ -2,13 +2,14 @@ package com.wan37.logic.player;
 
 import com.wan37.logic.player.dao.PlayerDao;
 import com.wan37.logic.player.database.PlayerDb;
+import com.wan37.logic.player.init.PlayerCreator;
 import io.netty.channel.Channel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 @Service
 public class PlayerGlobalManager {
@@ -16,19 +17,19 @@ public class PlayerGlobalManager {
     /**
      * @see Player#getUid
      */
-    private static ConcurrentMap<Long, Player> playerMap = new ConcurrentHashMap<>();
+    private static Map<Long, Player> playerMap = new ConcurrentHashMap<>();
 
     /**
      * key: Channel#id
      * value: Player#getUid
      */
-    private static ConcurrentMap<String, Long> channelMap = new ConcurrentHashMap<>();
+    private static Map<String, Long> channelMap = new ConcurrentHashMap<>();
 
     @Autowired
     private PlayerDao playerDao;
 
     @Autowired
-    private Player.Factory factory;
+    private PlayerCreator playerCreator;
 
     public void add(Player player) {
         playerMap.putIfAbsent(player.getUid(), player);
@@ -44,8 +45,9 @@ public class PlayerGlobalManager {
     }
 
     public Player getPlayerAndAddChannelByUid(Long uid, Channel channel) {
-        if (playerMap.containsKey(uid)) {
-            return playerMap.get(uid);
+        Player player = playerMap.get(uid);
+        if (player != null) {
+            return player;
         }
 
         PlayerDb playerDb = playerDao.getByUid(uid);
@@ -53,10 +55,10 @@ public class PlayerGlobalManager {
             return null;
         }
 
-        Player player = factory.create(playerDb, channel);
-        add(player);
+        Player newPlayer = playerCreator.create(playerDb, channel);
+        add(newPlayer);
 
-        return player;
+        return newPlayer;
     }
 
     public Optional<Player> findPlayerByUid(Long uid) {

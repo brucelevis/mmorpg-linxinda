@@ -26,6 +26,11 @@ public class PlayerDb {
      */
     private Integer sceneId;
 
+    /**
+     * 等级
+     */
+    private int level;
+
     public Long getUid() {
         return uid;
     }
@@ -56,5 +61,13 @@ public class PlayerDb {
 
     public void setSceneId(Integer sceneId) {
         this.sceneId = sceneId;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }

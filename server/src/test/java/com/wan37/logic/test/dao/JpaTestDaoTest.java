@@ -35,6 +35,8 @@ public class JpaTestDaoTest extends BaseTest {
         subDb.setId(999);
         db.setJpaTestSubDb(subDb);
 
+        db.getUids().add(11111L);
+
         // Act
         _sut.save(db);
         JpaTestDb result = _sut.getById(101);
@@ -42,6 +44,7 @@ public class JpaTestDaoTest extends BaseTest {
         // Assert
         assertThat(result.getId()).isEqualTo(101);
         assertThat(result.getJpaTestSubDb().getId()).isEqualTo(999);
+        assertThat(result.getUids()).contains(11111L);
     }
 
     @Test

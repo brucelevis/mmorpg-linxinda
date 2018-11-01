@@ -31,9 +31,12 @@ class SceneOnPlayerLeave implements GeneralEventListener<SceneLeaveEvent> {
 
         GeneralResponseDto notify = scenePlayerLeaveNotifyEncoder.encode(ResultCode.SCENE_PLAYER_LEAVE, playerUid);
 
-        Scene scene = sceneGlobalManager.getScene(sceneId);
+        Scene scene = sceneGlobalManager.querySceneById(sceneId);
+        if (scene == null) {
+            return;
+        }
         scene.getPlayers().stream()
-                .filter(p -> !Objects.equals(p.getPlayerUid(), playerUid))
-                .forEach(p -> p.notify(notify));
+                .filter(p -> !Objects.equals(p.getUid(), playerUid))
+                .forEach(p -> p.syncClient(notify));
     }
 }

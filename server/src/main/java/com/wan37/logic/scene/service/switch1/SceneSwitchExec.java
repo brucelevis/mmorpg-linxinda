@@ -6,6 +6,7 @@ import com.wan37.event.SceneLeaveEvent;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.scene.Scene;
+import com.wan37.logic.scene.SceneFacade;
 import com.wan37.logic.scene.SceneGlobalManager;
 import com.wan37.logic.scene.config.SceneCfg;
 import com.wan37.logic.scene.config.SceneCfgLoader;
@@ -31,6 +32,9 @@ public class SceneSwitchExec {
     @Autowired
     private SceneCfgLoader sceneCfgLoader;
 
+    @Autowired
+    private SceneFacade sceneFacade;
+
     public void exec(SSwitchScene switchScene) {
         Integer sceneId = switchScene.getSceneId();
         if (!checkScene(sceneId)) {
@@ -41,36 +45,10 @@ public class SceneSwitchExec {
                 .ifPresent(p -> execImpl(sceneId, p));
     }
 
-    private void execImpl(Integer sceneId, Player player) {
-        Long playerUid = player.getUid();
+    private void execImpl(Integer toSceneId, Player player) {
+        sceneFacade.switchScene(player, toSceneId);
 
-        Scene oldScene = sceneGlobalManager.getScene(player.getSceneId());
-        SceneCfg oldSceneCfg = oldScene.getSceneCfg();
-        if (!oldSceneCfg.getNeighbor().contains(sceneId)) {
-            LOG.info("不可达的场景");
-            return;
-        }
 
-        ScenePlayer scenePlayer = oldScene.getPlayer(playerUid);
-        if (scenePlayer == null) {
-            return;
-        }
-
-        player.setSceneId(sceneId);
-        player.save();
-
-        // 离开场景推送
-        genernalEventListenersManager.fireEvent(new SceneLeaveEvent(oldScene.getSceneId(), playerUid));
-
-        // 移除旧场景里的玩家
-        oldScene.removePlayer(playerUid);
-
-        // 加入新场景
-        Scene newScene = sceneGlobalManager.getScene(sceneId);
-        newScene.addPlayer(scenePlayer);
-
-        // 加入场景推送
-        genernalEventListenersManager.fireEvent(new SceneEnterEvent(playerUid));
     }
 
     private boolean checkScene(Integer sceneId) {

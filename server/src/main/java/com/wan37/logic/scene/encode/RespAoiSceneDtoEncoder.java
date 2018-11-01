@@ -5,8 +5,8 @@ import com.wan37.common.ResultCode;
 import com.wan37.common.resp.RespAoiSceneDto;
 import com.wan37.common.resp.RespAoiScenePlayerDto;
 import com.wan37.logic.GeneralResponseDtoEncoder;
+import com.wan37.logic.player.Player;
 import com.wan37.logic.scene.Scene;
-import com.wan37.logic.scene.player.ScenePlayer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +26,7 @@ public class RespAoiSceneDtoEncoder {
 
     private RespAoiSceneDto encodeContent(Scene scene) {
         RespAoiSceneDto dto = new RespAoiSceneDto();
-        dto.setSceneId(scene.getSceneId());
+        dto.setSceneId(scene.getCfgId());
 
         dto.setPlayers(scene.getPlayers().stream()
                 .map(this::encodePlayers)
@@ -35,11 +35,11 @@ public class RespAoiSceneDtoEncoder {
         return dto;
     }
 
-    private RespAoiScenePlayerDto encodePlayers(ScenePlayer player) {
+    private RespAoiScenePlayerDto encodePlayers(Player player) {
         RespAoiScenePlayerDto dto = new RespAoiScenePlayerDto();
-        dto.setPlayerUid(player.getPlayerUid());
+        dto.setPlayerUid(player.getUid());
         dto.setFactionId(player.getFactionId());
-        dto.setName(player.getPlayerName());
+        dto.setName(player.getName());
         dto.setLevel(player.getLevel());
         return dto;
     }

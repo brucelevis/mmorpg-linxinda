@@ -35,7 +35,7 @@ public class SceneCfgImpl implements SceneCfg {
 
     @Override
     public Set<Integer> getNeighbor() {
-        return Arrays.stream(cfgExcel.getNeighbor().split("|"))
+        return Arrays.stream(cfgExcel.getNeighbor().split("\\|"))
                 .map(Integer::parseInt)
                 .collect(Collectors.toSet());
     }

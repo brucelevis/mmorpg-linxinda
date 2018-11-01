@@ -7,6 +7,7 @@ import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.player.dao.PlayerDao;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.player.encode.RespRegisterPlayerDtoEncoder;
+import com.wan37.logic.player.init.PlayerCreator;
 import com.wan37.logic.scene.config.SceneCfg;
 import com.wan37.logic.scene.config.SceneCfgLoader;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,16 +28,16 @@ public class PlayerRegisterExec {
     private PlayerDao playerDao;
 
     @Autowired
-    private Player.Factory factory;
+    private SceneCfgLoader sceneCfgLoader;
 
     @Autowired
-    private SceneCfgLoader sceneCfgLoader;
+    private PlayerCreator playerCreator;
 
     public void exec(PRegisterPlayer regPlayer) {
         PlayerDb playerDb = createPlayerDb(regPlayer);
         playerDao.save(playerDb);
 
-        Player player = factory.create(playerDb, regPlayer.getChannel());
+        Player player = playerCreator.create(playerDb, regPlayer.getChannel());
         playerGlobalManager.add(player);
 
         GeneralResponseDto dto = respRegisterPlayerDtoEncoder.encode(ResultCode.REGISTER_SUCCESS, player.getUid());
@@ -48,6 +49,7 @@ public class PlayerRegisterExec {
         db.setUid(Math.abs(UUID.randomUUID().getLeastSignificantBits()));
         db.setName(regPlayer.getName());
         db.setFactionId(regPlayer.getFactionId());
+        db.setLevel(1);
 
         db.setSceneId(sceneCfgLoader.loadDefault()
                 .map(SceneCfg::getId)

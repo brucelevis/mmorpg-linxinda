@@ -1,26 +1,34 @@
 package com.wan37.logic.scene;
 
+import com.wan37.logic.player.Player;
 import com.wan37.logic.scene.config.SceneCfg;
-import com.wan37.logic.scene.player.ScenePlayer;
 
 import java.util.List;
 
-public interface Scene {
+public class Scene implements IScene {
 
-    interface Factory {
+    private SceneCfg sceneCfg;
 
-        Scene create(SceneCfg cfg);
+    private List<Player> players;
+
+    public SceneCfg getSceneCfg() {
+        return sceneCfg;
     }
 
-    Integer getSceneId();
+    public void setSceneCfg(SceneCfg sceneCfg) {
+        this.sceneCfg = sceneCfg;
+    }
 
-    List<ScenePlayer> getPlayers();
+    public List<Player> getPlayers() {
+        return players;
+    }
 
-    void addPlayer(ScenePlayer player);
+    public void setPlayers(List<Player> players) {
+        this.players = players;
+    }
 
-    ScenePlayer getPlayer(Long playerUid);
-
-    void removePlayer(Long playerUid);
-
-    SceneCfg getSceneCfg();
+    @Override
+    public Integer getCfgId() {
+        return sceneCfg.getId();
+    }
 }

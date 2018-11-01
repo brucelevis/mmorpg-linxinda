@@ -9,7 +9,6 @@ import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.scene.Scene;
 import com.wan37.logic.scene.SceneGlobalManager;
 import com.wan37.logic.scene.encode.ScenePlayerEnterNotifyEncoder;
-import com.wan37.logic.scene.player.ScenePlayer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,17 +38,11 @@ class SceneOnPlayerEnter implements GeneralEventListener<SceneEnterEvent> {
 
     private void notify(Player player) {
         Scene scene = sceneGlobalManager.getScene(player.getSceneId());
+        GeneralResponseDto notify = scenePlayerEnterNotifyEncoder.encode(ResultCode.SCENE_PLAYER_ENTER, player);
 
-        Long uid = player.getUid();
-        ScenePlayer scenePlayer = scene.getPlayers().stream()
-                .filter(p -> Objects.equals(p.getPlayerUid(), uid))
-                .findAny()
-                .orElseThrow(() -> new RuntimeException("场景通知找不到玩家自己"));
-
-        GeneralResponseDto notify = scenePlayerEnterNotifyEncoder.encode(ResultCode.SCENE_PLAYER_ENTER, scenePlayer);
-
+        // 通知场景里除自己的所有玩家
         scene.getPlayers().stream()
-                .filter(p -> !Objects.equals(p.getPlayerUid(), uid))
-                .forEach(p -> p.notify(notify));
+                .filter(p -> !Objects.equals(p.getUid(), player.getUid()))
+                .forEach(p -> p.syncClient(notify));
     }
 }

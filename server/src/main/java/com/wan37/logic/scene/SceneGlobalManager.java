@@ -1,49 +1,53 @@
 package com.wan37.logic.scene;
 
-import com.wan37.logic.scene.config.SceneCfg;
-import com.wan37.logic.scene.config.SceneCfgLoader;
-import com.wan37.logic.scene.player.ScenePlayer;
+import com.wan37.logic.player.Player;
+import com.wan37.logic.scene.init.SceneCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 @Service
 public class SceneGlobalManager {
 
     /**
-     * @see Scene#getSceneId()
+     * map<sceneCfgId,scene>>
      */
-    private static ConcurrentMap<Integer, Scene> sceneMap = new ConcurrentHashMap<>();
+    private static Map<Integer, Scene> sceneMap = new ConcurrentHashMap<>();
 
     @Autowired
-    private Scene.Factory sceneFactory;
+    private SceneCreator sceneCreator;
 
-    @Autowired
-    private SceneCfgLoader sceneCfgLoader;
-
-    public void addPlayer(Integer sceneId, ScenePlayer scenePlayer) {
+    public void addPlayerInScene(Integer sceneId, Player player) {
         // TODO: 检查sceneId的合法性
 
         Scene scene = getScene(sceneId);
-        scene.addPlayer(scenePlayer);
+        scene.getPlayers().add(player);
+    }
+
+    public void removePlayerFromScene(Integer sceneId, Player player) {
+        Scene scene = querySceneById(sceneId);
+        if (scene == null) {
+            return;
+        }
+
+        scene.getPlayers().remove(player);
+    }
+
+    public Scene querySceneById(Integer sceneId) {
+        return sceneMap.get(sceneId);
     }
 
     public Scene getScene(Integer sceneId) {
-        if (sceneMap.containsKey(sceneId)) {
-            return sceneMap.get(sceneId);
+        Scene scene = querySceneById(sceneId);
+        if (scene != null) {
+            return scene;
         }
 
-        Scene scene = createScene(sceneId);
-        sceneMap.putIfAbsent(sceneId, scene);
+        Scene newScene = sceneCreator.create(sceneId);
+        sceneMap.put(sceneId, newScene);
 
-        return scene;
-    }
-
-    private Scene createScene(Integer sceneId) {
-        SceneCfg sceneCfg = sceneCfgLoader.load(sceneId)
-                .orElseThrow(() -> new RuntimeException("找不到SceneCfg"));
-        return sceneFactory.create(sceneCfg);
+        return newScene;
     }
 }
