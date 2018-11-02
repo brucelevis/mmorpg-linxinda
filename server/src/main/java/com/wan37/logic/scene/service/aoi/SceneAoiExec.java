@@ -11,8 +11,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class SceneAoiExec {
 
@@ -29,12 +27,13 @@ public class SceneAoiExec {
 
     public void exec(SAoiScene aoiScene) {
         String channelId = aoiScene.getChannel().id().asLongText();
-        Optional<Player> optionalPlayer = playerGlobalManager.findPlayerByChannelId(channelId);
-        if (!optionalPlayer.isPresent()) {
+        Player player = playerGlobalManager.getPlayerByChannelId(channelId);
+        if (player == null) {
             LOG.info("角色未登录，不允许发送该命令");
+            return;
         }
 
-        Integer sceneId = optionalPlayer.get().getSceneId();
+        Integer sceneId = player.getSceneId();
         Scene scene = sceneGlobalManager.getScene(sceneId);
 
         GeneralResponseDto dto = respAoiSceneDtoEncoder.encode(ResultCode.SCENE_AOI, scene);

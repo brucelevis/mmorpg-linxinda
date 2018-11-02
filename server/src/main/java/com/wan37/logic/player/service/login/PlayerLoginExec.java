@@ -6,6 +6,7 @@ import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.player.encode.RespLoginPlayerDtoEncoder;
 import com.wan37.logic.scene.SceneFacade;
+import io.netty.channel.Channel;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,10 @@ public class PlayerLoginExec {
     private SceneFacade sceneFacade;
 
     public void exec(PLoginPlayer loginPlayer) {
-        Player player = playerGlobalManager.getPlayerAndAddChannelByUid(loginPlayer.getPlayerUid(), loginPlayer.getChannel());
+        Long playerUid = loginPlayer.getPlayerUid();
+        Channel channel = loginPlayer.getChannel();
+
+        Player player = playerGlobalManager.getPlayerByUid(playerUid);
         if (player == null) {
             LOG.info(ResultCode.ROLE_NOT_EXIST.getDesc());
 
@@ -33,6 +37,9 @@ public class PlayerLoginExec {
             loginPlayer.response(dto);
             return;
         }
+
+        player.setChannel(channel);
+        playerGlobalManager.addInOnlineList(player);
 
         //TODO: 触发登录事件
 

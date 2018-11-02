@@ -32,11 +32,11 @@ class SceneOnPlayerEnter implements GeneralEventListener<SceneEnterEvent> {
     @Override
     public void execute(SceneEnterEvent event) {
         Long playerUid = event.getPlayerUid();
-        playerGlobalManager.findPlayerByUid(playerUid)
-                .ifPresent(this::notify);
-    }
+        Player player = playerGlobalManager.getPlayerByUid(playerUid);
+        if (player == null) {
+            return;
+        }
 
-    private void notify(Player player) {
         Scene scene = sceneGlobalManager.getScene(player.getSceneId());
         GeneralResponseDto notify = scenePlayerEnterNotifyEncoder.encode(ResultCode.SCENE_PLAYER_ENTER, player);
 

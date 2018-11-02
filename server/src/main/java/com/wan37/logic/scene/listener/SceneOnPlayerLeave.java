@@ -4,13 +4,16 @@ import com.wan37.common.GeneralResponseDto;
 import com.wan37.common.ResultCode;
 import com.wan37.event.GeneralEventListener;
 import com.wan37.event.SceneLeaveEvent;
+import com.wan37.logic.player.Player;
 import com.wan37.logic.scene.Scene;
 import com.wan37.logic.scene.SceneGlobalManager;
 import com.wan37.logic.scene.encode.ScenePlayerLeaveNotifyEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * 离开场景监听
@@ -35,8 +38,14 @@ class SceneOnPlayerLeave implements GeneralEventListener<SceneLeaveEvent> {
         if (scene == null) {
             return;
         }
-        scene.getPlayers().stream()
+
+        // 将玩家从场景中移除
+        List<Player> players = scene.getPlayers();
+        scene.setPlayers(players.stream()
                 .filter(p -> !Objects.equals(p.getUid(), playerUid))
-                .forEach(p -> p.syncClient(notify));
+                .collect(Collectors.toList()));
+
+        // 推送玩家离开场景通知
+        scene.getPlayers().forEach(p -> p.syncClient(notify));
     }
 }

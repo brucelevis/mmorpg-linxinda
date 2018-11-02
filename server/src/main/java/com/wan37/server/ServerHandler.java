@@ -6,19 +6,13 @@ import com.wan37.handler.GeneralDipatchHandlerManager;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
  * 数据处理
  */
-@Service
 public class ServerHandler extends ChannelInboundHandlerAdapter {
 
     private static final Logger LOG = Logger.getLogger(ServerHandler.class);
-
-    @Autowired
-    private GenernalEventListenersManager genernalEventListenersManager;
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
@@ -45,7 +39,11 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     public void channelInactive(ChannelHandlerContext ctx) {
         LOG.info("--- Server is inactive ---");
 
-        //FIXME: 断线处理
-        genernalEventListenersManager.fireEvent(new OfflineEvent(ctx.channel().id().asLongText()));
+        new GenernalEventListenersManager().fireEvent(new OfflineEvent(ctx.channel().id().asLongText()));
+    }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+        LOG.info("Server exceptionCaught");
     }
 }
