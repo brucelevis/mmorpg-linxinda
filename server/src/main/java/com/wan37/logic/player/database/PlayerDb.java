@@ -1,5 +1,9 @@
 package com.wan37.logic.player.database;
 
+import com.wan37.logic.backpack.database.BackpackDb;
+import com.wan37.logic.backpack.database.convert.BackpackDbConverterImpl;
+
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -30,6 +34,9 @@ public class PlayerDb {
      * 等级
      */
     private int level;
+
+    @Convert(converter = BackpackDbConverterImpl.class)
+    private BackpackDb backpackDb;
 
     public Long getUid() {
         return uid;
@@ -69,5 +76,13 @@ public class PlayerDb {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public BackpackDb getBackpackDb() {
+        return backpackDb;
+    }
+
+    public void setBackpackDb(BackpackDb backpackDb) {
+        this.backpackDb = backpackDb;
     }
 }

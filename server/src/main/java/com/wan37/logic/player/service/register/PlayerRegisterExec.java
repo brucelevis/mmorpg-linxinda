@@ -2,9 +2,9 @@ package com.wan37.logic.player.service.register;
 
 import com.wan37.common.GeneralResponseDto;
 import com.wan37.common.ResultCode;
-import com.wan37.logic.player.dao.PlayerDao;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.player.encode.RespRegisterPlayerDtoEncoder;
+import com.wan37.logic.player.init.PlayerDbInitializer;
 import com.wan37.logic.scene.config.SceneCfg;
 import com.wan37.logic.scene.config.SceneCfgLoader;
 import com.wan37.util.IdTool;
@@ -18,17 +18,17 @@ public class PlayerRegisterExec {
     private RespRegisterPlayerDtoEncoder respRegisterPlayerDtoEncoder;
 
     @Autowired
-    private PlayerDao playerDao;
-
-    @Autowired
     private SceneCfgLoader sceneCfgLoader;
 
     @Autowired
     private IdTool idTool;
 
+    @Autowired
+    private PlayerDbInitializer playerDbInitializer;
+
     public void exec(PRegisterPlayer regPlayer) {
         PlayerDb playerDb = createPlayerDb(regPlayer);
-        playerDao.save(playerDb);
+        playerDbInitializer.init(playerDb);
 
         GeneralResponseDto dto = respRegisterPlayerDtoEncoder.encode(ResultCode.REGISTER_SUCCESS, playerDb.getUid());
         regPlayer.response(dto);

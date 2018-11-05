@@ -13,7 +13,10 @@ public enum ResultCode {
     // 场景
     SCENE_PLAYER_ENTER(20, "玩家进入场景推送"),
     SCENE_PLAYER_LEAVE(21, "玩家离开场景推送"),
-    SCENE_AOI(22, "场景内所有实物");
+    SCENE_AOI(22, "场景内所有实物"),
+
+    // 背包系统
+    BACKPACK_INFO(30, "玩家背包物品信息");
 
     private Long code;
     private String desc;
