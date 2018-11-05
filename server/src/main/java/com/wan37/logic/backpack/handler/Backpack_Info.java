@@ -1,4 +1,4 @@
-package com.wan37.logic.backpack.handle;
+package com.wan37.logic.backpack.handler;
 
 import com.wan37.handler.GeneralHandler;
 import com.wan37.logic.backpack.service.info.BackpackInfoExec;

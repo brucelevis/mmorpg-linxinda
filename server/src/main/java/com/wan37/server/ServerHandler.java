@@ -41,9 +41,4 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 
         new GenernalEventListenersManager().fireEvent(new OfflineEvent(ctx.channel().id().asLongText()));
     }
-
-    @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-        LOG.info("Server exceptionCaught");
-    }
 }

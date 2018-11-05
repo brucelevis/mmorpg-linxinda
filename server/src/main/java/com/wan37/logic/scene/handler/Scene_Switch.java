@@ -1,4 +1,4 @@
-package com.wan37.logic.scene.handle;
+package com.wan37.logic.scene.handler;
 
 import com.wan37.handler.GeneralHandler;
 import com.wan37.logic.scene.service.switch1.SSwitchScene;
