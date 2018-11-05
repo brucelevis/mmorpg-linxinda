@@ -56,7 +56,7 @@ public class ResourceItemAdder {
     private Integer findEmptyIndex(BackpackDb backpackDb) {
         Map<Integer, ItemDb> itemMap = backpackDb.getItemMap();
         for (int i = 1; i <= backpackDb.getCapacity(); i++) {
-            if (itemMap.containsKey(i)) {
+            if (!itemMap.containsKey(i)) {
                 return i;
             }
         }
