@@ -99,7 +99,7 @@ public class ExcelUtils {
         for (int sheetIndex = 0; sheetIndex < sheetNum; sheetIndex++) {
             Sheet sheet = workbook.getSheetAt(sheetIndex);
             String sheetName = sheet.getSheetName();
-            int firstRowNum = sheet.getFirstRowNum();
+            int firstRowNum = sheet.getFirstRowNum() + 1;
             int lastRowNum = sheet.getLastRowNum();
             Row head = sheet.getRow(firstRowNum);
             if (head == null)

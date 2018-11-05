@@ -13,7 +13,7 @@ import java.util.Map;
 @Service
 public class ConfigManager {
 
-    private static final String EXCEL_PATH = "./server/docs";
+    private static final String EXCEL_PATH = "./docs";
 
     /**
      * key: class name
