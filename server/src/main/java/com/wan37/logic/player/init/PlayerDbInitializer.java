@@ -1,5 +1,6 @@
 package com.wan37.logic.player.init;
 
+import com.wan37.logic.attr.database.PlayerAttrDb;
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.currency.database.CurrencyDb;
 import com.wan37.logic.player.dao.PlayerDao;
@@ -18,6 +19,7 @@ public class PlayerDbInitializer {
     public void init(PlayerDb playerDb) {
         initBackPack(playerDb);
         initCurrency(playerDb);
+        initAttrs(playerDb);
 
         playerDao.save(playerDb);
     }
@@ -46,5 +48,17 @@ public class PlayerDbInitializer {
         newDb.setItemMap(new HashMap<>());
 
         playerDb.setCurrencyDb(newDb);
+    }
+
+    private void initAttrs(PlayerDb playerDb) {
+        PlayerAttrDb playerAttrDb = playerDb.getPlayerAttrDb();
+        if (playerAttrDb != null) {
+            return;
+        }
+
+        PlayerAttrDb newDb = new PlayerAttrDb();
+        newDb.setAttrs(new HashMap<>());
+
+        playerDb.setPlayerAttrDb(newDb);
     }
 }
