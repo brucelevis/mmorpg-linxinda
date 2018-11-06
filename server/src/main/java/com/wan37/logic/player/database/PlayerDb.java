@@ -3,10 +3,7 @@ package com.wan37.logic.player.database;
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.backpack.database.convert.BackpackDbConverterImpl;
 
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table
@@ -36,6 +33,7 @@ public class PlayerDb {
     private int level;
 
     @Convert(converter = BackpackDbConverterImpl.class)
+    @Column(columnDefinition = "text")
     private BackpackDb backpackDb;
 
     public Long getUid() {
