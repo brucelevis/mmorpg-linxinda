@@ -45,8 +45,11 @@ public class ResourceItemAdder {
         } else {
             // 不可叠加
             while (amount > 0) {
+                // 找到空的格子索引
                 Integer index = findEmptyIndex(backpackDb);
                 ItemDb itemDb = createUniqueItem(propsCfg, index);
+
+                backpackDb.getIndexs().add(index);
                 backpackDb.getItemMap().put(index, itemDb);
                 amount--;
             }

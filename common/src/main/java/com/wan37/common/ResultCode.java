@@ -16,7 +16,8 @@ public enum ResultCode {
     SCENE_AOI(22, "场景内所有实物"),
 
     // 背包系统
-    BACKPACK_INFO(30, "玩家背包物品信息");
+    BACKPACK_INFO(30, "玩家背包物品信息"),
+    BACKPACK_UPDATE(31, "背包格子物品信息更新");
 
     private Long code;
     private String desc;
