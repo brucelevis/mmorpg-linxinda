@@ -40,14 +40,56 @@ public class ResourceItemAdder {
             return;
         }
 
+        int maxOverlay = propsCfg.getMaxOverLay();
         if (canOverlay(propsCfg)) {
-            //TODO: 可叠加
+            // 先找到已经存在的物品，并且物品叠加上限没满
+            List<ItemDb> existItems = findExistItems(propsCfg.getId(), backpackDb).stream()
+                    .filter(i -> i.getAmount() < propsCfg.getMaxOverLay())
+                    .collect(Collectors.toList());
+
+            // 枚举一个个已存在物品塞满
+            for (int i = 0; i < existItems.size() && amount > 0; i++) {
+                ItemDb itemDb = existItems.get(i);
+                int remainAmount = maxOverlay - itemDb.getAmount();
+
+                if (amount <= remainAmount) {
+                    // 可叠加用完
+                    itemDb.setAmount(itemDb.getAmount() + (int) amount);
+                    amount = 0;
+                } else {
+                    // 不可叠加用完
+                    itemDb.setAmount(propsCfg.getMaxOverLay());
+                    amount -= remainAmount;
+                }
+
+                // 标记背包格子更新
+                backpackDb.getIndexs().add(itemDb.getIndex());
+            }
+
+            // 还有开始找格子创建
+            while (amount > 0) {
+                // 找到空的格子索引
+                Integer index = findEmptyIndex(backpackDb);
+                ItemDb itemDb = null;
+                if (amount >= maxOverlay) {
+                    itemDb = createItem(propsCfg, index, maxOverlay);
+                    amount -= maxOverlay;
+                } else {
+                    itemDb = createItem(propsCfg, index, (int) amount);
+                    amount = 0;
+                }
+
+                backpackDb.getIndexs().add(index);
+                backpackDb.getItemMap().put(index, itemDb);
+            }
         } else {
             // 不可叠加
             while (amount > 0) {
                 // 找到空的格子索引
                 Integer index = findEmptyIndex(backpackDb);
-                ItemDb itemDb = createUniqueItem(propsCfg, index);
+                ItemDb itemDb = createItem(propsCfg, index, 1);
+
+                //TODO: 初始化额外信息
 
                 backpackDb.getIndexs().add(index);
                 backpackDb.getItemMap().put(index, itemDb);
@@ -66,16 +108,14 @@ public class ResourceItemAdder {
         return -1;
     }
 
-    private ItemDb createUniqueItem(PropsCfg propsCfg, Integer index) {
+    private ItemDb createItem(PropsCfg propsCfg, Integer index, int amount) {
         ItemDb itemDb = new ItemDb();
 
         itemDb.setUid(idTool.generate());
         itemDb.setCfgId(propsCfg.getId());
-        itemDb.setAmount(1);
+        itemDb.setAmount(amount);
         itemDb.setName(propsCfg.getName());
         itemDb.setIndex(index);
-
-        //TODO: 初始化额外信息
 
         return itemDb;
     }
