@@ -17,7 +17,10 @@ public enum ResultCode {
 
     // 背包系统
     BACKPACK_INFO(30, "玩家背包物品信息"),
-    BACKPACK_UPDATE(31, "背包格子物品信息更新");
+    BACKPACK_UPDATE(31, "背包格子物品信息更新"),
+
+    // 虚拟物品系统（货币，积分）
+    CURRENCY_UPDATE(40, "虚拟物品信息更新");
 
     private Long code;
     private String desc;

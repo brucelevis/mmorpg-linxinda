@@ -1,9 +1,14 @@
 package com.wan37.logic.backpack.database;
 
+import com.wan37.logic.props.config.PropsCfg;
+
 public class ItemDb {
 
     private Long uid;
 
+    /**
+     * @see PropsCfg#getId
+     */
     private Integer cfgId;
 
     /**

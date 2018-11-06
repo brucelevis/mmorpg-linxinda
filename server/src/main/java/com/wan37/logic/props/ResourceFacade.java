@@ -3,6 +3,8 @@ package com.wan37.logic.props;
 import com.wan37.common.GeneralResponseDto;
 import com.wan37.common.ResultCode;
 import com.wan37.logic.backpack.database.BackpackDb;
+import com.wan37.logic.currency.database.CurrencyDb;
+import com.wan37.logic.currency.encode.CurrencyUpdateNotifyEncoder;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.dao.PlayerDao;
 import com.wan37.logic.props.encode.BackpackUpdateNotifyEncoder;
@@ -23,12 +25,18 @@ public class ResourceFacade {
     @Autowired
     private BackpackUpdateNotifyEncoder backpackUpdateNotifyEncoder;
 
+    @Autowired
+    private CurrencyUpdateNotifyEncoder currencyUpdateNotifyEncoder;
+
     public void giveResource(ResourceCollection res, Player player) {
         res.getElements().forEach(e -> resourceAdder.add(e, player));
         playerDao.save(player.getPlayerDb());
 
         // 背包更新推送
         backpackUpdateNotify(player);
+
+        // 虚拟物品更新推送
+        currencyUpdateNotify(player);
     }
 
     private void backpackUpdateNotify(Player player) {
@@ -42,5 +50,18 @@ public class ResourceFacade {
 
         // 背包格子变化标记清空
         backpackDb.getIndexs().clear();
+    }
+
+    private void currencyUpdateNotify(Player player) {
+        CurrencyDb currencyDb = player.getPlayerDb().getCurrencyDb();
+        GeneralResponseDto dto = currencyUpdateNotifyEncoder.encode(ResultCode.CURRENCY_UPDATE, currencyDb);
+        if (dto == null) {
+            return;
+        }
+
+        player.syncClient(dto);
+
+        // 虚拟物品变化标记清空
+        currencyDb.getIds().clear();
     }
 }
