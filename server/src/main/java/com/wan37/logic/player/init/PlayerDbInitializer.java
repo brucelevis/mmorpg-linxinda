@@ -1,6 +1,7 @@
 package com.wan37.logic.player.init;
 
 import com.wan37.logic.attr.database.PlayerAttrDb;
+import com.wan37.logic.attr.init.PlayerAttrDbInitializer;
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.currency.database.CurrencyDb;
 import com.wan37.logic.player.dao.PlayerDao;
@@ -15,6 +16,9 @@ public class PlayerDbInitializer {
 
     @Autowired
     private PlayerDao playerDao;
+
+    @Autowired
+    private PlayerAttrDbInitializer playerAttrDbInitializer;
 
     public void init(PlayerDb playerDb) {
         initBackPack(playerDb);
@@ -57,7 +61,7 @@ public class PlayerDbInitializer {
         }
 
         PlayerAttrDb newDb = new PlayerAttrDb();
-        newDb.setAttrs(new HashMap<>());
+        playerAttrDbInitializer.init(newDb, playerDb.getFactionId());
 
         playerDb.setPlayerAttrDb(newDb);
     }

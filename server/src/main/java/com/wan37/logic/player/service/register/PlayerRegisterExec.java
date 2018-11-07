@@ -2,6 +2,7 @@ package com.wan37.logic.player.service.register;
 
 import com.wan37.common.GeneralResponseDto;
 import com.wan37.common.ResultCode;
+import com.wan37.logic.faction.config.FactionCfgLoader;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.player.encode.RespRegisterPlayerDtoEncoder;
 import com.wan37.logic.player.init.PlayerDbInitializer;
@@ -26,6 +27,9 @@ public class PlayerRegisterExec {
     @Autowired
     private PlayerDbInitializer playerDbInitializer;
 
+    @Autowired
+    private FactionCfgLoader factionCfgLoader;
+
     public void exec(PRegisterPlayer regPlayer) {
         PlayerDb playerDb = createPlayerDb(regPlayer);
         playerDbInitializer.init(playerDb);
@@ -38,8 +42,11 @@ public class PlayerRegisterExec {
         PlayerDb db = new PlayerDb();
         db.setUid(idTool.generate());
         db.setName(regPlayer.getName());
-        db.setFactionId(regPlayer.getFactionId());
         db.setLevel(1);
+
+        Integer factionId = regPlayer.getFactionId();
+        factionCfgLoader.load(factionId).orElseThrow(() -> new RuntimeException("找不到职业导表，错误的职业id"));
+        db.setFactionId(regPlayer.getFactionId());
 
         db.setSceneId(sceneCfgLoader.loadDefault()
                 .map(SceneCfg::getId)
