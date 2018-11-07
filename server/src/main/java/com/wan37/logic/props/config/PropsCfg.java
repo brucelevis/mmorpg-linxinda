@@ -13,4 +13,6 @@ public interface PropsCfg {
     boolean isCanUse();
 
     Integer getUseLogicId();
+
+    String getUseLogicArgs();
 }

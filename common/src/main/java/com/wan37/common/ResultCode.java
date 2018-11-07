@@ -2,8 +2,11 @@ package com.wan37.common;
 
 public enum ResultCode {
 
-    SUCCESS(1, "成功"),
     ERROR(0, "失败"),
+    SUCCESS(1, "成功"),
+
+    // 玩家
+    PLAYER_UPDATE(2, "玩家状态更新"),
 
     // 登录注册
     LOGIN_SUCCESS(10, "登录成功"),

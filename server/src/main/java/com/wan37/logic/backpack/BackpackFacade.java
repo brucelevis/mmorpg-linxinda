@@ -26,6 +26,15 @@ public class BackpackFacade {
                 .findAny();
     }
 
+    public Optional<ItemDb> find(BackpackDb backpackDb, Integer index) {
+        ItemDb itemDb = backpackDb.getItemMap().get(index);
+        if (itemDb == null) {
+            return Optional.empty();
+        }
+
+        return Optional.of(itemDb);
+    }
+
     public void remove(Player player, Long uid) {
         BackpackDb backpackDb = player.getPlayerDb().getBackpackDb();
         ItemDb itemDb = find(backpackDb, uid).orElse(null);
@@ -35,6 +44,22 @@ public class BackpackFacade {
 
         Integer index = itemDb.getIndex();
         backpackDb.getItemMap().remove(index);
+
+        // 标记背包格子更新
+        backpackDb.getIndexs().add(index);
+
+        backpackUpdateNotifier.notify(player);
+    }
+
+    public void update(Player player, ItemDb itemDb) {
+        BackpackDb backpackDb = player.getPlayerDb().getBackpackDb();
+        Integer index = itemDb.getIndex();
+        if (itemDb.getAmount() <= 0) {
+            // 数量为0，移除
+            backpackDb.getItemMap().remove(index);
+        }
+
+        backpackDb.getItemMap().put(index, itemDb);
 
         // 标记背包格子更新
         backpackDb.getIndexs().add(index);

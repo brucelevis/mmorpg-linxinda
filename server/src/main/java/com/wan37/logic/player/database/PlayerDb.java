@@ -38,6 +38,21 @@ public class PlayerDb {
      */
     private int level;
 
+    /**
+     * 血量
+     */
+    private double hp;
+
+    /**
+     * 蓝量
+     */
+    private double mp;
+
+    /**
+     * 经验
+     */
+    private double exp;
+
     @Convert(converter = BackpackDbConverterImpl.class)
     @Column(columnDefinition = "text")
     private BackpackDb backpackDb;
@@ -124,5 +139,29 @@ public class PlayerDb {
 
     public void setEquipDb(EquipDb equipDb) {
         this.equipDb = equipDb;
+    }
+
+    public double getHp() {
+        return hp;
+    }
+
+    public void setHp(double hp) {
+        this.hp = hp;
+    }
+
+    public double getMp() {
+        return mp;
+    }
+
+    public void setMp(double mp) {
+        this.mp = mp;
+    }
+
+    public double getExp() {
+        return exp;
+    }
+
+    public void setExp(double exp) {
+        this.exp = exp;
     }
 }
