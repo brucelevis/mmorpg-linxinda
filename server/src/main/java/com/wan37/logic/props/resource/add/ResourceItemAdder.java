@@ -1,13 +1,11 @@
 package com.wan37.logic.props.resource.add;
 
-import com.wan37.behavior.BehaviorManager;
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.backpack.database.ItemDb;
 import com.wan37.logic.backpack.service.find.BackpackEmptyIndexFinder;
-import com.wan37.logic.props.behavior.init.PropsInitBehavior;
-import com.wan37.logic.props.behavior.init.PropsInitContext;
 import com.wan37.logic.props.config.PropsCfg;
 import com.wan37.logic.props.config.PropsCfgLoader;
+import com.wan37.logic.props.init.PropsExtraInitializer;
 import com.wan37.logic.props.resource.ResourceElement;
 import com.wan37.util.IdTool;
 import org.apache.log4j.Logger;
@@ -34,7 +32,7 @@ public class ResourceItemAdder {
     private BackpackEmptyIndexFinder backpackEmptyIndexFinder;
 
     @Autowired
-    private BehaviorManager behaviorManager;
+    private PropsExtraInitializer propsExtraInitializer;
 
     public void add(ResourceElement element, BackpackDb backpackDb) {
         PropsCfg propsCfg = propsCfgLoader.load(element.getCfgId()).orElse(null);
@@ -100,10 +98,8 @@ public class ResourceItemAdder {
                 ItemDb itemDb = createItem(propsCfg, index, 1);
 
                 // 初始化额外信息
-                PropsInitBehavior behavior = (PropsInitBehavior) behaviorManager.get(PropsInitBehavior.class, propsCfg.getType());
-                PropsInitContext ctx = new PropsInitContext(propsCfg);
-                behavior.behave(ctx);
-                itemDb.setExtraDb(ctx.getExtraDb());
+                Object extraDb = propsExtraInitializer.init(propsCfg);
+                itemDb.setExtraDb(extraDb);
 
                 backpackDb.getIndexs().add(index);
                 backpackDb.getItemMap().put(index, itemDb);

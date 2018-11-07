@@ -1,11 +1,11 @@
 package com.wan37.logic.props.resource.add;
 
-import com.wan37.behavior.BehaviorManager;
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.backpack.database.ItemDb;
 import com.wan37.logic.backpack.service.find.BackpackEmptyIndexFinder;
 import com.wan37.logic.props.config.PropsCfg;
 import com.wan37.logic.props.config.PropsCfgLoader;
+import com.wan37.logic.props.init.PropsExtraInitializer;
 import com.wan37.logic.props.resource.ResourceElement;
 import com.wan37.util.IdTool;
 import org.junit.Before;
@@ -19,6 +19,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -42,7 +43,7 @@ public class ResourceItemAdderTest {
     BackpackEmptyIndexFinder _finder;
 
     @Mock
-    BehaviorManager _manager;
+    PropsExtraInitializer _initializer;
 
     ResourceElement _element;
     BackpackDb _db;
@@ -50,6 +51,8 @@ public class ResourceItemAdderTest {
 
     @Before
     public void setUp() {
+        when(_initializer.init(any())).thenReturn(null);
+
         _element = mock(ResourceElement.class);
 
         _db = new BackpackDb();
