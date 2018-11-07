@@ -1,4 +1,4 @@
-package com.wan37.logic.props.behavior;
+package com.wan37.logic.props.behavior.use;
 
 import com.wan37.behavior.Behavior;
 

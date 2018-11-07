@@ -6,6 +6,7 @@ public class RespEquipItemDto {
     private String name;
     private Integer part;
     private Integer cfgId;
+    private Object extra;
 
     public Long getUid() {
         return uid;
@@ -37,5 +38,13 @@ public class RespEquipItemDto {
 
     public void setCfgId(Integer cfgId) {
         this.cfgId = cfgId;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 }

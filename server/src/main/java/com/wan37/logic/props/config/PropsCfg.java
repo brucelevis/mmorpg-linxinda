@@ -15,4 +15,6 @@ public interface PropsCfg {
     Integer getUseLogicId();
 
     String getUseLogicArgs();
+
+    Integer getType();
 }

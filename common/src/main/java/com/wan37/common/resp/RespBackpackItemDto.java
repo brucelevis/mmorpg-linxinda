@@ -12,6 +12,8 @@ public class RespBackpackItemDto {
 
     private Integer index;
 
+    private Object extra;
+
     public Long getUid() {
         return uid;
     }
@@ -50,5 +52,13 @@ public class RespBackpackItemDto {
 
     public void setIndex(Integer index) {
         this.index = index;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 }

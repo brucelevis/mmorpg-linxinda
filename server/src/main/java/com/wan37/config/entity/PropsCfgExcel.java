@@ -16,6 +16,8 @@ public class PropsCfgExcel {
 
     private String useLogicArgs;
 
+    private Integer type;
+
     public Integer getId() {
         return id;
     }
@@ -70,5 +72,13 @@ public class PropsCfgExcel {
 
     public void setUseLogicArgs(String useLogicArgs) {
         this.useLogicArgs = useLogicArgs;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 }

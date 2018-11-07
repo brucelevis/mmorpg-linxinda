@@ -1,8 +1,11 @@
 package com.wan37.logic.props.resource.add;
 
+import com.wan37.behavior.BehaviorManager;
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.backpack.database.ItemDb;
 import com.wan37.logic.backpack.service.find.BackpackEmptyIndexFinder;
+import com.wan37.logic.props.behavior.init.PropsInitBehavior;
+import com.wan37.logic.props.behavior.init.PropsInitContext;
 import com.wan37.logic.props.config.PropsCfg;
 import com.wan37.logic.props.config.PropsCfgLoader;
 import com.wan37.logic.props.resource.ResourceElement;
@@ -29,6 +32,9 @@ public class ResourceItemAdder {
 
     @Autowired
     private BackpackEmptyIndexFinder backpackEmptyIndexFinder;
+
+    @Autowired
+    private BehaviorManager behaviorManager;
 
     public void add(ResourceElement element, BackpackDb backpackDb) {
         PropsCfg propsCfg = propsCfgLoader.load(element.getCfgId()).orElse(null);
@@ -93,7 +99,11 @@ public class ResourceItemAdder {
                 Integer index = backpackEmptyIndexFinder.find(backpackDb);
                 ItemDb itemDb = createItem(propsCfg, index, 1);
 
-                //TODO: 初始化额外信息
+                // 初始化额外信息
+                PropsInitBehavior behavior = (PropsInitBehavior) behaviorManager.get(PropsInitBehavior.class, propsCfg.getType());
+                PropsInitContext ctx = new PropsInitContext(propsCfg);
+                behavior.behave(ctx);
+                itemDb.setExtraDb(ctx.getExtraDb());
 
                 backpackDb.getIndexs().add(index);
                 backpackDb.getItemMap().put(index, itemDb);

@@ -1,5 +1,6 @@
 package com.wan37.logic.props.resource.add;
 
+import com.wan37.behavior.BehaviorManager;
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.backpack.database.ItemDb;
 import com.wan37.logic.backpack.service.find.BackpackEmptyIndexFinder;
@@ -39,6 +40,9 @@ public class ResourceItemAdderTest {
 
     @Spy
     BackpackEmptyIndexFinder _finder;
+
+    @Mock
+    BehaviorManager _manager;
 
     ResourceElement _element;
     BackpackDb _db;

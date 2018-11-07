@@ -44,5 +44,10 @@ public class PropsCfgImpl implements PropsCfg {
         return cfgExcel.getUseLogicArgs();
     }
 
+    @Override
+    public Integer getType() {
+        return cfgExcel.getType();
+    }
+
     private final PropsCfgExcel cfgExcel;
 }
