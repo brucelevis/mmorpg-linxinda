@@ -2,12 +2,11 @@ package com.wan37.logic.props;
 
 import com.wan37.common.GeneralResponseDto;
 import com.wan37.common.ResultCode;
-import com.wan37.logic.backpack.database.BackpackDb;
+import com.wan37.logic.backpack.encode.BackpackUpdateNotifier;
 import com.wan37.logic.currency.database.CurrencyDb;
 import com.wan37.logic.currency.encode.CurrencyUpdateNotifyEncoder;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.dao.PlayerDao;
-import com.wan37.logic.props.encode.BackpackUpdateNotifyEncoder;
 import com.wan37.logic.props.resource.ResourceCollection;
 import com.wan37.logic.props.resource.add.ResourceAdder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ public class ResourceFacade {
     private PlayerDao playerDao;
 
     @Autowired
-    private BackpackUpdateNotifyEncoder backpackUpdateNotifyEncoder;
+    private BackpackUpdateNotifier backpackUpdateNotifier;
 
     @Autowired
     private CurrencyUpdateNotifyEncoder currencyUpdateNotifyEncoder;
@@ -33,23 +32,10 @@ public class ResourceFacade {
         playerDao.save(player.getPlayerDb());
 
         // 背包更新推送
-        backpackUpdateNotify(player);
+        backpackUpdateNotifier.notify(player);
 
         // 虚拟物品更新推送
         currencyUpdateNotify(player);
-    }
-
-    private void backpackUpdateNotify(Player player) {
-        BackpackDb backpackDb = player.getPlayerDb().getBackpackDb();
-        GeneralResponseDto dto = backpackUpdateNotifyEncoder.encode(ResultCode.BACKPACK_UPDATE, backpackDb);
-        if (dto == null) {
-            return;
-        }
-
-        player.syncClient(dto);
-
-        // 背包格子变化标记清空
-        backpackDb.getIndexs().clear();
     }
 
     private void currencyUpdateNotify(Player player) {

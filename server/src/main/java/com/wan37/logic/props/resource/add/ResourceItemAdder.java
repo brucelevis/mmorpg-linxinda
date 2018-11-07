@@ -2,6 +2,7 @@ package com.wan37.logic.props.resource.add;
 
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.backpack.database.ItemDb;
+import com.wan37.logic.backpack.service.find.BackpackEmptyIndexFinder;
 import com.wan37.logic.props.config.PropsCfg;
 import com.wan37.logic.props.config.PropsCfgLoader;
 import com.wan37.logic.props.resource.ResourceElement;
@@ -25,6 +26,9 @@ public class ResourceItemAdder {
 
     @Autowired
     private IdTool idTool;
+
+    @Autowired
+    private BackpackEmptyIndexFinder backpackEmptyIndexFinder;
 
     public void add(ResourceElement element, BackpackDb backpackDb) {
         PropsCfg propsCfg = propsCfgLoader.load(element.getCfgId()).orElse(null);
@@ -69,7 +73,7 @@ public class ResourceItemAdder {
             // 还有开始找格子创建
             while (amount > 0) {
                 // 找到空的格子索引
-                Integer index = findEmptyIndex(backpackDb);
+                Integer index = backpackEmptyIndexFinder.find(backpackDb);
                 ItemDb itemDb = null;
                 if (amount >= maxOverlay) {
                     itemDb = createItem(propsCfg, index, maxOverlay);
@@ -86,7 +90,7 @@ public class ResourceItemAdder {
             // 不可叠加
             while (amount > 0) {
                 // 找到空的格子索引
-                Integer index = findEmptyIndex(backpackDb);
+                Integer index = backpackEmptyIndexFinder.find(backpackDb);
                 ItemDb itemDb = createItem(propsCfg, index, 1);
 
                 //TODO: 初始化额外信息
@@ -96,16 +100,6 @@ public class ResourceItemAdder {
                 amount--;
             }
         }
-    }
-
-    private Integer findEmptyIndex(BackpackDb backpackDb) {
-        Map<Integer, ItemDb> itemMap = backpackDb.getItemMap();
-        for (int i = 1; i <= backpackDb.getCapacity(); i++) {
-            if (!itemMap.containsKey(i)) {
-                return i;
-            }
-        }
-        return -1;
     }
 
     private ItemDb createItem(PropsCfg propsCfg, Integer index, int amount) {

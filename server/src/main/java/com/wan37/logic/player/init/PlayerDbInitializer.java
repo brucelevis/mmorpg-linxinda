@@ -4,6 +4,7 @@ import com.wan37.logic.attr.database.PlayerAttrDb;
 import com.wan37.logic.attr.init.PlayerAttrDbInitializer;
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.currency.database.CurrencyDb;
+import com.wan37.logic.equipment.database.EquipDb;
 import com.wan37.logic.player.dao.PlayerDao;
 import com.wan37.logic.player.database.PlayerDb;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ public class PlayerDbInitializer {
         initBackPack(playerDb);
         initCurrency(playerDb);
         initAttrs(playerDb);
+        initEquip(playerDb);
 
         playerDao.save(playerDb);
     }
@@ -64,5 +66,17 @@ public class PlayerDbInitializer {
         playerAttrDbInitializer.init(newDb, playerDb.getFactionId());
 
         playerDb.setPlayerAttrDb(newDb);
+    }
+
+    private void initEquip(PlayerDb playerDb) {
+        EquipDb equipDb = playerDb.getEquipDb();
+        if (equipDb != null) {
+            return;
+        }
+
+        EquipDb newDb = new EquipDb();
+        newDb.setItems(new HashMap<>());
+
+        playerDb.setEquipDb(newDb);
     }
 }

@@ -6,6 +6,8 @@ import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.backpack.database.convert.BackpackDbConverterImpl;
 import com.wan37.logic.currency.database.CurrencyDb;
 import com.wan37.logic.currency.database.convert.CurrencyDbConvertImpl;
+import com.wan37.logic.equipment.database.EquipDb;
+import com.wan37.logic.equipment.database.convert.EquipDbConverterImpl;
 
 import javax.persistence.*;
 
@@ -47,6 +49,10 @@ public class PlayerDb {
     @Convert(converter = PlayerAttrDbConvertImpl.class)
     @Column(columnDefinition = "text")
     private PlayerAttrDb playerAttrDb;
+
+    @Convert(converter = EquipDbConverterImpl.class)
+    @Column(columnDefinition = "text")
+    private EquipDb equipDb;
 
     public Long getUid() {
         return uid;
@@ -110,5 +116,13 @@ public class PlayerDb {
 
     public void setPlayerAttrDb(PlayerAttrDb playerAttrDb) {
         this.playerAttrDb = playerAttrDb;
+    }
+
+    public EquipDb getEquipDb() {
+        return equipDb;
+    }
+
+    public void setEquipDb(EquipDb equipDb) {
+        this.equipDb = equipDb;
     }
 }

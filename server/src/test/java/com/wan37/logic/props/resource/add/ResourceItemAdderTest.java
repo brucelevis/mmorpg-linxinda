@@ -2,6 +2,7 @@ package com.wan37.logic.props.resource.add;
 
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.backpack.database.ItemDb;
+import com.wan37.logic.backpack.service.find.BackpackEmptyIndexFinder;
 import com.wan37.logic.props.config.PropsCfg;
 import com.wan37.logic.props.config.PropsCfgLoader;
 import com.wan37.logic.props.resource.ResourceElement;
@@ -11,6 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.*;
@@ -34,6 +36,9 @@ public class ResourceItemAdderTest {
 
     @Mock
     IdTool _idTool;
+
+    @Spy
+    BackpackEmptyIndexFinder _finder;
 
     ResourceElement _element;
     BackpackDb _db;

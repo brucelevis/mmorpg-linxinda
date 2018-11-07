@@ -10,6 +10,7 @@ import com.wan37.logic.backpack.database.ItemDb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -38,20 +39,26 @@ public class BackpackUpdateNotifyEncoder {
 
         BackpackUpdateNotify dto = new BackpackUpdateNotify();
 
-        dto.setItems(backpackDb.getItemMap().values().stream()
-                .filter(i -> indexs.contains(i.getIndex()))
-                .map(this::encodeItem)
+        Map<Integer, ItemDb> items = backpackDb.getItemMap();
+        dto.setItems(indexs.stream()
+                .map(i -> encodeItem(i, items.get(i)))
                 .collect(Collectors.toList()));
 
         return dto;
     }
 
-    private RespBackpackItemDto encodeItem(ItemDb itemDb) {
+    private RespBackpackItemDto encodeItem(Integer index, ItemDb itemDb) {
         RespBackpackItemDto dto = new RespBackpackItemDto();
+        dto.setIndex(index);
+
+        if (itemDb == null) {
+            // 背包格子没物品
+            dto.setAmount(0);
+            return dto;
+        }
 
         dto.setUid(itemDb.getUid());
         dto.setCfgId(itemDb.getCfgId());
-        dto.setIndex(itemDb.getIndex());
         dto.setName(itemDb.getName());
         dto.setAmount(itemDb.getAmount());
 
