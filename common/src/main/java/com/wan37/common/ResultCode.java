@@ -23,7 +23,10 @@ public enum ResultCode {
     CURRENCY_UPDATE(40, "虚拟物品信息更新"),
 
     // 属性系统
-    ATTR_INFO(50, "玩家属性信息");
+    ATTR_INFO(50, "玩家属性信息"),
+
+    // 装备系统
+    EQUIP_UPDATE(60, "玩家装备栏更新");
 
     private Long code;
     private String desc;

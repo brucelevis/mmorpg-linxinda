@@ -6,8 +6,10 @@ import com.wan37.logic.backpack.database.ItemDb;
 import com.wan37.logic.equipment.config.EquipCfg;
 import com.wan37.logic.equipment.config.EquipCfgLoader;
 import com.wan37.logic.equipment.database.EquipDb;
+import com.wan37.logic.equipment.encode.EquipUpdateNotifier;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
+import com.wan37.logic.player.dao.PlayerDao;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,12 @@ public class EquipWearExec {
 
     @Autowired
     private EquipCfgLoader equipCfgLoader;
+
+    @Autowired
+    private PlayerDao playerDao;
+
+    @Autowired
+    private EquipUpdateNotifier equipUpdateNotifier;
 
     public void exec(String channelId, Long itemUid) {
         Player player = playerGlobalManager.getPlayerByChannelId(channelId);
@@ -56,6 +64,7 @@ public class EquipWearExec {
 
         // 穿
         equipDb.getItems().put(part, itemDb);
+        equipDb.getParts().add(part);
 
         // 背包移除
         backpackFacade.remove(player, itemDb.getUid());
@@ -65,6 +74,9 @@ public class EquipWearExec {
             backpackFacade.add(player, itemDb);
         }
 
-        //TODO: 装备栏推送更新
+        playerDao.save(player.getPlayerDb());
+
+        // 推送装备栏更新
+        equipUpdateNotifier.notify(player);
     }
 }
