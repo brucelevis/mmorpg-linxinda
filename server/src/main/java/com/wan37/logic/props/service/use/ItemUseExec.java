@@ -57,8 +57,7 @@ public class ItemUseExec {
         }
 
         // 背包物品-1
-        itemDb.setAmount(itemDb.getAmount() - 1);
-        backpackFacade.update(player, itemDb);
+        backpackFacade.remove(player, index, 1);
 
         playerDao.save(player.getPlayerDb());
 
