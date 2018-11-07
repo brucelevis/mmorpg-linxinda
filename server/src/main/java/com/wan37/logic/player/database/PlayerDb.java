@@ -8,6 +8,8 @@ import com.wan37.logic.currency.database.CurrencyDb;
 import com.wan37.logic.currency.database.convert.CurrencyDbConvertImpl;
 import com.wan37.logic.equipment.database.EquipDb;
 import com.wan37.logic.equipment.database.convert.EquipDbConverterImpl;
+import com.wan37.logic.strength.database.PlayerStrengthDb;
+import com.wan37.logic.strength.database.convert.PlayerStrengthDbConverterImpl;
 
 import javax.persistence.*;
 
@@ -68,6 +70,10 @@ public class PlayerDb {
     @Convert(converter = EquipDbConverterImpl.class)
     @Column(columnDefinition = "text")
     private EquipDb equipDb;
+
+    @Convert(converter = PlayerStrengthDbConverterImpl.class)
+    @Column(columnDefinition = "text")
+    private PlayerStrengthDb playerStrengthDb;
 
     public Long getUid() {
         return uid;
@@ -163,5 +169,13 @@ public class PlayerDb {
 
     public void setExp(double exp) {
         this.exp = exp;
+    }
+
+    public PlayerStrengthDb getPlayerStrengthDb() {
+        return playerStrengthDb;
+    }
+
+    public void setPlayerStrengthDb(PlayerStrengthDb playerStrengthDb) {
+        this.playerStrengthDb = playerStrengthDb;
     }
 }

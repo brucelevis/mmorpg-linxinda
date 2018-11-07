@@ -9,6 +9,7 @@ import com.wan37.logic.currency.database.CurrencyDb;
 import com.wan37.logic.equipment.database.EquipDb;
 import com.wan37.logic.player.dao.PlayerDao;
 import com.wan37.logic.player.database.PlayerDb;
+import com.wan37.logic.strength.database.PlayerStrengthDb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,7 @@ public class PlayerDbInitializer {
         initAttrs(playerDb);
         initEquip(playerDb);
         initPlayer(playerDb);
+        initPlayerStrength(playerDb);
 
         playerDao.save(playerDb);
     }
@@ -94,5 +96,15 @@ public class PlayerDbInitializer {
         PAttrDb mpDb = attrs.get(AttrEnum.ATTR_MP.getId());
         double mp = mpDb != null ? mpDb.getValue() : 0;
         playerDb.setMp(mp);
+    }
+
+    private void initPlayerStrength(PlayerDb playerDb) {
+        PlayerStrengthDb playerStrengthDb = playerDb.getPlayerStrengthDb();
+        if (playerStrengthDb != null) {
+            return;
+        }
+
+        PlayerStrengthDb newDb = new PlayerStrengthDb();
+        playerDb.setPlayerStrengthDb(newDb);
     }
 }
