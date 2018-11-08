@@ -5,6 +5,7 @@ import com.wan37.logic.scene.init.SceneCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -18,6 +19,10 @@ public class SceneGlobalManager {
 
     @Autowired
     private SceneCreator sceneCreator;
+
+    public Collection<Scene> getAllScenes() {
+        return sceneMap.values();
+    }
 
     public void addPlayerInScene(Integer sceneId, Player player) {
         // TODO: 检查sceneId的合法性

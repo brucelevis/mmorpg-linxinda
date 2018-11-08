@@ -16,6 +16,16 @@ public class MonsterCreator {
         Monster monster = new Monster();
         monster.setUid(idTool.generate());
         monster.setMonsterCfg(cfg);
+
+        //FIXME: 先写死血量和蓝量
+        monster.setHp(100);
+        monster.setMp(100);
+
+        monster.setAlive(true);
+
+        //FIXME: 先写死怪物生成cd（秒）
+        monster.setCd(5);
+
         return monster;
     }
 }
