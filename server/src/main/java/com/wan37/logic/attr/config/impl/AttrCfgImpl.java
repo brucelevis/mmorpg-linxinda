@@ -24,5 +24,10 @@ public class AttrCfgImpl implements AttrCfg {
         return cfgExcel.getDesc();
     }
 
+    @Override
+    public double getBaseValue() {
+        return cfgExcel.getBaseValue();
+    }
+
     private final AttrCfgExcel cfgExcel;
 }

@@ -1,5 +1,7 @@
 package com.wan37.logic.equipment.service.wear;
 
+import com.wan37.event.GenernalEventListenersManager;
+import com.wan37.event.StrengthChangeEvent;
 import com.wan37.logic.backpack.BackpackFacade;
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.backpack.database.ItemDb;
@@ -33,6 +35,9 @@ public class EquipWearExec {
 
     @Autowired
     private EquipUpdateNotifier equipUpdateNotifier;
+
+    @Autowired
+    private GenernalEventListenersManager genernalEventListenersManager;
 
     public void exec(String channelId, Long itemUid) {
         Player player = playerGlobalManager.getPlayerByChannelId(channelId);
@@ -78,5 +83,8 @@ public class EquipWearExec {
 
         // 推送装备栏更新
         equipUpdateNotifier.notify(player);
+
+        // 触发战力面板变化事件
+        genernalEventListenersManager.fireEvent(new StrengthChangeEvent(player.getUid()));
     }
 }

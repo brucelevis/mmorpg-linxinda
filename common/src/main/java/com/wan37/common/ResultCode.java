@@ -29,7 +29,10 @@ public enum ResultCode {
     ATTR_INFO(50, "玩家属性信息"),
 
     // 装备系统
-    EQUIP_UPDATE(60, "玩家装备栏更新");
+    EQUIP_UPDATE(60, "玩家装备栏更新"),
+
+    // 玩家面版战力系统
+    PLAYER_STRENGTH_UPDATE(70, "玩家面板信息更新");
 
     private Long code;
     private String desc;

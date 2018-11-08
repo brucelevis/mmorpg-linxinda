@@ -5,6 +5,7 @@ public class AttrCfgExcel {
     private Integer id;
     private String name;
     private String desc;
+    private double baseValue;
 
     public Integer getId() {
         return id;
@@ -28,5 +29,13 @@ public class AttrCfgExcel {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public double getBaseValue() {
+        return baseValue;
+    }
+
+    public void setBaseValue(double baseValue) {
+        this.baseValue = baseValue;
     }
 }

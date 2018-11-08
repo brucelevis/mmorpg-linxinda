@@ -1,5 +1,7 @@
 package com.wan37.logic.equipment.service.takeoff;
 
+import com.wan37.event.GenernalEventListenersManager;
+import com.wan37.event.StrengthChangeEvent;
 import com.wan37.logic.backpack.BackpackFacade;
 import com.wan37.logic.backpack.database.ItemDb;
 import com.wan37.logic.equipment.database.EquipDb;
@@ -30,6 +32,9 @@ public class EquipTakeoffExec {
     @Autowired
     private EquipUpdateNotifier equipUpdateNotifier;
 
+    @Autowired
+    private GenernalEventListenersManager genernalEventListenersManager;
+
     public void exec(String channelId, Integer part) {
         Player player = playerGlobalManager.getPlayerByChannelId(channelId);
         if (player == null) {
@@ -56,5 +61,8 @@ public class EquipTakeoffExec {
 
         // 推送装备栏更新
         equipUpdateNotifier.notify(player);
+
+        // 触发战力面板变化事件
+        genernalEventListenersManager.fireEvent(new StrengthChangeEvent(player.getUid()));
     }
 }

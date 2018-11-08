@@ -7,4 +7,6 @@ public interface AttrCfg {
     String getName();
 
     String getDesc();
+
+    double getBaseValue();
 }

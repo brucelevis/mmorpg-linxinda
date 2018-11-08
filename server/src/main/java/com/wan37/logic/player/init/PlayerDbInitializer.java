@@ -10,6 +10,7 @@ import com.wan37.logic.equipment.database.EquipDb;
 import com.wan37.logic.player.dao.PlayerDao;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.strength.database.PlayerStrengthDb;
+import com.wan37.logic.strength.init.PlayerStrengthDbRefresher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,9 @@ public class PlayerDbInitializer {
 
     @Autowired
     private PlayerAttrDbInitializer playerAttrDbInitializer;
+
+    @Autowired
+    private PlayerStrengthDbRefresher playerStrengthDbRefresher;
 
     public void init(PlayerDb playerDb) {
         initBackpack(playerDb);
@@ -104,7 +108,6 @@ public class PlayerDbInitializer {
             return;
         }
 
-        PlayerStrengthDb newDb = new PlayerStrengthDb();
-        playerDb.setPlayerStrengthDb(newDb);
+        playerStrengthDbRefresher.refresh(playerDb);
     }
 }
