@@ -9,6 +9,8 @@ import com.wan37.logic.currency.database.CurrencyDb;
 import com.wan37.logic.equipment.database.EquipDb;
 import com.wan37.logic.player.dao.PlayerDao;
 import com.wan37.logic.player.database.PlayerDb;
+import com.wan37.logic.skill.database.PlayerSkillDb;
+import com.wan37.logic.skill.init.PlayerSkillDbInitializer;
 import com.wan37.logic.strength.database.PlayerStrengthDb;
 import com.wan37.logic.strength.init.PlayerStrengthDbRefresher;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +31,16 @@ public class PlayerDbInitializer {
     @Autowired
     private PlayerStrengthDbRefresher playerStrengthDbRefresher;
 
+    @Autowired
+    private PlayerSkillDbInitializer playerSkillDbInitializer;
+
     public void init(PlayerDb playerDb) {
         initBackpack(playerDb);
         initCurrency(playerDb);
         initAttrs(playerDb);
         initEquip(playerDb);
         initPlayer(playerDb);
+        initSkills(playerDb);
         initPlayerStrength(playerDb);
 
         playerDao.save(playerDb);
@@ -109,5 +115,17 @@ public class PlayerDbInitializer {
         }
 
         playerStrengthDbRefresher.refresh(playerDb);
+    }
+
+    private void initSkills(PlayerDb playerDb) {
+        PlayerSkillDb playerSkillDb = playerDb.getPlayerSkillDb();
+        if (playerSkillDb != null) {
+            return;
+        }
+
+        PlayerSkillDb newDb = new PlayerSkillDb();
+        playerSkillDbInitializer.init(newDb, playerDb.getFactionId());
+
+        playerDb.setPlayerSkillDb(newDb);
     }
 }

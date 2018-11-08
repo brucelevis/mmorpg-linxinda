@@ -9,4 +9,6 @@ public interface FactionCfg {
     String getName();
 
     List<FactionInitAttrCfg> getInitAttrs();
+
+    List<FactionInitSkillCfg> getInitSkills();
 }

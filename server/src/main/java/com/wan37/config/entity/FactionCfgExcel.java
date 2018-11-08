@@ -5,6 +5,7 @@ public class FactionCfgExcel {
     private Integer id;
     private String name;
     private String initAttr;
+    private String initSkill;
 
     public Integer getId() {
         return id;
@@ -28,5 +29,13 @@ public class FactionCfgExcel {
 
     public void setInitAttr(String initAttr) {
         this.initAttr = initAttr;
+    }
+
+    public String getInitSkill() {
+        return initSkill;
+    }
+
+    public void setInitSkill(String initSkill) {
+        this.initSkill = initSkill;
     }
 }
