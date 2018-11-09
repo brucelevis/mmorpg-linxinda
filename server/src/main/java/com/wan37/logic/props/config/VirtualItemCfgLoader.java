@@ -31,4 +31,10 @@ public class VirtualItemCfgLoader implements GeneralCfgLoader<VirtualItemCfg> {
                 .filter(c -> Objects.equals(c.getId(), id))
                 .findAny();
     }
+
+    public String getName(Integer id) {
+        return load(id)
+                .map(VirtualItemCfg::getName)
+                .orElse("");
+    }
 }

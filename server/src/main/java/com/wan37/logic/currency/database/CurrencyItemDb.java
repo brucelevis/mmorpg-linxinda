@@ -11,11 +11,6 @@ public class CurrencyItemDb {
 
     private long amount;
 
-    /**
-     * FIXME: 为了encode给前端方便，存起来名字
-     */
-    private String name;
-
     public Integer getId() {
         return id;
     }
@@ -30,13 +25,5 @@ public class CurrencyItemDb {
 
     public void setAmount(long amount) {
         this.amount = amount;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }

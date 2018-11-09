@@ -2,6 +2,8 @@ package com.wan37.logic.backpack.service.info;
 
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.backpack.encode.BackpackInfoEncoder;
+import com.wan37.logic.currency.database.CurrencyDb;
+import com.wan37.logic.currency.encode.CurrencyInfoEncoder;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import io.netty.channel.Channel;
@@ -21,6 +23,9 @@ public class BackpackInfoExec {
     @Autowired
     private BackpackInfoEncoder backpackInfoEncoder;
 
+    @Autowired
+    private CurrencyInfoEncoder currencyInfoEncoder;
+
     public void exec(Channel channel) {
         String channelId = channel.id().asLongText();
         Player player = playerGlobalManager.getPlayerByChannelId(channelId);
@@ -30,7 +35,11 @@ public class BackpackInfoExec {
         }
 
         BackpackDb backpackDb = player.getPlayerDb().getBackpackDb();
-        String msg = backpackInfoEncoder.encode(backpackDb);
-        player.syncClient(msg);
+        String props = backpackInfoEncoder.encode(backpackDb);
+
+        CurrencyDb currencyDb = player.getPlayerDb().getCurrencyDb();
+        String currency = currencyInfoEncoder.encode(currencyDb);
+
+        player.syncClient(props + currency);
     }
 }

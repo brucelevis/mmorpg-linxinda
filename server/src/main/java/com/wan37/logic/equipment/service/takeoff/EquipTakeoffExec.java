@@ -50,6 +50,8 @@ public class EquipTakeoffExec {
             return;
         }
 
+        //FIXME: 检查背包是否有空位
+
         // 脱
         items.remove(part);
         equipDb.getParts().add(part);

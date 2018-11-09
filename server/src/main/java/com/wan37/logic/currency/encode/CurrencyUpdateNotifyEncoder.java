@@ -51,7 +51,6 @@ public class CurrencyUpdateNotifyEncoder {
 
         dto.setCfgId(itemDb.getId());
         dto.setAmount(itemDb.getAmount());
-        dto.setName(itemDb.getName());
 
         return dto;
     }
