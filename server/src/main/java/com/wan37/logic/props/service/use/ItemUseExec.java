@@ -4,6 +4,9 @@ import com.wan37.behavior.BehaviorManager;
 import com.wan37.logic.backpack.BackpackFacade;
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.backpack.database.ItemDb;
+import com.wan37.logic.equipment.config.EquipCfg;
+import com.wan37.logic.equipment.config.EquipCfgLoader;
+import com.wan37.logic.equipment.service.wear.EquipWearer;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.player.dao.PlayerDao;
@@ -35,6 +38,12 @@ public class ItemUseExec {
     @Autowired
     private BehaviorManager behaviorManager;
 
+    @Autowired
+    private EquipCfgLoader equipCfgLoader;
+
+    @Autowired
+    private EquipWearer equipWearer;
+
     public void exec(String channelId, Integer index) {
         Player player = playerGlobalManager.getPlayerByChannelId(channelId);
         if (player == null) {
@@ -53,6 +62,13 @@ public class ItemUseExec {
         PropsCfg propsCfg = propsCfgLoader.load(cfgId).orElseThrow(() -> new RuntimeException("找不到对应物品表"));
         if (!propsCfg.isCanUse()) {
             player.syncClient("不可用的物品");
+            return;
+        }
+
+        //FIXME: 如果是装备
+        EquipCfg equipCfg = equipCfgLoader.load(cfgId).orElse(null);
+        if (equipCfg != null) {
+            equipWearer.wear(player, itemDb, equipCfg);
             return;
         }
 
