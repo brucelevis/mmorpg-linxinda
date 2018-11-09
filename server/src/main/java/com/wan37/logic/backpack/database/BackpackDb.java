@@ -8,6 +8,9 @@ import java.util.Set;
 
 public class BackpackDb {
 
+    /**
+     * key: index
+     */
     private Map<Integer, ItemDb> itemMap;
 
     private int capacity;

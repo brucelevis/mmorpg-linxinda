@@ -1,9 +1,7 @@
 package com.wan37.logic.backpack.service.info;
 
-import com.wan37.common.GeneralResponseDto;
-import com.wan37.common.ResultCode;
 import com.wan37.logic.backpack.database.BackpackDb;
-import com.wan37.logic.backpack.encode.RespBackpackInfoDtoEncoder;
+import com.wan37.logic.backpack.encode.BackpackInfoEncoder;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import io.netty.channel.Channel;
@@ -18,10 +16,10 @@ public class BackpackInfoExec {
     private static final Logger LOG = Logger.getLogger(BackpackInfoExec.class);
 
     @Autowired
-    private RespBackpackInfoDtoEncoder respBackpackInfoDtoEncoder;
+    private PlayerGlobalManager playerGlobalManager;
 
     @Autowired
-    private PlayerGlobalManager playerGlobalManager;
+    private BackpackInfoEncoder backpackInfoEncoder;
 
     public void exec(Channel channel) {
         String channelId = channel.id().asLongText();
@@ -32,7 +30,7 @@ public class BackpackInfoExec {
         }
 
         BackpackDb backpackDb = player.getPlayerDb().getBackpackDb();
-        GeneralResponseDto dto = respBackpackInfoDtoEncoder.encode(ResultCode.BACKPACK_INFO, backpackDb);
-        player.syncClient(dto);
+        String msg = backpackInfoEncoder.encode(backpackDb);
+        player.syncClient(msg);
     }
 }

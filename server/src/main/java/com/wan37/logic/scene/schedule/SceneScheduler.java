@@ -8,7 +8,6 @@ import com.wan37.logic.scene.config.SceneCfgLoader;
 import com.wan37.logic.scene.config.SceneMonsterCfg;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -25,7 +24,7 @@ public class SceneScheduler {
     @Autowired
     private SceneCfgLoader sceneCfgLoader;
 
-    @Scheduled(cron = "0/5 * *  * * ? ")
+    //@Scheduled(cron = "0/5 * *  * * ? ")
     public void schedule() {
         LOG.info(LocalDateTime.now());
 
