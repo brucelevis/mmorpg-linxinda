@@ -24,21 +24,21 @@ public class SceneEncoder {
         String playerHead = "当前场景人物：\n";
         String players = scene.getPlayers().stream()
                 .map(this::encodePlayer)
-                .collect(Collectors.joining());
+                .collect(Collectors.joining("\n"));
 
         String monsterHead = "当前场景怪物：\n";
         String monsters = scene.getMonsters().stream()
                 .map(this::encodeMonster)
-                .collect(Collectors.joining());
+                .collect(Collectors.joining("\n"));
 
         String npcHead = "当前场景npc：\n";
         String npcs = scene.getNpcs().stream()
                 .map(this::encodeNpc)
-                .collect(Collectors.joining());
+                .collect(Collectors.joining("\n"));
 
         return sceneHead
-                + playerHead + players
-                + monsterHead + monsters
+                + playerHead + players + "\n"
+                + monsterHead + monsters + "\n"
                 + npcHead + npcs;
     }
 
@@ -46,17 +46,17 @@ public class SceneEncoder {
         PlayerDb db = player.getPlayerDb();
         String factionName = factionCfgLoader.getFactionName(db.getFactionId());
 
-        String msg = "名字：%s，职业：%s, 等级：%s, Hp：%s，Mp：%s，Exp: %s （playerUid：%s）\n";
+        String msg = "名字：%s，职业：%s, 等级：%s, Hp：%s，Mp：%s，Exp: %s （playerUid：%s）";
         return String.format(msg, db.getName(), factionName, db.getLevel(), db.getHp(), db.getMp(), db.getExp(), db.getUid());
     }
 
     private String encodeMonster(Monster monster) {
-        String msg = "名字：%s，Hp：%s （monsterUid：%s）\n";
+        String msg = "名字：%s，Hp：%s （monsterUid：%s）";
         return String.format(msg, monster.getName(), monster.getHp(), monster.getUid());
     }
 
     private String encodeNpc(Npc npc) {
-        String msg = "名字：%s \n";
+        String msg = "名字：%s ";
         return String.format(msg, npc.getName());
     }
 }

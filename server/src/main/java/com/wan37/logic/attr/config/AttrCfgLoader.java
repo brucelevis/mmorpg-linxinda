@@ -31,4 +31,10 @@ public class AttrCfgLoader implements GeneralCfgLoader<AttrCfg> {
                 .filter(c -> Objects.equals(c.getId(), id))
                 .findAny();
     }
+
+    public String getName(Integer id) {
+        return load(id)
+                .map(AttrCfg::getName)
+                .orElse("");
+    }
 }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 public class BackpackItemSimpleInfoEncoder {
 
     public String encode(ItemDb itemDb) {
-        String msg = "名字：%s，格子：%s，数量：%s （uid：%s，cfgId：%s）\n";
-        return String.format(msg, itemDb.getName(), itemDb.getIndex(), itemDb.getAmount(), itemDb.getUid(), itemDb.getCfgId());
+        String msg = "格子：%s，名字：%s，数量：%s （uid：%s，cfgId：%s）";
+        return String.format(msg, itemDb.getIndex(), itemDb.getName(), itemDb.getAmount(), itemDb.getUid(), itemDb.getCfgId());
     }
 }

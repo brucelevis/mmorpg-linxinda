@@ -1,14 +1,12 @@
 package com.wan37.logic.strength.listener;
 
-import com.wan37.common.GeneralResponseDto;
-import com.wan37.common.ResultCode;
 import com.wan37.event.GeneralEventListener;
 import com.wan37.event.StrengthChangeEvent;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.player.dao.PlayerDao;
 import com.wan37.logic.player.database.PlayerDb;
-import com.wan37.logic.strength.encode.PlayerStrengthUpdateNotifyEncoder;
+import com.wan37.logic.strength.encode.PlayerStrengthInfoEncoder;
 import com.wan37.logic.strength.init.PlayerStrengthDbRefresher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,10 +24,10 @@ class StrengthOnStrengthChange implements GeneralEventListener<StrengthChangeEve
     private PlayerDao playerDao;
 
     @Autowired
-    private PlayerStrengthUpdateNotifyEncoder playerStrengthUpdateNotifyEncoder;
+    private PlayerStrengthDbRefresher playerStrengthDbRefresher;
 
     @Autowired
-    private PlayerStrengthDbRefresher playerStrengthDbRefresher;
+    private PlayerStrengthInfoEncoder playerStrengthInfoEncoder;
 
     @Override
     public void execute(StrengthChangeEvent strengthChangeEvent) {
@@ -46,7 +44,7 @@ class StrengthOnStrengthChange implements GeneralEventListener<StrengthChangeEve
         playerDao.save(playerDb);
 
         // 推送最新面板伤害变化
-        GeneralResponseDto dto = playerStrengthUpdateNotifyEncoder.encode(ResultCode.PLAYER_STRENGTH_UPDATE, playerDb.getPlayerStrengthDb());
-        player.syncClient(dto);
+        String msg = "面板总伤害更新通知|" + playerStrengthInfoEncoder.encode(playerDb.getPlayerStrengthDb());
+        player.syncClient(msg);
     }
 }

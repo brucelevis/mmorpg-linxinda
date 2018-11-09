@@ -21,7 +21,7 @@ public class BackpackInfoEncoder {
 
         String itemStr = items.values().stream()
                 .map(i -> backpackItemSimpleInfoEncoder.encode(i))
-                .collect(Collectors.joining());
+                .collect(Collectors.joining("\n"));
 
         return backpackHead + itemStr;
     }

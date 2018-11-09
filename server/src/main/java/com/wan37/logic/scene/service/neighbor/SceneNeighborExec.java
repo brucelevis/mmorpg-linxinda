@@ -41,12 +41,12 @@ public class SceneNeighborExec {
                 .map(i -> sceneCfgLoader.load(i).orElse(null))
                 .filter(Objects::nonNull)
                 .map(this::encodeScene)
-                .collect(Collectors.joining());
+                .collect(Collectors.joining("\n"));
 
         return sceneHead + sceneNeighbor;
     }
 
     private String encodeScene(SceneCfg sceneCfg) {
-        return String.format("名字：%s (sceneCfgId：%s)\n", sceneCfg.getName(), sceneCfg.getId());
+        return String.format("名字：%s (sceneCfgId：%s)", sceneCfg.getName(), sceneCfg.getId());
     }
 }

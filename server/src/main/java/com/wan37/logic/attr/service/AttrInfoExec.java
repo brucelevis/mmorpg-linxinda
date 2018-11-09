@@ -1,11 +1,12 @@
 package com.wan37.logic.attr.service;
 
-import com.wan37.common.GeneralResponseDto;
-import com.wan37.common.ResultCode;
 import com.wan37.logic.attr.database.PlayerAttrDb;
-import com.wan37.logic.attr.encode.RespPlayerAttrDtoEncoder;
+import com.wan37.logic.attr.encode.PlayerAttrInfoEncoder;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
+import com.wan37.logic.player.database.PlayerDb;
+import com.wan37.logic.strength.database.PlayerStrengthDb;
+import com.wan37.logic.strength.encode.PlayerStrengthInfoEncoder;
 import io.netty.channel.Channel;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,10 @@ public class AttrInfoExec {
     private PlayerGlobalManager playerGlobalManager;
 
     @Autowired
-    private RespPlayerAttrDtoEncoder respPlayerAttrDtoEncoder;
+    private PlayerAttrInfoEncoder playerAttrInfoEncoder;
+
+    @Autowired
+    private PlayerStrengthInfoEncoder playerStrengthInfoEncoder;
 
     public void exec(Channel channel) {
         String channelId = channel.id().asLongText();
@@ -30,8 +34,14 @@ public class AttrInfoExec {
             return;
         }
 
-        PlayerAttrDb playerAttrDb = player.getPlayerDb().getPlayerAttrDb();
-        GeneralResponseDto dto = respPlayerAttrDtoEncoder.encode(ResultCode.ATTR_INFO, playerAttrDb);
-        player.syncClient(dto);
+        PlayerDb playerDb = player.getPlayerDb();
+
+        PlayerAttrDb playerAttrDb = playerDb.getPlayerAttrDb();
+        String pBaseAttr = playerAttrInfoEncoder.encode(playerAttrDb);
+        player.syncClient(pBaseAttr);
+
+        PlayerStrengthDb playerStrengthDb = playerDb.getPlayerStrengthDb();
+        String strength = playerStrengthInfoEncoder.encode(playerStrengthDb);
+        player.syncClient(strength);
     }
 }

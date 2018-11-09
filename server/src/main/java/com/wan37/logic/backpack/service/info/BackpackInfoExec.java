@@ -36,10 +36,10 @@ public class BackpackInfoExec {
 
         BackpackDb backpackDb = player.getPlayerDb().getBackpackDb();
         String props = backpackInfoEncoder.encode(backpackDb);
+        player.syncClient(props);
 
         CurrencyDb currencyDb = player.getPlayerDb().getCurrencyDb();
         String currency = currencyInfoEncoder.encode(currencyDb);
-
-        player.syncClient(props + currency);
+        player.syncClient(currency);
     }
 }

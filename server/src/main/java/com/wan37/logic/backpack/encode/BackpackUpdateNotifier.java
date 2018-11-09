@@ -51,14 +51,14 @@ public class BackpackUpdateNotifier {
         Map<Integer, ItemDb> items = backpackDb.getItemMap();
         return indexs.stream()
                 .map(i -> encodeItem(i, items.get(i)))
-                .collect(Collectors.joining());
+                .collect(Collectors.joining("\n"));
     }
 
     @Deprecated
     private String encodeItem(Integer index, ItemDb itemDb) {
         if (itemDb == null) {
             // 背包物品没格子
-            return String.format("格子：%s，数量：%s \n", index, 0);
+            return String.format("格子：%s，数量：%s ", index, 0);
         }
 
         return backpackItemSimpleInfoEncoder.encode(itemDb);
