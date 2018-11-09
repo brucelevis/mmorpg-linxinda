@@ -49,7 +49,7 @@ public class PlayerLoginExec {
 
         sceneFacade.enterScene(player.getSceneId(), player);
 
-        String msg = playerInfoEncoder.encode(player.getPlayerDb());
+        String msg = "登录成功|" + playerInfoEncoder.encode(player.getPlayerDb());
         player.syncClient(msg);
     }
 }

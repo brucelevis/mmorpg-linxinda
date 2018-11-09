@@ -1,12 +1,10 @@
 package com.wan37.logic.scene.service.aoi;
 
-import com.wan37.common.GeneralResponseDto;
-import com.wan37.common.ResultCode;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.scene.Scene;
 import com.wan37.logic.scene.SceneGlobalManager;
-import com.wan37.logic.scene.encode.RespAoiSceneDtoEncoder;
+import com.wan37.logic.scene.encode.SceneEncoder;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +21,7 @@ public class SceneAoiExec {
     private SceneGlobalManager sceneGlobalManager;
 
     @Autowired
-    private RespAoiSceneDtoEncoder respAoiSceneDtoEncoder;
+    private SceneEncoder sceneEncoder;
 
     public void exec(SAoiScene aoiScene) {
         String channelId = aoiScene.getChannel().id().asLongText();
@@ -36,7 +34,7 @@ public class SceneAoiExec {
         Integer sceneId = player.getSceneId();
         Scene scene = sceneGlobalManager.getScene(sceneId);
 
-        GeneralResponseDto dto = respAoiSceneDtoEncoder.encode(ResultCode.SCENE_AOI, scene);
-        aoiScene.response(dto);
+        String msg = sceneEncoder.encode(scene);
+        player.syncClient(msg);
     }
 }

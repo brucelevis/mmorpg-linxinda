@@ -1,13 +1,11 @@
 package com.wan37.logic.scene.listener;
 
-import com.wan37.common.GeneralResponseDto;
-import com.wan37.common.ResultCode;
 import com.wan37.event.GeneralEventListener;
 import com.wan37.event.SceneLeaveEvent;
 import com.wan37.logic.player.Player;
+import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.scene.Scene;
 import com.wan37.logic.scene.SceneGlobalManager;
-import com.wan37.logic.scene.encode.ScenePlayerLeaveNotifyEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,14 +23,12 @@ class SceneOnPlayerLeave implements GeneralEventListener<SceneLeaveEvent> {
     private SceneGlobalManager sceneGlobalManager;
 
     @Autowired
-    private ScenePlayerLeaveNotifyEncoder scenePlayerLeaveNotifyEncoder;
+    private PlayerGlobalManager playerGlobalManager;
 
     @Override
     public void execute(SceneLeaveEvent sceneLeaveEvent) {
         Long playerUid = sceneLeaveEvent.getPlayerUid();
         Integer sceneId = sceneLeaveEvent.getSceneId();
-
-        GeneralResponseDto notify = scenePlayerLeaveNotifyEncoder.encode(ResultCode.SCENE_PLAYER_LEAVE, playerUid);
 
         Scene scene = sceneGlobalManager.querySceneById(sceneId);
         if (scene == null) {
@@ -45,7 +41,13 @@ class SceneOnPlayerLeave implements GeneralEventListener<SceneLeaveEvent> {
                 .filter(p -> !Objects.equals(p.getUid(), playerUid))
                 .collect(Collectors.toList()));
 
+        Player player = playerGlobalManager.getPlayerByUid(playerUid);
+        if (player == null) {
+            return;
+        }
+
         // 推送玩家离开场景通知
-        scene.getPlayers().forEach(p -> p.syncClient(notify));
+        String msg = String.format("玩家离开场景| 名字：%s (playerUid：%s)\n", player.getPlayerDb().getName(), playerUid);
+        scene.getPlayers().forEach(p -> p.syncClient(msg));
     }
 }

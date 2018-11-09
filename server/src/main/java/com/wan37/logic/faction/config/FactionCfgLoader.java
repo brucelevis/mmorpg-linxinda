@@ -31,4 +31,10 @@ public class FactionCfgLoader implements GeneralCfgLoader<FactionCfg> {
                 .filter(c -> Objects.equals(c.getId(), id))
                 .findAny();
     }
+
+    public String getFactionName(Integer id) {
+        return load(id)
+                .map(FactionCfg::getName)
+                .orElse("");
+    }
 }
