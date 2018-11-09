@@ -4,6 +4,7 @@ import com.wan37.common.GeneralResponseDto;
 import com.wan37.common.ResultCode;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
+import com.wan37.logic.player.encode.PlayerInfoEncoder;
 import com.wan37.logic.player.encode.RespLoginPlayerDtoEncoder;
 import com.wan37.logic.scene.SceneFacade;
 import io.netty.channel.Channel;
@@ -25,6 +26,9 @@ public class PlayerLoginExec {
     @Autowired
     private SceneFacade sceneFacade;
 
+    @Autowired
+    private PlayerInfoEncoder playerInfoEncoder;
+
     public void exec(PLoginPlayer loginPlayer) {
         Long playerUid = loginPlayer.getPlayerUid();
         Channel channel = loginPlayer.getChannel();
@@ -45,7 +49,7 @@ public class PlayerLoginExec {
 
         sceneFacade.enterScene(player.getSceneId(), player);
 
-        GeneralResponseDto dto = respLoginPlayerDtoEncoder.encode(ResultCode.LOGIN_SUCCESS, player);
-        loginPlayer.response(dto);
+        String msg = playerInfoEncoder.encode(player.getPlayerDb());
+        player.syncClient(msg);
     }
 }

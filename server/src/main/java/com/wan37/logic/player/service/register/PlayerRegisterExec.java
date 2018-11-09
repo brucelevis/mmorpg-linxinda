@@ -1,9 +1,8 @@
 package com.wan37.logic.player.service.register;
 
-import com.wan37.common.GeneralResponseDto;
-import com.wan37.common.ResultCode;
 import com.wan37.logic.faction.config.FactionCfgLoader;
 import com.wan37.logic.player.database.PlayerDb;
+import com.wan37.logic.player.encode.PlayerRegisterResponseEncoder;
 import com.wan37.logic.player.encode.RespRegisterPlayerDtoEncoder;
 import com.wan37.logic.player.init.PlayerDbInitializer;
 import com.wan37.logic.scene.config.SceneCfg;
@@ -30,12 +29,15 @@ public class PlayerRegisterExec {
     @Autowired
     private FactionCfgLoader factionCfgLoader;
 
+    @Autowired
+    private PlayerRegisterResponseEncoder playerRegisterResponseEncoder;
+
     public void exec(PRegisterPlayer regPlayer) {
         PlayerDb playerDb = createPlayerDb(regPlayer);
         playerDbInitializer.init(playerDb);
 
-        GeneralResponseDto dto = respRegisterPlayerDtoEncoder.encode(ResultCode.REGISTER_SUCCESS, playerDb.getUid());
-        regPlayer.response(dto);
+        String msg = playerRegisterResponseEncoder.encode(playerDb);
+        regPlayer.response(msg);
     }
 
     private PlayerDb createPlayerDb(PRegisterPlayer regPlayer) {

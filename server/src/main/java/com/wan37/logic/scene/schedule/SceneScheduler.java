@@ -1,7 +1,6 @@
 package com.wan37.logic.scene.schedule;
 
 import com.wan37.logic.monster.Monster;
-import com.wan37.logic.monster.config.MonsterCfg;
 import com.wan37.logic.scene.Scene;
 import com.wan37.logic.scene.SceneGlobalManager;
 import com.wan37.logic.scene.config.SceneCfg;
@@ -50,6 +49,6 @@ public class SceneScheduler {
 
 
         // 更新场景里的怪物
-        sceneCfg.getMonsters()
+        // sceneCfg.getMonsters()
     }
 }

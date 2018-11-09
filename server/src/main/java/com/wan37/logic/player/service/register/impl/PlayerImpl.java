@@ -1,8 +1,7 @@
 package com.wan37.logic.player.service.register.impl;
 
-import com.wan37.Utils.MessageSenderFormatter;
-import com.wan37.common.GeneralResponseDto;
 import com.wan37.logic.player.service.register.PRegisterPlayer;
+import com.wan37.util.GeneralNotifySenderUtil;
 import io.netty.channel.Channel;
 
 public class PlayerImpl implements PRegisterPlayer {
@@ -29,8 +28,8 @@ public class PlayerImpl implements PRegisterPlayer {
     }
 
     @Override
-    public void response(GeneralResponseDto dto) {
-        channel.writeAndFlush(MessageSenderFormatter.format(dto));
+    public void response(String msg) {
+        GeneralNotifySenderUtil.send(channel, msg);
     }
 
     private final Integer facctionId;
