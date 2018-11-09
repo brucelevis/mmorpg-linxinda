@@ -27,7 +27,7 @@ public class PlayerInfoEncoder {
                 .map(SceneCfg::getName)
                 .orElse("");
 
-        String msg = "玩家名：%s，Hp: %s，Mp：%s，Exp: %s，职业：%s，等级：%s，当前所在场景：%s  (playerUid：%s)";
+        String msg = "名字：%s，Hp: %s，Mp：%s，Exp: %s，职业：%s，等级：%s，当前所在场景：%s  (playerUid：%s)";
         return String.format(msg, db.getName(), db.getHp(), db.getMp(), db.getExp(), factionName, db.getLevel(), sceneName, db.getUid());
     }
 }

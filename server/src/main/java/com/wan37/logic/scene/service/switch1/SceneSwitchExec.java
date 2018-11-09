@@ -9,6 +9,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class SceneSwitchExec {
 
@@ -33,6 +35,11 @@ public class SceneSwitchExec {
 
         Player player = playerGlobalManager.getPlayerByChannelId(channelId);
         if (player == null) {
+            return;
+        }
+
+        if (Objects.equals(player.getSceneId(), sceneId)) {
+            player.syncClient("已经在目标场景里了");
             return;
         }
 

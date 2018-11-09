@@ -47,7 +47,7 @@ class SceneOnPlayerLeave implements GeneralEventListener<SceneLeaveEvent> {
         }
 
         // 推送玩家离开场景通知
-        String msg = String.format("玩家离开场景| 名字：%s (playerUid：%s)\n", player.getPlayerDb().getName(), playerUid);
+        String msg = String.format("玩家离开场景通知| 名字：%s (playerUid：%s)\n", player.getPlayerDb().getName(), playerUid);
         scene.getPlayers().forEach(p -> p.syncClient(msg));
     }
 }
