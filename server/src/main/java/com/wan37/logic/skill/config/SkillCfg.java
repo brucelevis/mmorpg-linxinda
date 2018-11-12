@@ -1,4 +1,4 @@
-package com.wan37.logic.skill;
+package com.wan37.logic.skill.config;
 
 public interface SkillCfg {
 

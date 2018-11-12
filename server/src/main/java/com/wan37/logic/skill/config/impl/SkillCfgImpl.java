@@ -1,7 +1,7 @@
 package com.wan37.logic.skill.config.impl;
 
 import com.wan37.config.entity.SkillCfgExcel;
-import com.wan37.logic.skill.SkillCfg;
+import com.wan37.logic.skill.config.SkillCfg;
 
 public class SkillCfgImpl implements SkillCfg {
 

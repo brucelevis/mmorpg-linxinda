@@ -1,6 +1,6 @@
 package com.wan37.logic.skill.database;
 
-import com.wan37.logic.skill.SkillCfg;
+import com.wan37.logic.skill.config.SkillCfg;
 
 import java.util.Map;
 

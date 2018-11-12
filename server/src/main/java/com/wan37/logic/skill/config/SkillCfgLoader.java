@@ -3,7 +3,6 @@ package com.wan37.logic.skill.config;
 import com.wan37.config.ConfigManager;
 import com.wan37.config.GeneralCfgLoader;
 import com.wan37.config.entity.SkillCfgExcel;
-import com.wan37.logic.skill.SkillCfg;
 import com.wan37.logic.skill.config.impl.SkillCfgImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,5 +30,11 @@ public class SkillCfgLoader implements GeneralCfgLoader<SkillCfg> {
         return loads().stream()
                 .filter(c -> Objects.equals(c.getId(), id))
                 .findAny();
+    }
+
+    public String getName(Integer id) {
+        return load(id)
+                .map(SkillCfg::getName)
+                .orElse("");
     }
 }
