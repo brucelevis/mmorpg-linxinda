@@ -8,11 +8,13 @@ import com.wan37.logic.backpack.database.ItemDb;
 import com.wan37.logic.equipment.database.EquipAttrDb;
 import com.wan37.logic.equipment.database.EquipDb;
 import com.wan37.logic.equipment.database.EquipExtraDb;
+import com.wan37.logic.equipment.service.EquipExtraDbGetter;
 import com.wan37.logic.player.database.PlayerDb;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.List;
@@ -27,6 +29,9 @@ public class StrengthAttrsCalculatorTest {
 
     @InjectMocks
     StrengthAttrsCalculator _sut;
+
+    @Spy
+    EquipExtraDbGetter _getter;
 
     PlayerDb _db;
 

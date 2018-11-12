@@ -7,6 +7,7 @@ import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.player.encode.PlayerInfoEncoder;
 import com.wan37.logic.player.encode.RespLoginPlayerDtoEncoder;
 import com.wan37.logic.scene.SceneFacade;
+import com.wan37.util.GeneralNotifySenderUtil;
 import io.netty.channel.Channel;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,12 @@ public class PlayerLoginExec {
     public void exec(PLoginPlayer loginPlayer) {
         Long playerUid = loginPlayer.getPlayerUid();
         Channel channel = loginPlayer.getChannel();
+
+        // 登录检查
+        if (playerGlobalManager.isOnline(playerUid)) {
+            GeneralNotifySenderUtil.send(channel, "已经登录的角色");
+            return;
+        }
 
         Player player = playerGlobalManager.getPlayerByUid(playerUid);
         if (player == null) {

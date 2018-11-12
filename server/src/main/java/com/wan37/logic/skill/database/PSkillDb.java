@@ -5,6 +5,8 @@ public class PSkillDb {
     private Integer cfgId;
     private int level;
 
+    private long lastUseTime;
+
     public Integer getCfgId() {
         return cfgId;
     }
@@ -19,5 +21,13 @@ public class PSkillDb {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public long getLastUseTime() {
+        return lastUseTime;
+    }
+
+    public void setLastUseTime(long lastUseTime) {
+        this.lastUseTime = lastUseTime;
     }
 }

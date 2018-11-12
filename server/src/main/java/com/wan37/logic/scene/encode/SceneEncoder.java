@@ -1,7 +1,7 @@
 package com.wan37.logic.scene.encode;
 
 import com.wan37.logic.faction.config.FactionCfgLoader;
-import com.wan37.logic.monster.Monster;
+import com.wan37.logic.monster.encode.MonsterEncoder;
 import com.wan37.logic.npc.Npc;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.database.PlayerDb;
@@ -18,6 +18,9 @@ public class SceneEncoder {
     @Autowired
     private FactionCfgLoader factionCfgLoader;
 
+    @Autowired
+    private MonsterEncoder monsterEncoder;
+
     public String encode(Scene scene) {
         String sceneHead = String.format("当前场景：%s\n", scene.getSceneCfg().getName());
 
@@ -28,7 +31,7 @@ public class SceneEncoder {
 
         String monsterHead = "当前场景怪物：\n";
         String monsters = scene.getMonsters().stream()
-                .map(this::encodeMonster)
+                .map(m -> monsterEncoder.encode(m))
                 .collect(Collectors.joining("\n"));
 
         String npcHead = "当前场景npc：\n";
@@ -48,11 +51,6 @@ public class SceneEncoder {
 
         String msg = "名字：%s，职业：%s, 等级：%s, Hp：%s，Mp：%s，Exp: %s （playerUid：%s）";
         return String.format(msg, db.getName(), factionName, db.getLevel(), db.getHp(), db.getMp(), db.getExp(), db.getUid());
-    }
-
-    private String encodeMonster(Monster monster) {
-        String msg = "名字：%s，Hp：%s （monsterUid：%s）";
-        return String.format(msg, monster.getName(), monster.getHp(), monster.getUid());
     }
 
     private String encodeNpc(Npc npc) {

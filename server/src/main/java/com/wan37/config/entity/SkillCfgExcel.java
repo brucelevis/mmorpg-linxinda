@@ -7,6 +7,7 @@ public class SkillCfgExcel {
     private String desc;
     private String cd;
     private int maxLevel;
+    private String demage;
 
     public Integer getId() {
         return id;
@@ -46,5 +47,13 @@ public class SkillCfgExcel {
 
     public void setMaxLevel(int maxLevel) {
         this.maxLevel = maxLevel;
+    }
+
+    public String getDemage() {
+        return demage;
+    }
+
+    public void setDemage(String demage) {
+        this.demage = demage;
     }
 }

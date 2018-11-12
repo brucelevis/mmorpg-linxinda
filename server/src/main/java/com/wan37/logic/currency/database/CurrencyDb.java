@@ -8,6 +8,9 @@ import java.util.Set;
 
 public class CurrencyDb {
 
+    /**
+     * key：VirtualItemCfg#getId
+     */
     private Map<Integer, CurrencyItemDb> itemMap;
 
     /**

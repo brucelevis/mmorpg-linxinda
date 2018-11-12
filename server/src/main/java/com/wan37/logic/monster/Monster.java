@@ -7,8 +7,8 @@ public class Monster implements IMonster {
     private Long uid;
     private MonsterCfg monsterCfg;
 
-    private double hp;
-    private double mp;
+    private long hp;
+    private long mp;
 
     private long deadTime;
     private boolean alive;
@@ -30,19 +30,19 @@ public class Monster implements IMonster {
         this.monsterCfg = monsterCfg;
     }
 
-    public double getHp() {
+    public long getHp() {
         return hp;
     }
 
-    public void setHp(double hp) {
+    public void setHp(long hp) {
         this.hp = hp;
     }
 
-    public double getMp() {
+    public long getMp() {
         return mp;
     }
 
-    public void setMp(double mp) {
+    public void setMp(long mp) {
         this.mp = mp;
     }
 

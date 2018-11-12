@@ -11,4 +11,6 @@ public interface SkillCfg {
     int getCd(int lv);
 
     int getMaxLevel();
+
+    double getDemage(int lv);
 }

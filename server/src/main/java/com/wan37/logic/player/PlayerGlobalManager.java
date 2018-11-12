@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
@@ -50,6 +51,11 @@ public class PlayerGlobalManager {
      * value: Player#getUid
      */
     private static final Map<String, Long> channelMap = new ConcurrentHashMap<>();
+
+    public boolean isOnline(Long uid) {
+        return channelMap.values().stream()
+                .anyMatch(i -> Objects.equals(i, uid));
+    }
 
     public void addInOnlineList(Player player) {
         channelMap.put(player.getChannel().id().asLongText(), player.getUid());

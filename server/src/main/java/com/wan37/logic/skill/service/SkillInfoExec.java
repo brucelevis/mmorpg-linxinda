@@ -38,6 +38,7 @@ public class SkillInfoExec {
     }
 
     public String encodeSkill(PSkillDb pSkillDb) {
-        return String.format("%s：Lv%s", skillCfgLoader.getName(pSkillDb.getCfgId()), pSkillDb.getLevel());
+        Integer id = pSkillDb.getCfgId();
+        return String.format("%s（id：%s）：Lv%s", skillCfgLoader.getName(id), id, pSkillDb.getLevel());
     }
 }

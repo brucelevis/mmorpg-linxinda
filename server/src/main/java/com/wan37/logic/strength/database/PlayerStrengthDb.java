@@ -16,7 +16,7 @@ public class PlayerStrengthDb {
     /**
      * 面板基础总伤
      */
-    private double baseVal;
+    private long baseVal;
 
     public Map<Integer, Double> getAttrs() {
         return attrs;
@@ -26,11 +26,11 @@ public class PlayerStrengthDb {
         this.attrs = attrs;
     }
 
-    public double getBaseVal() {
+    public long getBaseVal() {
         return baseVal;
     }
 
-    public void setBaseVal(double baseVal) {
+    public void setBaseVal(long baseVal) {
         this.baseVal = baseVal;
     }
 }

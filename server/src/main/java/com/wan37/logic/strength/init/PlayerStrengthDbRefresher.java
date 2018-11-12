@@ -24,9 +24,11 @@ public class PlayerStrengthDbRefresher {
 
         PlayerStrengthDb db = new PlayerStrengthDb();
         db.setAttrs(result);
-        db.setBaseVal(result.entrySet().stream()
+
+        double sum = result.entrySet().stream()
                 .mapToDouble(this::calc)
-                .sum());
+                .sum();
+        db.setBaseVal(Math.round(sum));
 
         playerDb.setPlayerStrengthDb(db);
     }
