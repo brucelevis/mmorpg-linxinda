@@ -59,7 +59,7 @@ public class EquipInfoExec {
         ItemExtraEncodeBehavContext ctx = new ItemExtraEncodeBehavContext(itemDb.getExtraDb());
         behavior.behave(ctx);
 
-        String msg = "名字：%s, 部位：%s，%s";
-        return String.format(msg, equipName, partName, ctx.getResult());
+        String msg = "部位：%s（partId：%s），名字：%s, %s";
+        return String.format(msg, partName, part, equipName, ctx.getResult());
     }
 }
