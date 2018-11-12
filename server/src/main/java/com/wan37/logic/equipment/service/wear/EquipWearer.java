@@ -9,6 +9,7 @@ import com.wan37.logic.equipment.database.EquipDb;
 import com.wan37.logic.equipment.encode.EquipUpdateNotifier;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.dao.PlayerDao;
+import com.wan37.logic.props.config.PropsCfgLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,9 @@ public class EquipWearer {
 
     @Autowired
     private GenernalEventListenersManager genernalEventListenersManager;
+
+    @Autowired
+    private PropsCfgLoader propsCfgLoader;
 
     public void wear(Player player, ItemDb itemDb, EquipCfg equipCfg) {
         //TODO: 检查穿戴条件
@@ -49,6 +53,10 @@ public class EquipWearer {
         }
 
         playerDao.save(player.getPlayerDb());
+
+        // 打印提示
+        String msg = String.format("你穿上了%s", propsCfgLoader.getName(equipCfg.getId()));
+        player.syncClient(msg);
 
         // 推送装备栏更新
         equipUpdateNotifier.notify(player);

@@ -74,8 +74,10 @@ public class ItemUseExec {
 
         // 背包物品-1
         backpackFacade.remove(player, index, 1);
-
         playerDao.save(player.getPlayerDb());
+
+        String msg = String.format("你使用了%s", propsCfg.getName());
+        player.syncClient(msg);
 
         // 使用
         Integer logicId = propsCfg.getUseLogicId();

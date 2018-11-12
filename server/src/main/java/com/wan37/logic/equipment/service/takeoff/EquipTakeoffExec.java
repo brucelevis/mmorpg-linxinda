@@ -9,6 +9,7 @@ import com.wan37.logic.equipment.encode.EquipUpdateNotifier;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.player.dao.PlayerDao;
+import com.wan37.logic.props.config.PropsCfgLoader;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,9 @@ public class EquipTakeoffExec {
     @Autowired
     private GenernalEventListenersManager genernalEventListenersManager;
 
+    @Autowired
+    private PropsCfgLoader propsCfgLoader;
+
     public void exec(String channelId, Integer part) {
         Player player = playerGlobalManager.getPlayerByChannelId(channelId);
         if (player == null) {
@@ -60,6 +64,10 @@ public class EquipTakeoffExec {
         backpackFacade.add(player, equipItem);
 
         playerDao.save(player.getPlayerDb());
+
+        // 打印提示
+        String msg = String.format("你脱掉了%s", propsCfgLoader.getName(equipItem.getCfgId()));
+        player.syncClient(msg);
 
         // 推送装备栏更新
         equipUpdateNotifier.notify(player);
