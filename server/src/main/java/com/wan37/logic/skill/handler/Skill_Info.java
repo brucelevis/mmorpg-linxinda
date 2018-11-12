@@ -17,5 +17,4 @@ class Skill_Info implements GeneralHandler {
         String channelId = msg.getChannel().id().asLongText();
         skillInfoExec.exec(channelId);
     }
-
 }

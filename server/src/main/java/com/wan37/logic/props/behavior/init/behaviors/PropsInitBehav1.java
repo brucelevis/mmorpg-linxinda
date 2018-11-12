@@ -39,6 +39,10 @@ class PropsInitBehav1 implements PropsInitBehavior {
         }
 
         EquipExtraDb extraDb = new EquipExtraDb();
+
+        //FIXME: 初始耐久度先写死
+        extraDb.setDurabilityv(70);
+
         extraDb.setBaseAttrs(equipCfg.getAttrs().stream()
                 .map(this::createAttr)
                 .collect(Collectors.toList()));

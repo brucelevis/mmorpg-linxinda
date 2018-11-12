@@ -1,5 +1,10 @@
 package com.wan37.logic.attack.service;
 
+import com.wan37.logic.backpack.database.ItemDb;
+import com.wan37.logic.equipment.EquipPartEnum;
+import com.wan37.logic.equipment.database.EquipDb;
+import com.wan37.logic.equipment.database.EquipExtraDb;
+import com.wan37.logic.equipment.service.EquipExtraDbGetter;
 import com.wan37.logic.monster.Monster;
 import com.wan37.logic.monster.encode.MonsterEncoder;
 import com.wan37.logic.player.Player;
@@ -41,6 +46,9 @@ public class AttackPlayerToMonsterExec {
     @Autowired
     private MonsterEncoder monsterEncoder;
 
+    @Autowired
+    private EquipExtraDbGetter equipExtraDbGetter;
+
     public void exec(String channelId, Integer skillId, Long monsterUid) {
         Player player = playerGlobalManager.getPlayerByChannelId(channelId);
         if (player == null) {
@@ -48,6 +56,20 @@ public class AttackPlayerToMonsterExec {
         }
 
         PlayerDb playerDb = player.getPlayerDb();
+        EquipDb equipDb = playerDb.getEquipDb();
+        ItemDb equipItem = equipDb.getItems().get(EquipPartEnum.PART_1.getId());
+        if (equipItem == null) {
+            player.syncClient("未佩戴武器，无法攻击");
+            return;
+        }
+
+        EquipExtraDb equipExtraDb = equipExtraDbGetter.get(equipItem.getExtraDb());
+        if (equipExtraDb.getDurabilityv() < 20) {
+            //FIXME: 写死攻击时武器耐久度要求
+            player.syncClient("武器耐久度过低，请及时修理");
+            return;
+        }
+
         PlayerSkillDb playerSkillDb = playerDb.getPlayerSkillDb();
         PSkillDb skillDb = playerSkillDb.getSkills().get(skillId);
         if (skillDb == null) {
@@ -90,7 +112,13 @@ public class AttackPlayerToMonsterExec {
 
         // 设置技能cd及推送
         skillDb.setLastUseTime(now);
+
+        //FIXME: 写死装备耐久度
+        equipExtraDb.setDurabilityv(equipExtraDb.getDurabilityv() - 1);
+
+        // 持久化
         playerDao.save(playerDb);
+
         //TODO: 推送技能cd
 
         long curHp = monster.getHp();
