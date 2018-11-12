@@ -31,4 +31,10 @@ public class PropsCfgLoader implements GeneralCfgLoader<PropsCfg> {
                 .filter(c -> Objects.equals(c.getId(), id))
                 .findAny();
     }
+
+    public String getName(Integer id) {
+        return load(id)
+                .map(PropsCfg::getName)
+                .orElse("NULL");
+    }
 }

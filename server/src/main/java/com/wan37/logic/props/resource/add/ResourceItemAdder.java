@@ -114,7 +114,6 @@ public class ResourceItemAdder {
         itemDb.setUid(idTool.generate());
         itemDb.setCfgId(propsCfg.getId());
         itemDb.setAmount(amount);
-        itemDb.setName(propsCfg.getName());
         itemDb.setIndex(index);
 
         return itemDb;

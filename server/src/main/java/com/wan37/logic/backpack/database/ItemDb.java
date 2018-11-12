@@ -23,9 +23,6 @@ public class ItemDb {
 
     private int amount;
 
-    //FIXME: 为了返回的Json能打印知道这个东西是什么名字才存起来而已
-    private String name;
-
     public Long getUid() {
         return uid;
     }
@@ -64,13 +61,5 @@ public class ItemDb {
 
     public void setAmount(int amount) {
         this.amount = amount;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }

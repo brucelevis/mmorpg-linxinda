@@ -59,11 +59,9 @@ public class BackpackUpdateNotifyEncoder {
 
         dto.setUid(itemDb.getUid());
         dto.setCfgId(itemDb.getCfgId());
-        dto.setName(itemDb.getName());
         dto.setAmount(itemDb.getAmount());
         dto.setExtra(itemDb.getExtraDb());
 
         return dto;
     }
-
 }

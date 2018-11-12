@@ -40,7 +40,6 @@ public class RespBackpackInfoDtoEncoder {
 
         dto.setUid(itemDb.getUid());
         dto.setCfgId(itemDb.getCfgId());
-        dto.setName(itemDb.getName());
         dto.setIndex(itemDb.getIndex());
         dto.setAmount(itemDb.getAmount());
         dto.setExtra(itemDb.getExtraDb());

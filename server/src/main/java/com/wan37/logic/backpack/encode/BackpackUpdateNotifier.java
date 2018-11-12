@@ -35,7 +35,7 @@ public class BackpackUpdateNotifier {
         }
 
         // 格子有更新推送
-        player.syncClient("背包物品更新|" + msg);
+        player.syncClient("背包物品更新：\n" + msg);
 
         // 背包格子变化标记清空
         backpackDb.getIndexs().clear();

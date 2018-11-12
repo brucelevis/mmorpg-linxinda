@@ -7,7 +7,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class EquipExtraDbGetter {
 
+    @Deprecated
     public EquipExtraDb get(Object extraDb) {
-        return JSONObject.parseObject(extraDb.toString(), EquipExtraDb.class);
+        try {
+            return (EquipExtraDb) extraDb;
+        } catch (Exception e) {
+            return JSONObject.parseObject(extraDb.toString(), EquipExtraDb.class);
+        }
     }
 }

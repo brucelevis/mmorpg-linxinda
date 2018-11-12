@@ -43,7 +43,6 @@ public class EquipUpdateNotifyEncoder {
         }
 
         dto.setUid(itemDb.getUid());
-        dto.setName(itemDb.getName());
         dto.setCfgId(itemDb.getCfgId());
         dto.setExtra(itemDb.getExtraDb());
 
