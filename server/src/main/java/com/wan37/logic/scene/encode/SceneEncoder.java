@@ -22,6 +22,9 @@ public class SceneEncoder {
     @Autowired
     private MonsterEncoder monsterEncoder;
 
+    @Autowired
+    private SceneItemEncoder sceneItemEncoder;
+
     public String encode(Scene scene) {
         String sceneHead = String.format("当前场景：%s\n", scene.getSceneCfg().getName());
 
@@ -41,10 +44,16 @@ public class SceneEncoder {
                 .map(this::encodeNpc)
                 .collect(Collectors.joining("\n"));
 
+        String itemHead = "当前场景物品：\n";
+        String items = scene.getItems().values().stream()
+                .map(i -> sceneItemEncoder.encode(i))
+                .collect(Collectors.joining("\n"));
+
         return sceneHead
                 + playerHead + players + "\n"
                 + monsterHead + monsters + "\n"
-                + npcHead + npcs;
+                + npcHead + npcs + "\n"
+                + itemHead + items;
     }
 
     private String encodePlayer(Player player) {

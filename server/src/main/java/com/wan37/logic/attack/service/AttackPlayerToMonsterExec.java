@@ -13,6 +13,8 @@ import com.wan37.logic.player.dao.PlayerDao;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.scene.Scene;
 import com.wan37.logic.scene.SceneGlobalManager;
+import com.wan37.logic.scene.encode.SceneItemEncoder;
+import com.wan37.logic.scene.item.SceneItem;
 import com.wan37.logic.skill.config.SkillCfg;
 import com.wan37.logic.skill.config.SkillCfgLoader;
 import com.wan37.logic.skill.database.PSkillDb;
@@ -24,7 +26,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class AttackPlayerToMonsterExec {
@@ -48,6 +52,12 @@ public class AttackPlayerToMonsterExec {
 
     @Autowired
     private EquipExtraDbGetter equipExtraDbGetter;
+
+    @Autowired
+    private SceneItem.Factory sceneItemFactory;
+
+    @Autowired
+    private SceneItemEncoder sceneItemEncoder;
 
     public void exec(String channelId, Integer skillId, Long monsterUid) {
         Player player = playerGlobalManager.getPlayerByChannelId(channelId);
@@ -150,6 +160,19 @@ public class AttackPlayerToMonsterExec {
             // 打印
             String msg = String.format("你用%s击杀了%s，造成伤害%s，消耗%smp，获得经验%s", skillCfg.getName(), monster.getName(), demage, costMp, exp);
             player.syncClient(msg);
+
+            // 爆物
+            List<SceneItem> rewards = sceneItemFactory.create(monster.getMonsterCfg());
+            if (!rewards.isEmpty()) {
+                rewards.forEach(i -> scene.getItems().put(i.getUid(), i));
+
+                // 通知玩家地上物品更新
+                String head = String.format("%s怪物掉落：", monster.getName());
+                String items = rewards.stream()
+                        .map(i -> sceneItemEncoder.encode(i))
+                        .collect(Collectors.joining("，"));
+                scene.getPlayers().forEach(p -> p.syncClient(head + items));
+            }
         }
 
         // 持久化

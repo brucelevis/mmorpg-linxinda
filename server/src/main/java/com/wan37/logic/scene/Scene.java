@@ -4,9 +4,12 @@ import com.wan37.logic.monster.Monster;
 import com.wan37.logic.npc.Npc;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.scene.config.SceneCfg;
+import com.wan37.logic.scene.item.SceneItem;
 import com.wan37.logic.scene.schedule.SceneScheduler;
 
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Scene implements IScene, Runnable {
 
@@ -17,6 +20,11 @@ public class Scene implements IScene, Runnable {
     private List<Monster> monsters;
 
     private List<Npc> npcs;
+
+    /**
+     * 地上奖励
+     */
+    private Map<Long, SceneItem> items = new ConcurrentHashMap<>();
 
     private SceneScheduler sceneScheduler;
 
@@ -54,6 +62,14 @@ public class Scene implements IScene, Runnable {
 
     public void setSceneScheduler(SceneScheduler sceneScheduler) {
         this.sceneScheduler = sceneScheduler;
+    }
+
+    public Map<Long, SceneItem> getItems() {
+        return items;
+    }
+
+    public void setItems(Map<Long, SceneItem> items) {
+        this.items = items;
     }
 
     @Override

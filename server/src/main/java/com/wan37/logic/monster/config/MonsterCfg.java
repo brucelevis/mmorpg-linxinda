@@ -12,5 +12,7 @@ public interface MonsterCfg {
 
     List<MonsterInitAttrCfg> getAttrs();
 
+    List<MonsterItemCfg> getItems();
+
     int getExp();
 }

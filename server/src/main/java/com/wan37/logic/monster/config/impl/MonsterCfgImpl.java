@@ -3,6 +3,7 @@ package com.wan37.logic.monster.config.impl;
 import com.wan37.config.entity.MonsterCfgExcel;
 import com.wan37.logic.monster.config.MonsterCfg;
 import com.wan37.logic.monster.config.MonsterInitAttrCfg;
+import com.wan37.logic.monster.config.MonsterItemCfg;
 
 import java.util.Arrays;
 import java.util.List;
@@ -37,6 +38,13 @@ public class MonsterCfgImpl implements MonsterCfg {
     }
 
     @Override
+    public List<MonsterItemCfg> getItems() {
+        return Arrays.stream(cfgExcel.getItems().split(","))
+                .map(this::createItem)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public int getExp() {
         return cfgExcel.getExp();
     }
@@ -47,6 +55,15 @@ public class MonsterCfgImpl implements MonsterCfg {
         double value = Double.parseDouble(attr[1]);
 
         return new MonsterInitAttrCfgImpl(id, value);
+    }
+
+    private MonsterItemCfg createItem(String s) {
+        String[] item = s.split(":");
+        Integer id = Integer.parseInt(item[0]);
+        int amount = Integer.parseInt(item[1]);
+        double pro = Double.parseDouble(item[2]);
+
+        return new MonsterItemCfgImpl(id, amount, pro);
     }
 
     private final MonsterCfgExcel cfgExcel;
