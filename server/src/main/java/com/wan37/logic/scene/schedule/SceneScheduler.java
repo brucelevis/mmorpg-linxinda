@@ -10,8 +10,14 @@ public class SceneScheduler {
     @Autowired
     private SceneMonsterScheduler sceneMonsterScheduler;
 
+    @Autowired
+    private SceneItemScheduler sceneItemScheduler;
+
     public void schedule(Scene scene) {
-        // 怪物相关
+        // 刷新怪物
         sceneMonsterScheduler.schedule(scene);
+
+        // 刷新物品
+        sceneItemScheduler.schedule(scene);
     }
 }

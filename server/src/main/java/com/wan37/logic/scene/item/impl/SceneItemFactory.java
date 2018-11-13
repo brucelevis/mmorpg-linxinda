@@ -34,7 +34,7 @@ public class SceneItemFactory implements SceneItem.Factory {
     @Override
     public List<SceneItem> create(MonsterCfg monsterCfg) {
         //FIXME: 写死物品掉落1分钟过期
-        long expireTime = DateTimeUtils.toEpochMilli(LocalDateTime.now()) + TimeUnit.MINUTES.toMinutes(1);
+        long expireTime = DateTimeUtils.toEpochMilli(LocalDateTime.now()) + TimeUnit.MINUTES.toMillis(1);
 
         return monsterCfg.getItems().stream()
                 .map(i -> createItem(i, expireTime))
