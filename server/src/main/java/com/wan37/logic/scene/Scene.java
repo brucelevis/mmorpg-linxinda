@@ -4,10 +4,11 @@ import com.wan37.logic.monster.Monster;
 import com.wan37.logic.npc.Npc;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.scene.config.SceneCfg;
+import com.wan37.logic.scene.schedule.SceneScheduler;
 
 import java.util.List;
 
-public class Scene implements IScene {
+public class Scene implements IScene, Runnable {
 
     private SceneCfg sceneCfg;
 
@@ -16,6 +17,8 @@ public class Scene implements IScene {
     private List<Monster> monsters;
 
     private List<Npc> npcs;
+
+    private SceneScheduler sceneScheduler;
 
     public SceneCfg getSceneCfg() {
         return sceneCfg;
@@ -49,8 +52,17 @@ public class Scene implements IScene {
         this.npcs = npcs;
     }
 
+    public void setSceneScheduler(SceneScheduler sceneScheduler) {
+        this.sceneScheduler = sceneScheduler;
+    }
+
     @Override
     public Integer getCfgId() {
         return sceneCfg.getId();
+    }
+
+    @Override
+    public void run() {
+        sceneScheduler.schedule(this);
     }
 }

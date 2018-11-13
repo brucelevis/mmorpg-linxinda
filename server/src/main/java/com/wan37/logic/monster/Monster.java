@@ -2,17 +2,19 @@ package com.wan37.logic.monster;
 
 import com.wan37.logic.monster.config.MonsterCfg;
 
+import java.util.Map;
+
 public class Monster implements IMonster {
 
     private Long uid;
     private MonsterCfg monsterCfg;
 
     private long hp;
-    private long mp;
 
     private long deadTime;
     private boolean alive;
-    private int cd;
+
+    private Map<Integer, Double> attrs;
 
     public Long getUid() {
         return uid;
@@ -38,14 +40,6 @@ public class Monster implements IMonster {
         this.hp = hp;
     }
 
-    public long getMp() {
-        return mp;
-    }
-
-    public void setMp(long mp) {
-        this.mp = mp;
-    }
-
     public long getDeadTime() {
         return deadTime;
     }
@@ -62,12 +56,12 @@ public class Monster implements IMonster {
         this.alive = alive;
     }
 
-    public int getCd() {
-        return cd;
+    public Map<Integer, Double> getAttrs() {
+        return attrs;
     }
 
-    public void setCd(int cd) {
-        this.cd = cd;
+    public void setAttrs(Map<Integer, Double> attrs) {
+        this.attrs = attrs;
     }
 
     @Override

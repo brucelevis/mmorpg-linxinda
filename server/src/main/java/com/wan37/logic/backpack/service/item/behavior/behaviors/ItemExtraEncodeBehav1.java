@@ -23,8 +23,10 @@ class ItemExtraEncodeBehav1 implements ItemExtraEncodeBehavior {
     public void behave(ItemExtraEncodeBehavContext context) {
         EquipExtraDb equipExtraDb = equipExtraDbGetter.get(context.getExtraDb());
 
-        String msg = "装备额外信息：" + encodeExtra(equipExtraDb);
-        context.setResult(msg);
+
+        String durability = String.format("耐久度：%s，", equipExtraDb.getDurabilityv());
+        String msg = "装备属性信息：" + encodeExtra(equipExtraDb);
+        context.setResult(durability + msg);
     }
 
     private String encodeExtra(EquipExtraDb db) {

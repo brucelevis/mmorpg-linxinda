@@ -1,6 +1,7 @@
 package com.wan37.logic.scene.encode;
 
 import com.wan37.logic.faction.config.FactionCfgLoader;
+import com.wan37.logic.monster.Monster;
 import com.wan37.logic.monster.encode.MonsterEncoder;
 import com.wan37.logic.npc.Npc;
 import com.wan37.logic.player.Player;
@@ -31,6 +32,7 @@ public class SceneEncoder {
 
         String monsterHead = "当前场景怪物：\n";
         String monsters = scene.getMonsters().stream()
+                .filter(Monster::isAlive)
                 .map(m -> monsterEncoder.encode(m))
                 .collect(Collectors.joining("\n"));
 

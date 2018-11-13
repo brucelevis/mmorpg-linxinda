@@ -3,8 +3,9 @@ package com.wan37.config.entity;
 public class MonsterCfgExcel {
 
     private Integer id;
-
     private String name;
+    private String initAttr;
+    private int createCd;
 
     public Integer getId() {
         return id;
@@ -20,5 +21,21 @@ public class MonsterCfgExcel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getInitAttr() {
+        return initAttr;
+    }
+
+    public void setInitAttr(String initAttr) {
+        this.initAttr = initAttr;
+    }
+
+    public int getCreateCd() {
+        return createCd;
+    }
+
+    public void setCreateCd(int createCd) {
+        this.createCd = createCd;
     }
 }

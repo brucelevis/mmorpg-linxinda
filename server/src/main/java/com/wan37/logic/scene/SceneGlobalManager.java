@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.*;
 
 @Service
 public class SceneGlobalManager {
@@ -16,6 +17,13 @@ public class SceneGlobalManager {
      * map<sceneCfgId,scene>>
      */
     private static Map<Integer, Scene> sceneMap = new ConcurrentHashMap<>();
+
+    private static Map<Integer, ScheduledFuture> sceneScheduleMap = new HashMap<>();
+
+    /**
+     * 场景线程池
+     */
+    private static ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(10);
 
     @Autowired
     private SceneCreator sceneCreator;
@@ -53,6 +61,15 @@ public class SceneGlobalManager {
         Scene newScene = sceneCreator.create(sceneId);
         sceneMap.put(sceneId, newScene);
 
+        // 启动场景心跳
+        ScheduledFuture<?> schedule = scheduledExecutorService.scheduleAtFixedRate(newScene, 1, 1, TimeUnit.SECONDS);
+        sceneScheduleMap.put(sceneId, schedule);
+
         return newScene;
+    }
+
+    public void destoryScene(Integer sceneId) {
+        sceneScheduleMap.get(sceneId).cancel(true);
+        sceneScheduleMap.remove(sceneId);
     }
 }
