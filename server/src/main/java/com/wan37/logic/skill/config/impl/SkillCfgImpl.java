@@ -1,7 +1,11 @@
 package com.wan37.logic.skill.config.impl;
 
+import com.google.common.collect.ImmutableMap;
 import com.wan37.config.entity.SkillCfgExcel;
 import com.wan37.logic.skill.config.SkillCfg;
+import com.wan37.util.ScriptEngineUtil;
+
+import java.util.Map;
 
 public class SkillCfgImpl implements SkillCfg {
 
@@ -26,8 +30,9 @@ public class SkillCfgImpl implements SkillCfg {
 
     @Override
     public int getCd(int lv) {
-        //FIXME: 计算cd公式
-        return 0;
+        Map<String, Object> bindgings = createCdBindging(lv);
+        double result = ScriptEngineUtil.eval(cfgExcel.getCd(), bindgings);
+        return (int) Math.round(result);
     }
 
     @Override
@@ -37,8 +42,16 @@ public class SkillCfgImpl implements SkillCfg {
 
     @Override
     public double getDemage(int lv) {
-        //FIXME: 计算公式
-        return 2;
+        Map<String, Object> bindgings = createDemageBindging(lv);
+        return ScriptEngineUtil.eval(cfgExcel.getDemage(), bindgings);
+    }
+
+    private Map<String, Object> createCdBindging(int lv) {
+        return ImmutableMap.of("lv", lv);
+    }
+
+    private Map<String, Object> createDemageBindging(int lv) {
+        return ImmutableMap.of("lv", lv);
     }
 
     private final SkillCfgExcel cfgExcel;

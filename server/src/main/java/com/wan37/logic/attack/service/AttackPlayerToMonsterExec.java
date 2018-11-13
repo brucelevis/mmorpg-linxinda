@@ -83,7 +83,8 @@ public class AttackPlayerToMonsterExec {
         // 检查技能cd
         long now = DateTimeUtils.toEpochMilli(LocalDateTime.now());
         long interval = now - skillDb.getLastUseTime();
-        if (interval < skillCfg.getCd(skillDb.getLevel())) {
+        int skillCd = skillCfg.getCd(skillDb.getLevel());
+        if (interval < skillCd) {
             player.syncClient("技能cd中，无法使用");
             return;
         }
