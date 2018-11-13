@@ -46,11 +46,22 @@ public class SkillCfgImpl implements SkillCfg {
         return ScriptEngineUtil.eval(cfgExcel.getDemage(), bindgings);
     }
 
+    @Override
+    public int getCostMp(int lv) {
+        Map<String, Object> bindgings = createCostMpBindging(lv);
+        double result = ScriptEngineUtil.eval(cfgExcel.getCostMp(), bindgings);
+        return (int) Math.round(result);
+    }
+
     private Map<String, Object> createCdBindging(int lv) {
         return ImmutableMap.of("lv", lv);
     }
 
     private Map<String, Object> createDemageBindging(int lv) {
+        return ImmutableMap.of("lv", lv);
+    }
+
+    private Map<String, Object> createCostMpBindging(int lv) {
         return ImmutableMap.of("lv", lv);
     }
 

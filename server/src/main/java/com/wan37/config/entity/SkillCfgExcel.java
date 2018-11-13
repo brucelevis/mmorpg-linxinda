@@ -8,6 +8,7 @@ public class SkillCfgExcel {
     private String cd;
     private int maxLevel;
     private String demage;
+    private String costMp;
 
     public Integer getId() {
         return id;
@@ -55,5 +56,13 @@ public class SkillCfgExcel {
 
     public void setDemage(String demage) {
         this.demage = demage;
+    }
+
+    public String getCostMp() {
+        return costMp;
+    }
+
+    public void setCostMp(String costMp) {
+        this.costMp = costMp;
     }
 }

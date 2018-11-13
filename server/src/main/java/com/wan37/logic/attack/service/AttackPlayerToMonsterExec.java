@@ -89,6 +89,13 @@ public class AttackPlayerToMonsterExec {
             return;
         }
 
+        // 检查蓝量
+        int costMp = skillCfg.getCostMp(skillDb.getLevel());
+        if (playerDb.getMp() < costMp) {
+            player.syncClient("蓝量不足，无法攻击");
+            return;
+        }
+
         Scene scene = sceneGlobalManager.getScene(player.getSceneId());
         Monster monster = scene.getMonsters().stream()
                 .filter(m -> Objects.equals(m.getUid(), monsterUid))
@@ -114,6 +121,9 @@ public class AttackPlayerToMonsterExec {
         // 设置技能cd及推送
         skillDb.setLastUseTime(now);
 
+        // 扣蓝
+        playerDb.setMp(playerDb.getMp() - costMp);
+
         //FIXME: 写死装备耐久度
         equipExtraDb.setDurabilityv(equipExtraDb.getDurabilityv() - 1);
 
@@ -134,7 +144,7 @@ public class AttackPlayerToMonsterExec {
         }
 
         // 打印
-        String msg = String.format("你用%s击中%s，造成伤害%s", skillCfg.getName(), monster.getName(), demage);
+        String msg = String.format("你用%s击中%s，造成伤害%s，消耗%smp", skillCfg.getName(), monster.getName(), demage, costMp);
         player.syncClient(msg);
 
         // 通知场景玩家怪物状态更新

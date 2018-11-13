@@ -13,4 +13,6 @@ public interface SkillCfg {
     int getMaxLevel();
 
     double getDemage(int lv);
+
+    int getCostMp(int lv);
 }
