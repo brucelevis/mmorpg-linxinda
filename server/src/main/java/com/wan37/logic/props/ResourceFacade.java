@@ -1,10 +1,7 @@
 package com.wan37.logic.props;
 
-import com.wan37.common.GeneralResponseDto;
-import com.wan37.common.ResultCode;
 import com.wan37.logic.backpack.encode.BackpackUpdateNotifier;
-import com.wan37.logic.currency.database.CurrencyDb;
-import com.wan37.logic.currency.encode.CurrencyUpdateNotifyEncoder;
+import com.wan37.logic.currency.encode.CurrencyUpdateNotifier;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.dao.PlayerDao;
 import com.wan37.logic.props.resource.ResourceCollection;
@@ -25,7 +22,7 @@ public class ResourceFacade {
     private BackpackUpdateNotifier backpackUpdateNotifier;
 
     @Autowired
-    private CurrencyUpdateNotifyEncoder currencyUpdateNotifyEncoder;
+    private CurrencyUpdateNotifier currencyUpdateNotifier;
 
     public void giveResource(ResourceCollection res, Player player) {
         res.getElements().forEach(e -> resourceAdder.add(e, player));
@@ -35,19 +32,6 @@ public class ResourceFacade {
         backpackUpdateNotifier.notify(player);
 
         // 虚拟物品更新推送
-        currencyUpdateNotify(player);
-    }
-
-    private void currencyUpdateNotify(Player player) {
-        CurrencyDb currencyDb = player.getPlayerDb().getCurrencyDb();
-        GeneralResponseDto dto = currencyUpdateNotifyEncoder.encode(ResultCode.CURRENCY_UPDATE, currencyDb);
-        if (dto == null) {
-            return;
-        }
-
-        player.syncClient(dto);
-
-        // 虚拟物品变化标记清空
-        currencyDb.getIds().clear();
+        currencyUpdateNotifier.notify(player);
     }
 }
