@@ -45,7 +45,7 @@ class PropsUseBehav1 implements PropsUseBehavior {
         playerDb.setMp(result);
         playerDao.save(playerDb);
 
-        String msg = String.format("你恢复了%smp", addMp);
+        String msg = String.format("你恢复了%smp", result - cur);
         player.syncClient(msg);
 
         // TODO: 推送玩家状态变化给场景其他玩家
