@@ -6,6 +6,7 @@ public class MonsterCfgExcel {
     private String name;
     private String initAttr;
     private int createCd;
+    private int exp;
 
     public Integer getId() {
         return id;
@@ -37,5 +38,13 @@ public class MonsterCfgExcel {
 
     public void setCreateCd(int createCd) {
         this.createCd = createCd;
+    }
+
+    public int getExp() {
+        return exp;
+    }
+
+    public void setExp(int exp) {
+        this.exp = exp;
     }
 }

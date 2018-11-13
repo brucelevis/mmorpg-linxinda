@@ -11,4 +11,6 @@ public interface MonsterCfg {
     int getCreateCd();
 
     List<MonsterInitAttrCfg> getAttrs();
+
+    int getExp();
 }

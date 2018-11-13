@@ -127,25 +127,33 @@ public class AttackPlayerToMonsterExec {
         //FIXME: 写死装备耐久度
         equipExtraDb.setDurabilityv(equipExtraDb.getDurabilityv() - 1);
 
-        // 持久化
-        playerDao.save(playerDb);
-
         //TODO: 推送技能cd
 
         long curHp = monster.getHp();
         if (curHp > demage) {
             // 怪物没死
             monster.setHp(curHp - demage);
+
+            // 打印
+            String msg = String.format("你用%s击中%s，造成伤害%s，消耗%smp", skillCfg.getName(), monster.getName(), demage, costMp);
+            player.syncClient(msg);
         } else {
             // 怪物死了
             monster.setHp(0);
             monster.setAlive(false);
             monster.setDeadTime(now);
+
+            // 获得经验
+            int exp = monster.getMonsterCfg().getExp();
+            playerDb.setExp(playerDb.getExp() + exp);
+
+            // 打印
+            String msg = String.format("你用%s击杀了%s，造成伤害%s，消耗%smp，获得经验%s", skillCfg.getName(), monster.getName(), demage, costMp, exp);
+            player.syncClient(msg);
         }
 
-        // 打印
-        String msg = String.format("你用%s击中%s，造成伤害%s，消耗%smp", skillCfg.getName(), monster.getName(), demage, costMp);
-        player.syncClient(msg);
+        // 持久化
+        playerDao.save(playerDb);
 
         // 通知场景玩家怪物状态更新
         String monsterUpdate = "怪物状态更新推送|" + monsterEncoder.encode(monster);

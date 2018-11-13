@@ -36,6 +36,11 @@ public class MonsterCfgImpl implements MonsterCfg {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public int getExp() {
+        return cfgExcel.getExp();
+    }
+
     private MonsterInitAttrCfg createAttr(String s) {
         String[] attr = s.split(":");
         Integer id = Integer.parseInt(attr[0]);
