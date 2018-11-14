@@ -6,30 +6,27 @@ import com.wan37.logic.player.Player;
 import com.wan37.logic.props.config.VirtualItemCfg;
 import com.wan37.logic.props.config.VirtualItemCfgLoader;
 import com.wan37.logic.props.resource.ResourceElement;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ResourceVirtualItemAdder {
 
-    private static final Logger LOG = Logger.getLogger(ResourceVirtualItemAdder.class);
-
     @Autowired
     private VirtualItemCfgLoader virtualItemCfgLoader;
 
-    public void add(ResourceElement element, Player player) {
+    public boolean add(ResourceElement element, Player player) {
         Integer cfgId = element.getCfgId();
         VirtualItemCfg cfg = virtualItemCfgLoader.load(cfgId).orElse(null);
         if (cfg == null) {
-            return;
+            return false;
         }
 
         long amount = element.getAmount();
         CurrencyDb currencyDb = player.getPlayerDb().getCurrencyDb();
         if (!canAdd(cfg, amount, currencyDb)) {
-            LOG.info("虚拟物品已满");
-            return;
+            player.syncClient(String.format("%s已达上限", cfg.getName()));
+            return false;
         }
 
         CurrencyItemDb itemDb = currencyDb.getItemMap().get(cfgId);
@@ -42,6 +39,8 @@ public class ResourceVirtualItemAdder {
 
         itemDb.setAmount(itemDb.getAmount() + amount);
         currencyDb.getIds().add(cfgId);
+
+        return true;
     }
 
     private boolean canAdd(VirtualItemCfg cfg, long amount, CurrencyDb currencyDb) {

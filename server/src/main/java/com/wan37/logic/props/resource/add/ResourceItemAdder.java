@@ -3,6 +3,7 @@ package com.wan37.logic.props.resource.add;
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.backpack.database.ItemDb;
 import com.wan37.logic.backpack.service.find.BackpackEmptyIndexFinder;
+import com.wan37.logic.player.Player;
 import com.wan37.logic.props.config.PropsCfg;
 import com.wan37.logic.props.config.PropsCfgLoader;
 import com.wan37.logic.props.init.PropsExtraInitializer;
@@ -34,18 +35,19 @@ public class ResourceItemAdder {
     @Autowired
     private PropsExtraInitializer propsExtraInitializer;
 
-    public void add(ResourceElement element, BackpackDb backpackDb) {
+    public boolean add(ResourceElement element, Player player) {
         PropsCfg propsCfg = propsCfgLoader.load(element.getCfgId()).orElse(null);
         if (propsCfg == null) {
-            return;
+            return false;
         }
 
         //TODO: 是否直接消耗使用的物品
 
         long amount = element.getAmount();
+        BackpackDb backpackDb = player.getPlayerDb().getBackpackDb();
         if (!canAdd(propsCfg, amount, backpackDb)) {
-            LOG.info("背包剩余空间不足！");
-            return;
+            player.syncClient("背包已满");
+            return false;
         }
 
         int maxOverlay = propsCfg.getMaxOverLay();
@@ -106,6 +108,8 @@ public class ResourceItemAdder {
                 amount--;
             }
         }
+
+        return true;
     }
 
     private ItemDb createItem(PropsCfg propsCfg, Integer index, int amount) {

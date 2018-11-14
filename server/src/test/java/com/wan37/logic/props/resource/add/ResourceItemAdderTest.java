@@ -3,6 +3,8 @@ package com.wan37.logic.props.resource.add;
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.backpack.database.ItemDb;
 import com.wan37.logic.backpack.service.find.BackpackEmptyIndexFinder;
+import com.wan37.logic.player.Player;
+import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.props.config.PropsCfg;
 import com.wan37.logic.props.config.PropsCfgLoader;
 import com.wan37.logic.props.init.PropsExtraInitializer;
@@ -45,8 +47,9 @@ public class ResourceItemAdderTest {
     @Mock
     PropsExtraInitializer _initializer;
 
-    ResourceElement _element;
+    Player _player;
     BackpackDb _db;
+    ResourceElement _element;
     PropsCfg _cfg;
 
     @Before
@@ -58,6 +61,11 @@ public class ResourceItemAdderTest {
         _db = new BackpackDb();
         _db.setIndexs(new HashSet<>());
         _db.setItemMap(new HashMap<>());
+
+        _player = mock(Player.class);
+        PlayerDb playerDb = mock(PlayerDb.class);
+        when(_player.getPlayerDb()).thenReturn(playerDb);
+        when(playerDb.getBackpackDb()).thenReturn(_db);
 
         _cfg = mock(PropsCfg.class);
         when(_loader.load(anyInt())).thenReturn(Optional.of(_cfg));
@@ -135,7 +143,7 @@ public class ResourceItemAdderTest {
     }
 
     void add() {
-        _sut.add(_element, _db);
+        _sut.add(_element, _player);
     }
 
     ItemDb mockItemDb(Integer index, Integer cfgId, int amount) {

@@ -14,13 +14,12 @@ public class ResourceAdder {
     @Autowired
     private ResourceItemAdder resourceItemAdder;
 
-    public void add(ResourceElement element, Player player) {
+    public boolean add(ResourceElement element, Player player) {
         //FIXME: 先写死虚物id小于200
         if (element.getCfgId() < 200) {
-            resourceVirtualItemAdder.add(element, player);
-            return;
+            return resourceVirtualItemAdder.add(element, player);
         }
 
-        resourceItemAdder.add(element, player.getPlayerDb().getBackpackDb());
+        return resourceItemAdder.add(element, player);
     }
 }
