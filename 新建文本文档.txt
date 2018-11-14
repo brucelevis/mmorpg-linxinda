@@ -1,0 +1,62 @@
+#门派显示
+faction_Info
+
+#注册
+player_Register factionId playerName
+
+#登录
+player_Login playerUid
+
+############### 场景  ###########################
+
+#打印当前场景实体
+scene_Aoi
+
+#场景跳转
+scene_Switch sceneId
+
+#查看可达场景
+scene_Neighbor
+
+#物品一键拾取
+scene_PickAll
+
+############### 背包系统 #########################
+
+#加物品
+item_Add itemCfgId amount
+
+#查看背包物品
+backpack_Info
+
+#背包整理 (未做)
+backpack_Clean
+
+#查看物品具体信息
+backpack_ItemInfo uid
+
+#物品使用
+item_Use index
+
+############### 装备系统 ##############################
+
+#装备栏信息
+equip_Info
+
+#装备脱
+equip_Takeoff
+
+################ 属性系统  #############################
+
+#人物属性
+attr_Info
+
+################ 技能系统  ##############################
+
+#人物技能
+skill_Info
+
+################ 攻击  #################################
+
+#玩家攻击怪物
+attack_PlayerToMonster skillId monsterUid
