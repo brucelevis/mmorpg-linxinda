@@ -8,5 +8,7 @@ public interface AttrCfg {
 
     String getDesc();
 
-    double getBaseValue();
+    double getBaseAttackValue();
+
+    double getBaseDefenseValue();
 }

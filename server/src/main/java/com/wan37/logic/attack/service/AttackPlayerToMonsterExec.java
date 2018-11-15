@@ -122,22 +122,27 @@ public class AttackPlayerToMonsterExec {
             return;
         }
 
-        //FIXME: 先简单的根据面板总伤扣血
+        /**
+         * FIXME: 攻击先简单写死做
+         * 1.先算出人物的基础面板总攻击，然后计算出技能加成后能打出的伤害 A1
+         * 2.计算出怪物的防御力抵挡 D1
+         * 3.判断怪物身上有没伤害护盾buff D2，然后处理护盾，判断是否打破。更新。。
+         * 4.计算扣血伤害，然后扣血
+         * 5.击中后判断技能会不会触发Buff
+         */
         PlayerStrengthDb playerStrengthDb = playerDb.getPlayerStrengthDb();
-        double baseVal = playerStrengthDb.getBaseVal();
+        double baseVal = playerStrengthDb.getBaseAttackVal();
         double skillPercent = skillCfg.getDemage(skillDb.getLevel());
         long demage = Math.round(baseVal * skillPercent);
 
-        // 设置技能cd及推送
+        // 设置技能cd
         skillDb.setLastUseTime(now);
 
         // 扣蓝
         playerDb.setMp(playerDb.getMp() - costMp);
 
-        //FIXME: 写死装备耐久度
+        //FIXME: 写死减少装备耐久度1
         equipExtraDb.setDurabilityv(equipExtraDb.getDurabilityv() - 1);
-
-        //TODO: 推送技能cd
 
         long curHp = monster.getHp();
         if (curHp > demage) {

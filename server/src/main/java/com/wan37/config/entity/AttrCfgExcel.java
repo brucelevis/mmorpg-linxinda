@@ -5,7 +5,8 @@ public class AttrCfgExcel {
     private Integer id;
     private String name;
     private String desc;
-    private double baseValue;
+    private double baseAttackValue;
+    private double baseDefenseValue;
 
     public Integer getId() {
         return id;
@@ -31,11 +32,19 @@ public class AttrCfgExcel {
         this.desc = desc;
     }
 
-    public double getBaseValue() {
-        return baseValue;
+    public double getBaseAttackValue() {
+        return baseAttackValue;
     }
 
-    public void setBaseValue(double baseValue) {
-        this.baseValue = baseValue;
+    public void setBaseAttackValue(double baseAttackValue) {
+        this.baseAttackValue = baseAttackValue;
+    }
+
+    public double getBaseDefenseValue() {
+        return baseDefenseValue;
+    }
+
+    public void setBaseDefenseValue(double baseDefenseValue) {
+        this.baseDefenseValue = baseDefenseValue;
     }
 }

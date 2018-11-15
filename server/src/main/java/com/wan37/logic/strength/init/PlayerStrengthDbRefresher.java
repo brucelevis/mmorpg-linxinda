@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
+import java.util.Set;
 
 @Service
 public class PlayerStrengthDbRefresher {
@@ -25,17 +26,31 @@ public class PlayerStrengthDbRefresher {
         PlayerStrengthDb db = new PlayerStrengthDb();
         db.setAttrs(result);
 
-        double sum = result.entrySet().stream()
-                .mapToDouble(this::calc)
-                .sum();
-        db.setBaseVal(Math.round(sum));
+        Set<Map.Entry<Integer, Double>> entries = result.entrySet();
+
+        //FIXME: 待优化
+        db.setBaseAttackVal(Math.round(entries.stream()
+                .mapToDouble(this::calcAttack)
+                .sum()));
+
+        db.setBaseDefenseVal(Math.round(entries.stream()
+                .mapToDouble(this::calcDefense)
+                .sum()));
 
         playerDb.setPlayerStrengthDb(db);
     }
 
-    private double calc(Map.Entry<Integer, Double> entry) {
+    private double calcAttack(Map.Entry<Integer, Double> entry) {
         double base = attrCfgLoader.load(entry.getKey())
-                .map(AttrCfg::getBaseValue)
+                .map(AttrCfg::getBaseAttackValue)
+                .orElse(0.0);
+
+        return base * entry.getValue();
+    }
+
+    private double calcDefense(Map.Entry<Integer, Double> entry) {
+        double base = attrCfgLoader.load(entry.getKey())
+                .map(AttrCfg::getBaseDefenseValue)
                 .orElse(0.0);
 
         return base * entry.getValue();

@@ -25,8 +25,13 @@ public class AttrCfgImpl implements AttrCfg {
     }
 
     @Override
-    public double getBaseValue() {
-        return cfgExcel.getBaseValue();
+    public double getBaseAttackValue() {
+        return cfgExcel.getBaseAttackValue();
+    }
+
+    @Override
+    public double getBaseDefenseValue() {
+        return cfgExcel.getBaseDefenseValue();
     }
 
     private final AttrCfgExcel cfgExcel;

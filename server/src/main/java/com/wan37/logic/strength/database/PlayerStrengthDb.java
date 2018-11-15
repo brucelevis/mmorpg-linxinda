@@ -16,7 +16,12 @@ public class PlayerStrengthDb {
     /**
      * 面板基础总伤
      */
-    private long baseVal;
+    private long baseAttackVal;
+
+    /**
+     * 面板基础总防
+     */
+    private long baseDefenseVal;
 
     public Map<Integer, Double> getAttrs() {
         return attrs;
@@ -26,11 +31,19 @@ public class PlayerStrengthDb {
         this.attrs = attrs;
     }
 
-    public long getBaseVal() {
-        return baseVal;
+    public long getBaseAttackVal() {
+        return baseAttackVal;
     }
 
-    public void setBaseVal(long baseVal) {
-        this.baseVal = baseVal;
+    public void setBaseAttackVal(long baseAttackVal) {
+        this.baseAttackVal = baseAttackVal;
+    }
+
+    public long getBaseDefenseVal() {
+        return baseDefenseVal;
+    }
+
+    public void setBaseDefenseVal(long baseDefenseVal) {
+        this.baseDefenseVal = baseDefenseVal;
     }
 }
