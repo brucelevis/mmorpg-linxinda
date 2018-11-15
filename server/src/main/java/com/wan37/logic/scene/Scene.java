@@ -28,6 +28,11 @@ public class Scene implements IScene, Runnable {
 
     private SceneScheduler sceneScheduler;
 
+    /**
+     * 场景mp回复计数器
+     */
+    private int recoverMpCounter;
+
     public SceneCfg getSceneCfg() {
         return sceneCfg;
     }
@@ -70,6 +75,14 @@ public class Scene implements IScene, Runnable {
 
     public void setItems(Map<Long, SceneItem> items) {
         this.items = items;
+    }
+
+    public int getRecoverMpCounter() {
+        return recoverMpCounter;
+    }
+
+    public void setRecoverMpCounter(int recoverMpCounter) {
+        this.recoverMpCounter = recoverMpCounter;
     }
 
     @Override

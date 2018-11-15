@@ -13,11 +13,17 @@ public class SceneScheduler {
     @Autowired
     private SceneItemScheduler sceneItemScheduler;
 
+    @Autowired
+    private SceneMpRecoverScheduler sceneMpRecoverScheduler;
+
     public void schedule(Scene scene) {
         // 刷新怪物
         sceneMonsterScheduler.schedule(scene);
 
         // 刷新物品
         sceneItemScheduler.schedule(scene);
+
+        // 场景mp回复
+        sceneMpRecoverScheduler.schedule(scene);
     }
 }

@@ -24,19 +24,19 @@ class PropsUseBehav2 implements PropsUseBehavior {
     public void behave(PropsUseContext context) {
         Player player = context.getPlayer();
         PropsCfg propsCfg = context.getPropsCfg();
-        double addHp = Double.parseDouble(propsCfg.getUseLogicArgs());
+        int addHp = Integer.parseInt(propsCfg.getUseLogicArgs());
 
         PlayerDb playerDb = player.getPlayerDb();
-        double cur = playerDb.getHp();
-        double hp = cur + addHp;
+        int cur = playerDb.getHp();
+        int hp = cur + addHp;
 
         PAttrDb hpDb = playerDb.getPlayerAttrDb().getAttrs().get(AttrEnum.ATTR_HP.getId());
         if (hpDb == null) {
             return;
         }
 
-        double max = hpDb.getValue();
-        double result = max > hp ? hp : max;
+        int max = (int) Math.round(hpDb.getValue());
+        int result = max > hp ? hp : max;
         if (result == cur) {
             return;
         }
