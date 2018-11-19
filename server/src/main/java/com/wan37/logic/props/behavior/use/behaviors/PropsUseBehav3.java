@@ -4,6 +4,7 @@ import com.google.common.base.Objects;
 import com.wan37.logic.buff.IBuff;
 import com.wan37.logic.buff.config.BuffCfg;
 import com.wan37.logic.buff.config.BuffCfgLoader;
+import com.wan37.logic.buff.effect.BuffEffectHandler;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.props.behavior.use.PropsUseBehavior;
 import com.wan37.logic.props.behavior.use.PropsUseContext;
@@ -25,6 +26,9 @@ class PropsUseBehav3 implements PropsUseBehavior {
     @Autowired
     private IBuff.Factory IBuffFactory;
 
+    @Autowired
+    private BuffEffectHandler buffEffectHandler;
+
     @Override
     public void behave(PropsUseContext context) {
         PropsCfg propsCfg = context.getPropsCfg();
@@ -45,5 +49,6 @@ class PropsUseBehav3 implements PropsUseBehavior {
                 .ifPresent(buffs::remove);
 
         buffs.add(buff);
+        buffEffectHandler.handle(player, buff, -1);
     }
 }

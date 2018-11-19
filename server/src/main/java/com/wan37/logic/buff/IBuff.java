@@ -26,4 +26,6 @@ public interface IBuff {
     int getInterval();
 
     String getArg();
+
+    int getContinuous();
 }

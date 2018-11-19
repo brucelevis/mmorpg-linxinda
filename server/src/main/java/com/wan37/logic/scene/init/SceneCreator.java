@@ -10,9 +10,11 @@ import com.wan37.logic.scene.config.SceneCfg;
 import com.wan37.logic.scene.config.SceneCfgLoader;
 import com.wan37.logic.scene.config.SceneMonsterCfg;
 import com.wan37.logic.scene.schedule.SceneScheduler;
+import com.wan37.util.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
@@ -59,6 +61,8 @@ public class SceneCreator {
                 .collect(Collectors.toList()));
 
         scene.setSceneScheduler(sceneScheduler);
+        scene.setLastRecoverMpTime(DateTimeUtils.toEpochMilli(LocalDateTime.now()));
+
         return scene;
     }
 

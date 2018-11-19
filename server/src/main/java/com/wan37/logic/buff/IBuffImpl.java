@@ -4,10 +4,10 @@ import com.wan37.logic.buff.config.BuffCfg;
 
 class IBuffImpl implements IBuff {
 
-    public IBuffImpl(long expireTime, BuffCfg buffCfg) {
+    public IBuffImpl(long expireTime, BuffCfg buffCfg, long lastEffectTime) {
         this.expireTime = expireTime;
         this.buffCfg = buffCfg;
-        this.lastEffectTime = 0;
+        this.lastEffectTime = lastEffectTime;
     }
 
     @Override
@@ -53,6 +53,11 @@ class IBuffImpl implements IBuff {
     @Override
     public String getArg() {
         return buffCfg.getArg();
+    }
+
+    @Override
+    public int getContinuous() {
+        return buffCfg.getContinuous();
     }
 
     private final long expireTime;

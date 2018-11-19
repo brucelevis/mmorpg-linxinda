@@ -15,6 +15,6 @@ public class IBuffFactory implements IBuff.Factory {
         long now = DateTimeUtils.toEpochMilli(LocalDateTime.now());
         long expireTime = now + TimeUnit.MILLISECONDS.toMillis(buffCfg.getContinuous());
 
-        return new IBuffImpl(expireTime, buffCfg);
+        return new IBuffImpl(expireTime, buffCfg, 0);
     }
 }

@@ -29,9 +29,9 @@ public class Scene implements IScene, Runnable {
     private SceneScheduler sceneScheduler;
 
     /**
-     * 场景mp回复计数器
+     * 上次场景恢复mp触发时间
      */
-    private int recoverMpCounter;
+    private volatile long lastRecoverMpTime;
 
     public SceneCfg getSceneCfg() {
         return sceneCfg;
@@ -77,12 +77,12 @@ public class Scene implements IScene, Runnable {
         this.items = items;
     }
 
-    public int getRecoverMpCounter() {
-        return recoverMpCounter;
+    public long getLastRecoverMpTime() {
+        return lastRecoverMpTime;
     }
 
-    public void setRecoverMpCounter(int recoverMpCounter) {
-        this.recoverMpCounter = recoverMpCounter;
+    public void setLastRecoverMpTime(long lastRecoverMpTime) {
+        this.lastRecoverMpTime = lastRecoverMpTime;
     }
 
     @Override
