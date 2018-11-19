@@ -1,7 +1,6 @@
 package com.wan37.logic.skill.service;
 
 import com.wan37.logic.player.Player;
-import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.skill.config.SkillCfgLoader;
 import com.wan37.logic.skill.database.PSkillDb;
 import com.wan37.logic.skill.database.PlayerSkillDb;
@@ -14,17 +13,9 @@ import java.util.stream.Collectors;
 public class SkillInfoExec {
 
     @Autowired
-    private PlayerGlobalManager playerGlobalManager;
-
-    @Autowired
     private SkillCfgLoader skillCfgLoader;
 
-    public void exec(String channelId) {
-        Player player = playerGlobalManager.getPlayerByChannelId(channelId);
-        if (player == null) {
-            return;
-        }
-
+    public void exec(Player player) {
         PlayerSkillDb playerSkillDb = player.getPlayerDb().getPlayerSkillDb();
         String msg = "技能列表|" + encode(playerSkillDb);
         player.syncClient(msg);

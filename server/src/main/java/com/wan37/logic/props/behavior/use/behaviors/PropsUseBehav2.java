@@ -3,12 +3,10 @@ package com.wan37.logic.props.behavior.use.behaviors;
 import com.wan37.logic.attr.config.AttrEnum;
 import com.wan37.logic.attr.database.PAttrDb;
 import com.wan37.logic.player.Player;
-import com.wan37.logic.player.dao.PlayerDao;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.props.behavior.use.PropsUseBehavior;
 import com.wan37.logic.props.behavior.use.PropsUseContext;
 import com.wan37.logic.props.config.PropsCfg;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,9 +14,6 @@ import org.springframework.stereotype.Service;
  */
 @Service
 class PropsUseBehav2 implements PropsUseBehavior {
-
-    @Autowired
-    private PlayerDao playerDao;
 
     @Override
     public void behave(PropsUseContext context) {
@@ -42,7 +37,6 @@ class PropsUseBehav2 implements PropsUseBehavior {
         }
 
         playerDb.setHp(result);
-        playerDao.save(playerDb);
 
         String msg = String.format("你恢复了%shp,", result - cur);
         player.syncClient(msg);

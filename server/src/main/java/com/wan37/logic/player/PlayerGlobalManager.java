@@ -6,6 +6,7 @@ import com.google.common.cache.LoadingCache;
 import com.wan37.logic.player.dao.PlayerDao;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.player.init.PlayerCreator;
+import io.netty.channel.Channel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,8 +32,8 @@ public class PlayerGlobalManager {
             .maximumSize(100)  // 设置缓存容器的最大容量大小为100
             .recordStats() // 设置记录缓存命中率
             .concurrencyLevel(8) // 设置并发级别为8，智并发基本值可以同事些缓存的线程数
-            .expireAfterWrite(30, TimeUnit.SECONDS)  // 设置过期时间
-            .removalListener(notification -> beforeRemovePlayerCache((Player) notification.getValue()))
+            .expireAfterWrite(30, TimeUnit.MINUTES)  // 设置过期时间
+            .removalListener(notification -> beforeRemovePlayerCache((Player) notification.getValue()))  // 过期通知
             .build(new CacheLoader<Long, Player>() {
                 @Override
                 public Player load(Long uid) {
@@ -41,8 +42,13 @@ public class PlayerGlobalManager {
                         return null;
                     }
 
+                    Channel channel = channelMap.entrySet().stream()
+                            .filter(e -> Objects.equals(uid, e.getValue()))
+                            .findAny()
+                            .map(Map.Entry::getKey)
+                            .orElse(null);
 
-                    return playerCreator.create(playerDb, null);
+                    return playerCreator.create(playerDb, channel);
                 }
             });
 
@@ -52,7 +58,7 @@ public class PlayerGlobalManager {
      * key: Channel#id
      * value: Player#getUid
      */
-    private static final Map<String, Long> channelMap = new ConcurrentHashMap<>();
+    private static final Map<Channel, Long> channelMap = new ConcurrentHashMap<>();
 
     public boolean isOnline(Long uid) {
         return channelMap.values().stream()
@@ -60,15 +66,15 @@ public class PlayerGlobalManager {
     }
 
     public void addInOnlineList(Player player) {
-        channelMap.put(player.getChannel().id().asLongText(), player.getUid());
+        channelMap.put(player.getChannel(), player.getUid());
     }
 
-    public void removeFromOnlineList(String channelId) {
-        channelMap.remove(channelId);
+    public void removeFromOnlineList(Channel channel) {
+        channelMap.remove(channel);
     }
 
-    public Player getPlayerByChannelId(String channelId) {
-        Long playerUid = channelMap.get(channelId);
+    public Player getPlayerByChannel(Channel channel) {
+        Long playerUid = channelMap.get(channel);
         if (playerUid == null) {
             return null;
         }

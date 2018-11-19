@@ -1,7 +1,6 @@
 package com.wan37.logic.scene.service.neighbor;
 
 import com.wan37.logic.player.Player;
-import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.scene.config.SceneCfg;
 import com.wan37.logic.scene.config.SceneCfgLoader;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,17 +13,9 @@ import java.util.stream.Collectors;
 public class SceneNeighborExec {
 
     @Autowired
-    private PlayerGlobalManager playerGlobalManager;
-
-    @Autowired
     private SceneCfgLoader sceneCfgLoader;
 
-    public void exec(String channelId) {
-        Player player = playerGlobalManager.getPlayerByChannelId(channelId);
-        if (player == null) {
-            return;
-        }
-
+    public void exec(Player player) {
         SceneCfg sceneCfg = sceneCfgLoader.load(player.getSceneId()).orElse(null);
         if (sceneCfg == null) {
             return;

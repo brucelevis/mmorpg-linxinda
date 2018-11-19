@@ -5,6 +5,7 @@ import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.scene.SceneFacade;
 import com.wan37.logic.scene.config.SceneCfg;
 import com.wan37.logic.scene.config.SceneCfgLoader;
+import io.netty.channel.Channel;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,13 +28,13 @@ public class SceneSwitchExec {
 
     public void exec(SSwitchScene switchScene) {
         Integer sceneId = switchScene.getSceneId();
-        String channelId = switchScene.getChannelId();
+        Channel channel = switchScene.getChannel();
 
         if (!checkScene(sceneId)) {
             return;
         }
 
-        Player player = playerGlobalManager.getPlayerByChannelId(channelId);
+        Player player = playerGlobalManager.getPlayerByChannel(channel);
         if (player == null) {
             return;
         }

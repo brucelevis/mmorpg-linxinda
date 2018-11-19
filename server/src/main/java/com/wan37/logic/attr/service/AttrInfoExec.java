@@ -7,7 +7,6 @@ import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.strength.database.PlayerStrengthDb;
 import com.wan37.logic.strength.encode.PlayerStrengthInfoEncoder;
-import io.netty.channel.Channel;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,14 +25,7 @@ public class AttrInfoExec {
     @Autowired
     private PlayerStrengthInfoEncoder playerStrengthInfoEncoder;
 
-    public void exec(Channel channel) {
-        String channelId = channel.id().asLongText();
-        Player player = playerGlobalManager.getPlayerByChannelId(channelId);
-        if (player == null) {
-            LOG.info("角色未登录，不允许发送该命令");
-            return;
-        }
-
+    public void exec(Player player) {
         PlayerDb playerDb = player.getPlayerDb();
 
         PlayerAttrDb playerAttrDb = playerDb.getPlayerAttrDb();

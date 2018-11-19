@@ -8,7 +8,6 @@ import com.wan37.logic.equipment.config.EquipCfg;
 import com.wan37.logic.equipment.database.EquipDb;
 import com.wan37.logic.equipment.encode.EquipUpdateNotifier;
 import com.wan37.logic.player.Player;
-import com.wan37.logic.player.dao.PlayerDao;
 import com.wan37.logic.props.config.PropsCfgLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,9 +17,6 @@ public class EquipWearer {
 
     @Autowired
     private BackpackFacade backpackFacade;
-
-    @Autowired
-    private PlayerDao playerDao;
 
     @Autowired
     private EquipUpdateNotifier equipUpdateNotifier;
@@ -51,8 +47,6 @@ public class EquipWearer {
             // 旧装备放进背包
             backpackFacade.add(player, itemDb);
         }
-
-        playerDao.save(player.getPlayerDb());
 
         // 打印提示
         String msg = String.format("你穿上了%s", propsCfgLoader.getName(equipCfg.getId()));

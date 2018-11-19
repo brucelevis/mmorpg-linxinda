@@ -8,8 +8,6 @@ import com.wan37.logic.equipment.service.EquipExtraDbGetter;
 import com.wan37.logic.monster.Monster;
 import com.wan37.logic.monster.encode.MonsterEncoder;
 import com.wan37.logic.player.Player;
-import com.wan37.logic.player.PlayerGlobalManager;
-import com.wan37.logic.player.dao.PlayerDao;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.scene.Scene;
 import com.wan37.logic.scene.SceneGlobalManager;
@@ -36,16 +34,10 @@ public class AttackPlayerToMonsterExec {
     private static final Logger LOG = Logger.getLogger(AttackPlayerToMonsterExec.class);
 
     @Autowired
-    private PlayerGlobalManager playerGlobalManager;
-
-    @Autowired
     private SceneGlobalManager sceneGlobalManager;
 
     @Autowired
     private SkillCfgLoader skillCfgLoader;
-
-    @Autowired
-    private PlayerDao playerDao;
 
     @Autowired
     private MonsterEncoder monsterEncoder;
@@ -59,12 +51,7 @@ public class AttackPlayerToMonsterExec {
     @Autowired
     private SceneItemEncoder sceneItemEncoder;
 
-    public void exec(String channelId, Integer skillId, Long monsterUid) {
-        Player player = playerGlobalManager.getPlayerByChannelId(channelId);
-        if (player == null) {
-            return;
-        }
-
+    public void exec(Player player, Integer skillId, Long monsterUid) {
         PlayerDb playerDb = player.getPlayerDb();
         EquipDb equipDb = playerDb.getEquipDb();
         ItemDb equipItem = equipDb.getItems().get(EquipPartEnum.PART_1.getId());
@@ -179,9 +166,6 @@ public class AttackPlayerToMonsterExec {
                 scene.getPlayers().forEach(p -> p.syncClient(head + items));
             }
         }
-
-        // 持久化
-        playerDao.save(playerDb);
 
         // 通知场景玩家怪物状态更新
         String monsterUpdate = "怪物状态更新推送|" + monsterEncoder.encode(monster);

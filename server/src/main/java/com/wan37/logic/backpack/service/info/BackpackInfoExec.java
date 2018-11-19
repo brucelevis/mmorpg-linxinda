@@ -27,8 +27,7 @@ public class BackpackInfoExec {
     private CurrencyInfoEncoder currencyInfoEncoder;
 
     public void exec(Channel channel) {
-        String channelId = channel.id().asLongText();
-        Player player = playerGlobalManager.getPlayerByChannelId(channelId);
+        Player player = playerGlobalManager.getPlayerByChannel(channel);
         if (player == null) {
             LOG.info("找不到玩家");
             return;

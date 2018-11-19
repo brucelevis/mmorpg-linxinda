@@ -4,7 +4,6 @@ import com.wan37.event.GenernalEventListenersManager;
 import com.wan37.event.SceneEnterEvent;
 import com.wan37.event.SceneLeaveEvent;
 import com.wan37.logic.player.Player;
-import com.wan37.logic.player.dao.PlayerDao;
 import com.wan37.logic.scene.config.SceneCfg;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +20,9 @@ public class SceneFacadeImpl implements SceneFacade {
     @Autowired
     private GenernalEventListenersManager genernalEventListenersManager;
 
-    @Autowired
-    private PlayerDao playerDao;
-
     @Override
     public void enterScene(Integer sceneId, Player player) {
         player.setSceneId(sceneId);
-        playerDao.save(player.getPlayerDb());
 
         // 进入场景
         sceneGlobalManager.addPlayerInScene(player.getSceneId(), player);

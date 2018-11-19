@@ -7,7 +7,6 @@ import com.wan37.logic.backpack.service.item.behavior.ItemExtraEncodeBehavior;
 import com.wan37.logic.equipment.EquipPartEnum;
 import com.wan37.logic.equipment.database.EquipDb;
 import com.wan37.logic.player.Player;
-import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.props.config.PropsCfg;
 import com.wan37.logic.props.config.PropsCfgLoader;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,20 +19,12 @@ import java.util.stream.Collectors;
 public class EquipInfoExec {
 
     @Autowired
-    private PlayerGlobalManager playerGlobalManager;
-
-    @Autowired
     private PropsCfgLoader propsCfgLoader;
 
     @Autowired
     private BehaviorManager behaviorManager;
 
-    public void exec(String channelId) {
-        Player player = playerGlobalManager.getPlayerByChannelId(channelId);
-        if (player == null) {
-            return;
-        }
-
+    public void exec(Player player) {
         EquipDb equipDb = player.getPlayerDb().getEquipDb();
         String msg = "装备栏列表：\n" + encode(equipDb);
         player.syncClient(msg);

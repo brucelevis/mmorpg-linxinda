@@ -1,6 +1,7 @@
 package com.wan37.logic.scene.service.switch1;
 
 import com.wan37.server.GeneralReqMsg;
+import io.netty.channel.Channel;
 
 public interface SSwitchScene {
 
@@ -11,5 +12,5 @@ public interface SSwitchScene {
 
     Integer getSceneId();
 
-    String getChannelId();
+    Channel getChannel();
 }

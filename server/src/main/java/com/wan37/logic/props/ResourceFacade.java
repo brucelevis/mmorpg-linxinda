@@ -3,7 +3,6 @@ package com.wan37.logic.props;
 import com.wan37.logic.backpack.encode.BackpackUpdateNotifier;
 import com.wan37.logic.currency.encode.CurrencyUpdateNotifier;
 import com.wan37.logic.player.Player;
-import com.wan37.logic.player.dao.PlayerDao;
 import com.wan37.logic.props.resource.ResourceCollection;
 import com.wan37.logic.props.resource.ResourceElement;
 import com.wan37.logic.props.resource.add.ResourceAdder;
@@ -17,9 +16,6 @@ public class ResourceFacade {
     private ResourceAdder resourceAdder;
 
     @Autowired
-    private PlayerDao playerDao;
-
-    @Autowired
     private BackpackUpdateNotifier backpackUpdateNotifier;
 
     @Autowired
@@ -27,7 +23,6 @@ public class ResourceFacade {
 
     public void giveResource(ResourceCollection res, Player player) {
         res.getElements().forEach(e -> giveResource(e, player));
-        playerDao.save(player.getPlayerDb());
 
         // 背包更新推送
         backpackUpdateNotifier.notify(player);

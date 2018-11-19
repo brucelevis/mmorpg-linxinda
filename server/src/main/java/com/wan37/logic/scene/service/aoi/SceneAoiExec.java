@@ -5,6 +5,7 @@ import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.scene.Scene;
 import com.wan37.logic.scene.SceneGlobalManager;
 import com.wan37.logic.scene.encode.SceneEncoder;
+import io.netty.channel.Channel;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,8 +25,8 @@ public class SceneAoiExec {
     private SceneEncoder sceneEncoder;
 
     public void exec(SAoiScene aoiScene) {
-        String channelId = aoiScene.getChannel().id().asLongText();
-        Player player = playerGlobalManager.getPlayerByChannelId(channelId);
+        Channel channel = aoiScene.getChannel();
+        Player player = playerGlobalManager.getPlayerByChannel(channel);
         if (player == null) {
             LOG.info("角色未登录，不允许发送该命令");
             return;

@@ -1,14 +1,16 @@
 package com.wan37.event;
 
+import io.netty.channel.Channel;
+
 public class OfflineEvent {
 
-    public OfflineEvent(String channelId) {
-        this.channelId = channelId;
+    public OfflineEvent(Channel channel) {
+        this.channel = channel;
     }
 
-    public String getChannelId() {
-        return channelId;
+    public Channel getChannel() {
+        return channel;
     }
 
-    private final String channelId;
+    private final Channel channel;
 }

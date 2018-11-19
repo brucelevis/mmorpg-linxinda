@@ -7,10 +7,7 @@ import com.wan37.logic.backpack.database.ItemDb;
 import com.wan37.logic.equipment.database.EquipDb;
 import com.wan37.logic.equipment.encode.EquipUpdateNotifier;
 import com.wan37.logic.player.Player;
-import com.wan37.logic.player.PlayerGlobalManager;
-import com.wan37.logic.player.dao.PlayerDao;
 import com.wan37.logic.props.config.PropsCfgLoader;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,16 +16,8 @@ import java.util.Map;
 @Service
 public class EquipTakeoffExec {
 
-    private static final Logger LOG = Logger.getLogger(EquipTakeoffExec.class);
-
-    @Autowired
-    private PlayerGlobalManager playerGlobalManager;
-
     @Autowired
     private BackpackFacade backpackFacade;
-
-    @Autowired
-    private PlayerDao playerDao;
 
     @Autowired
     private EquipUpdateNotifier equipUpdateNotifier;
@@ -39,13 +28,7 @@ public class EquipTakeoffExec {
     @Autowired
     private PropsCfgLoader propsCfgLoader;
 
-    public void exec(String channelId, Integer part) {
-        Player player = playerGlobalManager.getPlayerByChannelId(channelId);
-        if (player == null) {
-            LOG.info("找不到玩家");
-            return;
-        }
-
+    public void exec(Player player, Integer part) {
         EquipDb equipDb = player.getPlayerDb().getEquipDb();
         Map<Integer, ItemDb> items = equipDb.getItems();
         ItemDb equipItem = items.get(part);
@@ -62,8 +45,6 @@ public class EquipTakeoffExec {
 
         // 加进背包
         backpackFacade.add(player, equipItem);
-
-        playerDao.save(player.getPlayerDb());
 
         // 打印提示
         String msg = String.format("你脱掉了%s", propsCfgLoader.getName(equipItem.getCfgId()));

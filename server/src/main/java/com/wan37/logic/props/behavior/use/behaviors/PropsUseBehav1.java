@@ -1,8 +1,6 @@
 package com.wan37.logic.props.behavior.use.behaviors;
 
 import com.wan37.logic.player.Player;
-import com.wan37.logic.player.dao.PlayerDao;
-import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.player.service.addmp.PlayerMpAdder;
 import com.wan37.logic.props.behavior.use.PropsUseBehavior;
 import com.wan37.logic.props.behavior.use.PropsUseContext;
@@ -17,9 +15,6 @@ import org.springframework.stereotype.Service;
 class PropsUseBehav1 implements PropsUseBehavior {
 
     @Autowired
-    private PlayerDao playerDao;
-
-    @Autowired
     private PlayerMpAdder playerMpAdder;
 
     @Override
@@ -29,9 +24,6 @@ class PropsUseBehav1 implements PropsUseBehavior {
 
         int addMp = Integer.parseInt(propsCfg.getUseLogicArgs());
         playerMpAdder.add(player, addMp);
-
-        PlayerDb playerDb = player.getPlayerDb();
-        playerDao.save(playerDb);
 
         // TODO: 推送玩家状态变化给场景其他玩家
     }

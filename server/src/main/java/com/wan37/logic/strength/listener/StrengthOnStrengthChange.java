@@ -4,7 +4,6 @@ import com.wan37.event.GeneralEventListener;
 import com.wan37.event.StrengthChangeEvent;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
-import com.wan37.logic.player.dao.PlayerDao;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.strength.encode.PlayerStrengthInfoEncoder;
 import com.wan37.logic.strength.init.PlayerStrengthDbRefresher;
@@ -19,9 +18,6 @@ class StrengthOnStrengthChange implements GeneralEventListener<StrengthChangeEve
 
     @Autowired
     private PlayerGlobalManager playerGlobalManager;
-
-    @Autowired
-    private PlayerDao playerDao;
 
     @Autowired
     private PlayerStrengthDbRefresher playerStrengthDbRefresher;
@@ -40,8 +36,6 @@ class StrengthOnStrengthChange implements GeneralEventListener<StrengthChangeEve
         // 计算战力变化
         PlayerDb playerDb = player.getPlayerDb();
         playerStrengthDbRefresher.refresh(playerDb);
-
-        playerDao.save(playerDb);
 
         // 推送最新面板伤害变化
         String msg = "面板总伤害更新通知|" + playerStrengthInfoEncoder.encode(playerDb.getPlayerStrengthDb());

@@ -1,7 +1,6 @@
 package com.wan37.logic.scene.service.pick;
 
 import com.wan37.logic.player.Player;
-import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.props.ResourceFacade;
 import com.wan37.logic.props.resource.ResourceElement;
 import com.wan37.logic.props.resource.impl.ResourceElementImpl;
@@ -17,20 +16,12 @@ import java.util.Collection;
 public class ScenePickAllExec {
 
     @Autowired
-    private PlayerGlobalManager playerGlobalManager;
-
-    @Autowired
     private SceneGlobalManager sceneGlobalManager;
 
     @Autowired
     private ResourceFacade resourceFacade;
 
-    public void exec(String channelId) {
-        Player player = playerGlobalManager.getPlayerByChannelId(channelId);
-        if (player == null) {
-            return;
-        }
-
+    public void exec(Player player) {
         Integer sceneId = player.getSceneId();
         Scene scene = sceneGlobalManager.getScene(sceneId);
 

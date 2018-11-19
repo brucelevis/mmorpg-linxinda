@@ -38,7 +38,6 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelInactive(ChannelHandlerContext ctx) {
         LOG.info("--- Server is inactive ---");
-
-        new GenernalEventListenersManager().fireEvent(new OfflineEvent(ctx.channel().id().asLongText()));
+        new GenernalEventListenersManager().fireEvent(new OfflineEvent(ctx.channel()));
     }
 }

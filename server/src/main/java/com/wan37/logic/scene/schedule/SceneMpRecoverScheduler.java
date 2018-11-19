@@ -3,10 +3,8 @@ package com.wan37.logic.scene.schedule;
 import com.wan37.logic.attr.config.AttrEnum;
 import com.wan37.logic.attr.database.PAttrDb;
 import com.wan37.logic.player.Player;
-import com.wan37.logic.player.dao.PlayerDao;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.scene.Scene;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,9 +14,6 @@ public class SceneMpRecoverScheduler {
     private static final int MP = 5;
 
     private static final int INTERVAL = 11;
-
-    @Autowired
-    private PlayerDao playerDao;
 
     public void schedule(Scene scene) {
         int mpCounter = (scene.getRecoverMpCounter() + 1) % INTERVAL;
@@ -44,7 +39,6 @@ public class SceneMpRecoverScheduler {
 
         int result = curMp + MP > maxMp ? maxMp : curMp + MP;
         playerDb.setMp(result);
-        playerDao.save(playerDb);
 
         String msg = String.format("你自动恢复了%smp", result - curMp);
         player.syncClient(msg);

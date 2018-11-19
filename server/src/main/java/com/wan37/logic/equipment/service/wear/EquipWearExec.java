@@ -6,18 +6,11 @@ import com.wan37.logic.backpack.database.ItemDb;
 import com.wan37.logic.equipment.config.EquipCfg;
 import com.wan37.logic.equipment.config.EquipCfgLoader;
 import com.wan37.logic.player.Player;
-import com.wan37.logic.player.PlayerGlobalManager;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class EquipWearExec {
-
-    private static final Logger LOG = Logger.getLogger(EquipWearExec.class);
-
-    @Autowired
-    private PlayerGlobalManager playerGlobalManager;
 
     @Autowired
     private EquipWearer equipWearer;
@@ -28,13 +21,7 @@ public class EquipWearExec {
     @Autowired
     private EquipCfgLoader equipCfgLoader;
 
-    public void exec(String channelId, Long itemUid) {
-        Player player = playerGlobalManager.getPlayerByChannelId(channelId);
-        if (player == null) {
-            LOG.info("找不到玩家");
-            return;
-        }
-
+    public void exec(Player player, Long itemUid) {
         BackpackDb backpackDb = player.getPlayerDb().getBackpackDb();
         ItemDb itemDb = backpackFacade.find(backpackDb, itemUid).orElse(null);
         if (itemDb == null) {

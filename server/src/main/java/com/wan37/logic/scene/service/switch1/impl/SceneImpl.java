@@ -17,8 +17,8 @@ class SceneImpl implements SSwitchScene {
     }
 
     @Override
-    public String getChannelId() {
-        return channel.id().asLongText();
+    public Channel getChannel() {
+        return channel;
     }
 
     private final Integer sceneId;
