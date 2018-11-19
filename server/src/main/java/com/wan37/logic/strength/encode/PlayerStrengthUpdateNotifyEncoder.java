@@ -31,7 +31,6 @@ public class PlayerStrengthUpdateNotifyEncoder {
 
     private PlayerStrengthUpdateNotify encodeContent(PlayerStrengthDb playerStrengthDb) {
         PlayerStrengthUpdateNotify dto = new PlayerStrengthUpdateNotify();
-        dto.setBaseValue(playerStrengthDb.getBaseVal());
 
         dto.setAttrs(playerStrengthDb.getAttrs().entrySet().stream()
                 .map(this::encodeAttr)

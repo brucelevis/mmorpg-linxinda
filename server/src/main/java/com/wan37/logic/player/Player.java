@@ -2,15 +2,21 @@ package com.wan37.logic.player;
 
 
 import com.wan37.common.GeneralResponseDto;
+import com.wan37.logic.buff.IBuff;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.util.GeneralNotifySenderUtil;
 import io.netty.channel.Channel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Player implements IPlayer {
 
     private Channel channel;
     private PlayerDb playerDb;
+
+    private List<IBuff> buffs = new ArrayList<>();
 
     public Channel getChannel() {
         return channel;
@@ -26,6 +32,14 @@ public class Player implements IPlayer {
 
     public void setPlayerDb(PlayerDb playerDb) {
         this.playerDb = playerDb;
+    }
+
+    public List<IBuff> getBuffs() {
+        return buffs;
+    }
+
+    public void setBuffs(List<IBuff> buffs) {
+        this.buffs = buffs;
     }
 
     public IPlayer getIPlayer() {

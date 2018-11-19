@@ -4,9 +4,9 @@ public class BuffCfgExcel {
 
     private Integer id;
     private String name;
-    private Integer type1;
-    private Integer type2;
+    private Integer effectId;
     private String desc;
+    private boolean once;
     private String arg;
     private int interval;
     private int continuous;
@@ -27,20 +27,12 @@ public class BuffCfgExcel {
         this.name = name;
     }
 
-    public Integer getType1() {
-        return type1;
+    public Integer getEffectId() {
+        return effectId;
     }
 
-    public void setType1(Integer type1) {
-        this.type1 = type1;
-    }
-
-    public Integer getType2() {
-        return type2;
-    }
-
-    public void setType2(Integer type2) {
-        this.type2 = type2;
+    public void setEffectId(Integer effectId) {
+        this.effectId = effectId;
     }
 
     public String getDesc() {
@@ -49,6 +41,14 @@ public class BuffCfgExcel {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public boolean isOnce() {
+        return once;
+    }
+
+    public void setOnce(boolean once) {
+        this.once = once;
     }
 
     public String getArg() {

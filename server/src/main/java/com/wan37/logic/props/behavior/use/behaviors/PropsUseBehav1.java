@@ -1,10 +1,9 @@
 package com.wan37.logic.props.behavior.use.behaviors;
 
-import com.wan37.logic.attr.config.AttrEnum;
-import com.wan37.logic.attr.database.PAttrDb;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.dao.PlayerDao;
 import com.wan37.logic.player.database.PlayerDb;
+import com.wan37.logic.player.service.addmp.PlayerMpAdder;
 import com.wan37.logic.props.behavior.use.PropsUseBehavior;
 import com.wan37.logic.props.behavior.use.PropsUseContext;
 import com.wan37.logic.props.config.PropsCfg;
@@ -20,33 +19,19 @@ class PropsUseBehav1 implements PropsUseBehavior {
     @Autowired
     private PlayerDao playerDao;
 
+    @Autowired
+    private PlayerMpAdder playerMpAdder;
+
     @Override
     public void behave(PropsUseContext context) {
         Player player = context.getPlayer();
         PropsCfg propsCfg = context.getPropsCfg();
+
         int addMp = Integer.parseInt(propsCfg.getUseLogicArgs());
+        playerMpAdder.add(player, addMp);
 
         PlayerDb playerDb = player.getPlayerDb();
-        int cur = playerDb.getMp();
-        int mp = cur + addMp;
-
-        PAttrDb mpDb = playerDb.getPlayerAttrDb().getAttrs().get(AttrEnum.ATTR_MP.getId());
-        if (mpDb == null) {
-            return;
-        }
-
-        int max = (int) Math.round(mpDb.getValue());
-        int result = max > mp ? mp : max;
-        if (result == cur) {
-            // 没变化
-            return;
-        }
-
-        playerDb.setMp(result);
         playerDao.save(playerDb);
-
-        String msg = String.format("你恢复了%smp", result - cur);
-        player.syncClient(msg);
 
         // TODO: 推送玩家状态变化给场景其他玩家
     }

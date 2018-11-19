@@ -1,9 +1,18 @@
-package com.wan37.config.entity;
+package com.wan37.logic.buff;
 
-public class BuffType2CfgExcel {
+public enum BuffTypeEnum {
+
+    BUFF_TYPE_1(1, "增益类"),
+    BUFF_TYPE_2(2, "减益类"),
+    BUFF_TYPE_3(3, "特殊类");
 
     private Integer id;
     private String name;
+
+    BuffTypeEnum(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public Integer getId() {
         return id;

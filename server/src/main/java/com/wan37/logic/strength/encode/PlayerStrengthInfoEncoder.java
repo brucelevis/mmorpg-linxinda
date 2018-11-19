@@ -15,7 +15,7 @@ public class PlayerStrengthInfoEncoder {
     private AttrCfgLoader attrCfgLoader;
 
     public String encode(PlayerStrengthDb playerStrengthDb) {
-        String head = String.format("玩家面板总伤：%s\n", playerStrengthDb.getBaseVal());
+        String head = String.format("玩家面板总伤：%s，总防：%s\n", playerStrengthDb.getBaseAttackVal(), playerStrengthDb.getBaseDefenseVal());
 
         String attrs = playerStrengthDb.getAttrs().entrySet().stream()
                 .map(e -> encodeAttr(e.getKey(), e.getValue()))

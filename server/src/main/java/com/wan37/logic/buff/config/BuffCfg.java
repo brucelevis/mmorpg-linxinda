@@ -6,11 +6,11 @@ public interface BuffCfg {
 
     String getName();
 
-    Integer getType1();
-
-    Integer getType2();
+    Integer getEffectId();
 
     String getDesc();
+
+    boolean isOnce();
 
     String getArg();
 

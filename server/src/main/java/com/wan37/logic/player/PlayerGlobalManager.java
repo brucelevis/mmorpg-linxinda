@@ -31,7 +31,8 @@ public class PlayerGlobalManager {
             .maximumSize(100)  // 设置缓存容器的最大容量大小为100
             .recordStats() // 设置记录缓存命中率
             .concurrencyLevel(8) // 设置并发级别为8，智并发基本值可以同事些缓存的线程数
-            .expireAfterAccess(60, TimeUnit.MINUTES)  // 设置过期时间
+            .expireAfterWrite(30, TimeUnit.SECONDS)  // 设置过期时间
+            .removalListener(notification -> beforeRemovePlayerCache((Player) notification.getValue()))
             .build(new CacheLoader<Long, Player>() {
                 @Override
                 public Player load(Long uid) {
@@ -39,6 +40,7 @@ public class PlayerGlobalManager {
                     if (playerDb == null) {
                         return null;
                     }
+
 
                     return playerCreator.create(playerDb, null);
                 }
@@ -75,5 +77,9 @@ public class PlayerGlobalManager {
 
     public Player getPlayerByUid(Long uid) {
         return playerCache.getUnchecked(uid);
+    }
+
+    public void beforeRemovePlayerCache(Player player) {
+        playerDao.save(player.getPlayerDb());
     }
 }

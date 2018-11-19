@@ -20,18 +20,18 @@ public class BuffCfgImpl implements BuffCfg {
     }
 
     @Override
-    public Integer getType1() {
-        return cfgExcel.getType1();
-    }
-
-    @Override
-    public Integer getType2() {
-        return cfgExcel.getType2();
+    public Integer getEffectId() {
+        return cfgExcel.getEffectId();
     }
 
     @Override
     public String getDesc() {
         return cfgExcel.getDesc();
+    }
+
+    @Override
+    public boolean isOnce() {
+        return cfgExcel.isOnce();
     }
 
     @Override

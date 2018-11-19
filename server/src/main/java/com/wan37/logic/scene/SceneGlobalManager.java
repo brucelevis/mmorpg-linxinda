@@ -23,7 +23,7 @@ public class SceneGlobalManager {
     /**
      * 场景线程池
      */
-    private static ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(10);
+    private static ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(20);
 
     @Autowired
     private SceneCreator sceneCreator;
@@ -62,7 +62,7 @@ public class SceneGlobalManager {
         sceneMap.put(sceneId, newScene);
 
         // 启动场景心跳
-        ScheduledFuture<?> schedule = scheduledExecutorService.scheduleAtFixedRate(newScene, 1, 1, TimeUnit.SECONDS);
+        ScheduledFuture<?> schedule = scheduledExecutorService.scheduleAtFixedRate(newScene, 200, 200, TimeUnit.MILLISECONDS);
         sceneScheduleMap.put(sceneId, schedule);
 
         return newScene;
