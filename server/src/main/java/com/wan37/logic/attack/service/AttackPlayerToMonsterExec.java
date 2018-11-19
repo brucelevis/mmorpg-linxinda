@@ -124,6 +124,15 @@ public class AttackPlayerToMonsterExec {
             return;
         }
 
+        // 扣蓝
+        playerDb.setMp(playerDb.getMp() - costMp);
+
+        //FIXME: 写死减少装备耐久度1
+        equipExtraDb.setDurabilityv(equipExtraDb.getDurabilityv() - 1);
+
+        // 设置技能cd
+        skillDb.setLastUseTime(now);
+
         /**
          * FIXME: 攻击先简单写死做
          * 1.先算出人物的基础面板总攻击，然后计算出技能加成后能打出的伤害 A1
@@ -137,19 +146,20 @@ public class AttackPlayerToMonsterExec {
         double skillPercent = skillCfg.getDemage(skillDb.getLevel());
         long demage = Math.round(baseVal * skillPercent);
 
-        // 设置技能cd
-        skillDb.setLastUseTime(now);
-
-        // 扣蓝
-        playerDb.setMp(playerDb.getMp() - costMp);
-
-        //FIXME: 写死减少装备耐久度1
-        equipExtraDb.setDurabilityv(equipExtraDb.getDurabilityv() - 1);
+        //FIXME: 恶心代码。
+        if (demage <= monster.getBaseDefenseVal()) {
+            demage = 0;
+        } else {
+            demage -= monster.getBaseDefenseVal();
+        }
 
         long curHp = monster.getHp();
         if (curHp > demage) {
             // 怪物没死
             monster.setHp(curHp - demage);
+
+            // 标记打人的人
+            monster.setLastAttackId(player.getUid());
 
             // 打印
             String msg = String.format("你用%s击中%s，造成伤害%s，消耗%smp", skillCfg.getName(), monster.getName(), demage, costMp);
