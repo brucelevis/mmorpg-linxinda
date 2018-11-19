@@ -2,10 +2,14 @@ package com.wan37.logic.skill.config.impl;
 
 import com.google.common.collect.ImmutableMap;
 import com.wan37.config.entity.SkillCfgExcel;
+import com.wan37.logic.skill.config.SkillBuffCfg;
 import com.wan37.logic.skill.config.SkillCfg;
 import com.wan37.util.ScriptEngineUtil;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class SkillCfgImpl implements SkillCfg {
 
@@ -51,6 +55,21 @@ public class SkillCfgImpl implements SkillCfg {
         Map<String, Object> bindgings = createCostMpBindging(lv);
         double result = ScriptEngineUtil.eval(cfgExcel.getCostMp(), bindgings);
         return (int) Math.round(result);
+    }
+
+    @Override
+    public List<SkillBuffCfg> getBuffs() {
+        return Arrays.stream(cfgExcel.getBuffs().split(","))
+                .map(this::createBuff)
+                .collect(Collectors.toList());
+    }
+
+    private SkillBuffCfg createBuff(String s) {
+        String[] buff = s.split(":");
+        Integer id = Integer.parseInt(buff[0]);
+        double val = Double.parseDouble(buff[1]);
+
+        return new SkillBuffCfgImpl(id, val);
     }
 
     private Map<String, Object> createCdBindging(int lv) {

@@ -47,12 +47,19 @@ public class SceneScheduler {
         // 移除过期Buff
         buffs.stream()
                 .filter(b -> b.getExpireTime() < now)
-                .forEach(buffs::remove);
+                .forEach(b -> removeBuffAndNotify(player, b));
 
         // 作用持续buff
         buffs.stream()
                 .filter(b -> !b.isOnce())
                 .filter(b -> b.getLastEffectTime() + b.getInterval() <= now)
                 .forEach(b -> buffEffectHandler.handle(player, b, now));
+    }
+
+    private void removeBuffAndNotify(Player player, IBuff buff) {
+        player.getBuffs().remove(buff);
+
+        String msg = String.format("%s过期消失", buff.getName());
+        player.syncClient(msg);
     }
 }

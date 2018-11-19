@@ -1,6 +1,9 @@
 package com.wan37.logic.attack.service;
 
 import com.wan37.logic.backpack.database.ItemDb;
+import com.wan37.logic.buff.IBuff;
+import com.wan37.logic.buff.config.BuffCfg;
+import com.wan37.logic.buff.config.BuffCfgLoader;
 import com.wan37.logic.equipment.EquipPartEnum;
 import com.wan37.logic.equipment.database.EquipDb;
 import com.wan37.logic.equipment.database.EquipExtraDb;
@@ -9,16 +12,19 @@ import com.wan37.logic.monster.Monster;
 import com.wan37.logic.monster.encode.MonsterEncoder;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.database.PlayerDb;
+import com.wan37.logic.player.service.PlayerBuffAdder;
 import com.wan37.logic.scene.Scene;
 import com.wan37.logic.scene.SceneGlobalManager;
 import com.wan37.logic.scene.encode.SceneItemEncoder;
 import com.wan37.logic.scene.item.SceneItem;
+import com.wan37.logic.skill.config.SkillBuffCfg;
 import com.wan37.logic.skill.config.SkillCfg;
 import com.wan37.logic.skill.config.SkillCfgLoader;
 import com.wan37.logic.skill.database.PSkillDb;
 import com.wan37.logic.skill.database.PlayerSkillDb;
 import com.wan37.logic.strength.database.PlayerStrengthDb;
 import com.wan37.util.DateTimeUtils;
+import com.wan37.util.RandomUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,6 +56,15 @@ public class AttackPlayerToMonsterExec {
 
     @Autowired
     private SceneItemEncoder sceneItemEncoder;
+
+    @Autowired
+    private BuffCfgLoader buffCfgLoader;
+
+    @Autowired
+    private IBuff.Factory buffFactory;
+
+    @Autowired
+    private PlayerBuffAdder playerBuffAdder;
 
     public void exec(Player player, Integer skillId, Long monsterUid) {
         PlayerDb playerDb = player.getPlayerDb();
@@ -167,8 +182,28 @@ public class AttackPlayerToMonsterExec {
             }
         }
 
+        // 概率触发Buff
+        skillCfg.getBuffs().forEach(c -> randBuff(player, c));
+
         // 通知场景玩家怪物状态更新
         String monsterUpdate = "怪物状态更新推送|" + monsterEncoder.encode(monster);
         scene.getPlayers().forEach(p -> p.syncClient(monsterUpdate));
+    }
+
+    private void randBuff(Player player, SkillBuffCfg cfg) {
+        if (!RandomUtil.isHit(cfg.getProbability())) {
+            return;
+        }
+
+        BuffCfg buffCfg = buffCfgLoader.load(cfg.getId()).orElse(null);
+        if (buffCfg == null) {
+            return;
+        }
+
+        IBuff buff = buffFactory.create(buffCfg);
+        playerBuffAdder.add(player, buff);
+
+        String msg = String.format("你触发了%s", buff.getName());
+        player.syncClient(msg);
     }
 }

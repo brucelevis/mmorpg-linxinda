@@ -16,6 +16,11 @@ public class Monster implements IMonster {
 
     private Map<Integer, Double> attrs;
 
+    private int baseAttackVal;
+    private int baseDefenseVal;
+
+    private long lastAttackId;
+
     public Long getUid() {
         return uid;
     }
@@ -62,6 +67,30 @@ public class Monster implements IMonster {
 
     public void setAttrs(Map<Integer, Double> attrs) {
         this.attrs = attrs;
+    }
+
+    public int getBaseAttackVal() {
+        return baseAttackVal;
+    }
+
+    public void setBaseAttackVal(int baseAttackVal) {
+        this.baseAttackVal = baseAttackVal;
+    }
+
+    public int getBaseDefenseVal() {
+        return baseDefenseVal;
+    }
+
+    public void setBaseDefenseVal(int baseDefenseVal) {
+        this.baseDefenseVal = baseDefenseVal;
+    }
+
+    public long getLastAttackId() {
+        return lastAttackId;
+    }
+
+    public void setLastAttackId(long lastAttackId) {
+        this.lastAttackId = lastAttackId;
     }
 
     @Override
