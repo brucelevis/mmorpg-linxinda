@@ -62,5 +62,11 @@ skill_Info
 attack_PlayerToMonster skillId monsterUid
 
 
+################# 商店系统 ###############################
 
+#显示商店菜单 
+shop_Info
+
+#购买某种物品  (未做)
+shop_Buy itemId amount  
 
