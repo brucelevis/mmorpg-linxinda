@@ -1,4 +1,4 @@
-package com.wan37.logic.shop.service;
+package com.wan37.logic.shop.service.info;
 
 import com.wan37.logic.player.Player;
 import com.wan37.logic.props.config.PropsCfg;
