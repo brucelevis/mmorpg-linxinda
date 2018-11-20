@@ -1,5 +1,7 @@
 package com.wan37.logic.scene.service.pick;
 
+import com.wan37.logic.backpack.encode.BackpackUpdateNotifier;
+import com.wan37.logic.currency.encode.CurrencyUpdateNotifier;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.props.ResourceFacade;
 import com.wan37.logic.props.resource.ResourceElement;
@@ -21,6 +23,12 @@ public class ScenePickAllExec {
     @Autowired
     private ResourceFacade resourceFacade;
 
+    @Autowired
+    private BackpackUpdateNotifier backpackUpdateNotifier;
+
+    @Autowired
+    private CurrencyUpdateNotifier currencyUpdateNotifier;
+
     public void exec(Player player) {
         Integer sceneId = player.getSceneId();
         Scene scene = sceneGlobalManager.getScene(sceneId);
@@ -40,6 +48,12 @@ public class ScenePickAllExec {
             String msg = String.format("%s拾取了%s个%s", player.getName(), sceneItem.getAmount(), sceneItem.getName());
             scene.getPlayers().forEach(p -> p.syncClient(msg));
         }
+
+        // 背包更新推送
+        backpackUpdateNotifier.notify(player);
+
+        // 虚拟物品更新推送
+        currencyUpdateNotifier.notify(player);
     }
 
     private ResourceElement createElement(SceneItem item) {

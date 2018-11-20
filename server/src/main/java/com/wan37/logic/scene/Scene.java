@@ -92,6 +92,10 @@ public class Scene implements IScene, Runnable {
 
     @Override
     public void run() {
-        sceneScheduler.schedule(this);
+        try {
+            sceneScheduler.schedule(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

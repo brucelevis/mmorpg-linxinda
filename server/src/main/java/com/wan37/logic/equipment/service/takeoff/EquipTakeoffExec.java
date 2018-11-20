@@ -4,9 +4,11 @@ import com.wan37.event.GenernalEventListenersManager;
 import com.wan37.event.StrengthChangeEvent;
 import com.wan37.logic.backpack.BackpackFacade;
 import com.wan37.logic.backpack.database.ItemDb;
+import com.wan37.logic.backpack.service.find.BackpackEmptyIndexFinder;
 import com.wan37.logic.equipment.database.EquipDb;
 import com.wan37.logic.equipment.encode.EquipUpdateNotifier;
 import com.wan37.logic.player.Player;
+import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.props.config.PropsCfgLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +30,11 @@ public class EquipTakeoffExec {
     @Autowired
     private PropsCfgLoader propsCfgLoader;
 
+    @Autowired
+    private BackpackEmptyIndexFinder backpackEmptyIndexFinder;
+
     public void exec(Player player, Integer part) {
+        PlayerDb playerDb = player.getPlayerDb();
         EquipDb equipDb = player.getPlayerDb().getEquipDb();
         Map<Integer, ItemDb> items = equipDb.getItems();
         ItemDb equipItem = items.get(part);
@@ -37,7 +43,12 @@ public class EquipTakeoffExec {
             return;
         }
 
-        //FIXME: 检查背包是否有空位
+        // 检查背包是否有空位
+        int index = backpackEmptyIndexFinder.find(playerDb.getBackpackDb());
+        if (index < 0) {
+            player.syncClient("没有多余空位");
+            return;
+        }
 
         // 脱
         items.remove(part);

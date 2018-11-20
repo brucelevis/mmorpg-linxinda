@@ -3,9 +3,9 @@ package com.wan37.logic.monster;
 import com.wan37.logic.buff.IBuff;
 import com.wan37.logic.monster.config.MonsterCfg;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Monster implements IMonster {
 
@@ -23,7 +23,7 @@ public class Monster implements IMonster {
     private int baseDefenseVal;
 
     private long lastAttackId;
-    private List<IBuff> buffs = new ArrayList<>();
+    private List<IBuff> buffs = new CopyOnWriteArrayList<>();
 
     public Long getUid() {
         return uid;

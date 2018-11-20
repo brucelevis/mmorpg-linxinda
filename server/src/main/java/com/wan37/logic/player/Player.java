@@ -7,8 +7,8 @@ import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.util.GeneralNotifySenderUtil;
 import io.netty.channel.Channel;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 
 public class Player implements IPlayer {
@@ -16,7 +16,7 @@ public class Player implements IPlayer {
     private Channel channel;
     private PlayerDb playerDb;
 
-    private List<IBuff> buffs = new ArrayList<>();
+    private List<IBuff> buffs = new CopyOnWriteArrayList<>();
 
     public Channel getChannel() {
         return channel;

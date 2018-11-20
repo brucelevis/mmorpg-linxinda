@@ -132,6 +132,9 @@ public class AttackPlayerToMonsterExec {
         // 设置技能cd
         skillDb.setLastUseTime(now);
 
+        // 标记打人的人
+        monster.setLastAttackId(player.getUid());
+
         /**
          * FIXME: 攻击先简单写死做
          * 1.先算出人物的基础面板总攻击，然后计算出技能加成后能打出的伤害 A1
@@ -156,9 +159,6 @@ public class AttackPlayerToMonsterExec {
         if (curHp > demage) {
             // 怪物没死
             monster.setHp(curHp - demage);
-
-            // 标记打人的人
-            monster.setLastAttackId(player.getUid());
 
             // 打印
             String msg = String.format("你用%s击中%s，造成伤害%s，消耗%smp", skillCfg.getName(), monster.getName(), demage, costMp);
@@ -193,6 +193,10 @@ public class AttackPlayerToMonsterExec {
         if (Objects.equals(buff.getTarget(), BuffTargetEnum.BUFF_TARGET_1.getId())) {
             playerBuffAdder.add(player, buff);
         } else {
+            if (!monster.isAlive()) {
+                return;
+            }
+
             // 去重
             List<IBuff> buffs = monster.getBuffs();
             buffs.stream().filter(b -> Objects.equals(b.getId(), buff.getId()))
