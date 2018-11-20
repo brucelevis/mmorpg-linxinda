@@ -54,7 +54,7 @@ public class PlayerDbInitializer {
 
         BackpackDb newDb = new BackpackDb();
         //FIXME: 先写死初始容量，后改成配置表配置
-        newDb.setCapacity(20);
+        newDb.setCapacity(6);
         newDb.setItemMap(new HashMap<>());
 
         playerDb.setBackpackDb(newDb);

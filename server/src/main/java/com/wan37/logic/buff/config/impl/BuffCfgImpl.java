@@ -49,5 +49,10 @@ public class BuffCfgImpl implements BuffCfg {
         return cfgExcel.getContinuous();
     }
 
+    @Override
+    public Integer getTatget() {
+        return cfgExcel.getTarget();
+    }
+
     private final BuffCfgExcel cfgExcel;
 }

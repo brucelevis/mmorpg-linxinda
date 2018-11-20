@@ -28,4 +28,6 @@ public interface IBuff {
     String getArg();
 
     int getContinuous();
+
+    Integer getTarget();
 }

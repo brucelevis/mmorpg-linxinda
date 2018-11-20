@@ -30,6 +30,7 @@ public class MonsterCreator {
         Monster monster = new Monster();
         monster.setUid(idTool.generate());
         monster.setMonsterCfg(cfg);
+
         monster.setAttrs(cfg.getAttrs().stream()
                 .collect(Collectors.toMap(MonsterInitAttrCfg::getId, MonsterInitAttrCfg::getValue)));
 

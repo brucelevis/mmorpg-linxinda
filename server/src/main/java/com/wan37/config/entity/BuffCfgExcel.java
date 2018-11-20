@@ -10,6 +10,7 @@ public class BuffCfgExcel {
     private String arg;
     private int interval;
     private int continuous;
+    private Integer target;
 
     public Integer getId() {
         return id;
@@ -73,5 +74,13 @@ public class BuffCfgExcel {
 
     public void setContinuous(int continuous) {
         this.continuous = continuous;
+    }
+
+    public Integer getTarget() {
+        return target;
+    }
+
+    public void setTarget(Integer target) {
+        this.target = target;
     }
 }

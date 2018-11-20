@@ -45,7 +45,7 @@ public class EquipWearer {
 
         if (old != null) {
             // 旧装备放进背包
-            backpackFacade.add(player, itemDb);
+            backpackFacade.add(player, old);
         }
 
         // 打印提示

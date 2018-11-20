@@ -1,7 +1,10 @@
 package com.wan37.logic.monster;
 
+import com.wan37.logic.buff.IBuff;
 import com.wan37.logic.monster.config.MonsterCfg;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class Monster implements IMonster {
@@ -20,6 +23,7 @@ public class Monster implements IMonster {
     private int baseDefenseVal;
 
     private long lastAttackId;
+    private List<IBuff> buffs = new ArrayList<>();
 
     public Long getUid() {
         return uid;
@@ -91,6 +95,14 @@ public class Monster implements IMonster {
 
     public void setLastAttackId(long lastAttackId) {
         this.lastAttackId = lastAttackId;
+    }
+
+    public List<IBuff> getBuffs() {
+        return buffs;
+    }
+
+    public void setBuffs(List<IBuff> buffs) {
+        this.buffs = buffs;
     }
 
     @Override

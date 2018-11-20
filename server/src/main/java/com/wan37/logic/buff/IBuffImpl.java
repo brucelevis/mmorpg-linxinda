@@ -60,6 +60,11 @@ class IBuffImpl implements IBuff {
         return buffCfg.getContinuous();
     }
 
+    @Override
+    public Integer getTarget() {
+        return buffCfg.getTatget();
+    }
+
     private final long expireTime;
     private final BuffCfg buffCfg;
 

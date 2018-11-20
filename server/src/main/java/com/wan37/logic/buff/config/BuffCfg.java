@@ -17,4 +17,6 @@ public interface BuffCfg {
     int getInterval();
 
     int getContinuous();
+
+    Integer getTatget();
 }

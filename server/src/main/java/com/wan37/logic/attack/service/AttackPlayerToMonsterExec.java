@@ -1,6 +1,7 @@
 package com.wan37.logic.attack.service;
 
 import com.wan37.logic.backpack.database.ItemDb;
+import com.wan37.logic.buff.BuffTargetEnum;
 import com.wan37.logic.buff.IBuff;
 import com.wan37.logic.buff.config.BuffCfg;
 import com.wan37.logic.buff.config.BuffCfgLoader;
@@ -9,14 +10,13 @@ import com.wan37.logic.equipment.database.EquipDb;
 import com.wan37.logic.equipment.database.EquipExtraDb;
 import com.wan37.logic.equipment.service.EquipExtraDbGetter;
 import com.wan37.logic.monster.Monster;
+import com.wan37.logic.monster.die.MonsterDieHandler;
 import com.wan37.logic.monster.encode.MonsterEncoder;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.player.service.PlayerBuffAdder;
 import com.wan37.logic.scene.Scene;
 import com.wan37.logic.scene.SceneGlobalManager;
-import com.wan37.logic.scene.encode.SceneItemEncoder;
-import com.wan37.logic.scene.item.SceneItem;
 import com.wan37.logic.skill.config.SkillBuffCfg;
 import com.wan37.logic.skill.config.SkillCfg;
 import com.wan37.logic.skill.config.SkillCfgLoader;
@@ -32,8 +32,10 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
+/**
+ * FIXME: 整个战斗写的很恶心
+ */
 @Service
 public class AttackPlayerToMonsterExec {
 
@@ -52,12 +54,6 @@ public class AttackPlayerToMonsterExec {
     private EquipExtraDbGetter equipExtraDbGetter;
 
     @Autowired
-    private SceneItem.Factory sceneItemFactory;
-
-    @Autowired
-    private SceneItemEncoder sceneItemEncoder;
-
-    @Autowired
     private BuffCfgLoader buffCfgLoader;
 
     @Autowired
@@ -65,6 +61,9 @@ public class AttackPlayerToMonsterExec {
 
     @Autowired
     private PlayerBuffAdder playerBuffAdder;
+
+    @Autowired
+    private MonsterDieHandler monsterDieHandler;
 
     public void exec(Player player, Integer skillId, Long monsterUid) {
         PlayerDb playerDb = player.getPlayerDb();
@@ -166,41 +165,21 @@ public class AttackPlayerToMonsterExec {
             player.syncClient(msg);
         } else {
             // 怪物死了
-            monster.setHp(0);
-            monster.setAlive(false);
-            monster.setDeadTime(now);
-
-            // 获得经验
-            int exp = monster.getMonsterCfg().getExp();
-            playerDb.setExp(playerDb.getExp() + exp);
-
-            // 打印
-            String msg = String.format("你用%s击杀了%s，造成伤害%s，消耗%smp，获得经验%s", skillCfg.getName(), monster.getName(), demage, costMp, exp);
+            String msg = String.format("你用%s击杀了%s，造成伤害%s，消耗%smp", skillCfg.getName(), monster.getName(), demage, costMp);
             player.syncClient(msg);
 
-            // 爆物
-            List<SceneItem> rewards = sceneItemFactory.create(monster.getMonsterCfg());
-            if (!rewards.isEmpty()) {
-                rewards.forEach(i -> scene.getItems().put(i.getUid(), i));
-
-                // 通知玩家地上物品更新
-                String head = String.format("%s怪物掉落：", monster.getName());
-                String items = rewards.stream()
-                        .map(i -> sceneItemEncoder.encode(i))
-                        .collect(Collectors.joining("，"));
-                scene.getPlayers().forEach(p -> p.syncClient(head + items));
-            }
+            monsterDieHandler.handle(monster, now, player, scene);
         }
 
         // 概率触发Buff
-        skillCfg.getBuffs().forEach(c -> randBuff(player, c));
+        skillCfg.getBuffs().forEach(c -> randBuff(player, monster, c));
 
         // 通知场景玩家怪物状态更新
         String monsterUpdate = "怪物状态更新推送|" + monsterEncoder.encode(monster);
         scene.getPlayers().forEach(p -> p.syncClient(monsterUpdate));
     }
 
-    private void randBuff(Player player, SkillBuffCfg cfg) {
+    private void randBuff(Player player, Monster monster, SkillBuffCfg cfg) {
         if (!RandomUtil.isHit(cfg.getProbability())) {
             return;
         }
@@ -211,7 +190,17 @@ public class AttackPlayerToMonsterExec {
         }
 
         IBuff buff = buffFactory.create(buffCfg);
-        playerBuffAdder.add(player, buff);
+        if (Objects.equals(buff.getTarget(), BuffTargetEnum.BUFF_TARGET_1.getId())) {
+            playerBuffAdder.add(player, buff);
+        } else {
+            // 去重
+            List<IBuff> buffs = monster.getBuffs();
+            buffs.stream().filter(b -> Objects.equals(b.getId(), buff.getId()))
+                    .findAny()
+                    .ifPresent(buffs::remove);
+
+            buffs.add(buff);
+        }
 
         String msg = String.format("你触发了%s", buff.getName());
         player.syncClient(msg);
