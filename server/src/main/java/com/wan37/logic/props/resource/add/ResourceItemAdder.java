@@ -3,25 +3,22 @@ package com.wan37.logic.props.resource.add;
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.backpack.database.ItemDb;
 import com.wan37.logic.backpack.service.find.BackpackEmptyIndexFinder;
+import com.wan37.logic.backpack.service.find.BackpackExistItemFinder;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.props.config.PropsCfg;
 import com.wan37.logic.props.config.PropsCfgLoader;
 import com.wan37.logic.props.init.PropsExtraInitializer;
 import com.wan37.logic.props.resource.ResourceElement;
 import com.wan37.util.IdTool;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
 public class ResourceItemAdder {
-
-    private static final Logger LOG = Logger.getLogger(ResourceItemAdder.class);
 
     @Autowired
     private PropsCfgLoader propsCfgLoader;
@@ -34,6 +31,9 @@ public class ResourceItemAdder {
 
     @Autowired
     private PropsExtraInitializer propsExtraInitializer;
+
+    @Autowired
+    private BackpackExistItemFinder backpackExistItemFinder;
 
     public boolean add(ResourceElement element, Player player) {
         PropsCfg propsCfg = propsCfgLoader.load(element.getCfgId()).orElse(null);
@@ -53,7 +53,7 @@ public class ResourceItemAdder {
         int maxOverlay = propsCfg.getMaxOverLay();
         if (canOverlay(propsCfg)) {
             // 先找到已经存在的物品，并且物品叠加上限没满
-            List<ItemDb> existItems = findExistItems(propsCfg.getId(), backpackDb).stream()
+            List<ItemDb> existItems = backpackExistItemFinder.find(backpackDb, propsCfg.getId()).stream()
                     .filter(i -> i.getAmount() < propsCfg.getMaxOverLay())
                     .collect(Collectors.toList());
 
@@ -80,7 +80,7 @@ public class ResourceItemAdder {
             while (amount > 0) {
                 // 找到空的格子索引
                 Integer index = backpackEmptyIndexFinder.find(backpackDb);
-                ItemDb itemDb = null;
+                ItemDb itemDb;
                 if (amount >= maxOverlay) {
                     itemDb = createItem(propsCfg, index, maxOverlay);
                     amount -= maxOverlay;
@@ -136,7 +136,7 @@ public class ResourceItemAdder {
         }
 
         // 找到所有已存在的物品
-        List<ItemDb> existSameItems = findExistItems(propsCfg.getId(), backpackDb);
+        List<ItemDb> existSameItems = backpackExistItemFinder.find(backpackDb, propsCfg.getId());
 
         // 还可以加多少数量
         long remainAmount = (capacity - currentCapacity) * maxOverlay
@@ -149,11 +149,5 @@ public class ResourceItemAdder {
 
     private boolean canOverlay(PropsCfg propsCfg) {
         return propsCfg.getMaxOverLay() > 1;
-    }
-
-    private List<ItemDb> findExistItems(Integer cfgId, BackpackDb backpackDb) {
-        return backpackDb.getItemMap().values().stream()
-                .filter(i -> Objects.equals(i.getCfgId(), cfgId))
-                .collect(Collectors.toList());
     }
 }

@@ -3,6 +3,7 @@ package com.wan37.logic.props.resource.add;
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.backpack.database.ItemDb;
 import com.wan37.logic.backpack.service.find.BackpackEmptyIndexFinder;
+import com.wan37.logic.backpack.service.find.BackpackExistItemFinder;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.props.config.PropsCfg;
@@ -43,6 +44,9 @@ public class ResourceItemAdderTest {
 
     @Spy
     BackpackEmptyIndexFinder _finder;
+
+    @Spy
+    BackpackExistItemFinder _backpackExistItemFinder;
 
     @Mock
     PropsExtraInitializer _initializer;

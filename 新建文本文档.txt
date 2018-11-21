@@ -78,4 +78,7 @@ chat_Scene msg
 #Ë½ÁÄ
 chat_Private toUid msg
 
+#ÊÀ½ç
+chat_World msg
+
 

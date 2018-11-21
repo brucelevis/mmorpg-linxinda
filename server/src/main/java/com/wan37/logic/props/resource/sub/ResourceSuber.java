@@ -11,12 +11,14 @@ public class ResourceSuber {
     @Autowired
     private ResourceVirtualItemSuber resourceVirtualItemSuber;
 
+    @Autowired
+    private ResourceItemSuber resourceItemSuber;
+
     public boolean sub(ResourceElement element, Player player) {
         if (element.getCfgId() < 200) {
             return resourceVirtualItemSuber.sub(element, player);
         }
 
-        //TODO: 扣实物
-        return false;
+        return resourceItemSuber.sub(element, player);
     }
 }

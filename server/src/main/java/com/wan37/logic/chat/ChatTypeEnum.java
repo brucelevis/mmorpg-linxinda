@@ -3,7 +3,8 @@ package com.wan37.logic.chat;
 public enum ChatTypeEnum {
 
     CHAT_TYPE_SCENE(1, "当前"),
-    CHAT_TYPE_PRIVATE(2, "悄悄话");
+    CHAT_TYPE_PRIVATE(2, "悄悄话"),
+    CHAT_TYPE_WORLD(3, "世界");
 
     private Integer id;
     private String name;
