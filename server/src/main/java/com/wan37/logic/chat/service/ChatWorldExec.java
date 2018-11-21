@@ -30,6 +30,7 @@ public class ChatWorldExec {
         ResourceElement cost = new ResourceElementImpl(40001, 1);
 
         if (!resourceFacade.consumeResource(cost, player)) {
+            player.syncClient("当前背包红色喇叭不足1个，世界聊天需要消耗红色喇叭");
             return;
         }
 

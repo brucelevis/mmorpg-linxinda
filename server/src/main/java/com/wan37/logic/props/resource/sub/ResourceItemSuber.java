@@ -36,8 +36,6 @@ public class ResourceItemSuber {
 
         long needAmount = element.getAmount();
         if (existAmount < needAmount) {
-            String msg = String.format("%s不足%s个", propsCfg.getName(), needAmount);
-            player.syncClient(msg);
             return false;
         }
 
