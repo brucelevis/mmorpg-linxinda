@@ -37,7 +37,7 @@ public class MailDb {
     /**
      * 已读
      */
-    private boolean read;
+    private boolean hadRead;
 
     /**
      * 系统奖励
@@ -113,12 +113,12 @@ public class MailDb {
         this.mailItemDb = mailItemDb;
     }
 
-    public boolean isRead() {
-        return read;
+    public boolean isHadRead() {
+        return hadRead;
     }
 
-    public void setRead(boolean read) {
-        this.read = read;
+    public void setHadRead(boolean hadRead) {
+        this.hadRead = hadRead;
     }
 
     public PlayerDb getPlayer() {
