@@ -70,3 +70,12 @@ shop_Info
 #购买某种物品  
 shop_Buy id amount  
 
+############### 聊天系统 ################################
+
+#当前场景聊天
+chat_Scene msg
+
+#私聊
+chat_Private toUid msg
+
+
