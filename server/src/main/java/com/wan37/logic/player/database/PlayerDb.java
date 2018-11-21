@@ -8,12 +8,14 @@ import com.wan37.logic.currency.database.CurrencyDb;
 import com.wan37.logic.currency.database.convert.CurrencyDbConvertImpl;
 import com.wan37.logic.equipment.database.EquipDb;
 import com.wan37.logic.equipment.database.convert.EquipDbConverterImpl;
+import com.wan37.logic.mail.database.MailDb;
 import com.wan37.logic.skill.database.PlayerSkillDb;
 import com.wan37.logic.skill.database.convert.PlayerSkillDbConverterImpl;
 import com.wan37.logic.strength.database.PlayerStrengthDb;
 import com.wan37.logic.strength.database.convert.PlayerStrengthDbConverterImpl;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table
@@ -80,6 +82,9 @@ public class PlayerDb {
     @Convert(converter = PlayerSkillDbConverterImpl.class)
     @Column(columnDefinition = "text")
     private PlayerSkillDb playerSkillDb;
+
+    @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<MailDb> mailList;
 
     public Long getUid() {
         return uid;
@@ -191,5 +196,13 @@ public class PlayerDb {
 
     public void setPlayerSkillDb(PlayerSkillDb playerSkillDb) {
         this.playerSkillDb = playerSkillDb;
+    }
+
+    public List<MailDb> getMailList() {
+        return mailList;
+    }
+
+    public void setMailList(List<MailDb> mailList) {
+        this.mailList = mailList;
     }
 }

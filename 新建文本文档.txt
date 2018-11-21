@@ -81,4 +81,11 @@ chat_Private toUid msg
 #世界
 chat_World msg
 
+################### 邮件系统 #############################
+
+#邮件信息 （未做）
+mail_Info
+
+#领取邮件附件 （未做）
+mail_Get
 
