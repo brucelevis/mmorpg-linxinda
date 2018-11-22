@@ -23,7 +23,7 @@ public class MailReceiveExec {
 
     public void exec(Player player, Long id) {
         PlayerDb playerDb = player.getPlayerDb();
-        MailDb mailDb = playerDb.getMailList().stream()
+        MailDb mailDb = playerDb.getMails().stream()
                 .filter(m -> Objects.equals(m.getId(), id))
                 .findAny()
                 .orElse(null);

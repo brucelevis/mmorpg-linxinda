@@ -27,7 +27,7 @@ public class MailInfoExec {
 
     public void exec(Player player) {
         String head = "邮件列表如下：\n";
-        String content = player.getPlayerDb().getMailList().stream()
+        String content = player.getPlayerDb().getMails().stream()
                 .map(this::encodeMail)
                 .collect(Collectors.joining("\n------------------------------------------------------------------\n"));
 

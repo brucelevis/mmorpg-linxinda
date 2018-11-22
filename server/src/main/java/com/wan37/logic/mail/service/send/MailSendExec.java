@@ -45,7 +45,7 @@ public class MailSendExec {
         if (playerGlobalManager.isOnline(uid)) {
             // 对方在线，直接添加邮件信息，推送
             Player to = playerGlobalManager.getPlayerByUid(uid);
-            to.getPlayerDb().getMailList().add(mailDb);
+            to.getPlayerDb().getMails().add(mailDb);
 
             // 推送通知
             String msg = String.format("收到来自%s的邮件", from.getName());
@@ -67,7 +67,7 @@ public class MailSendExec {
         mailDb.setHadReceived(false);
 
         //FIXME: 写死1周过期
-        mailDb.setExpireTime(DateTimeUtils.toEpochMilli(LocalDateTime.now()) + TimeUnit.DAYS.toMillis(7));
+        mailDb.setExpireTime(DateTimeUtils.toEpochMilli(LocalDateTime.now()) + TimeUnit.SECONDS.toMillis(60));
 
         Player from = mail.getFromPlayer();
         mailDb.setFromName(from.getName());

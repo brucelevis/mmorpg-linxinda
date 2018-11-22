@@ -83,8 +83,12 @@ public class PlayerDb {
     @Column(columnDefinition = "text")
     private PlayerSkillDb playerSkillDb;
 
-    @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<MailDb> mailList;
+    /**
+     * OneToMany必须写mappedBy，不然会多生成一张没用的中间表，因为如果没写mappedBy，JPA不知道具体怎样做关联。
+     * orphanRemoval=true，PlayerDb删除邮件（即解除关系），持久化会删除MailDb对应的数据
+     */
+    @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private List<MailDb> mails;
 
     public Long getUid() {
         return uid;
@@ -198,11 +202,11 @@ public class PlayerDb {
         this.playerSkillDb = playerSkillDb;
     }
 
-    public List<MailDb> getMailList() {
-        return mailList;
+    public List<MailDb> getMails() {
+        return mails;
     }
 
-    public void setMailList(List<MailDb> mailList) {
-        this.mailList = mailList;
+    public void setMails(List<MailDb> mails) {
+        this.mails = mails;
     }
 }

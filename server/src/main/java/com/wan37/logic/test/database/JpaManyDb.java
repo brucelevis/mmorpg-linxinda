@@ -13,7 +13,7 @@ public class JpaManyDb {
     private String any;
 
     /**
-     * 可选属性optional=false,表示JpaManyDb不能为空。删除JpaManyDb，不影响JpaOneDb
+     * 可选属性optional=false,表示JpaOneDb不能为空。删除JpaManyDb，不影响JpaOneDb
      * 设置在JpaManyDb表中的关联字段(外键)
      * <p>
      * ###注意：

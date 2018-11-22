@@ -2,6 +2,8 @@ package com.wan37.logic.player.service.login;
 
 import com.wan37.common.GeneralResponseDto;
 import com.wan37.common.ResultCode;
+import com.wan37.event.GenernalEventListenersManager;
+import com.wan37.event.LoginEvent;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.player.encode.PlayerInfoEncoder;
@@ -30,6 +32,9 @@ public class PlayerLoginExec {
     @Autowired
     private PlayerInfoEncoder playerInfoEncoder;
 
+    @Autowired
+    private GenernalEventListenersManager genernalEventListenersManager;
+
     public void exec(PLoginPlayer loginPlayer) {
         Long playerUid = loginPlayer.getPlayerUid();
         Channel channel = loginPlayer.getChannel();
@@ -52,7 +57,8 @@ public class PlayerLoginExec {
         player.setChannel(channel);
         playerGlobalManager.addInOnlineList(player);
 
-        //TODO: 触发登录事件
+        // 触发登录事件
+        genernalEventListenersManager.fireEvent(new LoginEvent(player));
 
         sceneFacade.enterScene(player.getSceneId(), player);
 
