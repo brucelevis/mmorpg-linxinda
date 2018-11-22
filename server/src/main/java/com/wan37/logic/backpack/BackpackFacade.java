@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -80,8 +81,7 @@ public class BackpackFacade {
         backpackDb.getIndexs().add(index);
     }
 
-    public void add(Player player, ItemDb itemDb) {
-        BackpackDb backpackDb = player.getPlayerDb().getBackpackDb();
+    public void add(BackpackDb backpackDb, ItemDb itemDb) {
         Integer index = backpackEmptyIndexFinder.find(backpackDb);
 
         itemDb.setIndex(index);
@@ -89,7 +89,12 @@ public class BackpackFacade {
 
         // 标记背包格子更新
         backpackDb.getIndexs().add(index);
+    }
 
+    public void add(Player player, List<ItemDb> items) {
+        BackpackDb backpackDb = player.getPlayerDb().getBackpackDb();
+
+        items.forEach(i -> add(backpackDb, i));
         backpackUpdateNotifier.notify(player);
     }
 }

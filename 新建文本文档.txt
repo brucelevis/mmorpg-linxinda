@@ -86,8 +86,8 @@ chat_World msg
 #邮件信息
 mail_Info
 
-#领取邮件附件 （未做）
-mail_Get
+#领取邮件附件
+mail_Receive id
 
 #发送邮件 (不发道具附件则在对应位置发送null)
 mail_Send uid title content index:amount,index:amount

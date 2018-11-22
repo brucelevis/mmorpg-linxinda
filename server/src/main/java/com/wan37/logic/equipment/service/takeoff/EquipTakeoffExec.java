@@ -1,5 +1,6 @@
 package com.wan37.logic.equipment.service.takeoff;
 
+import com.google.common.collect.ImmutableList;
 import com.wan37.event.GenernalEventListenersManager;
 import com.wan37.event.StrengthChangeEvent;
 import com.wan37.logic.backpack.BackpackFacade;
@@ -55,7 +56,7 @@ public class EquipTakeoffExec {
         equipDb.getParts().add(part);
 
         // 加进背包
-        backpackFacade.add(player, equipItem);
+        backpackFacade.add(player, ImmutableList.of(equipItem));
 
         // 打印提示
         String msg = String.format("你脱掉了%s", propsCfgLoader.getName(equipItem.getCfgId()));

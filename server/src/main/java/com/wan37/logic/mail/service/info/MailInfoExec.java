@@ -40,7 +40,7 @@ public class MailInfoExec {
         String receiveTip = (mailItemDb != null && !mailDb.isHadReceived()) ? "（附件未领取）" : "";
 
         String expireTime = DateTimeUtils.toLocalDateTime(mailDb.getExpireTime()).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        String head = String.format("主题：%s %s\n发件人：%s  过期日期：%s\n内容：%s",
+        String head = String.format("主题（id：%s）：%s %s\n发件人：%s  过期日期：%s\n内容：%s", mailDb.getId(),
                 mailDb.getTitle(), receiveTip, mailDb.getFromName(), expireTime, mailDb.getContent());
 
         String items = encodeItems(mailItemDb);

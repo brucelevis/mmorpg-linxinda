@@ -1,5 +1,6 @@
 package com.wan37.logic.equipment.service.wear;
 
+import com.google.common.collect.ImmutableList;
 import com.wan37.event.GenernalEventListenersManager;
 import com.wan37.event.StrengthChangeEvent;
 import com.wan37.logic.backpack.BackpackFacade;
@@ -45,7 +46,7 @@ public class EquipWearer {
 
         if (old != null) {
             // 旧装备放进背包
-            backpackFacade.add(player, old);
+            backpackFacade.add(player, ImmutableList.of(old));
         }
 
         // 打印提示
