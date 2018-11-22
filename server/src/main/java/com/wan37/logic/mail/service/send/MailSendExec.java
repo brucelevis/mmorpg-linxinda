@@ -64,7 +64,7 @@ public class MailSendExec {
         MailDb mailDb = new MailDb();
         mailDb.setTitle(mail.getTitle());
         mailDb.setContent(mail.getContent());
-        mailDb.setHadRead(false);
+        mailDb.setHadReceived(false);
 
         //FIXME: 写死1周过期
         mailDb.setExpireTime(DateTimeUtils.toEpochMilli(LocalDateTime.now()) + TimeUnit.DAYS.toMillis(7));
