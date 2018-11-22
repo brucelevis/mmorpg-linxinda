@@ -89,3 +89,7 @@ mail_Info
 #领取邮件附件 （未做）
 mail_Get
 
+#发送邮件
+mail_Send uid title content index:amount,index:amount
+
+

@@ -78,8 +78,6 @@ public class BackpackFacade {
 
         // 标记背包格子更新
         backpackDb.getIndexs().add(index);
-
-        backpackUpdateNotifier.notify(player);
     }
 
     public void add(Player player, ItemDb itemDb) {

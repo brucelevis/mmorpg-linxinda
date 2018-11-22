@@ -4,6 +4,7 @@ import com.wan37.behavior.BehaviorManager;
 import com.wan37.logic.backpack.BackpackFacade;
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.backpack.database.ItemDb;
+import com.wan37.logic.backpack.encode.BackpackUpdateNotifier;
 import com.wan37.logic.equipment.config.EquipCfg;
 import com.wan37.logic.equipment.config.EquipCfgLoader;
 import com.wan37.logic.equipment.service.wear.EquipWearer;
@@ -33,6 +34,9 @@ public class ItemUseExec {
     @Autowired
     private EquipWearer equipWearer;
 
+    @Autowired
+    private BackpackUpdateNotifier backpackUpdateNotifier;
+
     public void exec(Player player, Integer index) {
         BackpackDb backpackDb = player.getPlayerDb().getBackpackDb();
         ItemDb itemDb = backpackFacade.find(backpackDb, index).orElse(null);
@@ -57,6 +61,7 @@ public class ItemUseExec {
 
         // 背包物品-1
         backpackFacade.remove(player, index, 1);
+        backpackUpdateNotifier.notify(player);
 
         String msg = String.format("你使用了%s", propsCfg.getName());
         player.syncClient(msg);
