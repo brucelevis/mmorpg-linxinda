@@ -11,11 +11,14 @@ import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.util.DateTimeUtils;
+import com.wan37.util.IdTool;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -37,19 +40,25 @@ public class MailSendExec {
     @Autowired
     private BackpackUpdateNotifier backpackUpdateNotifier;
 
+    @Autowired
+    private IdTool idTool;
+
     public void exec(ReqSendMail mail) {
         Player from = mail.getFromPlayer();
 
         Long uid = mail.getToUid();
         MailDb mailDb = createMail(mail);
-        if (playerGlobalManager.isOnline(uid)) {
-            // 对方在线，直接添加邮件信息，推送
-            Player to = playerGlobalManager.getPlayerByUid(uid);
-            to.getPlayerDb().getMails().add(mailDb);
 
-            // 推送通知
-            String msg = String.format("收到来自%s的邮件", from.getName());
-            to.syncClient(msg);
+        Player to = playerGlobalManager.getPlayerByUid(uid);
+        if (to != null) {
+            // 对方数据在缓存，直接添加邮件信息
+            to.getPlayerDb().addMail(mailDb);
+
+            if (playerGlobalManager.isOnline(uid)) {
+                // 如果在线，推送通知
+                String msg = String.format("收到来自%s的邮件", from.getName());
+                to.syncClient(msg);
+            }
 
             afterSend(from);
             return;
@@ -62,12 +71,14 @@ public class MailSendExec {
 
     private MailDb createMail(ReqSendMail mail) {
         MailDb mailDb = new MailDb();
+        mailDb.setId(idTool.generate());
         mailDb.setTitle(mail.getTitle());
         mailDb.setContent(mail.getContent());
         mailDb.setHadReceived(false);
 
         //FIXME: 写死1周过期
-        mailDb.setExpireTime(DateTimeUtils.toEpochMilli(LocalDateTime.now()) + TimeUnit.SECONDS.toMillis(60));
+        LocalDateTime today_end = LocalDateTime.of(LocalDate.now(), LocalTime.MAX);
+        mailDb.setExpireTime(DateTimeUtils.toEpochMilli(today_end) + TimeUnit.DAYS.toMillis(7));
 
         Player from = mail.getFromPlayer();
         mailDb.setFromName(from.getName());

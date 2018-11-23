@@ -11,7 +11,6 @@ import javax.persistence.*;
 public class MailDb {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /**
@@ -53,7 +52,10 @@ public class MailDb {
     @Column(columnDefinition = "text")
     private MailItemDb mailItemDb;
 
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false, fetch = FetchType.LAZY)
+    /**
+     * 注意：多端不需要CascadeType，解决更新导致one端数据被更新
+     */
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "playerUid")
     private PlayerDb player;
 

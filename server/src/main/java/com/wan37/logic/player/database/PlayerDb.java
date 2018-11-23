@@ -209,4 +209,12 @@ public class PlayerDb {
     public void setMails(List<MailDb> mails) {
         this.mails = mails;
     }
+
+    /**
+     * 注意：往one一端的实体插入信息需要用关系维护端来维护关系
+     */
+    public void addMail(MailDb mailDb) {
+        mailDb.setPlayer(this);
+        this.mails.add(mailDb);
+    }
 }
