@@ -30,5 +30,7 @@ public interface FightingUnit {
 
     Map<Integer, Double> getAttrs();
 
+    Map<Integer, FightingSkill> getSkills();
+
     void client(String msg);
 }
