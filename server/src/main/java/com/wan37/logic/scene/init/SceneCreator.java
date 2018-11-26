@@ -50,7 +50,7 @@ public class SceneCreator {
         scene.setPlayers(new ArrayList<>());
 
         scene.setMonsters(sceneCfg.getMonsters().stream()
-                .map(this::createMonster)
+                .map(m -> createMonster(m, sceneCfg.getId()))
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList()));
 
@@ -66,9 +66,9 @@ public class SceneCreator {
         return scene;
     }
 
-    private Monster createMonster(SceneMonsterCfg cfg) {
+    private Monster createMonster(SceneMonsterCfg cfg, Integer sceneId) {
         return monsterCfgLoader.load(cfg.getCfgId())
-                .map(c -> monsterCreator.create(c))
+                .map(c -> monsterCreator.create(c, sceneId))
                 .orElse(null);
     }
 }

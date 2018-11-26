@@ -1,5 +1,6 @@
 package com.wan37.logic.props.behavior.use.behaviors;
 
+import com.wan37.logic.attack.fighting.FightingUnit;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.player.service.addmp.PlayerMpAdder;
@@ -18,19 +19,22 @@ class PropsUseBehav1 implements PropsUseBehavior {
     @Autowired
     private PlayerMpAdder playerMpAdder;
 
+    @Autowired
+    private FightingUnit.Factory fightUnitFactory;
+
     @Override
     public void behave(PropsUseContext context) {
         Player player = context.getPlayer();
         PropsCfg propsCfg = context.getPropsCfg();
 
-
         PlayerDb playerDb = player.getPlayerDb();
-        int curMp = playerDb.getMp();
+        long curMp = playerDb.getMp();
 
         int addMp = Integer.parseInt(propsCfg.getUseLogicArgs());
-        playerMpAdder.add(playerDb, addMp);
+        FightingUnit unit = fightUnitFactory.create(player);
+        playerMpAdder.add(unit, addMp);
 
-        int result = playerDb.getMp();
+        long result = playerDb.getMp();
         if (result != curMp) {
             String msg = String.format("你使用了%s，恢复了%smp", propsCfg.getName(), result - curMp);
             player.syncClient(msg);

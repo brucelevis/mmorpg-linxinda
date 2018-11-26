@@ -1,16 +1,15 @@
 package com.wan37.logic.buff.effect.behavior.behaviors;
 
+import com.wan37.logic.attack.fighting.FightingUnit;
 import com.wan37.logic.buff.IBuff;
 import com.wan37.logic.buff.effect.behavior.BuffEffectBehavior;
 import com.wan37.logic.buff.effect.behavior.BuffEffectContext;
-import com.wan37.logic.player.Player;
-import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.player.service.addmp.PlayerMpAdder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * 缓慢回蓝
+ * 缓慢回蓝（人才有mp）
  */
 @Service
 class BuffEffectBehav1 implements BuffEffectBehavior {
@@ -22,17 +21,16 @@ class BuffEffectBehav1 implements BuffEffectBehavior {
     public void behave(BuffEffectContext context) {
         IBuff buff = context.getBuff();
 
-        Player player = context.getPlayer();
-        PlayerDb playerDb = player.getPlayerDb();
-        int curMp = playerDb.getMp();
+        FightingUnit unit = context.getUnit();
+        long curMp = unit.getMp();
 
         int addMp = Integer.parseInt(buff.getArg());
-        playerMpAdder.add(playerDb, addMp);
+        playerMpAdder.add(unit, addMp);
 
-        int result = playerDb.getMp();
+        long result = unit.getMp();
         if (result != curMp) {
             String msg = String.format("由于%s的效果，你恢复了%smp", buff.getName(), result - curMp);
-            player.syncClient(msg);
+            unit.getPlayer().syncClient(msg);
         }
 
         // 持续类作用次数，上次生效时间 = 上次生效时间 + 每次间隔

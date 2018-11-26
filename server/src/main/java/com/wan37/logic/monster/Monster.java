@@ -10,6 +10,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class Monster implements IMonster {
 
     private Long uid;
+    private Integer sceneId;
     private MonsterCfg monsterCfg;
 
     private long hp;
@@ -103,6 +104,14 @@ public class Monster implements IMonster {
 
     public void setBuffs(List<IBuff> buffs) {
         this.buffs = buffs;
+    }
+
+    public Integer getSceneId() {
+        return sceneId;
+    }
+
+    public void setSceneId(Integer sceneId) {
+        this.sceneId = sceneId;
     }
 
     @Override

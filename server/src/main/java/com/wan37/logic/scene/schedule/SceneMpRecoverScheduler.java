@@ -36,13 +36,13 @@ public class SceneMpRecoverScheduler {
             return;
         }
 
-        int curMp = playerDb.getMp();
-        int maxMp = (int) Math.round(attrDb.getValue());
+        long curMp = playerDb.getMp();
+        long maxMp = Math.round(attrDb.getValue());
         if (curMp == maxMp) {
             return;
         }
 
-        int result = curMp + MP > maxMp ? maxMp : curMp + MP;
+        long result = curMp + MP > maxMp ? maxMp : curMp + MP;
         playerDb.setMp(result);
 
         String msg = String.format("你自动恢复了%smp", result - curMp);

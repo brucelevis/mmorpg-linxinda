@@ -26,10 +26,11 @@ public class MonsterCreator {
     @Autowired
     private AttrCfgLoader attrCfgLoader;
 
-    public Monster create(MonsterCfg cfg) {
+    public Monster create(MonsterCfg cfg, Integer sceneId) {
         Monster monster = new Monster();
         monster.setUid(idTool.generate());
         monster.setMonsterCfg(cfg);
+        monster.setSceneId(sceneId);
 
         monster.setAttrs(cfg.getAttrs().stream()
                 .collect(Collectors.toMap(MonsterInitAttrCfg::getId, MonsterInitAttrCfg::getValue)));

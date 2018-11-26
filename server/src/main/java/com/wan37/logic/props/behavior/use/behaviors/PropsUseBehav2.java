@@ -22,16 +22,16 @@ class PropsUseBehav2 implements PropsUseBehavior {
         int addHp = Integer.parseInt(propsCfg.getUseLogicArgs());
 
         PlayerDb playerDb = player.getPlayerDb();
-        int cur = playerDb.getHp();
-        int hp = cur + addHp;
+        long cur = playerDb.getHp();
+        long hp = cur + addHp;
 
         PAttrDb hpDb = playerDb.getPlayerAttrDb().getAttrs().get(AttrEnum.ATTR_HP.getId());
         if (hpDb == null) {
             return;
         }
 
-        int max = (int) Math.round(hpDb.getValue());
-        int result = max > hp ? hp : max;
+        long max = Math.round(hpDb.getValue());
+        long result = max > hp ? hp : max;
         if (result == cur) {
             return;
         }

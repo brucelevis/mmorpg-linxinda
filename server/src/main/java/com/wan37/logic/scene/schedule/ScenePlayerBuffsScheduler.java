@@ -1,5 +1,6 @@
 package com.wan37.logic.scene.schedule;
 
+import com.wan37.logic.attack.fighting.FightingUnit;
 import com.wan37.logic.buff.IBuff;
 import com.wan37.logic.buff.effect.BuffEffectHandler;
 import com.wan37.logic.player.Player;
@@ -17,6 +18,9 @@ public class ScenePlayerBuffsScheduler {
     @Autowired
     private BuffEffectHandler buffEffectHandler;
 
+    @Autowired
+    private FightingUnit.Factory fightingUnitFactory;
+
     public void schedule(Scene scene) {
         long now = DateTimeUtils.toEpochMilli(LocalDateTime.now());
         scene.getPlayers().forEach(p -> updateBuffs(now, p));
@@ -31,10 +35,11 @@ public class ScenePlayerBuffsScheduler {
                 .forEach(b -> removeBuffAndNotify(player, b));
 
         // 作用持续buff
+        FightingUnit unit = fightingUnitFactory.create(player);
         buffs.stream()
                 .filter(b -> !b.isOnce())
                 .filter(b -> b.getLastEffectTime() + b.getInterval() <= now)
-                .forEach(b -> buffEffectHandler.handle(player, null, b, now));
+                .forEach(b -> buffEffectHandler.handle(unit, b, now));
     }
 
     private void removeBuffAndNotify(Player player, IBuff buff) {

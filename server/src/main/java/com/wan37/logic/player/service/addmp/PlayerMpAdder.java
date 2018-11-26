@@ -1,29 +1,31 @@
 package com.wan37.logic.player.service.addmp;
 
+import com.wan37.logic.attack.fighting.FightingUnit;
 import com.wan37.logic.attr.config.AttrEnum;
-import com.wan37.logic.attr.database.PAttrDb;
-import com.wan37.logic.player.database.PlayerDb;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 @Service
 public class PlayerMpAdder {
 
-    public void add(PlayerDb playerDb, int addMp) {
-        int cur = playerDb.getMp();
-        int mp = cur + addMp;
+    public void add(FightingUnit unit, int addMp) {
+        long cur = unit.getMp();
+        long mp = cur + addMp;
 
-        PAttrDb mpDb = playerDb.getPlayerAttrDb().getAttrs().get(AttrEnum.ATTR_MP.getId());
-        if (mpDb == null) {
+        Map<Integer, Double> attrs = unit.getAttrs();
+        Integer mpId = AttrEnum.ATTR_MP.getId();
+        if (!attrs.containsKey(mpId)) {
             return;
         }
 
-        int max = (int) Math.round(mpDb.getValue());
-        int result = max > mp ? mp : max;
+        long max = attrs.get(mpId).longValue();
+        long result = max > mp ? mp : max;
         if (result == cur) {
             // 没变化
             return;
         }
 
-        playerDb.setMp(result);
+        unit.setMp(result);
     }
 }

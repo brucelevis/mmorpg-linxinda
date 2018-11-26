@@ -2,8 +2,10 @@ package com.wan37.logic.monster.die;
 
 import com.wan37.logic.monster.Monster;
 import com.wan37.logic.player.Player;
+import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.scene.Scene;
+import com.wan37.logic.scene.SceneGlobalManager;
 import com.wan37.logic.scene.encode.SceneItemEncoder;
 import com.wan37.logic.scene.item.SceneItem;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +24,25 @@ public class MonsterDieHandler {
     @Autowired
     private SceneItemEncoder sceneItemEncoder;
 
-    public void handle(Monster monster, long now, Player player, Scene scene) {
+    @Autowired
+    private PlayerGlobalManager playerGlobalManager;
+
+    @Autowired
+    private SceneGlobalManager sceneGlobalManager;
+
+    public void handle(Monster monster, long now) {
         monster.setHp(0);
         monster.setAlive(false);
         monster.setDeadTime(now);
         monster.getBuffs().clear();
 
-        if (player != null && Objects.equals(player.getSceneId(), scene.getCfgId())) {
+        Long lastAttackUid = monster.getLastAttackId();
+        Player player = playerGlobalManager.getPlayerByUid(lastAttackUid);
+
+        Integer sceneId = monster.getSceneId();
+        Scene scene = sceneGlobalManager.getScene(sceneId);
+
+        if (player != null && Objects.equals(player.getSceneId(), sceneId)) {
             // 还在当前场景的最后攻击怪物的人获得经验
             int exp = monster.getMonsterCfg().getExp();
             PlayerDb playerDb = player.getPlayerDb();

@@ -47,12 +47,12 @@ public class PlayerDb {
     /**
      * 血量
      */
-    private int hp;
+    private long hp;
 
     /**
      * 蓝量
      */
-    private int mp;
+    private long mp;
 
     /**
      * 经验
@@ -162,19 +162,19 @@ public class PlayerDb {
         this.equipDb = equipDb;
     }
 
-    public int getHp() {
+    public long getHp() {
         return hp;
     }
 
-    public void setHp(int hp) {
+    public void setHp(long hp) {
         this.hp = hp;
     }
 
-    public int getMp() {
+    public long getMp() {
         return mp;
     }
 
-    public void setMp(int mp) {
+    public void setMp(long mp) {
         this.mp = mp;
     }
 

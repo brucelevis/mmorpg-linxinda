@@ -2,6 +2,7 @@ package com.wan37.server;
 
 import com.wan37.event.GenernalEventListenersManager;
 import com.wan37.event.OfflineEvent;
+import com.wan37.exception.GeneralErrorExecption;
 import com.wan37.handler.GeneralDipatchHandlerManager;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -39,5 +40,16 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     public void channelInactive(ChannelHandlerContext ctx) {
         LOG.info("--- Server is inactive ---");
         new GenernalEventListenersManager().fireEvent(new OfflineEvent(ctx.channel()));
+    }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+        if (cause instanceof GeneralErrorExecption) {
+            // 自定义抛出的异常
+            ctx.writeAndFlush(cause.getMessage() + "\n");
+            return;
+        }
+
+        cause.printStackTrace();
     }
 }

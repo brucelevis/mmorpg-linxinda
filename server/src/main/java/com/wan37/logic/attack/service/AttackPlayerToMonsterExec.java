@@ -168,7 +168,7 @@ public class AttackPlayerToMonsterExec {
             String msg = String.format("你用%s击杀了%s，造成伤害%s，消耗%smp", skillCfg.getName(), monster.getName(), demage, costMp);
             player.syncClient(msg);
 
-            monsterDieHandler.handle(monster, now, player, scene);
+            monsterDieHandler.handle(monster, now);
         }
 
         // 概率触发Buff
