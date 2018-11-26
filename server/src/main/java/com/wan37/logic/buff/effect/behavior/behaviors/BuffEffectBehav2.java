@@ -1,12 +1,13 @@
 package com.wan37.logic.buff.effect.behavior.behaviors;
 
+import com.wan37.event.DieEvent;
+import com.wan37.event.GenernalEventListenersManager;
 import com.wan37.logic.attack.fighting.FightingUnit;
 import com.wan37.logic.buff.IBuff;
 import com.wan37.logic.buff.effect.behavior.BuffEffectBehavior;
 import com.wan37.logic.buff.effect.behavior.BuffEffectContext;
-import com.wan37.logic.monster.die.MonsterDieHandler;
+import com.wan37.logic.monster.Monster;
 import com.wan37.logic.monster.encode.MonsterEncoder;
-import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.scene.SceneGlobalManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,28 +19,19 @@ import org.springframework.stereotype.Service;
 class BuffEffectBehav2 implements BuffEffectBehavior {
 
     @Autowired
-    private MonsterDieHandler monsterDieHandler;
-
-    @Autowired
-    private PlayerGlobalManager playerGlobalManager;
-
-    @Autowired
-    private SceneGlobalManager sceneGlobalManager;
+    private GenernalEventListenersManager genernalEventListenersManager;
 
     @Autowired
     private MonsterEncoder monsterEncoder;
+
+    @Autowired
+    private SceneGlobalManager sceneGlobalManager;
 
     @Override
     public void behave(BuffEffectContext context) {
         FightingUnit unit = context.getUnit();
         IBuff buff = context.getBuff();
         long now = context.getNow();
-
-        //FIXME: 待解决人与怪如何通用处理
-//        if (monster != null) {
-//            long lastAttackId = monster.getLastAttackId();
-//            Player player = playerGlobalManager.getPlayerByUid(lastAttackId);
-//            Scene scene = sceneGlobalManager.getScene(player.getSceneId());
 
         long curHp = unit.getHp();
         int subHp = Integer.parseInt(buff.getArg());
@@ -55,11 +47,16 @@ class BuffEffectBehav2 implements BuffEffectBehavior {
             }
         } else {
             // 死了
-            //  monsterDieHandler.handle(monster, now, player, scene);
+            genernalEventListenersManager.fireEvent(new DieEvent(unit, now));
         }
 
-        // 通知场景玩家怪物状态更新
-//        String monsterUpdate = "怪物状态更新推送|" + monsterEncoder.encode(monster);
-//        scene.getPlayers().forEach(p -> p.syncClient(monsterUpdate));
+        //FIXME: 如果是怪物
+        Monster monster = unit.getMonster();
+        if (monster != null) {
+            // 通知场景玩家怪物状态更新
+            String monsterUpdate = "怪物状态更新推送|" + monsterEncoder.encode(monster);
+            sceneGlobalManager.getScene(monster.getSceneId()).getPlayers()
+                    .forEach(p -> p.syncClient(monsterUpdate));
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.wan37.logic.attack.service;
 
+import com.wan37.exception.GeneralErrorExecption;
 import com.wan37.logic.backpack.database.ItemDb;
 import com.wan37.logic.buff.BuffTargetEnum;
 import com.wan37.logic.buff.IBuff;
@@ -25,7 +26,6 @@ import com.wan37.logic.skill.database.PlayerSkillDb;
 import com.wan37.logic.strength.database.PlayerStrengthDb;
 import com.wan37.util.DateTimeUtils;
 import com.wan37.util.RandomUtil;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,8 +38,6 @@ import java.util.Objects;
  */
 @Service
 public class AttackPlayerToMonsterExec {
-
-    private static final Logger LOG = Logger.getLogger(AttackPlayerToMonsterExec.class);
 
     @Autowired
     private SceneGlobalManager sceneGlobalManager;
@@ -70,22 +68,19 @@ public class AttackPlayerToMonsterExec {
         EquipDb equipDb = playerDb.getEquipDb();
         ItemDb equipItem = equipDb.getItems().get(EquipPartEnum.PART_1.getId());
         if (equipItem == null) {
-            player.syncClient("未佩戴武器，无法攻击");
-            return;
+            throw new GeneralErrorExecption("未佩戴武器，无法攻击");
         }
 
         EquipExtraDb equipExtraDb = equipExtraDbGetter.get(equipItem.getExtraDb());
         if (equipExtraDb.getDurabilityv() < 20) {
             //FIXME: 写死攻击时武器耐久度要求
-            player.syncClient("武器耐久度过低，请及时修理");
-            return;
+            throw new GeneralErrorExecption("武器耐久度过低，请及时修理");
         }
 
         PlayerSkillDb playerSkillDb = playerDb.getPlayerSkillDb();
         PSkillDb skillDb = playerSkillDb.getSkills().get(skillId);
         if (skillDb == null) {
-            LOG.info("找不到目标技能");
-            return;
+            throw new GeneralErrorExecption("找不到目标技能");
         }
 
         SkillCfg skillCfg = skillCfgLoader.load(skillDb.getCfgId())
@@ -96,15 +91,13 @@ public class AttackPlayerToMonsterExec {
         long interval = now - skillDb.getLastUseTime();
         int skillCd = skillCfg.getCd(skillDb.getLevel());
         if (interval < skillCd) {
-            player.syncClient("技能cd中，无法使用");
-            return;
+            throw new GeneralErrorExecption("技能cd中，无法使用");
         }
 
         // 检查蓝量
         int costMp = skillCfg.getCostMp(skillDb.getLevel());
         if (playerDb.getMp() < costMp) {
-            player.syncClient("蓝量不足，无法攻击");
-            return;
+            throw new GeneralErrorExecption("蓝量不足，无法攻击");
         }
 
         Scene scene = sceneGlobalManager.getScene(player.getSceneId());
@@ -114,13 +107,11 @@ public class AttackPlayerToMonsterExec {
                 .orElse(null);
 
         if (monster == null) {
-            player.syncClient("目标怪物不存在");
-            return;
+            throw new GeneralErrorExecption("目标怪物不存在");
         }
 
         if (!monster.isAlive()) {
-            player.syncClient("怪物死亡状态，不可攻击");
-            return;
+            throw new GeneralErrorExecption("怪物死亡状态，不可攻击");
         }
 
         // 扣蓝
