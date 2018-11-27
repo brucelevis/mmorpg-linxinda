@@ -5,6 +5,10 @@ import com.wan37.logic.attr.config.AttrCfgLoader;
 import com.wan37.logic.monster.Monster;
 import com.wan37.logic.monster.config.MonsterCfg;
 import com.wan37.logic.monster.config.MonsterInitAttrCfg;
+import com.wan37.logic.monster.config.MonsterInitSkillCfg;
+import com.wan37.logic.skill.ISkill;
+import com.wan37.logic.skill.config.SkillCfg;
+import com.wan37.logic.skill.config.SkillCfgLoader;
 import com.wan37.util.IdTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,11 +30,22 @@ public class MonsterCreator {
     @Autowired
     private AttrCfgLoader attrCfgLoader;
 
+    @Autowired
+    private ISkill.Factory iSkillFactory;
+
+    @Autowired
+    private SkillCfgLoader skillCfgLoader;
+
     public Monster create(MonsterCfg cfg, Integer sceneId) {
         Monster monster = new Monster();
         monster.setUid(idTool.generate());
         monster.setMonsterCfg(cfg);
         monster.setSceneId(sceneId);
+
+        monster.setSkills(cfg.getSkills().stream()
+                .map(this::createSkill)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList()));
 
         monster.setAttrs(cfg.getAttrs().stream()
                 .collect(Collectors.toMap(MonsterInitAttrCfg::getId, MonsterInitAttrCfg::getValue)));
@@ -39,6 +54,15 @@ public class MonsterCreator {
         calcStrength(monster);
 
         return monster;
+    }
+
+    private ISkill createSkill(MonsterInitSkillCfg cfg) {
+        SkillCfg skillCfg = skillCfgLoader.load(cfg.getId()).orElse(null);
+        if (skillCfg == null) {
+            return null;
+        }
+
+        return iSkillFactory.create(skillCfg, cfg.getLevel());
     }
 
     private void calcStrength(Monster monster) {

@@ -5,6 +5,7 @@ public class MonsterCfgExcel {
     private Integer id;
     private String name;
     private String initAttr;
+    private String skills;
     private int createCd;
     private int exp;
     private String items;
@@ -55,5 +56,13 @@ public class MonsterCfgExcel {
 
     public void setItems(String items) {
         this.items = items;
+    }
+
+    public String getSkills() {
+        return skills;
+    }
+
+    public void setSkills(String skills) {
+        this.skills = skills;
     }
 }

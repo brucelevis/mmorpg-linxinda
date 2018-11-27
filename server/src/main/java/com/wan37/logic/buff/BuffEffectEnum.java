@@ -1,15 +1,15 @@
 package com.wan37.logic.buff;
 
-public enum BuffTypeEnum {
+public enum BuffEffectEnum {
 
-    BUFF_TYPE_1(1, "增益类"),
-    BUFF_TYPE_2(2, "减益类"),
-    BUFF_TYPE_3(3, "特殊类");
+    BUFF_EFFECT_1(1, "持续回蓝"),
+    BUFF_EFFECT_2(2, "持续扣血"),
+    BUFF_EFFECT_3(3, "护盾");
 
     private Integer id;
     private String name;
 
-    BuffTypeEnum(Integer id, String name) {
+    BuffEffectEnum(Integer id, String name) {
         this.id = id;
         this.name = name;
     }

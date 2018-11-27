@@ -8,4 +8,9 @@ public class RandomUtil {
         Random random = new Random();
         return pro - random.nextDouble() > 0;
     }
+
+    public static int rand(int max) {
+        Random random = new Random();
+        return random.nextInt(max);
+    }
 }

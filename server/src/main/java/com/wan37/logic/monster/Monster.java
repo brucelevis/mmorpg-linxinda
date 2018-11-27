@@ -2,6 +2,7 @@ package com.wan37.logic.monster;
 
 import com.wan37.logic.buff.IBuff;
 import com.wan37.logic.monster.config.MonsterCfg;
+import com.wan37.logic.skill.ISkill;
 
 import java.util.List;
 import java.util.Map;
@@ -19,11 +20,12 @@ public class Monster implements IMonster {
     private boolean alive;
 
     private Map<Integer, Double> attrs;
+    private List<ISkill> skills;
 
     private int baseAttackVal;
     private int baseDefenseVal;
 
-    private long lastAttackId;
+    private Long lastAttackId;
     private List<IBuff> buffs = new CopyOnWriteArrayList<>();
 
     public Long getUid() {
@@ -90,11 +92,11 @@ public class Monster implements IMonster {
         this.baseDefenseVal = baseDefenseVal;
     }
 
-    public long getLastAttackId() {
+    public Long getLastAttackId() {
         return lastAttackId;
     }
 
-    public void setLastAttackId(long lastAttackId) {
+    public void setLastAttackId(Long lastAttackId) {
         this.lastAttackId = lastAttackId;
     }
 
@@ -112,6 +114,14 @@ public class Monster implements IMonster {
 
     public void setSceneId(Integer sceneId) {
         this.sceneId = sceneId;
+    }
+
+    public List<ISkill> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(List<ISkill> skills) {
+        this.skills = skills;
     }
 
     @Override

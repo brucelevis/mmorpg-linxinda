@@ -12,6 +12,8 @@ public interface MonsterCfg {
 
     List<MonsterInitAttrCfg> getAttrs();
 
+    List<MonsterInitSkillCfg> getSkills();
+
     List<MonsterItemCfg> getItems();
 
     int getExp();

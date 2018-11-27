@@ -22,6 +22,9 @@ public class SceneScheduler {
     @Autowired
     private SceneMonsterBuffsScheduler sceneMonsterBuffsScheduler;
 
+    @Autowired
+    private SceneMonsterAiScheduler sceneMonsterAiScheduler;
+
     public void schedule(Scene scene) {
         // 刷新怪物
         sceneMonsterScheduler.schedule(scene);
@@ -37,5 +40,8 @@ public class SceneScheduler {
 
         // 更新怪物buff
         sceneMonsterBuffsScheduler.schedule(scene);
+
+        // 怪物自动攻击
+        sceneMonsterAiScheduler.schedule(scene);
     }
 }

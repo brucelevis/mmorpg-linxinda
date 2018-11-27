@@ -1,5 +1,6 @@
 package com.wan37.logic.attack.fighting.impl;
 
+import com.wan37.logic.attack.fighting.FightingSkill;
 import com.wan37.logic.attack.fighting.FightingUnit;
 import com.wan37.logic.monster.Monster;
 import com.wan37.logic.player.Player;
@@ -50,6 +51,11 @@ class PlayerImpl implements FightingUnit {
     @Override
     public Map<Integer, Double> getAttrs() {
         return player.getPlayerDb().getPlayerStrengthDb().getAttrs();
+    }
+
+    @Override
+    public Map<Integer, FightingSkill> getSkills() {
+        return null;
     }
 
     @Override

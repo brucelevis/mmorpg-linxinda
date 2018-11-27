@@ -139,12 +139,14 @@ public class AttackPlayerToMonsterExec {
         double skillPercent = skillCfg.getDemage(skillDb.getLevel());
         long demage = Math.round(baseVal * skillPercent);
 
-        //FIXME: 恶心代码。
-        if (demage <= monster.getBaseDefenseVal()) {
+        long defense = monster.getBaseDefenseVal();
+        if (demage <= defense) {
             demage = 0;
         } else {
-            demage -= monster.getBaseDefenseVal();
+            demage -= defense;
         }
+
+        //TODO: 怪物护盾抵挡
 
         long curHp = monster.getHp();
         if (curHp > demage) {
@@ -164,6 +166,8 @@ public class AttackPlayerToMonsterExec {
 
         // 概率触发Buff
         skillCfg.getBuffs().forEach(c -> randBuff(player, monster, c));
+
+        //TODO: 怪物触发被动
 
         // 通知场景玩家怪物状态更新
         String monsterUpdate = "怪物状态更新推送|" + monsterEncoder.encode(monster);

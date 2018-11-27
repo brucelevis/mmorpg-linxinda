@@ -31,13 +31,14 @@ public class MonsterDieHandler {
     private SceneGlobalManager sceneGlobalManager;
 
     public void handle(Monster monster, long now) {
+        Long lastAttackUid = monster.getLastAttackId();
+        Player player = playerGlobalManager.getPlayerByUid(lastAttackUid);
+
         monster.setHp(0);
         monster.setAlive(false);
         monster.setDeadTime(now);
         monster.getBuffs().clear();
-
-        Long lastAttackUid = monster.getLastAttackId();
-        Player player = playerGlobalManager.getPlayerByUid(lastAttackUid);
+        monster.setLastAttackId(null);
 
         Integer sceneId = monster.getSceneId();
         Scene scene = sceneGlobalManager.getScene(sceneId);

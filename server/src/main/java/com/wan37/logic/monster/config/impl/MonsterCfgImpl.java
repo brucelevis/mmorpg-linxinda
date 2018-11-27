@@ -3,6 +3,7 @@ package com.wan37.logic.monster.config.impl;
 import com.wan37.config.entity.MonsterCfgExcel;
 import com.wan37.logic.monster.config.MonsterCfg;
 import com.wan37.logic.monster.config.MonsterInitAttrCfg;
+import com.wan37.logic.monster.config.MonsterInitSkillCfg;
 import com.wan37.logic.monster.config.MonsterItemCfg;
 
 import java.util.Arrays;
@@ -38,6 +39,13 @@ public class MonsterCfgImpl implements MonsterCfg {
     }
 
     @Override
+    public List<MonsterInitSkillCfg> getSkills() {
+        return Arrays.stream(cfgExcel.getSkills().split(","))
+                .map(this::createSkill)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<MonsterItemCfg> getItems() {
         return Arrays.stream(cfgExcel.getItems().split(","))
                 .map(this::createItem)
@@ -47,6 +55,14 @@ public class MonsterCfgImpl implements MonsterCfg {
     @Override
     public int getExp() {
         return cfgExcel.getExp();
+    }
+
+    private MonsterInitSkillCfg createSkill(String s) {
+        String[] skill = s.split(":");
+        Integer id = Integer.parseInt(skill[0]);
+        int level = Integer.parseInt(skill[1]);
+
+        return new MonsterInitSkillCfgImpl(id, level);
     }
 
     private MonsterInitAttrCfg createAttr(String s) {
