@@ -33,6 +33,7 @@ public class SceneMonsterAiScheduler {
         }
 
         if (!Objects.equals(player.getSceneId(), monster.getSceneId())) {
+            monster.setLastAttackId(null);
             return;
         }
 

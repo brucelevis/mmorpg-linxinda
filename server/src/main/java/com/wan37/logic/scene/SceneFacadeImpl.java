@@ -43,12 +43,17 @@ public class SceneFacadeImpl implements SceneFacade {
             return;
         }
 
+        forceSwitchScene(player, oldScene.getCfgId(), toSceneId);
+    }
+
+    @Override
+    public void forceSwitchScene(Player player, Integer from, Integer to) {
         // 离开场景推送
-        genernalEventListenersManager.fireEvent(new SceneLeaveEvent(oldScene.getCfgId(), playerUid));
+        genernalEventListenersManager.fireEvent(new SceneLeaveEvent(from, player.getUid()));
 
         // 移除旧场景里的玩家
-        sceneGlobalManager.removePlayerFromScene(oldScene.getCfgId(), player);
+        sceneGlobalManager.removePlayerFromScene(from, player);
 
-        enterScene(toSceneId, player);
+        enterScene(to, player);
     }
 }

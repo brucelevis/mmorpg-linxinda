@@ -59,6 +59,10 @@ public class PlayerDb {
      */
     private double exp;
 
+    private volatile boolean alive;
+
+    private long deadTime;
+
     @Convert(converter = BackpackDbConverterImpl.class)
     @Column(columnDefinition = "text")
     private BackpackDb backpackDb;
@@ -184,6 +188,22 @@ public class PlayerDb {
 
     public void setExp(double exp) {
         this.exp = exp;
+    }
+
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public void setAlive(boolean alive) {
+        this.alive = alive;
+    }
+
+    public long getDeadTime() {
+        return deadTime;
+    }
+
+    public void setDeadTime(long deadTime) {
+        this.deadTime = deadTime;
     }
 
     public PlayerStrengthDb getPlayerStrengthDb() {

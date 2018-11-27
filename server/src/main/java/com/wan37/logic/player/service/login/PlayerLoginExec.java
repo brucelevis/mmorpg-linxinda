@@ -1,30 +1,21 @@
 package com.wan37.logic.player.service.login;
 
-import com.wan37.common.GeneralResponseDto;
-import com.wan37.common.ResultCode;
 import com.wan37.event.GenernalEventListenersManager;
 import com.wan37.event.LoginEvent;
+import com.wan37.exception.GeneralErrorExecption;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.player.encode.PlayerInfoEncoder;
-import com.wan37.logic.player.encode.RespLoginPlayerDtoEncoder;
 import com.wan37.logic.scene.SceneFacade;
-import com.wan37.util.GeneralNotifySenderUtil;
 import io.netty.channel.Channel;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PlayerLoginExec {
 
-    private static final Logger LOG = Logger.getLogger(PlayerLoginExec.class);
-
     @Autowired
     private PlayerGlobalManager playerGlobalManager;
-
-    @Autowired
-    private RespLoginPlayerDtoEncoder respLoginPlayerDtoEncoder;
 
     @Autowired
     private SceneFacade sceneFacade;
@@ -41,17 +32,12 @@ public class PlayerLoginExec {
 
         // 登录检查
         if (playerGlobalManager.isOnline(playerUid)) {
-            GeneralNotifySenderUtil.send(channel, "已经登录的角色");
-            return;
+            throw new GeneralErrorExecption("已经登录的角色");
         }
 
         Player player = playerGlobalManager.getPlayerByUid(playerUid);
         if (player == null) {
-            LOG.info(ResultCode.ROLE_NOT_EXIST.getDesc());
-
-            GeneralResponseDto dto = respLoginPlayerDtoEncoder.encode(ResultCode.ROLE_NOT_EXIST, null);
-            loginPlayer.response(dto);
-            return;
+            throw new GeneralErrorExecption("找不到角色");
         }
 
         player.setChannel(channel);
