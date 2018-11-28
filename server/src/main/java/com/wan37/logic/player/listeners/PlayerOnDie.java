@@ -14,13 +14,15 @@ class PlayerOnDie implements GeneralEventListener<DieEvent> {
         FightingUnit unit = dieEvent.getUnit();
         long now = dieEvent.getNow();
 
-        unit.setAlive(false);
-        unit.setDeadTime(now);
-        unit.getBuffs().clear();
-
-        if (unit instanceof Player) {
-            Player player = (Player) unit;
-            player.syncClient("你已阵亡，倒计时10s传送到安全区域");
+        if (!(unit instanceof Player)) {
+            return;
         }
+
+        Player player = (Player) unit;
+        player.setAlive(false);
+        player.setDeadTime(now);
+        player.getBuffs().clear();
+
+        player.syncClient("你已阵亡，倒计时10s传送到安全区域");
     }
 }

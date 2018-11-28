@@ -51,6 +51,11 @@ class PlayerSkillImpl implements ISkill {
         return skillCfg.getDemage(skillDb.getLevel());
     }
 
+    @Override
+    public SkillCfg getSkillCfg() {
+        return skillCfg;
+    }
+
     private final SkillCfg skillCfg;
     private final PSkillDb skillDb;
 }

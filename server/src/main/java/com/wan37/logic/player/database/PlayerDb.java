@@ -37,31 +37,31 @@ public class PlayerDb {
     /**
      * 场景Id
      */
-    private Integer sceneId;
+    private volatile Integer sceneId;
 
     /**
      * 等级
      */
-    private int level;
+    private volatile int level;
 
     /**
      * 血量
      */
-    private long hp;
+    private volatile long hp;
 
     /**
      * 蓝量
      */
-    private long mp;
+    private volatile long mp;
 
     /**
      * 经验
      */
-    private long exp;
+    private volatile long exp;
 
     private volatile boolean alive;
 
-    private long deadTime;
+    private volatile long deadTime;
 
     @Convert(converter = BackpackDbConverterImpl.class)
     @Column(columnDefinition = "text")

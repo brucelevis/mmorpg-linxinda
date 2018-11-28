@@ -1,10 +1,12 @@
 package com.wan37.logic.monster.ai;
 
-import com.wan37.event.DieEvent;
-import com.wan37.event.GenernalEventListenersManager;
+import com.wan37.logic.attack.fighting.FightingAttackHandler;
+import com.wan37.logic.attack.fighting.after.FightingAfterHandler;
+import com.wan37.logic.attack.fighting.before.FightingBeforeChecker;
 import com.wan37.logic.monster.Monster;
 import com.wan37.logic.player.Player;
-import com.wan37.logic.player.database.PlayerDb;
+import com.wan37.logic.player.encode.PlayerInfoEncoder;
+import com.wan37.logic.scene.Scene;
 import com.wan37.logic.skill.ISkill;
 import com.wan37.util.DateTimeUtils;
 import com.wan37.util.RandomUtil;
@@ -19,47 +21,38 @@ import java.util.stream.Collectors;
 public class MonsterAutoAttacker {
 
     @Autowired
-    private GenernalEventListenersManager genernalEventListenersManager;
+    private FightingBeforeChecker fightingBeforeChecker;
 
-    public void attack(Monster monster, Player player) {
+    @Autowired
+    private FightingAttackHandler fightingAttackHandler;
+
+    @Autowired
+    private FightingAfterHandler fightingAfterHandler;
+
+    @Autowired
+    private PlayerInfoEncoder playerInfoEncoder;
+
+    public void attack(Monster monster, Player player, Scene scene) {
         long now = DateTimeUtils.toEpochMilli(LocalDateTime.now());
         ISkill skill = randSkill(monster, now);
         if (skill == null) {
+            // 技能cd
             return;
         }
 
-        //TODO: 检查怪物状态
-
-        //TODO: 检查玩家状态
-        PlayerDb playerDb = player.getPlayerDb();
-        if (!playerDb.isAlive()) {
+        // 攻击前检查
+        if (!fightingBeforeChecker.check(monster, player, skill)) {
             return;
         }
 
-        long baseAttackVal = monster.getBaseAttackVal();
-        double skillAddition = skill.getDemageAddition();
-        long demage = Math.round(baseAttackVal * skillAddition);
+        // 攻击
+        fightingAttackHandler.handle(monster, player, skill);
 
-        long defense = playerDb.getPlayerStrengthDb().getBaseDefenseVal();
-        demage -= defense;
-        if (demage < 0) {
-            demage = 0;
-        }
+        // 攻击后
+        fightingAfterHandler.handle(monster, player, skill);
 
-        long curHp = playerDb.getHp();
-        if (curHp > demage) {
-            playerDb.setHp(curHp - demage);
-
-            String msg = String.format("%s用%s攻击了你，造成伤害%s", monster.getName(), skill.getName(), demage);
-            player.syncClient(msg);
-        } else {
-            // 死了
-            genernalEventListenersManager.fireEvent(new DieEvent(player, now));
-        }
-
-        //TODO: 触发技能Buff
-
-        skill.setLastUseTime(now);
+        String msg = "玩家状态更新推送|" + playerInfoEncoder.encode(player);
+        scene.getPlayers().forEach(p -> p.syncClient(msg));
     }
 
     private ISkill randSkill(Monster monster, long now) {

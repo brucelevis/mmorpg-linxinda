@@ -23,10 +23,10 @@ public class SceneMonsterAiScheduler {
         scene.getMonsters().stream()
                 .filter(Monster::isAlive)
                 .filter(m -> m.getLastAttackId() != null)
-                .forEach(this::autoAttack);
+                .forEach(m -> autoAttack(m, scene));
     }
 
-    private void autoAttack(Monster monster) {
+    private void autoAttack(Monster monster, Scene scene) {
         Player player = playerGlobalManager.getPlayerByUid(monster.getLastAttackId());
         if (player == null) {
             return;
@@ -37,6 +37,6 @@ public class SceneMonsterAiScheduler {
             return;
         }
 
-        monsterAutoAttacker.attack(monster, player);
+        monsterAutoAttacker.attack(monster, player, scene);
     }
 }

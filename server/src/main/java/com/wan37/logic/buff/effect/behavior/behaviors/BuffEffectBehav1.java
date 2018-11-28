@@ -4,8 +4,9 @@ import com.wan37.logic.attack.fighting.FightingUnit;
 import com.wan37.logic.buff.IBuff;
 import com.wan37.logic.buff.effect.behavior.BuffEffectBehavior;
 import com.wan37.logic.buff.effect.behavior.BuffEffectContext;
-import com.wan37.logic.player.Player;
 import com.wan37.logic.player.service.addmp.FightingUnitMpAdder;
+import com.wan37.logic.scene.Scene;
+import com.wan37.logic.scene.SceneGlobalManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,9 @@ class BuffEffectBehav1 implements BuffEffectBehavior {
     @Autowired
     private FightingUnitMpAdder fightingUnitMpAdder;
 
+    @Autowired
+    private SceneGlobalManager sceneGlobalManager;
+
     @Override
     public void behave(BuffEffectContext context) {
         IBuff buff = context.getBuff();
@@ -29,11 +33,11 @@ class BuffEffectBehav1 implements BuffEffectBehavior {
         fightingUnitMpAdder.add(unit, addMp);
 
         long result = unit.getMp();
-        if (result != curMp && unit instanceof Player) {
-            // 是玩家推送消息
-            Player player = (Player) unit;
-            String msg = String.format("由于%s的效果，你恢复了%smp", buff.getName(), result - curMp);
-            player.syncClient(msg);
+        if (result != curMp) {
+            String msg = String.format("由于[%s]的效果，[%s]恢复了%smp", buff.getName(), unit.getName(), result - curMp);
+
+            Scene scene = sceneGlobalManager.getScene(unit.getSceneId());
+            scene.getPlayers().forEach(p -> p.syncClient(msg));
         }
 
         // 持续类作用次数，上次生效时间 = 上次生效时间 + 每次间隔

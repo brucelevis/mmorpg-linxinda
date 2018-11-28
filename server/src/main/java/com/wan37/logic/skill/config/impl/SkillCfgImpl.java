@@ -1,5 +1,6 @@
 package com.wan37.logic.skill.config.impl;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.wan37.config.entity.SkillCfgExcel;
 import com.wan37.logic.skill.config.SkillBuffCfg;
@@ -59,6 +60,10 @@ public class SkillCfgImpl implements SkillCfg {
 
     @Override
     public List<SkillBuffCfg> getBuffs() {
+        if (cfgExcel.getBuffs() == null) {
+            return ImmutableList.of();
+        }
+
         return Arrays.stream(cfgExcel.getBuffs().split(","))
                 .map(this::createBuff)
                 .collect(Collectors.toList());

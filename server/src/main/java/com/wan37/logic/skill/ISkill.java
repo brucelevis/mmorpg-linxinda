@@ -27,4 +27,6 @@ public interface ISkill {
     int getCostMp();
 
     double getDemageAddition();
+
+    SkillCfg getSkillCfg();
 }

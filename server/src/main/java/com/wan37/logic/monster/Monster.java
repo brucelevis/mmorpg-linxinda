@@ -16,12 +16,12 @@ public class Monster implements FightingUnit {
     private Integer sceneId;
     private MonsterCfg monsterCfg;
 
-    private long hp;
-    private long mp;
+    private volatile long hp;
+    private volatile long mp;
 
-    private long deadTime;
-    private boolean alive;
-    private Long lastAttackId;
+    private volatile long deadTime;
+    private volatile boolean alive;
+    private volatile Long lastAttackId;
 
     private int baseAttackVal;
     private int baseDefenseVal;

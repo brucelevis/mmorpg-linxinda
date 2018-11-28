@@ -31,7 +31,17 @@ public class MonsterDieHandler {
 
     public void handle(Monster monster, long now) {
         Long lastAttackUid = monster.getLastAttackId();
-        Player player = playerGlobalManager.getPlayerByUid(lastAttackUid);
+        Integer sceneId = monster.getSceneId();
+        if (playerGlobalManager.isOnline(lastAttackUid)) {
+            Player player = playerGlobalManager.getPlayerByUid(lastAttackUid);
+            if (player != null && Objects.equals(player.getSceneId(), sceneId)) {
+                // 还在当前场景的最后攻击怪物的人获得经验
+                int exp = monster.getMonsterCfg().getExp();
+                player.setExp(player.getExp() + exp);
+
+                player.syncClient(String.format("获得%s经验", exp));
+            }
+        }
 
         monster.setHp(0);
         monster.setAlive(false);
@@ -39,18 +49,8 @@ public class MonsterDieHandler {
         monster.getBuffs().clear();
         monster.setLastAttackId(null);
 
-        Integer sceneId = monster.getSceneId();
-        Scene scene = sceneGlobalManager.getScene(sceneId);
-
-        if (player != null && Objects.equals(player.getSceneId(), sceneId)) {
-            // 还在当前场景的最后攻击怪物的人获得经验
-            int exp = monster.getMonsterCfg().getExp();
-            player.setExp(player.getExp() + exp);
-
-            player.syncClient(String.format("获得%s经验", exp));
-        }
-
         // 爆物
+        Scene scene = sceneGlobalManager.getScene(sceneId);
         List<SceneItem> rewards = sceneItemFactory.create(monster.getMonsterCfg());
         if (!rewards.isEmpty()) {
             rewards.forEach(i -> scene.getItems().put(i.getUid(), i));

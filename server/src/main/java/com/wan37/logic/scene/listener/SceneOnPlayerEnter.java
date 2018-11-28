@@ -40,7 +40,7 @@ class SceneOnPlayerEnter implements GeneralEventListener<SceneEnterEvent> {
         }
 
         Scene scene = sceneGlobalManager.getScene(player.getSceneId());
-        String msg = "玩家进入场景通知|" + playerInfoEncoder.encode(player.getPlayerDb());
+        String msg = "玩家进入场景通知|" + playerInfoEncoder.encode(player);
 
         // 通知场景里除自己的所有玩家
         scene.getPlayers().stream()

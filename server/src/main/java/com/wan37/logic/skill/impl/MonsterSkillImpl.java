@@ -50,6 +50,11 @@ class MonsterSkillImpl implements ISkill {
         return skillCfg.getDemage(level);
     }
 
+    @Override
+    public SkillCfg getSkillCfg() {
+        return skillCfg;
+    }
+
     private final SkillCfg skillCfg;
     private final int level;
 
