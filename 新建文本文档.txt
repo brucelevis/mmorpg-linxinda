@@ -7,6 +7,9 @@ player_Register factionId playerName
 #登录
 player_Login playerUid
 
+#下线
+player_Logout
+
 ############### 场景  ###########################
 
 #打印当前场景实体
@@ -59,7 +62,10 @@ skill_Info
 ################ 攻击  #################################
 
 #玩家攻击怪物
-attack_PlayerToMonster skillId monsterUid
+attack_P2M skillId monsterUid
+
+#攻击玩家
+attack_P2P skillId playerUid
 
 
 ################# 商店系统 ###############################

@@ -18,4 +18,6 @@ public interface SceneCfg {
     List<Integer> getNpcs();
 
     List<SceneMonsterCfg> getMonsters();
+
+    boolean canAttack();
 }

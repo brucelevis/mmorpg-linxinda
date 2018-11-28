@@ -15,11 +15,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
-/**
- * FIXME: 整个战斗写的很恶心
- */
 @Service
-public class AttackPlayerToMonsterExec {
+public class AttackP2MExec {
 
     @Autowired
     private SceneGlobalManager sceneGlobalManager;

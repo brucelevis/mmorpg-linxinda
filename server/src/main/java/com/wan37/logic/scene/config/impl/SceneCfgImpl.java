@@ -69,6 +69,11 @@ public class SceneCfgImpl implements SceneCfg {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public boolean canAttack() {
+        return cfgExcel.isCanAttack();
+    }
+
     private Monster toMonster(String[] s) {
         Monster monster = new Monster();
         monster.cfgId = Integer.parseInt(s[0]);

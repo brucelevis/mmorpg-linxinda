@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * 攻击出手前处理
@@ -42,6 +43,10 @@ public class FightingBeforeChecker {
                 //FIXME: 写死攻击时武器耐久度要求
                 throw new GeneralErrorExecption("武器耐久度过低，请及时修理");
             }
+        }
+
+        if (!Objects.equals(attacker.getSceneId(), target.getSceneId())) {
+            return throwIfIsPlayer(attacker, "不在同一个地图，无法攻击");
         }
 
         if (!attacker.isAlive()) {

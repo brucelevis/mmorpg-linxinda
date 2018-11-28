@@ -13,6 +13,8 @@ import com.wan37.logic.equipment.service.EquipExtraDbGetter;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.player.service.FightingUnitBuffAdder;
+import com.wan37.logic.scene.Scene;
+import com.wan37.logic.scene.SceneGlobalManager;
 import com.wan37.logic.skill.ISkill;
 import com.wan37.logic.skill.config.SkillBuffCfg;
 import com.wan37.util.DateTimeUtils;
@@ -37,6 +39,9 @@ public class FightingAfterHandler {
 
     @Autowired
     private FightingUnitBuffAdder fightingUnitBuffAdder;
+
+    @Autowired
+    private SceneGlobalManager sceneGlobalManager;
 
     public void handle(FightingUnit attacker, FightingUnit target, ISkill skill) {
         // 扣蓝
@@ -77,22 +82,22 @@ public class FightingAfterHandler {
             return;
         }
 
+        Scene scene = sceneGlobalManager.getScene(attacker.getSceneId());
         IBuff buff = buffFactory.create(buffCfg);
         if (Objects.equals(buff.getTarget(), BuffTargetEnum.BUFF_TARGET_1.getId())) {
             // 对自己施加buff
             fightingUnitBuffAdder.add(attacker, buff);
+
+            String msg = String.format("[%s]触发了[%s]的效果", attacker.getName(), buff.getName());
+            scene.getPlayers().forEach(p -> p.syncClient(msg));
         } else {
             // 对目标施加buff
             if (target.isAlive()) {
                 fightingUnitBuffAdder.add(target, buff);
+
+                String msg = String.format("[%s]对[%s]施加了[%s]的效果", attacker.getName(), target.getName(), buff.getName());
+                scene.getPlayers().forEach(p -> p.syncClient(msg));
             }
-        }
-
-        if (isPlayer(attacker)) {
-            Player player = (Player) attacker;
-
-            String msg = String.format("你触发了%s", buff.getName());
-            player.syncClient(msg);
         }
     }
 

@@ -14,6 +14,8 @@ public class SceneCfgExcel {
 
     private String npcs;
 
+    private boolean canAttack;
+
     /**
      * 分隔符|
      */
@@ -73,5 +75,13 @@ public class SceneCfgExcel {
 
     public void setNpcs(String npcs) {
         this.npcs = npcs;
+    }
+
+    public boolean isCanAttack() {
+        return canAttack;
+    }
+
+    public void setCanAttack(boolean canAttack) {
+        this.canAttack = canAttack;
     }
 }
