@@ -1,5 +1,7 @@
 package com.wan37.logic.monster;
 
+import com.wan37.logic.attack.fighting.FightingUnit;
+import com.wan37.logic.attr.config.AttrEnum;
 import com.wan37.logic.buff.IBuff;
 import com.wan37.logic.monster.config.MonsterCfg;
 import com.wan37.logic.skill.ISkill;
@@ -8,29 +10,25 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class Monster implements IMonster {
+public class Monster implements FightingUnit {
 
     private Long uid;
     private Integer sceneId;
     private MonsterCfg monsterCfg;
 
     private long hp;
+    private long mp;
 
     private long deadTime;
     private boolean alive;
-
-    private Map<Integer, Double> attrs;
-    private List<ISkill> skills;
+    private Long lastAttackId;
 
     private int baseAttackVal;
     private int baseDefenseVal;
 
-    private Long lastAttackId;
+    private Map<Integer, Double> attrs;
+    private Map<Integer, ISkill> skills;
     private List<IBuff> buffs = new CopyOnWriteArrayList<>();
-
-    public Long getUid() {
-        return uid;
-    }
 
     public void setUid(Long uid) {
         this.uid = uid;
@@ -44,54 +42,6 @@ public class Monster implements IMonster {
         this.monsterCfg = monsterCfg;
     }
 
-    public long getHp() {
-        return hp;
-    }
-
-    public void setHp(long hp) {
-        this.hp = hp;
-    }
-
-    public long getDeadTime() {
-        return deadTime;
-    }
-
-    public void setDeadTime(long deadTime) {
-        this.deadTime = deadTime;
-    }
-
-    public boolean isAlive() {
-        return alive;
-    }
-
-    public void setAlive(boolean alive) {
-        this.alive = alive;
-    }
-
-    public Map<Integer, Double> getAttrs() {
-        return attrs;
-    }
-
-    public void setAttrs(Map<Integer, Double> attrs) {
-        this.attrs = attrs;
-    }
-
-    public int getBaseAttackVal() {
-        return baseAttackVal;
-    }
-
-    public void setBaseAttackVal(int baseAttackVal) {
-        this.baseAttackVal = baseAttackVal;
-    }
-
-    public int getBaseDefenseVal() {
-        return baseDefenseVal;
-    }
-
-    public void setBaseDefenseVal(int baseDefenseVal) {
-        this.baseDefenseVal = baseDefenseVal;
-    }
-
     public Long getLastAttackId() {
         return lastAttackId;
     }
@@ -100,37 +50,133 @@ public class Monster implements IMonster {
         this.lastAttackId = lastAttackId;
     }
 
-    public List<IBuff> getBuffs() {
-        return buffs;
+    public void setBaseAttackVal(int baseAttackVal) {
+        this.baseAttackVal = baseAttackVal;
+    }
+
+    public void setBaseDefenseVal(int baseDefenseVal) {
+        this.baseDefenseVal = baseDefenseVal;
+    }
+
+    public void setAttrs(Map<Integer, Double> attrs) {
+        this.attrs = attrs;
+    }
+
+    public void setSkills(Map<Integer, ISkill> skills) {
+        this.skills = skills;
     }
 
     public void setBuffs(List<IBuff> buffs) {
         this.buffs = buffs;
     }
 
+    @Override
+    public int getLevel() {
+        return 0;
+    }
+
+    @Override
+    public Map<Integer, Double> getAttrs() {
+        return attrs;
+    }
+
+    @Override
+    public Map<Integer, ISkill> getSkills() {
+        return skills;
+    }
+
+    @Override
+    public List<IBuff> getBuffs() {
+        return buffs;
+    }
+
+    @Override
+    public long getBaseAttackVal() {
+        return baseAttackVal;
+    }
+
+    @Override
+    public long getBaseDefenseVal() {
+        return baseDefenseVal;
+    }
+
+    @Override
+    public Long getUid() {
+        return uid;
+    }
+
+    @Override
     public Integer getSceneId() {
         return sceneId;
     }
 
+    @Override
     public void setSceneId(Integer sceneId) {
         this.sceneId = sceneId;
-    }
-
-    public List<ISkill> getSkills() {
-        return skills;
-    }
-
-    public void setSkills(List<ISkill> skills) {
-        this.skills = skills;
-    }
-
-    @Override
-    public Integer getCfgId() {
-        return monsterCfg.getId();
     }
 
     @Override
     public String getName() {
         return monsterCfg.getName();
+    }
+
+    @Override
+    public long getHp() {
+        return hp;
+    }
+
+    @Override
+    public void setHp(long hp) {
+        this.hp = hp;
+    }
+
+    @Override
+    public long getMaxHp() {
+        Integer hpId = AttrEnum.ATTR_HP.getId();
+        if (attrs.containsKey(hpId)) {
+            return Math.round(attrs.get(hpId));
+        }
+
+        return 0;
+    }
+
+    @Override
+    public long getMp() {
+        return mp;
+    }
+
+    @Override
+    public void setMp(long mp) {
+        this.mp = mp;
+    }
+
+    @Override
+    public long getMaxMp() {
+        Integer mpId = AttrEnum.ATTR_MP.getId();
+        if (attrs.containsKey(mpId)) {
+            return Math.round(attrs.get(mpId));
+        }
+
+        return 0;
+    }
+
+    @Override
+    public long getDeadTime() {
+        return deadTime;
+    }
+
+    @Override
+    public void setDeadTime(long time) {
+        this.deadTime = time;
+    }
+
+    @Override
+    public boolean isAlive() {
+        return alive;
+    }
+
+    @Override
+    public void setAlive(boolean alive) {
+        this.alive = alive;
     }
 }

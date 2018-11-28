@@ -1,7 +1,6 @@
 package com.wan37.logic.scene.schedule;
 
 import com.wan37.logic.player.Player;
-import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.player.init.PlayerReviveInitializer;
 import com.wan37.logic.scene.Scene;
 import com.wan37.logic.scene.SceneFacade;
@@ -64,18 +63,17 @@ public class SceneScheduler {
     }
 
     private void checkAndRevive(Player player, long now) {
-        PlayerDb playerDb = player.getPlayerDb();
-        if (playerDb.isAlive()) {
+        if (player.isAlive()) {
             return;
         }
 
         long interval = TimeUnit.SECONDS.toMillis(10);
-        if (playerDb.getDeadTime() + interval > now) {
+        if (player.getDeadTime() + interval > now) {
             return;
         }
 
-        Integer oldSceneId = playerDb.getSceneId();
-        playerReviveInitializer.init(playerDb);
+        Integer oldSceneId = player.getSceneId();
+        playerReviveInitializer.init(player);
 
         //FIXME: 写死默认复活安全场景
         Integer toSceneId = 1000;

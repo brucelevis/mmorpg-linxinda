@@ -17,11 +17,11 @@ class MonsterOnDie implements GeneralEventListener<DieEvent> {
     @Override
     public void execute(DieEvent dieEvent) {
         FightingUnit unit = dieEvent.getUnit();
-        Monster monster = unit.getMonster();
-        if (monster == null) {
+        if (!(unit instanceof Monster)) {
             return;
         }
 
+        Monster monster = (Monster) unit;
         long now = dieEvent.getNow();
         monsterDieHandler.handle(monster, now);
     }

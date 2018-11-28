@@ -1,36 +1,23 @@
 package com.wan37.logic.attack.fighting;
 
-import com.wan37.logic.monster.Monster;
-import com.wan37.logic.player.Player;
+import com.wan37.logic.buff.IBuff;
+import com.wan37.logic.scene.base.SceneActor;
+import com.wan37.logic.skill.ISkill;
 
+import java.util.List;
 import java.util.Map;
 
-public interface FightingUnit {
+public interface FightingUnit extends SceneActor {
 
-    interface Factory {
-
-        FightingUnit create(Player player);
-
-        FightingUnit create(Monster monster);
-    }
-
-    Player getPlayer();
-
-    Monster getMonster();
-
-    boolean isDie();
-
-    long getHp();
-
-    void setHp(long hp);
-
-    long getMp();
-
-    void setMp(long mp);
+    int getLevel();
 
     Map<Integer, Double> getAttrs();
 
-    Map<Integer, FightingSkill> getSkills();
+    Map<Integer, ISkill> getSkills();
 
-    void client(String msg);
+    List<IBuff> getBuffs();
+
+    long getBaseAttackVal();
+
+    long getBaseDefenseVal();
 }

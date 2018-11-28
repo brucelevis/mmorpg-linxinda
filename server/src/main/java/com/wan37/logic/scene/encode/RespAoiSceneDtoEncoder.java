@@ -57,7 +57,6 @@ public class RespAoiSceneDtoEncoder {
     private RespAoiSceneMonsterDto encodeMonster(Monster monster) {
         RespAoiSceneMonsterDto dto = new RespAoiSceneMonsterDto();
         dto.setUid(monster.getUid());
-        dto.setCfgId(monster.getCfgId());
         dto.setName(monster.getName());
         return dto;
     }

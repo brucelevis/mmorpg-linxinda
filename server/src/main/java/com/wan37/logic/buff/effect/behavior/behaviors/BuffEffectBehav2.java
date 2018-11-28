@@ -27,6 +27,9 @@ class BuffEffectBehav2 implements BuffEffectBehavior {
     @Autowired
     private SceneGlobalManager sceneGlobalManager;
 
+    /**
+     * FIXME: 玩家buff中毒扣血没提示
+     */
     @Override
     public void behave(BuffEffectContext context) {
         FightingUnit unit = context.getUnit();
@@ -51,8 +54,9 @@ class BuffEffectBehav2 implements BuffEffectBehavior {
         }
 
         //FIXME: 如果是怪物
-        Monster monster = unit.getMonster();
-        if (monster != null) {
+        if (unit instanceof Monster) {
+            Monster monster = (Monster) unit;
+
             // 通知场景玩家怪物状态更新
             String monsterUpdate = "怪物状态更新推送|" + monsterEncoder.encode(monster);
             sceneGlobalManager.getScene(monster.getSceneId()).getPlayers()

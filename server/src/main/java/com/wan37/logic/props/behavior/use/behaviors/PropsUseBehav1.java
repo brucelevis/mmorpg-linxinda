@@ -1,9 +1,7 @@
 package com.wan37.logic.props.behavior.use.behaviors;
 
-import com.wan37.logic.attack.fighting.FightingUnit;
 import com.wan37.logic.player.Player;
-import com.wan37.logic.player.database.PlayerDb;
-import com.wan37.logic.player.service.addmp.PlayerMpAdder;
+import com.wan37.logic.player.service.addmp.FightingUnitMpAdder;
 import com.wan37.logic.props.behavior.use.PropsUseBehavior;
 import com.wan37.logic.props.behavior.use.PropsUseContext;
 import com.wan37.logic.props.config.PropsCfg;
@@ -17,24 +15,18 @@ import org.springframework.stereotype.Service;
 class PropsUseBehav1 implements PropsUseBehavior {
 
     @Autowired
-    private PlayerMpAdder playerMpAdder;
-
-    @Autowired
-    private FightingUnit.Factory fightUnitFactory;
+    private FightingUnitMpAdder fightingUnitMpAdder;
 
     @Override
     public void behave(PropsUseContext context) {
         Player player = context.getPlayer();
         PropsCfg propsCfg = context.getPropsCfg();
 
-        PlayerDb playerDb = player.getPlayerDb();
-        long curMp = playerDb.getMp();
-
+        long curMp = player.getMp();
         int addMp = Integer.parseInt(propsCfg.getUseLogicArgs());
-        FightingUnit unit = fightUnitFactory.create(player);
-        playerMpAdder.add(unit, addMp);
+        fightingUnitMpAdder.add(player, addMp);
 
-        long result = playerDb.getMp();
+        long result = player.getMp();
         if (result != curMp) {
             String msg = String.format("你使用了%s，恢复了%smp", propsCfg.getName(), result - curMp);
             player.syncClient(msg);

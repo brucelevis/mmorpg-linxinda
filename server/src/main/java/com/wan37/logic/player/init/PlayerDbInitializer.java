@@ -1,5 +1,7 @@
 package com.wan37.logic.player.init;
 
+import com.wan37.logic.attr.config.AttrEnum;
+import com.wan37.logic.attr.database.PAttrDb;
 import com.wan37.logic.attr.database.PlayerAttrDb;
 import com.wan37.logic.attr.init.PlayerAttrDbInitializer;
 import com.wan37.logic.backpack.database.BackpackDb;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class PlayerDbInitializer {
@@ -30,9 +33,6 @@ public class PlayerDbInitializer {
 
     @Autowired
     private PlayerSkillDbInitializer playerSkillDbInitializer;
-
-    @Autowired
-    private PlayerReviveInitializer playerReviveInitializer;
 
     public void init(PlayerDb playerDb) {
         initBackpack(playerDb);
@@ -97,7 +97,17 @@ public class PlayerDbInitializer {
     }
 
     private void initPlayer(PlayerDb playerDb) {
-        playerReviveInitializer.init(playerDb);
+        Map<Integer, PAttrDb> attrs = playerDb.getPlayerAttrDb().getAttrs();
+
+        PAttrDb hpDb = attrs.get(AttrEnum.ATTR_HP.getId());
+        int hp = hpDb != null ? (int) Math.round(hpDb.getValue()) : 0;
+        playerDb.setHp(hp);
+
+        PAttrDb mpDb = attrs.get(AttrEnum.ATTR_MP.getId());
+        int mp = mpDb != null ? (int) Math.round(mpDb.getValue()) : 0;
+        playerDb.setMp(mp);
+
+        playerDb.setAlive(true);
     }
 
     private void initPlayerStrength(PlayerDb playerDb) {

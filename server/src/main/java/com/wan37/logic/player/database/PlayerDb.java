@@ -57,7 +57,7 @@ public class PlayerDb {
     /**
      * 经验
      */
-    private double exp;
+    private long exp;
 
     private volatile boolean alive;
 
@@ -182,11 +182,11 @@ public class PlayerDb {
         this.mp = mp;
     }
 
-    public double getExp() {
+    public long getExp() {
         return exp;
     }
 
-    public void setExp(double exp) {
+    public void setExp(long exp) {
         this.exp = exp;
     }
 

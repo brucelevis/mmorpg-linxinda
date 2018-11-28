@@ -1,11 +1,10 @@
 package com.wan37.logic.scene.schedule;
 
-import com.wan37.logic.attr.config.AttrEnum;
-import com.wan37.logic.attr.database.PAttrDb;
 import com.wan37.logic.player.Player;
-import com.wan37.logic.player.database.PlayerDb;
+import com.wan37.logic.player.service.addmp.FightingUnitMpAdder;
 import com.wan37.logic.scene.Scene;
 import com.wan37.util.DateTimeUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -19,6 +18,9 @@ public class SceneMpRecoverScheduler {
 
     private static final long INTERVAL = TimeUnit.SECONDS.toMillis(30);
 
+    @Autowired
+    private FightingUnitMpAdder fightingUnitMpAdder;
+
     public void schedule(Scene scene) {
         long now = DateTimeUtils.toEpochMilli(LocalDateTime.now());
         if (scene.getLastRecoverMpTime() + INTERVAL >= now) {
@@ -30,22 +32,13 @@ public class SceneMpRecoverScheduler {
     }
 
     private void recoverMp(Player player) {
-        PlayerDb playerDb = player.getPlayerDb();
-        PAttrDb attrDb = playerDb.getPlayerAttrDb().getAttrs().get(AttrEnum.ATTR_MP.getId());
-        if (attrDb == null) {
-            return;
+        long curMp = player.getMp();
+        fightingUnitMpAdder.add(player, MP);
+
+        long result = player.getMp();
+        if (curMp != result) {
+            String msg = String.format("你自动恢复了%smp", result - curMp);
+            player.syncClient(msg);
         }
-
-        long curMp = playerDb.getMp();
-        long maxMp = Math.round(attrDb.getValue());
-        if (curMp == maxMp) {
-            return;
-        }
-
-        long result = curMp + MP > maxMp ? maxMp : curMp + MP;
-        playerDb.setMp(result);
-
-        String msg = String.format("你自动恢复了%smp", result - curMp);
-        player.syncClient(msg);
     }
 }

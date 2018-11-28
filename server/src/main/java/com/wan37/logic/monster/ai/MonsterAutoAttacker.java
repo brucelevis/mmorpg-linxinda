@@ -2,7 +2,6 @@ package com.wan37.logic.monster.ai;
 
 import com.wan37.event.DieEvent;
 import com.wan37.event.GenernalEventListenersManager;
-import com.wan37.logic.attack.fighting.FightingUnit;
 import com.wan37.logic.monster.Monster;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.database.PlayerDb;
@@ -21,9 +20,6 @@ public class MonsterAutoAttacker {
 
     @Autowired
     private GenernalEventListenersManager genernalEventListenersManager;
-
-    @Autowired
-    private FightingUnit.Factory fightingUnitFactory;
 
     public void attack(Monster monster, Player player) {
         long now = DateTimeUtils.toEpochMilli(LocalDateTime.now());
@@ -58,8 +54,7 @@ public class MonsterAutoAttacker {
             player.syncClient(msg);
         } else {
             // 死了
-            FightingUnit unit = fightingUnitFactory.create(player);
-            genernalEventListenersManager.fireEvent(new DieEvent(unit, now));
+            genernalEventListenersManager.fireEvent(new DieEvent(player, now));
         }
 
         //TODO: 触发技能Buff
@@ -68,7 +63,7 @@ public class MonsterAutoAttacker {
     }
 
     private ISkill randSkill(Monster monster, long now) {
-        List<ISkill> skills = monster.getSkills().stream()
+        List<ISkill> skills = monster.getSkills().values().stream()
                 .filter(i -> i.getLastUseTime() + i.getCdInterval() <= now)
                 .collect(Collectors.toList());
 

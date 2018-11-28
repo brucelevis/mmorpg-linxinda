@@ -3,7 +3,6 @@ package com.wan37.logic.monster.die;
 import com.wan37.logic.monster.Monster;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
-import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.scene.Scene;
 import com.wan37.logic.scene.SceneGlobalManager;
 import com.wan37.logic.scene.encode.SceneItemEncoder;
@@ -46,8 +45,7 @@ public class MonsterDieHandler {
         if (player != null && Objects.equals(player.getSceneId(), sceneId)) {
             // 还在当前场景的最后攻击怪物的人获得经验
             int exp = monster.getMonsterCfg().getExp();
-            PlayerDb playerDb = player.getPlayerDb();
-            playerDb.setExp(playerDb.getExp() + exp);
+            player.setExp(player.getExp() + exp);
 
             player.syncClient(String.format("获得%s经验", exp));
         }
