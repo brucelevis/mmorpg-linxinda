@@ -72,11 +72,10 @@ public class SceneScheduler {
             return;
         }
 
-        Integer oldSceneId = player.getSceneId();
         playerReviveInitializer.init(player);
 
         //FIXME: 写死默认复活安全场景
         Integer toSceneId = 1000;
-        sceneFacade.forceSwitchScene(player, oldSceneId, toSceneId);
+        sceneFacade.forceSwitchScene(player, toSceneId);
     }
 }

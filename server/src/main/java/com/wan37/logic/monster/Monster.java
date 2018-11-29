@@ -14,6 +14,7 @@ public class Monster implements FightingUnit {
 
     private Long uid;
     private Integer sceneId;
+    private Long sceneUid;
     private MonsterCfg monsterCfg;
 
     private volatile long hp;
@@ -113,6 +114,16 @@ public class Monster implements FightingUnit {
     @Override
     public void setSceneId(Integer sceneId) {
         this.sceneId = sceneId;
+    }
+
+    @Override
+    public Long getSceneUid() {
+        return sceneUid;
+    }
+
+    @Override
+    public void setSceneUid(Long uid) {
+        this.sceneUid = uid;
     }
 
     @Override

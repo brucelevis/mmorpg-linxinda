@@ -1,20 +1,16 @@
 package com.wan37.event;
 
+import com.wan37.logic.player.Player;
+
 public class SceneLeaveEvent {
 
-    public SceneLeaveEvent(Integer sceneId, Long playerUid) {
-        this.sceneId = sceneId;
-        this.playerUid = playerUid;
+    public SceneLeaveEvent(Player player) {
+        this.player = player;
     }
 
-    public Integer getSceneId() {
-        return sceneId;
+    public Player getPlayer() {
+        return player;
     }
 
-    public Long getPlayerUid() {
-        return playerUid;
-    }
-
-    private final Integer sceneId;
-    private final Long playerUid;
+    private final Player player;
 }

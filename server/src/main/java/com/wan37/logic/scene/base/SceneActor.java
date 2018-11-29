@@ -8,6 +8,10 @@ public interface SceneActor {
 
     void setSceneId(Integer sceneId);
 
+    Long getSceneUid();
+
+    void setSceneUid(Long uid);
+
     String getName();
 
     long getHp();

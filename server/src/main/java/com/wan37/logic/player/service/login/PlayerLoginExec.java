@@ -6,7 +6,6 @@ import com.wan37.exception.GeneralErrorExecption;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.player.encode.PlayerInfoEncoder;
-import com.wan37.logic.scene.scene.SceneFacade;
 import io.netty.channel.Channel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,13 +17,10 @@ public class PlayerLoginExec {
     private PlayerGlobalManager playerGlobalManager;
 
     @Autowired
-    private SceneFacade sceneFacade;
+    private GenernalEventListenersManager genernalEventListenersManager;
 
     @Autowired
     private PlayerInfoEncoder playerInfoEncoder;
-
-    @Autowired
-    private GenernalEventListenersManager genernalEventListenersManager;
 
     public void exec(PLoginPlayer loginPlayer) {
         Long playerUid = loginPlayer.getPlayerUid();
@@ -45,8 +41,6 @@ public class PlayerLoginExec {
 
         // 触发登录事件
         genernalEventListenersManager.fireEvent(new LoginEvent(player));
-
-        sceneFacade.enterScene(player.getSceneId(), player);
 
         String msg = "登录成功|" + playerInfoEncoder.encode(player);
         player.syncClient(msg);

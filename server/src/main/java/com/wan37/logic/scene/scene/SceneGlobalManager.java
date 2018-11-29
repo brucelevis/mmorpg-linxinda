@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.*;
+import java.util.stream.Collectors;
 
 @Service
 public class SceneGlobalManager {
@@ -40,13 +42,15 @@ public class SceneGlobalManager {
         scene.getPlayers().add(player);
     }
 
-    public void removePlayerFromScene(Integer sceneId, Player player) {
+    public void removePlayerFromScene(Integer sceneId, Long playerUid) {
         Scene scene = querySceneById(sceneId);
         if (scene == null) {
             return;
         }
 
-        scene.getPlayers().remove(player);
+        scene.setPlayers(scene.getPlayers().stream()
+                .filter(p -> !Objects.equals(p.getUid(), playerUid))
+                .collect(Collectors.toList()));
     }
 
     public Scene querySceneById(Integer sceneId) {
@@ -67,10 +71,5 @@ public class SceneGlobalManager {
         sceneScheduleMap.put(sceneId, schedule);
 
         return newScene;
-    }
-
-    public void destoryScene(Integer sceneId) {
-        sceneScheduleMap.get(sceneId).cancel(true);
-        sceneScheduleMap.remove(sceneId);
     }
 }

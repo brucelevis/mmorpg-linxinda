@@ -33,8 +33,6 @@ public class SceneFacadeImpl implements SceneFacade {
 
     @Override
     public void switchScene(Player player, Integer toSceneId) {
-        Long playerUid = player.getUid();
-
         Scene oldScene = sceneGlobalManager.getScene(player.getSceneId());
         SceneCfg oldSceneCfg = oldScene.getSceneCfg();
         if (!oldSceneCfg.getNeighbor().contains(toSceneId)) {
@@ -43,17 +41,22 @@ public class SceneFacadeImpl implements SceneFacade {
             return;
         }
 
-        forceSwitchScene(player, oldScene.getId(), toSceneId);
+        forceSwitchScene(player, toSceneId);
     }
 
     @Override
-    public void forceSwitchScene(Player player, Integer from, Integer to) {
-        // 离开场景推送
-        genernalEventListenersManager.fireEvent(new SceneLeaveEvent(from, player.getUid()));
-
-        // 移除旧场景里的玩家
-        sceneGlobalManager.removePlayerFromScene(from, player);
+    public void forceSwitchScene(Player player, Integer to) {
+        leaveScene(player);
 
         enterScene(to, player);
+    }
+
+    @Override
+    public void leaveScene(Player player) {
+        // 离开场景推送
+        genernalEventListenersManager.fireEvent(new SceneLeaveEvent(player));
+
+        // 移除旧场景里的玩家
+        sceneGlobalManager.removePlayerFromScene(player.getSceneId(), player.getUid());
     }
 }

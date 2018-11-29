@@ -34,9 +34,10 @@ class PlayerOnOffline implements GeneralEventListener<OfflineEvent> {
             return;
         }
 
+        // 玩家数据持久化
         playerDao.save(player.getPlayerDb());
 
         playerGlobalManager.removeFromOnlineList(channel);
-        genernalEventListenersManager.fireEvent(new SceneLeaveEvent(player.getSceneId(), player.getUid()));
+        genernalEventListenersManager.fireEvent(new SceneLeaveEvent(player));
     }
 }

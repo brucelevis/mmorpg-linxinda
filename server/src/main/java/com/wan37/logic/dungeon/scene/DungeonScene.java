@@ -1,20 +1,23 @@
 package com.wan37.logic.dungeon.scene;
 
-import com.wan37.logic.scene.base.AbstractScene;
+import com.wan37.logic.scene.base.TemporaryScene;
 
 /**
  * 副本场景
  */
-public class DungeonScene extends AbstractScene {
+public class DungeonScene extends TemporaryScene {
 
-    private Long uid;
+    /**
+     * 现阶段怪物组id
+     */
+    private Integer monsterGroupId;
 
-    public Long getUid() {
-        return uid;
+    public Integer getMonsterGroupId() {
+        return monsterGroupId;
     }
 
-    public void setUid(Long uid) {
-        this.uid = uid;
+    public void setMonsterGroupId(Integer monsterGroupId) {
+        this.monsterGroupId = monsterGroupId;
     }
 
     @Override

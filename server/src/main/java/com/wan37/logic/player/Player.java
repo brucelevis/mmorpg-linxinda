@@ -118,6 +118,16 @@ public class Player implements FightingUnit, IPlayer {
     }
 
     @Override
+    public Long getSceneUid() {
+        return playerDb.getSceneUid();
+    }
+
+    @Override
+    public void setSceneUid(Long uid) {
+        playerDb.setSceneUid(uid);
+    }
+
+    @Override
     public long getHp() {
         return playerDb.getHp();
     }

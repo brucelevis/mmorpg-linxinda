@@ -35,9 +35,14 @@ public class PlayerDb {
     private Integer factionId;
 
     /**
-     * 场景Id
+     * 场景cfgId
      */
     private volatile Integer sceneId;
+
+    /**
+     * 所在临时场景uid
+     */
+    private volatile Long sceneUid;
 
     /**
      * 等级
@@ -228,6 +233,14 @@ public class PlayerDb {
 
     public void setMails(List<MailDb> mails) {
         this.mails = mails;
+    }
+
+    public Long getSceneUid() {
+        return sceneUid;
+    }
+
+    public void setSceneUid(Long sceneUid) {
+        this.sceneUid = sceneUid;
     }
 
     /**

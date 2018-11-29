@@ -3,18 +3,19 @@ package com.wan37.logic.scene.listener;
 import com.wan37.event.GeneralEventListener;
 import com.wan37.event.SceneLeaveEvent;
 import com.wan37.logic.player.Player;
-import com.wan37.logic.player.PlayerGlobalManager;
-import com.wan37.logic.scene.scene.Scene;
+import com.wan37.logic.scene.base.AbstractScene;
+import com.wan37.logic.scene.base.SceneTypeEnum;
+import com.wan37.logic.scene.config.SceneCfg;
+import com.wan37.logic.scene.config.SceneCfgLoader;
 import com.wan37.logic.scene.scene.SceneGlobalManager;
+import com.wan37.logic.scene.temporary.TemporarySceneGlobalManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
- * 离开场景监听
+ * 玩家离开场景监听
  */
 @Service
 class SceneOnPlayerLeave implements GeneralEventListener<SceneLeaveEvent> {
@@ -23,31 +24,37 @@ class SceneOnPlayerLeave implements GeneralEventListener<SceneLeaveEvent> {
     private SceneGlobalManager sceneGlobalManager;
 
     @Autowired
-    private PlayerGlobalManager playerGlobalManager;
+    private TemporarySceneGlobalManager temporarySceneGlobalManager;
+
+    @Autowired
+    private SceneCfgLoader sceneCfgLoader;
 
     @Override
     public void execute(SceneLeaveEvent sceneLeaveEvent) {
-        Long playerUid = sceneLeaveEvent.getPlayerUid();
-        Integer sceneId = sceneLeaveEvent.getSceneId();
-
-        Scene scene = sceneGlobalManager.querySceneById(sceneId);
-        if (scene == null) {
+        Player player = sceneLeaveEvent.getPlayer();
+        SceneCfg sceneCfg = sceneCfgLoader.load(player.getSceneId()).orElse(null);
+        if (sceneCfg == null) {
             return;
         }
 
-        // 将玩家从场景中移除
-        List<Player> players = scene.getPlayers();
-        scene.setPlayers(players.stream()
-                .filter(p -> !Objects.equals(p.getUid(), playerUid))
-                .collect(Collectors.toList()));
+        AbstractScene scene;
+        Integer sceneId = sceneCfg.getId();
+        if (Objects.equals(sceneCfg.getType(), SceneTypeEnum.SCENE_TYPE_1.getId())) {
+            // 在普通场景
+            scene = sceneGlobalManager.querySceneById(sceneId);
 
-        Player player = playerGlobalManager.getPlayerByUid(playerUid);
-        if (player == null) {
-            return;
+            // 将玩家从场景中移除
+            sceneGlobalManager.removePlayerFromScene(sceneId, player.getUid());
+        } else {
+            // 在临时场景
+            scene = temporarySceneGlobalManager.querySceneByUid(player.getSceneUid());
+
+            // 将玩家从场景中移除
+            temporarySceneGlobalManager.removePlayerFromScene(player.getSceneUid(), player);
         }
 
         // 推送玩家离开场景通知
-        String msg = String.format("玩家离开场景通知| 名字：%s (playerUid：%s)\n", player.getPlayerDb().getName(), playerUid);
+        String msg = String.format("玩家离开场景通知| 名字：%s (playerUid：%s)\n", player.getName(), player.getUid());
         scene.getPlayers().forEach(p -> p.syncClient(msg));
     }
 }

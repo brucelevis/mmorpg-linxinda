@@ -8,5 +8,7 @@ public interface SceneFacade {
 
     void switchScene(Player player, Integer toSceneId);
 
-    void forceSwitchScene(Player player, Integer from, Integer to);
+    void forceSwitchScene(Player player, Integer to);
+
+    void leaveScene(Player player);
 }
