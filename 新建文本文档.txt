@@ -98,12 +98,12 @@ mail_Receive id
 #发送邮件 (不发道具附件则在对应位置发送null)
 mail_Send uid title content index:amount,index:amount
 
-################## 单人简单副本 ##########################
+################## 副本系统 ##########################
 
-#挑战简单副本
-dungeon_Enter
+#挑战副本
+dungeon_Enter dungeonId
 
-
-
+#副本信息
+dungeon_Info
 
 

@@ -1,12 +1,11 @@
 package com.wan37.logic.dungeon.scene;
 
-import com.wan37.logic.scene.base.IScene;
 import com.wan37.logic.scene.base.AbstractScene;
 
 /**
  * 副本场景
  */
-public class DungeonScene extends AbstractScene implements IScene {
+public class DungeonScene extends AbstractScene {
 
     private Long uid;
 

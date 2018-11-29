@@ -3,6 +3,7 @@ package com.wan37.logic.monster.config;
 import com.wan37.config.ConfigManager;
 import com.wan37.config.entity.MonsterCfgExcel;
 import com.wan37.logic.monster.config.impl.MonsterCfgImpl;
+import com.wan37.logic.props.config.PropsCfg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,5 +28,11 @@ public class MonsterCfgLoader {
         return loads().stream()
                 .filter(c -> Objects.equals(c.getId(), id))
                 .findAny();
+    }
+
+    public String getName(Integer id) {
+        return load(id)
+                .map(MonsterCfg::getName)
+                .orElse("NULL");
     }
 }
