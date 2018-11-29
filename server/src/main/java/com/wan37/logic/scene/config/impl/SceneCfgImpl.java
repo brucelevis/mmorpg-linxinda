@@ -22,11 +22,6 @@ public class SceneCfgImpl implements SceneCfg {
     }
 
     @Override
-    public boolean isPersonal() {
-        return cfgExcel.isPersonal();
-    }
-
-    @Override
     public String getName() {
         return cfgExcel.getName();
     }
@@ -72,6 +67,11 @@ public class SceneCfgImpl implements SceneCfg {
     @Override
     public boolean canAttack() {
         return cfgExcel.isCanAttack();
+    }
+
+    @Override
+    public Integer getType() {
+        return cfgExcel.getType();
     }
 
     private Monster toMonster(String[] s) {

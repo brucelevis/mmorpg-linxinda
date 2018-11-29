@@ -7,8 +7,6 @@ public interface SceneCfg {
 
     Integer getId();
 
-    boolean isPersonal();
-
     String getName();
 
     boolean isDefault();
@@ -20,4 +18,6 @@ public interface SceneCfg {
     List<SceneMonsterCfg> getMonsters();
 
     boolean canAttack();
+
+    Integer getType();
 }

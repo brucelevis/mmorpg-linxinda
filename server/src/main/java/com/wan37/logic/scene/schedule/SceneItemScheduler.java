@@ -1,6 +1,6 @@
 package com.wan37.logic.scene.schedule;
 
-import com.wan37.logic.scene.Scene;
+import com.wan37.logic.scene.scene.Scene;
 import com.wan37.logic.scene.encode.SceneItemEncoder;
 import com.wan37.logic.scene.item.SceneItem;
 import com.wan37.util.DateTimeUtils;

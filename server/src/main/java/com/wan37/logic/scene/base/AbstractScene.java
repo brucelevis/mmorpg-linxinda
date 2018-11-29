@@ -1,37 +1,29 @@
-package com.wan37.logic.scene;
+package com.wan37.logic.scene.base;
 
 import com.wan37.logic.monster.Monster;
 import com.wan37.logic.npc.Npc;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.scene.config.SceneCfg;
 import com.wan37.logic.scene.item.SceneItem;
-import com.wan37.logic.scene.schedule.SceneScheduler;
 
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class Scene implements IScene, Runnable {
+public abstract class AbstractScene implements IScene {
 
-    private SceneCfg sceneCfg;
+    protected SceneCfg sceneCfg;
 
-    private List<Player> players;
+    protected List<Player> players;
 
-    private List<Monster> monsters;
+    protected List<Monster> monsters;
 
-    private List<Npc> npcs;
+    protected List<Npc> npcs;
 
     /**
      * 地上奖励
      */
-    private Map<Long, SceneItem> items = new ConcurrentHashMap<>();
-
-    private SceneScheduler sceneScheduler;
-
-    /**
-     * 上次场景恢复mp触发时间
-     */
-    private volatile long lastRecoverMpTime;
+    protected Map<Long, SceneItem> items = new ConcurrentHashMap<>();
 
     public SceneCfg getSceneCfg() {
         return sceneCfg;
@@ -65,10 +57,6 @@ public class Scene implements IScene, Runnable {
         this.npcs = npcs;
     }
 
-    public void setSceneScheduler(SceneScheduler sceneScheduler) {
-        this.sceneScheduler = sceneScheduler;
-    }
-
     public Map<Long, SceneItem> getItems() {
         return items;
     }
@@ -77,25 +65,23 @@ public class Scene implements IScene, Runnable {
         this.items = items;
     }
 
-    public long getLastRecoverMpTime() {
-        return lastRecoverMpTime;
-    }
-
-    public void setLastRecoverMpTime(long lastRecoverMpTime) {
-        this.lastRecoverMpTime = lastRecoverMpTime;
-    }
-
     @Override
-    public Integer getCfgId() {
+    public Integer getId() {
         return sceneCfg.getId();
     }
 
     @Override
-    public void run() {
-        try {
-            sceneScheduler.schedule(this);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public String getName() {
+        return sceneCfg.getName();
+    }
+
+    @Override
+    public boolean canAttack() {
+        return sceneCfg.canAttack();
+    }
+
+    @Override
+    public Integer getType() {
+        return sceneCfg.getType();
     }
 }

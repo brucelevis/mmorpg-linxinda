@@ -1,4 +1,4 @@
-package com.wan37.logic.scene;
+package com.wan37.logic.scene.scene;
 
 import com.wan37.logic.player.Player;
 import com.wan37.logic.scene.init.SceneCreator;
@@ -14,7 +14,8 @@ import java.util.concurrent.*;
 public class SceneGlobalManager {
 
     /**
-     * map<sceneCfgId,scene>>
+     * 普通场景
+     * map<sceneCfgId，scene>
      */
     private static Map<Integer, Scene> sceneMap = new ConcurrentHashMap<>();
 

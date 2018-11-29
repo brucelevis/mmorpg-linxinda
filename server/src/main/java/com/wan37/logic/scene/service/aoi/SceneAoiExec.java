@@ -2,8 +2,8 @@ package com.wan37.logic.scene.service.aoi;
 
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
-import com.wan37.logic.scene.Scene;
-import com.wan37.logic.scene.SceneGlobalManager;
+import com.wan37.logic.scene.scene.Scene;
+import com.wan37.logic.scene.scene.SceneGlobalManager;
 import com.wan37.logic.scene.encode.SceneEncoder;
 import io.netty.channel.Channel;
 import org.apache.log4j.Logger;

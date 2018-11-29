@@ -5,7 +5,7 @@ import com.wan37.logic.monster.config.MonsterCfgLoader;
 import com.wan37.logic.monster.init.MonsterCreator;
 import com.wan37.logic.npc.config.NpcCfgLoader;
 import com.wan37.logic.npc.init.NpcCreator;
-import com.wan37.logic.scene.Scene;
+import com.wan37.logic.scene.scene.Scene;
 import com.wan37.logic.scene.config.SceneCfg;
 import com.wan37.logic.scene.config.SceneCfgLoader;
 import com.wan37.logic.scene.config.SceneMonsterCfg;

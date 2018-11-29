@@ -6,8 +6,6 @@ public class SceneCfgExcel {
 
     private String name;
 
-    private boolean personal;
-
     private boolean defaultScene;
 
     private String monsters;
@@ -20,6 +18,8 @@ public class SceneCfgExcel {
      * 分隔符|
      */
     private String neighbor;
+
+    private Integer type;
 
     public Integer getId() {
         return id;
@@ -35,14 +35,6 @@ public class SceneCfgExcel {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public boolean isPersonal() {
-        return personal;
-    }
-
-    public void setPersonal(boolean personal) {
-        this.personal = personal;
     }
 
     public boolean isDefaultScene() {
@@ -83,5 +75,13 @@ public class SceneCfgExcel {
 
     public void setCanAttack(boolean canAttack) {
         this.canAttack = canAttack;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 }

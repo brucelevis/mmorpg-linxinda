@@ -1,4 +1,4 @@
-package com.wan37.logic.scene;
+package com.wan37.logic.scene.scene;
 
 import com.wan37.logic.player.Player;
 

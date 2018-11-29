@@ -6,7 +6,7 @@ import com.wan37.logic.attack.fighting.before.FightingBeforeChecker;
 import com.wan37.logic.monster.Monster;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.encode.PlayerInfoEncoder;
-import com.wan37.logic.scene.Scene;
+import com.wan37.logic.scene.scene.Scene;
 import com.wan37.logic.skill.ISkill;
 import com.wan37.util.DateTimeUtils;
 import com.wan37.util.RandomUtil;

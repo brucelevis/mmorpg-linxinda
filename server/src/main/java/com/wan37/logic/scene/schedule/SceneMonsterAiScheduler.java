@@ -4,7 +4,7 @@ import com.wan37.logic.monster.Monster;
 import com.wan37.logic.monster.ai.MonsterAutoAttacker;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
-import com.wan37.logic.scene.Scene;
+import com.wan37.logic.scene.scene.Scene;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -6,7 +6,7 @@ import com.wan37.logic.monster.encode.MonsterEncoder;
 import com.wan37.logic.npc.Npc;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.database.PlayerDb;
-import com.wan37.logic.scene.Scene;
+import com.wan37.logic.scene.scene.Scene;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -10,7 +10,7 @@ import com.wan37.logic.GeneralResponseDtoEncoder;
 import com.wan37.logic.monster.Monster;
 import com.wan37.logic.npc.Npc;
 import com.wan37.logic.player.Player;
-import com.wan37.logic.scene.Scene;
+import com.wan37.logic.scene.scene.Scene;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +30,7 @@ public class RespAoiSceneDtoEncoder {
 
     private RespAoiSceneDto encodeContent(Scene scene) {
         RespAoiSceneDto dto = new RespAoiSceneDto();
-        dto.setSceneId(scene.getCfgId());
+        dto.setSceneId(scene.getId());
 
         dto.setPlayers(scene.getPlayers().stream()
                 .map(this::encodePlayers)

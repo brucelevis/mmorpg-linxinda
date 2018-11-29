@@ -3,7 +3,7 @@ package com.wan37.logic.scene.schedule;
 import com.wan37.logic.buff.IBuff;
 import com.wan37.logic.buff.effect.BuffEffectHandler;
 import com.wan37.logic.monster.Monster;
-import com.wan37.logic.scene.Scene;
+import com.wan37.logic.scene.scene.Scene;
 import com.wan37.util.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

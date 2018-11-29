@@ -6,7 +6,7 @@ import com.wan37.exception.GeneralErrorExecption;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.player.encode.PlayerInfoEncoder;
-import com.wan37.logic.scene.SceneFacade;
+import com.wan37.logic.scene.scene.SceneFacade;
 import io.netty.channel.Channel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

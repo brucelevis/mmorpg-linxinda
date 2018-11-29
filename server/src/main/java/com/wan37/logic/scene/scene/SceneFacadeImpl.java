@@ -1,4 +1,4 @@
-package com.wan37.logic.scene;
+package com.wan37.logic.scene.scene;
 
 import com.wan37.event.GenernalEventListenersManager;
 import com.wan37.event.SceneEnterEvent;
@@ -43,7 +43,7 @@ public class SceneFacadeImpl implements SceneFacade {
             return;
         }
 
-        forceSwitchScene(player, oldScene.getCfgId(), toSceneId);
+        forceSwitchScene(player, oldScene.getId(), toSceneId);
     }
 
     @Override
