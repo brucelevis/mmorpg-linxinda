@@ -1,6 +1,7 @@
 package com.wan37.logic.dungeon.scene;
 
 import com.wan37.logic.scene.base.TemporaryScene;
+import com.wan37.logic.scene.schedule.TemporarySceneScheduler;
 
 /**
  * 副本场景
@@ -12,6 +13,8 @@ public class DungeonScene extends TemporaryScene {
      */
     private Integer monsterGroupId;
 
+    private TemporarySceneScheduler temporarySceneScheduler;
+
     public Integer getMonsterGroupId() {
         return monsterGroupId;
     }
@@ -20,8 +23,20 @@ public class DungeonScene extends TemporaryScene {
         this.monsterGroupId = monsterGroupId;
     }
 
+    public TemporarySceneScheduler getTemporarySceneScheduler() {
+        return temporarySceneScheduler;
+    }
+
+    public void setTemporarySceneScheduler(TemporarySceneScheduler temporarySceneScheduler) {
+        this.temporarySceneScheduler = temporarySceneScheduler;
+    }
+
     @Override
     public void run() {
-        // NOOP
+        try {
+            temporarySceneScheduler.schedule(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

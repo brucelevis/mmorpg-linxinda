@@ -2,7 +2,7 @@ package com.wan37.logic.attack.fighting;
 
 import com.wan37.event.DieEvent;
 import com.wan37.event.GenernalEventListenersManager;
-import com.wan37.logic.scene.scene.Scene;
+import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.scene.scene.SceneGlobalManager;
 import com.wan37.logic.skill.ISkill;
 import com.wan37.util.DateTimeUtils;
@@ -20,9 +20,7 @@ public class FightingAttackHandler {
     @Autowired
     private GenernalEventListenersManager genernalEventListenersManager;
 
-    public void handle(FightingUnit attacker, FightingUnit target, ISkill skill) {
-        Scene scene = sceneGlobalManager.getScene(attacker.getSceneId());
-
+    public void handle(FightingUnit attacker, FightingUnit target, ISkill skill, AbstractScene scene) {
         double baseAttackVal = attacker.getBaseAttackVal();
         double skillDemageAddition = skill.getDemageAddition();
         long demage = Math.round(baseAttackVal * skillDemageAddition);

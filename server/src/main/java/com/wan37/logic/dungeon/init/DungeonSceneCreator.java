@@ -8,6 +8,7 @@ import com.wan37.logic.monster.config.MonsterCfg;
 import com.wan37.logic.monster.config.MonsterCfgLoader;
 import com.wan37.logic.monster.init.MonsterCreator;
 import com.wan37.logic.scene.config.SceneCfg;
+import com.wan37.logic.scene.schedule.TemporarySceneScheduler;
 import com.wan37.util.DateTimeUtils;
 import com.wan37.util.IdTool;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,9 @@ public class DungeonSceneCreator {
     @Autowired
     private MonsterCfgLoader monsterCfgLoader;
 
+    @Autowired
+    private TemporarySceneScheduler temporarySceneScheduler;
+
     public DungeonScene create(DungeonCfg dungeonCfg, SceneCfg sceneCfg) {
         DungeonScene scene = new DungeonScene();
 
@@ -44,6 +48,7 @@ public class DungeonSceneCreator {
 
         long now = DateTimeUtils.toEpochMilli(LocalDateTime.now());
         scene.setExpireTime(now + TimeUnit.MINUTES.toMillis(dungeonCfg.getLimitTime()));
+        scene.setTemporarySceneScheduler(temporarySceneScheduler);
 
         // 开始怪物组的id为1
         scene.setMonsterGroupId(1);

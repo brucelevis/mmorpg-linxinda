@@ -3,8 +3,8 @@ package com.wan37.logic.monster.die;
 import com.wan37.logic.monster.Monster;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
-import com.wan37.logic.scene.scene.Scene;
-import com.wan37.logic.scene.scene.SceneGlobalManager;
+import com.wan37.logic.player.scene.SceneActorSceneGetter;
+import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.scene.encode.SceneItemEncoder;
 import com.wan37.logic.scene.item.SceneItem;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class MonsterDieHandler {
     private PlayerGlobalManager playerGlobalManager;
 
     @Autowired
-    private SceneGlobalManager sceneGlobalManager;
+    private SceneActorSceneGetter sceneActorSceneGetter;
 
     public void handle(Monster monster, long now) {
         Long lastAttackUid = monster.getLastAttackId();
@@ -50,7 +50,7 @@ public class MonsterDieHandler {
         monster.setLastAttackId(null);
 
         // 爆物
-        Scene scene = sceneGlobalManager.getScene(sceneId);
+        AbstractScene scene = sceneActorSceneGetter.get(monster);
         List<SceneItem> rewards = sceneItemFactory.create(monster.getMonsterCfg());
         if (!rewards.isEmpty()) {
             rewards.forEach(i -> scene.getItems().put(i.getUid(), i));

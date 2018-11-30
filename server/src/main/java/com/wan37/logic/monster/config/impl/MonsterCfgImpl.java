@@ -58,6 +58,11 @@ public class MonsterCfgImpl implements MonsterCfg {
 
     @Override
     public List<MonsterItemCfg> getItems() {
+        String items = cfgExcel.getItems();
+        if (items == null) {
+            return ImmutableList.of();
+        }
+
         return Arrays.stream(cfgExcel.getItems().split(","))
                 .map(this::createItem)
                 .collect(Collectors.toList());

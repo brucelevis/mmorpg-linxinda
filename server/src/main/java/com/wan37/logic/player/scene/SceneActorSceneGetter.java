@@ -1,7 +1,7 @@
 package com.wan37.logic.player.scene;
 
-import com.wan37.logic.player.Player;
 import com.wan37.logic.scene.base.AbstractScene;
+import com.wan37.logic.scene.base.SceneActor;
 import com.wan37.logic.scene.base.SceneTypeEnum;
 import com.wan37.logic.scene.config.SceneCfg;
 import com.wan37.logic.scene.config.SceneCfgLoader;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.Objects;
 
 @Service
-public class PlayerSceneGetter {
+public class SceneActorSceneGetter {
 
     @Autowired
     private SceneCfgLoader sceneCfgLoader;
@@ -24,8 +24,8 @@ public class PlayerSceneGetter {
     @Autowired
     private TemporarySceneGlobalManager temporarySceneGlobalManager;
 
-    public AbstractScene get(Player player) {
-        SceneCfg sceneCfg = sceneCfgLoader.load(player.getSceneId())
+    public AbstractScene get(SceneActor sceneActor) {
+        SceneCfg sceneCfg = sceneCfgLoader.load(sceneActor.getSceneId())
                 .orElseThrow(() -> new RuntimeException("找不到场景配置表"));
 
         if (Objects.equals(sceneCfg.getType(), SceneTypeEnum.SCENE_TYPE_1.getId())) {
@@ -33,7 +33,7 @@ public class PlayerSceneGetter {
             return sceneGlobalManager.querySceneById(sceneCfg.getId());
         } else {
             // 在临时场景
-            return temporarySceneGlobalManager.querySceneByUid(player.getSceneUid());
+            return temporarySceneGlobalManager.querySceneByUid(sceneActor.getSceneUid());
         }
     }
 }

@@ -6,8 +6,8 @@ import com.wan37.logic.attack.fighting.FightingUnit;
 import com.wan37.logic.buff.IBuff;
 import com.wan37.logic.buff.effect.behavior.BuffEffectBehavior;
 import com.wan37.logic.buff.effect.behavior.BuffEffectContext;
-import com.wan37.logic.scene.scene.Scene;
-import com.wan37.logic.scene.scene.SceneGlobalManager;
+import com.wan37.logic.player.scene.SceneActorSceneGetter;
+import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.scene.encode.SceneActorEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,10 +22,10 @@ class BuffEffectBehav2 implements BuffEffectBehavior {
     private GenernalEventListenersManager genernalEventListenersManager;
 
     @Autowired
-    private SceneGlobalManager sceneGlobalManager;
+    private SceneActorEncoder sceneActorEncoder;
 
     @Autowired
-    private SceneActorEncoder sceneActorEncoder;
+    private SceneActorSceneGetter sceneActorSceneGetter;
 
     @Override
     public void behave(BuffEffectContext context) {
@@ -53,7 +53,7 @@ class BuffEffectBehav2 implements BuffEffectBehavior {
         String buffTip = String.format("由于[%s]的效果，[%s]减少了%shp", buff.getName(), unit.getName(), oldHp - unit.getHp());
         String sceneActorNotify = sceneActorEncoder.encode(unit);
 
-        Scene scene = sceneGlobalManager.getScene(unit.getSceneId());
+        AbstractScene scene = sceneActorSceneGetter.get(unit);
         scene.getPlayers().forEach(p -> p.syncClient(buffTip + "\n" + sceneActorNotify));
     }
 }

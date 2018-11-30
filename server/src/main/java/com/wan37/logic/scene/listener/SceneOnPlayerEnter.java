@@ -4,7 +4,7 @@ import com.wan37.event.GeneralEventListener;
 import com.wan37.event.SceneEnterEvent;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.encode.PlayerInfoEncoder;
-import com.wan37.logic.player.scene.PlayerSceneGetter;
+import com.wan37.logic.player.scene.SceneActorSceneGetter;
 import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.scene.encode.SceneEncoder;
 import com.wan37.logic.scene.scene.SceneGlobalManager;
@@ -29,13 +29,13 @@ class SceneOnPlayerEnter implements GeneralEventListener<SceneEnterEvent> {
     private SceneEncoder sceneEncoder;
 
     @Autowired
-    private PlayerSceneGetter playerSceneGetter;
+    private SceneActorSceneGetter sceneActorSceneGetter;
 
     @Override
     public void execute(SceneEnterEvent event) {
         Player player = event.getPlayer();
 
-        AbstractScene scene = playerSceneGetter.get(player);
+        AbstractScene scene = sceneActorSceneGetter.get(player);
         String msg = "玩家进入场景通知|" + playerInfoEncoder.encode(player);
 
         // 通知场景里除自己的所有玩家

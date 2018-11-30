@@ -1,6 +1,6 @@
 package com.wan37.logic.scene.schedule;
 
-import com.wan37.logic.scene.scene.Scene;
+import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.scene.encode.SceneItemEncoder;
 import com.wan37.logic.scene.item.SceneItem;
 import com.wan37.util.DateTimeUtils;
@@ -18,7 +18,7 @@ public class SceneItemScheduler {
     @Autowired
     private SceneItemEncoder sceneItemEncoder;
 
-    public void schedule(Scene scene) {
+    public void schedule(AbstractScene scene) {
         long now = DateTimeUtils.toEpochMilli(LocalDateTime.now());
         Map<Long, SceneItem> sceneItems = scene.getItems();
 

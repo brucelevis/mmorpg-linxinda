@@ -3,7 +3,7 @@ package com.wan37.logic.scene.schedule;
 import com.wan37.logic.monster.Monster;
 import com.wan37.logic.monster.encode.MonsterEncoder;
 import com.wan37.logic.monster.init.MonsterInitializer;
-import com.wan37.logic.scene.scene.Scene;
+import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.util.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ public class SceneMonsterScheduler {
     @Autowired
     private MonsterEncoder monsterEncoder;
 
-    public void schedule(Scene scene) {
+    public void schedule(AbstractScene scene) {
         // 需要刷新的怪物
         List<Monster> monsterList = scene.getMonsters().stream()
                 .filter(m -> !m.isAlive())

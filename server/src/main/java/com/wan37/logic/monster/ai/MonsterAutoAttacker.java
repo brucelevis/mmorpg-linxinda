@@ -6,7 +6,7 @@ import com.wan37.logic.attack.fighting.before.FightingBeforeChecker;
 import com.wan37.logic.monster.Monster;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.encode.PlayerInfoEncoder;
-import com.wan37.logic.scene.scene.Scene;
+import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.skill.ISkill;
 import com.wan37.util.DateTimeUtils;
 import com.wan37.util.RandomUtil;
@@ -32,7 +32,7 @@ public class MonsterAutoAttacker {
     @Autowired
     private PlayerInfoEncoder playerInfoEncoder;
 
-    public void attack(Monster monster, Player player, Scene scene) {
+    public void attack(Monster monster, Player player, AbstractScene scene) {
         long now = DateTimeUtils.toEpochMilli(LocalDateTime.now());
         ISkill skill = randSkill(monster, now);
         if (skill == null) {
@@ -46,10 +46,10 @@ public class MonsterAutoAttacker {
         }
 
         // 攻击
-        fightingAttackHandler.handle(monster, player, skill);
+        fightingAttackHandler.handle(monster, player, skill, scene);
 
         // 攻击后
-        fightingAfterHandler.handle(monster, player, skill);
+        fightingAfterHandler.handle(monster, player, skill, scene);
 
         String msg = "玩家状态更新推送|" + playerInfoEncoder.encode(player);
         scene.getPlayers().forEach(p -> p.syncClient(msg));

@@ -4,7 +4,7 @@ import com.wan37.logic.monster.Monster;
 import com.wan37.logic.monster.ai.MonsterAutoAttacker;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
-import com.wan37.logic.scene.scene.Scene;
+import com.wan37.logic.scene.base.AbstractScene;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,14 +19,14 @@ public class SceneMonsterAiScheduler {
     @Autowired
     private MonsterAutoAttacker monsterAutoAttacker;
 
-    public void schedule(Scene scene) {
+    public void schedule(AbstractScene scene) {
         scene.getMonsters().stream()
                 .filter(Monster::isAlive)
                 .filter(m -> m.getLastAttackId() != null)
                 .forEach(m -> autoAttack(m, scene));
     }
 
-    private void autoAttack(Monster monster, Scene scene) {
+    private void autoAttack(Monster monster, AbstractScene scene) {
         Player player = playerGlobalManager.getPlayerByUid(monster.getLastAttackId());
         if (player == null) {
             return;
