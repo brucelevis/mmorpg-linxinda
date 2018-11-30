@@ -55,6 +55,9 @@ public class DungeonEnterExec {
         // 离开普通场景
         sceneFacade.leaveScene(player);
 
+        String msg = String.format("[%s副本]挑战开始\n", dungeonCfg.getName());
+        player.syncClient(msg);
+
         // 进入副本场景
         temporarySceneGlobalManager.addPlayerInScene(dungeonScene.getUid(), player);
     }

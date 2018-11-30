@@ -4,6 +4,8 @@ public interface IScene extends Runnable {
 
     Integer getId();
 
+    Long getUid();
+
     String getName();
 
     boolean canAttack();

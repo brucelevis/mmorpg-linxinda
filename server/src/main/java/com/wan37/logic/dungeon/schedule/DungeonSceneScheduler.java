@@ -1,11 +1,13 @@
-package com.wan37.logic.scene.schedule;
+package com.wan37.logic.dungeon.schedule;
 
+import com.wan37.logic.dungeon.scene.DungeonScene;
 import com.wan37.logic.scene.base.AbstractScene;
+import com.wan37.logic.scene.schedule.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TemporarySceneScheduler {
+public class DungeonSceneScheduler {
 
     @Autowired
     private SceneItemScheduler sceneItemScheduler;
@@ -21,6 +23,12 @@ public class TemporarySceneScheduler {
 
     @Autowired
     private ScenePlayerReviveScheduler scenePlayerReviveScheduler;
+
+    @Autowired
+    private DungeonExpireScheduler dungeonExpireScheduler;
+
+    @Autowired
+    private DungeonMonsterRefreshScheduler dungeonMonsterRefreshScheduler;
 
     public void schedule(AbstractScene scene) {
         // 刷新物品
@@ -38,6 +46,11 @@ public class TemporarySceneScheduler {
         // 玩家复活
         scenePlayerReviveScheduler.schedule(scene);
 
-        //TODO: 如果过期了，副本结束逻辑
+        // 副本过期
+        DungeonScene dungeonScene = (DungeonScene) scene;
+        dungeonExpireScheduler.schedule(dungeonScene);
+
+        // 怪物刷新
+        dungeonMonsterRefreshScheduler.schedule(dungeonScene);
     }
 }

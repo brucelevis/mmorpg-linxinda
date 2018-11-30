@@ -12,6 +12,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class AbstractScene implements IScene {
 
+    protected Long uid;
+
     protected SceneCfg sceneCfg;
 
     protected List<Player> players;
@@ -24,6 +26,15 @@ public abstract class AbstractScene implements IScene {
      * 地上奖励
      */
     protected Map<Long, SceneItem> items = new ConcurrentHashMap<>();
+
+    @Override
+    public Long getUid() {
+        return uid;
+    }
+
+    public void setUid(Long uid) {
+        this.uid = uid;
+    }
 
     public SceneCfg getSceneCfg() {
         return sceneCfg;

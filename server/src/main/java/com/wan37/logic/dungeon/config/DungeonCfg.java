@@ -18,4 +18,6 @@ public interface DungeonCfg {
     List<DungeonRewardCfg> getReward();
 
     Map<Integer, DungeonMonsterGroupCfg> getMonsters();
+
+    String getCompleteTip();
 }

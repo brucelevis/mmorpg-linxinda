@@ -7,6 +7,7 @@ import com.wan37.logic.scene.base.TemporaryScene;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -33,6 +34,10 @@ public class TemporarySceneGlobalManager {
 
     @Autowired
     private GenernalEventListenersManager genernalEventListenersManager;
+
+    public Collection<TemporaryScene> getAllScenes() {
+        return sceneMap.values();
+    }
 
     public void addScene(TemporaryScene scene) {
         sceneMap.put(scene.getUid(), scene);

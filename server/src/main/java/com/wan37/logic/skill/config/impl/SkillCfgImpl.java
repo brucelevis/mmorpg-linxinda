@@ -60,7 +60,7 @@ public class SkillCfgImpl implements SkillCfg {
 
     @Override
     public List<SkillBuffCfg> getBuffs() {
-        if (cfgExcel.getBuffs() == null) {
+        if (cfgExcel.getBuffs() == null || "".equals(cfgExcel.getBuffs())) {
             return ImmutableList.of();
         }
 

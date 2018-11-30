@@ -9,6 +9,7 @@ public class DungeonCfgExcel {
     private String reward;
     private String desc;
     private Integer sceneId;
+    private String completeTip;
 
     public Integer getId() {
         return id;
@@ -64,5 +65,13 @@ public class DungeonCfgExcel {
 
     public void setSceneId(Integer sceneId) {
         this.sceneId = sceneId;
+    }
+
+    public String getCompleteTip() {
+        return completeTip;
+    }
+
+    public void setCompleteTip(String completeTip) {
+        this.completeTip = completeTip;
     }
 }

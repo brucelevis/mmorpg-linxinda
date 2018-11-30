@@ -55,8 +55,5 @@ public class SceneFacadeImpl implements SceneFacade {
     public void leaveScene(Player player) {
         // 离开场景推送
         genernalEventListenersManager.fireEvent(new SceneLeaveEvent(player));
-
-        // 移除旧场景里的玩家
-        sceneGlobalManager.removePlayerFromScene(player.getSceneId(), player.getUid());
     }
 }

@@ -71,6 +71,11 @@ public class DungeonCfgImpl implements DungeonCfg {
                 .collect(Collectors.toMap(DungeonMonsterGroupCfg::getGroupId, Function.identity()));
     }
 
+    @Override
+    public String getCompleteTip() {
+        return cfgExcel.getCompleteTip();
+    }
+
     private DungeonRewardCfg createReward(String s) {
         String[] reward = s.split(":");
 

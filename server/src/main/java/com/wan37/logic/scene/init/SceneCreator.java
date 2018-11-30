@@ -6,6 +6,7 @@ import com.wan37.logic.monster.config.MonsterCfgLoader;
 import com.wan37.logic.monster.init.MonsterCreator;
 import com.wan37.logic.npc.config.NpcCfgLoader;
 import com.wan37.logic.npc.init.NpcCreator;
+import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.scene.config.SceneCfg;
 import com.wan37.logic.scene.config.SceneCfgLoader;
 import com.wan37.logic.scene.config.SceneMonsterCfg;
@@ -50,7 +51,7 @@ public class SceneCreator {
         scene.setPlayers(new ArrayList<>());
 
         scene.setMonsters(sceneCfg.getMonsters().stream()
-                .map(m -> createMonsters(m, sceneCfg.getId()))
+                .map(m -> createMonsters(m, scene))
                 .filter(Objects::nonNull)
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList()));
@@ -67,14 +68,14 @@ public class SceneCreator {
         return scene;
     }
 
-    private List<Monster> createMonsters(SceneMonsterCfg cfg, Integer sceneId) {
+    private List<Monster> createMonsters(SceneMonsterCfg cfg, AbstractScene scene) {
         MonsterCfg monsterCfg = monsterCfgLoader.load(cfg.getCfgId()).orElse(null);
         if (monsterCfg == null) {
             return null;
         }
 
         return IntStream.range(0, cfg.getAmount())
-                .mapToObj(i -> monsterCreator.create(monsterCfg, sceneId))
+                .mapToObj(i -> monsterCreator.create(monsterCfg, scene))
                 .collect(Collectors.toList());
     }
 }

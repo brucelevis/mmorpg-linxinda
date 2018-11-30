@@ -1,23 +1,20 @@
 package com.wan37.logic.chat.service;
 
 import com.wan37.logic.backpack.encode.BackpackUpdateNotifier;
+import com.wan37.logic.chat.ChatFacade;
 import com.wan37.logic.chat.ChatTypeEnum;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.props.ResourceFacade;
 import com.wan37.logic.props.resource.ResourceElement;
 import com.wan37.logic.props.resource.impl.ResourceElementImpl;
-import com.wan37.logic.scene.scene.Scene;
-import com.wan37.logic.scene.scene.SceneGlobalManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Collection;
 
 @Service
 public class ChatWorldExec {
 
     @Autowired
-    private SceneGlobalManager sceneGlobalManager;
+    private ChatFacade chatFacade;
 
     @Autowired
     private ResourceFacade resourceFacade;
@@ -37,9 +34,6 @@ public class ChatWorldExec {
         backpackUpdateNotifier.notify(player);
 
         String content = String.format("【%s】 [%s]：%s", ChatTypeEnum.CHAT_TYPE_WORLD.getName(), player.getName(), msg);
-        sceneGlobalManager.getAllScenes().stream()
-                .map(Scene::getPlayers)
-                .flatMap(Collection::stream)
-                .forEach(p -> p.syncClient(content));
+        chatFacade.chatToWorld(content);
     }
 }

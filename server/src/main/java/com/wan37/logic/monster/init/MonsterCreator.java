@@ -6,6 +6,7 @@ import com.wan37.logic.monster.Monster;
 import com.wan37.logic.monster.config.MonsterCfg;
 import com.wan37.logic.monster.config.MonsterInitAttrCfg;
 import com.wan37.logic.monster.config.MonsterInitSkillCfg;
+import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.skill.ISkill;
 import com.wan37.logic.skill.config.SkillCfg;
 import com.wan37.logic.skill.config.SkillCfgLoader;
@@ -37,11 +38,12 @@ public class MonsterCreator {
     @Autowired
     private SkillCfgLoader skillCfgLoader;
 
-    public Monster create(MonsterCfg cfg, Integer sceneId) {
+    public Monster create(MonsterCfg cfg, AbstractScene scene) {
         Monster monster = new Monster();
         monster.setUid(idTool.generate());
         monster.setMonsterCfg(cfg);
-        monster.setSceneId(sceneId);
+        monster.setSceneId(scene.getId());
+        monster.setSceneUid(scene.getUid());
 
         monster.setSkills(cfg.getSkills().stream()
                 .map(this::createSkill)
