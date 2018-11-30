@@ -6,7 +6,7 @@ import com.wan37.logic.monster.encode.MonsterEncoder;
 import com.wan37.logic.npc.Npc;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.database.PlayerDb;
-import com.wan37.logic.scene.scene.Scene;
+import com.wan37.logic.scene.base.AbstractScene;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +25,8 @@ public class SceneEncoder {
     @Autowired
     private SceneItemEncoder sceneItemEncoder;
 
-    public String encode(Scene scene) {
-        String sceneHead = String.format("当前场景：%s\n", scene.getSceneCfg().getName());
+    public String encode(AbstractScene scene) {
+        String sceneHead = String.format("当前场景：%s\n", scene.getName());
 
         String playerHead = "当前场景人物：\n";
         String players = scene.getPlayers().stream()

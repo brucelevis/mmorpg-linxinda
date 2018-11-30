@@ -1,14 +1,16 @@
 package com.wan37.event;
 
+import com.wan37.logic.player.Player;
+
 public class SceneEnterEvent {
 
-    public SceneEnterEvent(Long playerUid) {
-        this.playerUid = playerUid;
+    public SceneEnterEvent(Player player) {
+        this.player = player;
     }
 
-    public Long getPlayerUid() {
-        return playerUid;
+    public Player getPlayer() {
+        return player;
     }
 
-    private final Long playerUid;
+    private final Player player;
 }

@@ -106,4 +106,7 @@ dungeon_Enter dungeonId
 #副本信息
 dungeon_Info
 
+#离开副本
+dungeon_Leave
+
 

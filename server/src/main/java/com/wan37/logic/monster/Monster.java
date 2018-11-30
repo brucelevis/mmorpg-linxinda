@@ -163,12 +163,7 @@ public class Monster implements FightingUnit {
 
     @Override
     public long getMaxMp() {
-        Integer mpId = AttrEnum.ATTR_MP.getId();
-        if (attrs.containsKey(mpId)) {
-            return Math.round(attrs.get(mpId));
-        }
-
-        return 0;
+        return Long.MAX_VALUE;
     }
 
     @Override

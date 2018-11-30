@@ -42,7 +42,6 @@ public class MonsterCreator {
         monster.setUid(idTool.generate());
         monster.setMonsterCfg(cfg);
         monster.setSceneId(sceneId);
-        monster.setMp(Long.MAX_VALUE);
 
         monster.setSkills(cfg.getSkills().stream()
                 .map(this::createSkill)

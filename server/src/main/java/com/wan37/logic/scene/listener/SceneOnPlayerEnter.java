@@ -3,11 +3,11 @@ package com.wan37.logic.scene.listener;
 import com.wan37.event.GeneralEventListener;
 import com.wan37.event.SceneEnterEvent;
 import com.wan37.logic.player.Player;
-import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.player.encode.PlayerInfoEncoder;
-import com.wan37.logic.scene.scene.Scene;
-import com.wan37.logic.scene.scene.SceneGlobalManager;
+import com.wan37.logic.player.scene.PlayerSceneGetter;
+import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.scene.encode.SceneEncoder;
+import com.wan37.logic.scene.scene.SceneGlobalManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +20,6 @@ import java.util.Objects;
 class SceneOnPlayerEnter implements GeneralEventListener<SceneEnterEvent> {
 
     @Autowired
-    private PlayerGlobalManager playerGlobalManager;
-
-    @Autowired
     private SceneGlobalManager sceneGlobalManager;
 
     @Autowired
@@ -31,15 +28,14 @@ class SceneOnPlayerEnter implements GeneralEventListener<SceneEnterEvent> {
     @Autowired
     private SceneEncoder sceneEncoder;
 
+    @Autowired
+    private PlayerSceneGetter playerSceneGetter;
+
     @Override
     public void execute(SceneEnterEvent event) {
-        Long playerUid = event.getPlayerUid();
-        Player player = playerGlobalManager.getPlayerByUid(playerUid);
-        if (player == null) {
-            return;
-        }
+        Player player = event.getPlayer();
 
-        Scene scene = sceneGlobalManager.getScene(player.getSceneId());
+        AbstractScene scene = playerSceneGetter.get(player);
         String msg = "玩家进入场景通知|" + playerInfoEncoder.encode(player);
 
         // 通知场景里除自己的所有玩家

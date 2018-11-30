@@ -1,16 +1,16 @@
 package com.wan37.logic.scene.temporary;
 
+import com.wan37.event.GenernalEventListenersManager;
+import com.wan37.event.SceneEnterEvent;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.scene.base.TemporaryScene;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,8 +31,15 @@ public class TemporarySceneGlobalManager {
      */
     private static ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(20);
 
+    @Autowired
+    private GenernalEventListenersManager genernalEventListenersManager;
+
     public void addScene(TemporaryScene scene) {
         sceneMap.put(scene.getUid(), scene);
+
+        // 启动场景心跳
+        ScheduledFuture<?> schedule = scheduledExecutorService.scheduleAtFixedRate(scene, 200, 200, TimeUnit.MILLISECONDS);
+        sceneScheduleMap.put(scene.getUid(), schedule);
     }
 
     public void addPlayerInScene(Long sceneUid, Player player) {
@@ -41,7 +48,12 @@ public class TemporarySceneGlobalManager {
             return;
         }
 
+        player.setSceneId(scene.getId());
+        player.setSceneUid(sceneUid);
         scene.getPlayers().add(player);
+
+        // 触发进入场景事件
+        genernalEventListenersManager.fireEvent(new SceneEnterEvent(player));
     }
 
     public void removePlayerFromScene(Long sceneUid, Player player) {
@@ -60,7 +72,12 @@ public class TemporarySceneGlobalManager {
     }
 
     public void destoryScene(Long sceneUid) {
-        sceneScheduleMap.get(sceneUid).cancel(true);
+        ScheduledFuture scheduledFuture = sceneScheduleMap.get(sceneUid);
+        if (scheduledFuture != null) {
+            scheduledFuture.cancel(true);
+        }
+
         sceneScheduleMap.remove(sceneUid);
+        sceneMap.remove(sceneUid);
     }
 }

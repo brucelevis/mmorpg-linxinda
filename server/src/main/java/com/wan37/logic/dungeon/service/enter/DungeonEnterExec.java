@@ -35,9 +35,6 @@ public class DungeonEnterExec {
     private TemporarySceneGlobalManager temporarySceneGlobalManager;
 
     public void exec(Player player, Integer dungeonId) {
-        DungeonCfg dungeonCfg = dungeonCfgLoader.load(dungeonId)
-                .orElseThrow(() -> new GeneralErrorExecption("找不到相应的副本"));
-
         SceneCfg sceneCfg = sceneCfgLoader.load(player.getSceneId())
                 .orElseThrow(() -> new GeneralErrorExecption("找不到当前场景配置"));
 
@@ -45,15 +42,20 @@ public class DungeonEnterExec {
             throw new GeneralErrorExecption("请切换到普通场景再尝试进入副本");
         }
 
-        // 创建副本场景
-        DungeonScene dungeonScene = dungeonSceneCreator.create(dungeonCfg, sceneCfg);
-        temporarySceneGlobalManager.addScene(dungeonScene);
+        DungeonCfg dungeonCfg = dungeonCfgLoader.load(dungeonId)
+                .orElseThrow(() -> new GeneralErrorExecption("找不到相应的副本"));
 
-        // 进入副本场景
-        temporarySceneGlobalManager.addPlayerInScene(dungeonScene.getUid(), player);
+        SceneCfg dungeonSceneCfg = sceneCfgLoader.load(dungeonCfg.getSceneId())
+                .orElseThrow(() -> new GeneralErrorExecption("找不到副本场景配置"));
+
+        // 创建副本场景
+        DungeonScene dungeonScene = dungeonSceneCreator.create(dungeonCfg, dungeonSceneCfg);
+        temporarySceneGlobalManager.addScene(dungeonScene);
 
         // 离开普通场景
         sceneFacade.leaveScene(player);
-        player.setSceneId(dungeonCfg.getSceneId());
+
+        // 进入副本场景
+        temporarySceneGlobalManager.addPlayerInScene(dungeonScene.getUid(), player);
     }
 }

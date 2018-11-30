@@ -1,5 +1,6 @@
 package com.wan37.logic.monster.config.impl;
 
+import com.google.common.collect.ImmutableList;
 import com.wan37.config.entity.MonsterCfgExcel;
 import com.wan37.logic.monster.config.MonsterCfg;
 import com.wan37.logic.monster.config.MonsterInitAttrCfg;
@@ -33,14 +34,24 @@ public class MonsterCfgImpl implements MonsterCfg {
 
     @Override
     public List<MonsterInitAttrCfg> getAttrs() {
-        return Arrays.stream(cfgExcel.getInitAttr().split(","))
+        String attrs = cfgExcel.getInitAttr();
+        if (attrs == null) {
+            return ImmutableList.of();
+        }
+
+        return Arrays.stream(attrs.split(","))
                 .map(this::createAttr)
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<MonsterInitSkillCfg> getSkills() {
-        return Arrays.stream(cfgExcel.getSkills().split(","))
+        String skills = cfgExcel.getSkills();
+        if (skills == null) {
+            return ImmutableList.of();
+        }
+
+        return Arrays.stream(skills.split(","))
                 .map(this::createSkill)
                 .collect(Collectors.toList());
     }

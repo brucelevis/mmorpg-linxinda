@@ -28,7 +28,7 @@ public class SceneFacadeImpl implements SceneFacade {
         sceneGlobalManager.addPlayerInScene(player.getSceneId(), player);
 
         // 触发进入场景事件
-        genernalEventListenersManager.fireEvent(new SceneEnterEvent(player.getUid()));
+        genernalEventListenersManager.fireEvent(new SceneEnterEvent(player));
     }
 
     @Override
