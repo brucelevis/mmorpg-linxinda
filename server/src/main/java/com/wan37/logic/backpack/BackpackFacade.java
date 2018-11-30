@@ -97,4 +97,9 @@ public class BackpackFacade {
         items.forEach(i -> add(backpackDb, i));
         backpackUpdateNotifier.notify(player);
     }
+
+    public int getSpareCapacity(Player player) {
+        BackpackDb backpackDb = player.getPlayerDb().getBackpackDb();
+        return backpackDb.getCapacity() - backpackDb.getItemMap().size();
+    }
 }

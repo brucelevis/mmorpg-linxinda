@@ -1,5 +1,6 @@
 package com.wan37.logic.props;
 
+import com.wan37.logic.backpack.BackpackFacade;
 import com.wan37.logic.backpack.encode.BackpackUpdateNotifier;
 import com.wan37.logic.currency.database.CurrencyItemDb;
 import com.wan37.logic.currency.encode.CurrencyUpdateNotifier;
@@ -26,7 +27,20 @@ public class ResourceFacade {
     @Autowired
     private CurrencyUpdateNotifier currencyUpdateNotifier;
 
+    @Autowired
+    private BackpackFacade backpackFacade;
+
     public void giveResource(ResourceCollection res, Player player) {
+        int needCapacity = (int) res.getElements().stream()
+                .filter(e -> e.getCfgId() >= 200)
+                .count();
+        if (backpackFacade.getSpareCapacity(player) < needCapacity) {
+            player.syncClient("背包空间不足，请先整理");
+            return;
+        }
+
+        //TODO: 检查货币是否超上限
+
         res.getElements().forEach(e -> giveResource(e, player));
 
         // 背包更新推送
