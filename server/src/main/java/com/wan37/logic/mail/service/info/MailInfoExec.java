@@ -6,9 +6,12 @@ import com.wan37.logic.backpack.service.item.behavior.ItemExtraEncodeBehavContex
 import com.wan37.logic.backpack.service.item.behavior.ItemExtraEncodeBehavior;
 import com.wan37.logic.mail.database.MailDb;
 import com.wan37.logic.mail.database.MailItemDb;
+import com.wan37.logic.mail.database.MailRewardDb;
+import com.wan37.logic.mail.database.MailRewardItemDb;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.props.config.PropsCfg;
 import com.wan37.logic.props.config.PropsCfgLoader;
+import com.wan37.logic.props.config.VirtualItemCfgLoader;
 import com.wan37.util.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +28,9 @@ public class MailInfoExec {
     @Autowired
     private BehaviorManager behaviorManager;
 
+    @Autowired
+    private VirtualItemCfgLoader virtualItemCfgLoader;
+
     public void exec(Player player) {
         String head = "邮件列表如下：\n";
         String content = player.getPlayerDb().getMails().stream()
@@ -37,14 +43,17 @@ public class MailInfoExec {
     @Deprecated
     private String encodeMail(MailDb mailDb) {
         MailItemDb mailItemDb = mailDb.getMailItemDb();
-        String receiveTip = (mailItemDb != null && !mailDb.isHadReceived()) ? "（附件未领取）" : "";
+        MailRewardDb mailRewardDb = mailDb.getMailRewardDb();
+        String receiveTip = (mailItemDb != null && !mailDb.isHadReceived()) ||
+                (mailRewardDb != null && !mailDb.isHadReceived()) ? "（附件未领取）" : "";
 
         String expireTime = DateTimeUtils.toLocalDateTime(mailDb.getExpireTime()).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         String head = String.format("主题（id：%s）：%s %s\n发件人：%s  过期日期：%s\n内容：%s", mailDb.getId(),
                 mailDb.getTitle(), receiveTip, mailDb.getFromName(), expireTime, mailDb.getContent());
 
         String items = encodeItems(mailItemDb);
-        return head + items;
+        String rewards = encodeRewards(mailRewardDb);
+        return head + items + rewards;
     }
 
     private String encodeItems(MailItemDb itemDb) {
@@ -73,5 +82,25 @@ public class MailInfoExec {
         behavior.behave(ctx);
 
         return String.format("名字：%s，数量：%s %s", propsCfg.getName(), itemDb.getAmount(), ctx.getResult());
+    }
+
+    private String encodeRewards(MailRewardDb rewardDb) {
+        if (rewardDb == null) {
+            return "";
+        }
+
+        String head = "\n\n奖励道具附件：\n";
+        String msg = rewardDb.getRewards().stream()
+                .map(this::encodeReward)
+                .collect(Collectors.joining("\n"));
+
+        return head + msg;
+    }
+
+    private String encodeReward(MailRewardItemDb itemDb) {
+        Integer cfgId = itemDb.getCfgId();
+        String name = cfgId < 200 ? virtualItemCfgLoader.getName(cfgId) : propsCfgLoader.getName(cfgId);
+
+        return String.format("%s × %s", name, itemDb.getAmount());
     }
 }
