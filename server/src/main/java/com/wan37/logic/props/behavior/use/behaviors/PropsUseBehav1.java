@@ -28,7 +28,7 @@ class PropsUseBehav1 implements PropsUseBehavior {
 
         long result = player.getMp();
         if (result != curMp) {
-            String msg = String.format("你使用了%s，恢复了%smp", propsCfg.getName(), result - curMp);
+            String msg = String.format("你恢复了%smp", result - curMp);
             player.syncClient(msg);
         }
 
