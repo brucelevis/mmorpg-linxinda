@@ -69,6 +69,11 @@ public class SkillCfgImpl implements SkillCfg {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public boolean isEffectAll() {
+        return cfgExcel.isEffectAll();
+    }
+
     private SkillBuffCfg createBuff(String s) {
         String[] buff = s.split(":");
         Integer id = Integer.parseInt(buff[0]);

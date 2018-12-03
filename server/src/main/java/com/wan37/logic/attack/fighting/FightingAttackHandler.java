@@ -3,7 +3,6 @@ package com.wan37.logic.attack.fighting;
 import com.wan37.event.DieEvent;
 import com.wan37.event.GenernalEventListenersManager;
 import com.wan37.logic.scene.base.AbstractScene;
-import com.wan37.logic.scene.scene.SceneGlobalManager;
 import com.wan37.logic.skill.ISkill;
 import com.wan37.util.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +12,6 @@ import java.time.LocalDateTime;
 
 @Service
 public class FightingAttackHandler {
-
-    @Autowired
-    private SceneGlobalManager sceneGlobalManager;
 
     @Autowired
     private GenernalEventListenersManager genernalEventListenersManager;

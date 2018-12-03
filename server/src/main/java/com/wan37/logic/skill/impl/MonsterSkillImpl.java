@@ -55,6 +55,11 @@ class MonsterSkillImpl implements ISkill {
         return skillCfg;
     }
 
+    @Override
+    public boolean isEffectAll() {
+        return skillCfg.isEffectAll();
+    }
+
     private final SkillCfg skillCfg;
     private final int level;
 

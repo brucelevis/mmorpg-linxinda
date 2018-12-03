@@ -19,4 +19,6 @@ public interface SkillCfg {
     int getCostMp(int lv);
 
     List<SkillBuffCfg> getBuffs();
+
+    boolean isEffectAll();
 }

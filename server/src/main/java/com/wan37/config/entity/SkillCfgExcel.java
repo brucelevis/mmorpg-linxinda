@@ -10,6 +10,7 @@ public class SkillCfgExcel {
     private String demage;
     private String costMp;
     private String buffs;
+    private boolean effectAll;
 
     public Integer getId() {
         return id;
@@ -73,5 +74,13 @@ public class SkillCfgExcel {
 
     public void setBuffs(String buffs) {
         this.buffs = buffs;
+    }
+
+    public boolean isEffectAll() {
+        return effectAll;
+    }
+
+    public void setEffectAll(boolean effectAll) {
+        this.effectAll = effectAll;
     }
 }

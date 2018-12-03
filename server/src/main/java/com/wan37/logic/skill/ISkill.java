@@ -29,4 +29,6 @@ public interface ISkill {
     double getDemageAddition();
 
     SkillCfg getSkillCfg();
+
+    boolean isEffectAll();
 }

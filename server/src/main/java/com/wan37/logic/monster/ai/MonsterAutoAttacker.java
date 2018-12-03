@@ -9,13 +9,11 @@ import com.wan37.logic.player.encode.PlayerInfoEncoder;
 import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.skill.ISkill;
 import com.wan37.util.DateTimeUtils;
-import com.wan37.util.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class MonsterAutoAttacker {
@@ -32,14 +30,7 @@ public class MonsterAutoAttacker {
     @Autowired
     private PlayerInfoEncoder playerInfoEncoder;
 
-    public void attack(Monster monster, Player player, AbstractScene scene) {
-        long now = DateTimeUtils.toEpochMilli(LocalDateTime.now());
-        ISkill skill = randSkill(monster, now);
-        if (skill == null) {
-            // 技能cd
-            return;
-        }
-
+    public void attack(Monster monster, Player player, ISkill skill, AbstractScene scene) {
         // 攻击前检查
         if (!fightingBeforeChecker.check(monster, player, skill)) {
             return;
@@ -51,20 +42,22 @@ public class MonsterAutoAttacker {
         // 攻击后
         fightingAfterHandler.handle(monster, player, skill, scene);
 
-        String msg = "玩家状态更新推送|" + playerInfoEncoder.encode(player);
-        scene.getPlayers().forEach(p -> p.syncClient(msg));
+        notifyPlayer(player, scene);
     }
 
-    private ISkill randSkill(Monster monster, long now) {
-        List<ISkill> skills = monster.getSkills().values().stream()
-                .filter(i -> i.getLastUseTime() + i.getCdInterval() <= now)
-                .collect(Collectors.toList());
+    public void attack(Monster monster, List<Player> players, ISkill skill, AbstractScene scene) {
+        // 攻击
+        players.forEach(p -> fightingAttackHandler.handle(monster, p, skill, scene));
 
-        int size = skills.size();
-        if (size == 0) {
-            return null;
-        }
+        // 设置技能cd
+        long now = DateTimeUtils.toEpochMilli(LocalDateTime.now());
+        skill.setLastUseTime(now);
 
-        return skills.get(RandomUtil.rand(size));
+        players.forEach(p -> notifyPlayer(p, scene));
+    }
+
+    private void notifyPlayer(Player player, AbstractScene scene) {
+        String msg = "玩家状态更新推送|" + playerInfoEncoder.encode(player);
+        scene.getPlayers().forEach(p -> p.syncClient(msg));
     }
 }
