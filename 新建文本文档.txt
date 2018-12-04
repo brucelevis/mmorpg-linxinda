@@ -47,7 +47,7 @@ item_Use index
 equip_Info
 
 #装备脱
-equip_Takeoff
+equip_Takeoff partId
 
 ################ 属性系统  #############################
 
