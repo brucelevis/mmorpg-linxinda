@@ -3,6 +3,8 @@ package com.wan37.logic.attack.fighting.before;
 import com.wan37.exception.GeneralErrorExecption;
 import com.wan37.logic.attack.fighting.FightingUnit;
 import com.wan37.logic.backpack.database.ItemDb;
+import com.wan37.logic.buff.BuffEffectEnum;
+import com.wan37.logic.buff.IBuff;
 import com.wan37.logic.equipment.EquipPartEnum;
 import com.wan37.logic.equipment.database.EquipDb;
 import com.wan37.logic.equipment.database.EquipExtraDb;
@@ -70,7 +72,14 @@ public class FightingBeforeChecker {
             return throwIfIsPlayer(attacker, "蓝量不足，无法攻击");
         }
 
-        //TODO: 检查攻击者 BUFF异常状态，如眩晕，封印，击飞等
+        // 检查攻击者BUFF异常状态，如眩晕，封印，击飞等
+        IBuff abnormality = attacker.getBuffs().stream()
+                .filter(b -> Objects.equals(b.getEffectId(), BuffEffectEnum.BUFF_EFFECT_4.getId()))
+                .findAny()
+                .orElse(null);
+        if (abnormality != null) {
+            return throwIfIsPlayer(attacker, String.format("受%sbuff影响，无法攻击", abnormality.getName()));
+        }
 
         if (!target.isAlive()) {
             return throwIfIsPlayer(attacker, "目标死亡状态，无法攻击");

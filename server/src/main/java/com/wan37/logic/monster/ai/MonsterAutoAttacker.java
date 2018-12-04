@@ -3,6 +3,7 @@ package com.wan37.logic.monster.ai;
 import com.wan37.logic.attack.fighting.FightingAttackHandler;
 import com.wan37.logic.attack.fighting.after.FightingAfterHandler;
 import com.wan37.logic.attack.fighting.before.FightingBeforeChecker;
+import com.wan37.logic.buff.rand.SkillBuffRandomer;
 import com.wan37.logic.monster.Monster;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.encode.PlayerInfoEncoder;
@@ -30,6 +31,9 @@ public class MonsterAutoAttacker {
     @Autowired
     private PlayerInfoEncoder playerInfoEncoder;
 
+    @Autowired
+    private SkillBuffRandomer skillBuffRandomer;
+
     public void attack(Monster monster, Player player, ISkill skill, AbstractScene scene) {
         // 攻击前检查
         if (!fightingBeforeChecker.check(monster, player, skill)) {
@@ -46,12 +50,20 @@ public class MonsterAutoAttacker {
     }
 
     public void attack(Monster monster, List<Player> players, ISkill skill, AbstractScene scene) {
+        // 扣蓝
+        long mp = monster.getMp() - skill.getCostMp();
+        monster.setMp(mp < 0 ? 0 : mp);
+
         // 攻击
         players.forEach(p -> fightingAttackHandler.handle(monster, p, skill, scene));
 
         // 设置技能cd
         long now = DateTimeUtils.toEpochMilli(LocalDateTime.now());
         skill.setLastUseTime(now);
+
+        // 攻击技能概率触发Buff
+        skill.getSkillCfg().getBuffs()
+                .forEach(c -> players.forEach(p -> skillBuffRandomer.rand(monster, p, c, scene)));
 
         players.forEach(p -> notifyPlayer(p, scene));
     }
