@@ -4,6 +4,8 @@ import com.wan37.event.GenernalEventListenersManager;
 import com.wan37.event.OfflineEvent;
 import com.wan37.exception.GeneralErrorExecption;
 import com.wan37.handler.GeneralDipatchHandlerManager;
+import com.wan37.handler.GeneralHandler;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import org.apache.log4j.Logger;
@@ -17,13 +19,19 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
+        Channel channel = ctx.channel();
         String command = msg.toString();
 
         // 请求接口名 参数，参数...
         String[] words = command.split(" ");
 
-        GeneralDipatchHandlerManager.get(words[0])
-                .ifPresent(h -> h.handle(new GeneralReqMsg(words, ctx.channel())));
+        GeneralHandler handler = GeneralDipatchHandlerManager.get(words[0]).orElse(null);
+        if (handler == null) {
+            channel.writeAndFlush("命令输入错误，请重新输入!\n");
+            return;
+        }
+
+        handler.handle(new GeneralReqMsg(words, channel));
     }
 
     /*
