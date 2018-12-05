@@ -7,6 +7,8 @@ import com.wan37.logic.attr.init.PlayerAttrDbInitializer;
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.currency.database.CurrencyDb;
 import com.wan37.logic.equipment.database.EquipDb;
+import com.wan37.logic.friend.database.FriendDb;
+import com.wan37.logic.friend.database.FriendRequestDb;
 import com.wan37.logic.player.dao.PlayerDao;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.skill.database.PlayerSkillDb;
@@ -16,7 +18,9 @@ import com.wan37.logic.strength.init.PlayerStrengthDbRefresher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 @Service
@@ -42,6 +46,7 @@ public class PlayerDbInitializer {
         initPlayer(playerDb);
         initSkills(playerDb);
         initPlayerStrength(playerDb);
+        initFriend(playerDb);
 
         playerDao.save(playerDb);
     }
@@ -129,5 +134,24 @@ public class PlayerDbInitializer {
         playerSkillDbInitializer.init(newDb, playerDb.getFactionId());
 
         playerDb.setPlayerSkillDb(newDb);
+    }
+
+    private void initFriend(PlayerDb playerDb) {
+        FriendDb friendDb = playerDb.getFriendDb();
+        if (friendDb != null) {
+            return;
+        }
+
+        FriendDb newDb = new FriendDb();
+        newDb.setPlayerUid(playerDb.getUid());
+        newDb.setFriendUids(new HashSet<>());
+
+        FriendRequestDb requestDb = new FriendRequestDb();
+        requestDb.setRequestList(new ArrayList<>());
+        newDb.setFriendRequestDb(requestDb);
+
+        newDb.setPlayer(playerDb);
+
+        playerDb.setFriendDb(newDb);
     }
 }

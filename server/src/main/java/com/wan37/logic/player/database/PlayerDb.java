@@ -8,6 +8,7 @@ import com.wan37.logic.currency.database.CurrencyDb;
 import com.wan37.logic.currency.database.convert.CurrencyDbConvertImpl;
 import com.wan37.logic.equipment.database.EquipDb;
 import com.wan37.logic.equipment.database.convert.EquipDbConverterImpl;
+import com.wan37.logic.friend.database.FriendDb;
 import com.wan37.logic.mail.database.MailDb;
 import com.wan37.logic.skill.database.PlayerSkillDb;
 import com.wan37.logic.skill.database.convert.PlayerSkillDbConverterImpl;
@@ -98,6 +99,9 @@ public class PlayerDb {
      */
     @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<MailDb> mails;
+
+    @OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER, mappedBy = "player")
+    private FriendDb friendDb;
 
     public Long getUid() {
         return uid;
@@ -241,6 +245,14 @@ public class PlayerDb {
 
     public void setSceneUid(Long sceneUid) {
         this.sceneUid = sceneUid;
+    }
+
+    public FriendDb getFriendDb() {
+        return friendDb;
+    }
+
+    public void setFriendDb(FriendDb friendDb) {
+        this.friendDb = friendDb;
     }
 
     /**
