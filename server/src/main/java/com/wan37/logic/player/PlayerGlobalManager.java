@@ -88,4 +88,8 @@ public class PlayerGlobalManager {
     public void beforeRemovePlayerCache(Player player) {
         playerDao.save(player.getPlayerDb());
     }
+
+    public Player getPlayerIfPresent(Long uid) {
+        return playerCache.getIfPresent(uid);
+    }
 }

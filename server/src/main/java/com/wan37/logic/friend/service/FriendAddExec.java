@@ -1,16 +1,18 @@
 package com.wan37.logic.friend.service;
 
-import com.wan37.logic.friend.dao.FriendDao;
-import com.wan37.logic.friend.database.FriendDb;
-import com.wan37.logic.friend.database.FriendRequestInfoDb;
+import com.wan37.exception.GeneralErrorExecption;
+import com.wan37.logic.friend.dao.FriendRequestDao;
+import com.wan37.logic.friend.database.FriendRequestDb;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
+import com.wan37.logic.player.dao.PlayerDao;
+import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.util.DateTimeUtils;
+import com.wan37.util.IdTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.concurrent.TimeUnit;
 
 @Service
 public class FriendAddExec {
@@ -19,28 +21,55 @@ public class FriendAddExec {
     private PlayerGlobalManager playerGlobalManager;
 
     @Autowired
-    private FriendDao friendDao;
+    private PlayerDao playerDao;
+
+    @Autowired
+    private FriendRequestDao friendRequestDao;
+
+    @Autowired
+    private IdTool idTool;
 
     public void exec(Player player, Long uid) {
-        if (playerGlobalManager.isOnline(uid)) {
+        if (player.getPlayerDb().getFriendDb().getFriendUids().contains(uid)) {
+            throw new GeneralErrorExecption("已经是好友");
+        }
+
+        //TODO: 不可重复发送好友请求的检查
+
+        FriendRequestDb requestDb = createRequest(player.getUid(), uid);
+        Player to = playerGlobalManager.getPlayerIfPresent(uid);
+        if (to != null) {
+            // 对方数据在缓存，直接添加好友请求信息
+            to.getPlayerDb().addFriendRequest(requestDb);
+
+            if (playerGlobalManager.isOnline(uid)) {
+                // 如果在线，推送通知
+                String msg = String.format("%s对你发起了好友请求", player.getName());
+                to.syncClient(msg);
+            }
 
             afterRequest(player);
             return;
         }
 
-        FriendDb friendDb = friendDao.getByPlayerUid(uid);
-        friendDb.getFriendRequestDb().getRequestList().add(createRequest(player.getUid()));
-        friendDao.save(friendDb);
+        if (!playerDao.existsByUid(uid)) {
+            throw new GeneralErrorExecption("不存在的玩家uid");
+        }
 
+        friendRequestDao.save(requestDb);
         afterRequest(player);
     }
 
-    private FriendRequestInfoDb createRequest(Long playerUid) {
-        FriendRequestInfoDb db = new FriendRequestInfoDb();
-        db.setPlayerUid(playerUid);
+    private FriendRequestDb createRequest(Long fromPlayerUid, Long toPlayerUid) {
+        FriendRequestDb db = new FriendRequestDb();
+        db.setId(idTool.generate());
+        db.setFromPlayerUid(fromPlayerUid);
+        db.setTime(DateTimeUtils.toEpochMilli(LocalDateTime.now()));
 
-        long expireTime = DateTimeUtils.toEpochMilli(LocalDateTime.now()) + TimeUnit.DAYS.toMillis(3);
-        db.setExpireTime(expireTime);
+        PlayerDb playerDb = new PlayerDb();
+        playerDb.setUid(toPlayerUid);
+        db.setPlayer(playerDb);
+
         return db;
     }
 

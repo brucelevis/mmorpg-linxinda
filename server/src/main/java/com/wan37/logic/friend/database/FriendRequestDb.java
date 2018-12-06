@@ -1,16 +1,53 @@
 package com.wan37.logic.friend.database;
 
-import java.util.List;
+import com.wan37.logic.player.database.PlayerDb;
 
+import javax.persistence.*;
+
+@Entity
+@Table
 public class FriendRequestDb {
 
-    private List<FriendRequestInfoDb> requestList;
+    @Id
+    private Long id;
 
-    public List<FriendRequestInfoDb> getRequestList() {
-        return requestList;
+    private long time;
+
+    private Long fromPlayerUid;
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "playerUid")
+    private PlayerDb player;
+
+    public Long getId() {
+        return id;
     }
 
-    public void setRequestList(List<FriendRequestInfoDb> requestList) {
-        this.requestList = requestList;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
+    }
+
+    public PlayerDb getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(PlayerDb player) {
+        this.player = player;
+    }
+
+    public Long getFromPlayerUid() {
+        return fromPlayerUid;
+    }
+
+    public void setFromPlayerUid(Long fromPlayerUid) {
+        this.fromPlayerUid = fromPlayerUid;
     }
 }

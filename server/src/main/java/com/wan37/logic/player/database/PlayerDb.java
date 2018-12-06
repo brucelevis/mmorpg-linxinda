@@ -9,6 +9,7 @@ import com.wan37.logic.currency.database.convert.CurrencyDbConvertImpl;
 import com.wan37.logic.equipment.database.EquipDb;
 import com.wan37.logic.equipment.database.convert.EquipDbConverterImpl;
 import com.wan37.logic.friend.database.FriendDb;
+import com.wan37.logic.friend.database.FriendRequestDb;
 import com.wan37.logic.mail.database.MailDb;
 import com.wan37.logic.skill.database.PlayerSkillDb;
 import com.wan37.logic.skill.database.convert.PlayerSkillDbConverterImpl;
@@ -16,7 +17,7 @@ import com.wan37.logic.strength.database.PlayerStrengthDb;
 import com.wan37.logic.strength.database.convert.PlayerStrengthDbConverterImpl;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table
@@ -98,10 +99,13 @@ public class PlayerDb {
      * orphanRemoval=true，PlayerDb删除邮件（即解除关系），持久化会删除MailDb对应的数据
      */
     @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    private List<MailDb> mails;
+    private Set<MailDb> mails;
 
     @OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER, mappedBy = "player")
     private FriendDb friendDb;
+
+    @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private Set<FriendRequestDb> requestList;
 
     public Long getUid() {
         return uid;
@@ -231,11 +235,11 @@ public class PlayerDb {
         this.playerSkillDb = playerSkillDb;
     }
 
-    public List<MailDb> getMails() {
+    public Set<MailDb> getMails() {
         return mails;
     }
 
-    public void setMails(List<MailDb> mails) {
+    public void setMails(Set<MailDb> mails) {
         this.mails = mails;
     }
 
@@ -255,11 +259,24 @@ public class PlayerDb {
         this.friendDb = friendDb;
     }
 
+    public Set<FriendRequestDb> getRequestList() {
+        return requestList;
+    }
+
+    public void setRequestList(Set<FriendRequestDb> requestList) {
+        this.requestList = requestList;
+    }
+
     /**
      * 注意：往one一端的实体插入信息需要用关系维护端来维护关系
      */
     public void addMail(MailDb mailDb) {
         mailDb.setPlayer(this);
         this.mails.add(mailDb);
+    }
+
+    public void addFriendRequest(FriendRequestDb requestDb) {
+        requestDb.setPlayer(this);
+        this.requestList.add(requestDb);
     }
 }

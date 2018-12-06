@@ -21,6 +21,6 @@ class MailOnPlayerLogin implements GeneralEventListener<LoginEvent> {
         long now = DateTimeUtils.toEpochMilli(LocalDateTime.now());
         playerDb.setMails(playerDb.getMails().stream()
                 .filter(m -> m.getExpireTime() > now)
-                .collect(Collectors.toList()));
+                .collect(Collectors.toSet()));
     }
 }

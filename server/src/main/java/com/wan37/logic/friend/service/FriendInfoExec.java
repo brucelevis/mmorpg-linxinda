@@ -1,6 +1,6 @@
 package com.wan37.logic.friend.service;
 
-import com.wan37.logic.friend.database.FriendDb;
+import com.wan37.logic.friend.database.FriendRequestDb;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.player.dao.PlayerDao;
@@ -20,14 +20,19 @@ public class FriendInfoExec {
     private PlayerDao playerDao;
 
     public void exec(Player player) {
-        FriendDb friendDb = player.getPlayerDb().getFriendDb();
+        PlayerDb playerDb = player.getPlayerDb();
 
-        String head = "好友列表如下：\n";
-        String content = friendDb.getFriendUids().stream()
+        String friendHead = "好友列表如下：\n";
+        String friendList = playerDb.getFriendDb().getFriendUids().stream()
                 .map(this::encodeFriend)
                 .collect(Collectors.joining("\n"));
 
-        player.syncClient(head + content);
+        String requestHead = "好友请求列表如下：\n";
+        String requestList = playerDb.getRequestList().stream()
+                .map(this::encodeRequest)
+                .collect(Collectors.joining("\n"));
+
+        player.syncClient(friendHead + friendList + requestHead + requestList);
     }
 
     private String encodeFriend(Long uid) {
@@ -42,5 +47,13 @@ public class FriendInfoExec {
 
     private String encodePlayer(String name, boolean isOnline) {
         return String.format("%s（%s）", name, isOnline ? "在线" : "离线");
+    }
+
+    private String encodeRequest(FriendRequestDb requestDb) {
+        Long fromUid = requestDb.getFromPlayerUid();
+        Player from = playerGlobalManager.getPlayerIfPresent(fromUid);
+        String fromName = from != null ? from.getName() : playerDao.find(fromUid);
+
+        return String.format("%s向你发起了好友请求（id：%s）", fromName, requestDb.getId());
     }
 }

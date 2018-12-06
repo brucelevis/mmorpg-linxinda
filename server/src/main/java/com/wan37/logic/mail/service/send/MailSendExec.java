@@ -49,7 +49,7 @@ public class MailSendExec {
         Long uid = mail.getToUid();
         MailDb mailDb = createMail(mail);
 
-        Player to = playerGlobalManager.getPlayerByUid(uid);
+        Player to = playerGlobalManager.getPlayerIfPresent(uid);
         if (to != null) {
             // 对方数据在缓存，直接添加邮件信息
             to.getPlayerDb().addMail(mailDb);

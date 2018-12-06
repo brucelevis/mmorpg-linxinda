@@ -111,16 +111,17 @@ dungeon_Leave
 
 ################### 好友系统 ###########################
 
-#添加好友 （未完成）
+#添加好友 
 friend_Add playerUid
 
-#好友列表 （未完成）
+#好友列表 
 friend_Info
 
 #接受好友请求 （未完成）
-friend_Accept
+friend_Accept id
 
-
+#拒绝好友请求（未完成）
+friend_Reject id
 
 
 

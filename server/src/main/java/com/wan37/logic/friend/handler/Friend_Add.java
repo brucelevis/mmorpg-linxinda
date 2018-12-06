@@ -26,7 +26,6 @@ class Friend_Add implements GeneralHandler {
             return;
         }
 
-
         Long uid = msg.getParamAsLong(1);
         friendAddExec.exec(player, uid);
     }

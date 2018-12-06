@@ -1,36 +1,32 @@
 package com.wan37.logic.friend.database;
 
-import com.wan37.logic.friend.database.convert.FriendRequestDbConverterImpl;
 import com.wan37.logic.friend.database.convert.FriendUidsConverterImpl;
 import com.wan37.logic.player.database.PlayerDb;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
 @Table
-public class FriendDb {
+public class FriendDb implements Serializable {
 
     @Id
-    private Long playerUid;
+    private Long id;
 
     @Convert(converter = FriendUidsConverterImpl.class)
     private Set<Long> friendUids;
-
-    @Convert(converter = FriendRequestDbConverterImpl.class)
-    @Column(columnDefinition = "text")
-    private FriendRequestDb friendRequestDb;
 
     @OneToOne
     @JoinColumn(name = "player_uid", referencedColumnName = "uid", unique = true)
     private PlayerDb player;
 
-    public Long getPlayerUid() {
-        return playerUid;
+    public Long getId() {
+        return id;
     }
 
-    public void setPlayerUid(Long playerUid) {
-        this.playerUid = playerUid;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Set<Long> getFriendUids() {
@@ -39,14 +35,6 @@ public class FriendDb {
 
     public void setFriendUids(Set<Long> friendUids) {
         this.friendUids = friendUids;
-    }
-
-    public FriendRequestDb getFriendRequestDb() {
-        return friendRequestDb;
-    }
-
-    public void setFriendRequestDb(FriendRequestDb friendRequestDb) {
-        this.friendRequestDb = friendRequestDb;
     }
 
     public PlayerDb getPlayer() {
