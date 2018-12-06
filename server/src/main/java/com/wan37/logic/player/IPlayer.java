@@ -9,4 +9,6 @@ public interface IPlayer {
     void setExp(long exp);
 
     long getExp();
+
+    void setlevel(int level);
 }

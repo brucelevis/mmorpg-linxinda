@@ -78,6 +78,11 @@ public class Player implements FightingUnit, IPlayer {
     }
 
     @Override
+    public void setlevel(int level) {
+        playerDb.setLevel(level);
+    }
+
+    @Override
     public Map<Integer, Double> getAttrs() {
         return playerDb.getPlayerStrengthDb().getAttrs();
     }

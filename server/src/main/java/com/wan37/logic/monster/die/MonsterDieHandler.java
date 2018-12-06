@@ -4,6 +4,7 @@ import com.wan37.logic.monster.Monster;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.player.scene.SceneActorSceneGetter;
+import com.wan37.logic.player.service.PlayerExpAdder;
 import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.scene.encode.SceneItemEncoder;
 import com.wan37.logic.scene.item.SceneItem;
@@ -29,6 +30,9 @@ public class MonsterDieHandler {
     @Autowired
     private SceneActorSceneGetter sceneActorSceneGetter;
 
+    @Autowired
+    private PlayerExpAdder playerExpAdder;
+
     public void handle(Monster monster, long now) {
         Long lastAttackUid = monster.getLastAttackId();
         Integer sceneId = monster.getSceneId();
@@ -37,9 +41,8 @@ public class MonsterDieHandler {
             if (player != null && Objects.equals(player.getSceneId(), sceneId)) {
                 // 还在当前场景的最后攻击怪物的人获得经验
                 int exp = monster.getMonsterCfg().getExp();
-                player.setExp(player.getExp() + exp);
-
                 player.syncClient(String.format("获得%s经验", exp));
+                playerExpAdder.add(player, exp);
             }
         }
 
