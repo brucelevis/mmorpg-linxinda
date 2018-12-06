@@ -117,10 +117,10 @@ friend_Add playerUid
 #好友列表 
 friend_Info
 
-#接受好友请求 （未完成）
+#接受好友请求
 friend_Accept id
 
-#拒绝好友请求（未完成）
+#拒绝好友请求
 friend_Reject id
 
 

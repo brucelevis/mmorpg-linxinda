@@ -32,7 +32,7 @@ public class FriendInfoExec {
                 .map(this::encodeRequest)
                 .collect(Collectors.joining("\n"));
 
-        player.syncClient(friendHead + friendList + requestHead + requestList);
+        player.syncClient(friendHead + friendList + "\n" + requestHead + requestList);
     }
 
     private String encodeFriend(Long uid) {
