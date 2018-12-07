@@ -1,7 +1,9 @@
 package com.wan37.logic.league.service;
 
 import com.wan37.exception.GeneralErrorExecption;
+import com.wan37.logic.chat.ChatFacade;
 import com.wan37.logic.league.LeagueGlobalManager;
+import com.wan37.logic.league.LeaguePositionEnum;
 import com.wan37.logic.league.dao.LeagueDao;
 import com.wan37.logic.league.dao.LeagueMemberDao;
 import com.wan37.logic.league.database.LeagueMemberDb;
@@ -27,6 +29,9 @@ public class LeagueCreateExec {
     @Autowired
     private LeagueGlobalManager leagueGlobalManager;
 
+    @Autowired
+    private ChatFacade chatFacade;
+
     public void exec(Player player, String name) {
         if (leagueDao.existsByName(name)) {
             throw new GeneralErrorExecption("已经存在的公会名");
@@ -43,6 +48,8 @@ public class LeagueCreateExec {
         leagueMemberDao.save(memberDb);
 
         leagueGlobalManager.addLeague(rootDb);
+
+        chatFacade.chatToWorld(String.format("【公告】 祝贺[%s]创建了[%s]公会", player.getName(), name));
     }
 
     private LeagueRootDb createLeague(String name) {
@@ -60,7 +67,7 @@ public class LeagueCreateExec {
     private LeagueMemberDb createMember(Long playerUid) {
         LeagueMemberDb memberDb = new LeagueMemberDb();
         memberDb.setPlayerUid(playerUid);
-        memberDb.setJob(1);
+        memberDb.setPosition(LeaguePositionEnum.LEAGUE_POSITION_1.getId());
         return memberDb;
     }
 }

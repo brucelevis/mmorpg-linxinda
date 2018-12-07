@@ -131,3 +131,17 @@ league_Create name
 
 #查看公会
 league_Info 
+
+#公会解散（未做）
+league_Dissolve
+
+#公会加人（未做）
+league_Add playerUid
+
+#公会踢人（未做）
+league_Kick playerUid
+
+#公会修改权限（未做）
+league_Change playerUid
+
+

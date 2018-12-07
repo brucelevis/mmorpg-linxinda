@@ -9,7 +9,7 @@ public class LeagueMemberDb {
     @Id
     private Long playerUid;
 
-    private Integer job;
+    private Integer position;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "leagueUid")
@@ -23,12 +23,12 @@ public class LeagueMemberDb {
         this.playerUid = playerUid;
     }
 
-    public Integer getJob() {
-        return job;
+    public Integer getPosition() {
+        return position;
     }
 
-    public void setJob(Integer job) {
-        this.job = job;
+    public void setPosition(Integer position) {
+        this.position = position;
     }
 
     public LeagueRootDb getLeague() {
