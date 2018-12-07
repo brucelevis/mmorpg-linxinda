@@ -11,4 +11,8 @@ public interface IPlayer {
     long getExp();
 
     void setlevel(int level);
+
+    void setLeagueUid(Long uid);
+
+    Long getLeagueUid();
 }

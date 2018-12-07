@@ -107,6 +107,8 @@ public class PlayerDb {
     @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<FriendRequestDb> requestList;
 
+    private Long leagueUid;
+
     public Long getUid() {
         return uid;
     }
@@ -265,6 +267,14 @@ public class PlayerDb {
 
     public void setRequestList(Set<FriendRequestDb> requestList) {
         this.requestList = requestList;
+    }
+
+    public Long getLeagueUid() {
+        return leagueUid;
+    }
+
+    public void setLeagueUid(Long leagueUid) {
+        this.leagueUid = leagueUid;
     }
 
     /**

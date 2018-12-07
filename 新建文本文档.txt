@@ -124,4 +124,10 @@ friend_Accept id
 friend_Reject id
 
 
+#################### 公会系统 ############################
 
+#创建公会
+league_Create name
+
+#查看公会
+league_Info 

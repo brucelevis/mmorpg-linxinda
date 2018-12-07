@@ -83,6 +83,16 @@ public class Player implements FightingUnit, IPlayer {
     }
 
     @Override
+    public void setLeagueUid(Long uid) {
+        playerDb.setLeagueUid(uid);
+    }
+
+    @Override
+    public Long getLeagueUid() {
+        return playerDb.getLeagueUid();
+    }
+
+    @Override
     public Map<Integer, Double> getAttrs() {
         return playerDb.getPlayerStrengthDb().getAttrs();
     }
