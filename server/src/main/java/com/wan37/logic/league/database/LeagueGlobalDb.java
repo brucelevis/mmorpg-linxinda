@@ -5,7 +5,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "tb_league")
-public class LeagueRootDb {
+public class LeagueGlobalDb {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

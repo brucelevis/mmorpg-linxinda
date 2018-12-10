@@ -9,6 +9,8 @@ import com.wan37.server.GeneralReqMsg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 class League_Add implements GeneralHandler {
 
@@ -28,6 +30,10 @@ class League_Add implements GeneralHandler {
         Long uid = msg.getParamAsLong(1);
         if (!playerGlobalManager.isOnline(uid)) {
             throw new GeneralErrorExecption("对方不在线，公会邀请只能在线才能添加");
+        }
+
+        if (Objects.equals(player.getUid(), uid)) {
+            throw new GeneralErrorExecption("不能加自己");
         }
 
         Player target = playerGlobalManager.getPlayerByUid(uid);

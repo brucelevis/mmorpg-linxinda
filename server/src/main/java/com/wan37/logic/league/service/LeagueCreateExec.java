@@ -7,7 +7,7 @@ import com.wan37.logic.league.LeaguePositionEnum;
 import com.wan37.logic.league.dao.LeagueDao;
 import com.wan37.logic.league.dao.LeagueMemberDao;
 import com.wan37.logic.league.database.LeagueMemberDb;
-import com.wan37.logic.league.database.LeagueRootDb;
+import com.wan37.logic.league.database.LeagueGlobalDb;
 import com.wan37.logic.player.Player;
 import com.wan37.util.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,21 +39,25 @@ public class LeagueCreateExec {
 
         //TODO: 检查创建公会的条件如钱啊啥的
 
-        LeagueRootDb rootDb = leagueDao.save(createLeague(name));
-        player.setLeagueUid(rootDb.getUid());
+        if (player.getLeagueUid() != null) {
+            throw new GeneralErrorExecption("已有公会，要创建公会需要退出或解散当前公会");
+        }
+
+        LeagueGlobalDb leagueGlobalDb = leagueDao.save(createLeague(name));
+        player.setLeagueUid(leagueGlobalDb.getUid());
 
         LeagueMemberDb memberDb = createMember(player.getUid());
-        rootDb.addMember(memberDb);
+        leagueGlobalDb.addMember(memberDb);
 
         leagueMemberDao.save(memberDb);
 
-        leagueGlobalManager.addLeague(rootDb);
+        leagueGlobalManager.addLeague(leagueGlobalDb);
 
         chatFacade.chatToWorld(String.format("【公告】 祝贺[%s]创建了[%s]公会", player.getName(), name));
     }
 
-    private LeagueRootDb createLeague(String name) {
-        LeagueRootDb rootDb = new LeagueRootDb();
+    private LeagueGlobalDb createLeague(String name) {
+        LeagueGlobalDb rootDb = new LeagueGlobalDb();
         rootDb.setMaxNum(20);
         rootDb.setName(name);
         rootDb.setMembers(new HashSet<>());

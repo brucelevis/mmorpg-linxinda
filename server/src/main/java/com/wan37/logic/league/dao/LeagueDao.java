@@ -1,15 +1,15 @@
 package com.wan37.logic.league.dao;
 
-import com.wan37.logic.league.database.LeagueRootDb;
+import com.wan37.logic.league.database.LeagueGlobalDb;
 import org.springframework.data.repository.Repository;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface LeagueDao extends Repository<LeagueRootDb, Long> {
+public interface LeagueDao extends Repository<LeagueGlobalDb, Long> {
 
-    LeagueRootDb save(LeagueRootDb leagueRootDb);
+    LeagueGlobalDb save(LeagueGlobalDb leagueGlobalDb);
 
     boolean existsByName(String name);
 
-    LeagueRootDb findByUid(Long uid);
+    LeagueGlobalDb findByUid(Long uid);
 }

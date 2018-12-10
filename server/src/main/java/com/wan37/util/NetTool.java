@@ -1,9 +1,11 @@
-package com.wan37;
+package com.wan37.util;
 
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Set;
 
 @Service
 public class NetTool {
@@ -18,5 +20,12 @@ public class NetTool {
         }
 
         player.syncClient(msg);
+    }
+
+    public void send(String msg, Set<Long> players) {
+        players.stream()
+                .filter(i -> playerGlobalManager.isOnline(i))
+                .map(i -> playerGlobalManager.getPlayerByUid(i))
+                .forEach(p -> p.syncClient(msg));
     }
 }

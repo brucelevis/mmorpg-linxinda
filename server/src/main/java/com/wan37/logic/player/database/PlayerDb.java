@@ -20,7 +20,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table
+@Table(name = "tb_player")
 public class PlayerDb {
 
     @Id

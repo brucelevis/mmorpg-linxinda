@@ -1,5 +1,7 @@
 package com.wan37.logic.league;
 
+import com.wan37.logic.equipment.EquipPartEnum;
+
 public enum LeaguePositionEnum {
 
     LEAGUE_POSITION_1(1, "会长"),
@@ -29,5 +31,14 @@ public enum LeaguePositionEnum {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public static String getName(int id) {
+        for (LeaguePositionEnum position : LeaguePositionEnum.values()) {
+            if (position.getId() == id) {
+                return position.name;
+            }
+        }
+        return "";
     }
 }

@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-@Table
+@Table(name = "tb_friend")
 public class FriendDb implements Serializable {
 
     @Id

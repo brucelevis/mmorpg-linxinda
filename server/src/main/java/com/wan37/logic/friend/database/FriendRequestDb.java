@@ -5,7 +5,7 @@ import com.wan37.logic.player.database.PlayerDb;
 import javax.persistence.*;
 
 @Entity
-@Table
+@Table(name = "tb_friend_request")
 public class FriendRequestDb {
 
     @Id
