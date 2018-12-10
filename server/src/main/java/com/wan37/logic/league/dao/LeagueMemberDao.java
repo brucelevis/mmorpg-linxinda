@@ -8,4 +8,6 @@ import org.springframework.stereotype.Service;
 public interface LeagueMemberDao extends Repository<LeagueMemberDb, Long> {
 
     void save(LeagueMemberDb memberDb);
+
+    void removeByPlayerUid(Long uid);
 }

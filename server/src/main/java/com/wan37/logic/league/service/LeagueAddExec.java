@@ -1,5 +1,6 @@
 package com.wan37.logic.league.service;
 
+import com.wan37.logic.league.LeaguePermissionEnum;
 import com.wan37.util.NetTool;
 import com.wan37.exception.GeneralErrorExecption;
 import com.wan37.logic.league.LeagueGlobalManager;
@@ -33,7 +34,7 @@ public class LeagueAddExec {
 
     public void exec(Player player, Player target) {
         if (player.getLeagueUid() == null) {
-            throw new GeneralErrorExecption("未加入公会");
+            throw new GeneralErrorExecption("你未加入公会");
         }
 
         LeagueGlobalDb leagueGlobalDb = leagueGlobalManager.getLeague(player.getLeagueUid());
@@ -49,7 +50,7 @@ public class LeagueAddExec {
 
         LeaguePositionCfg positionCfg = leaguePositionCfgLoader.load(myPosition)
                 .orElseThrow(() -> new GeneralErrorExecption("找不到公会权限表"));
-        if (!positionCfg.getPermission().contains(myPosition)) {
+        if (!positionCfg.getPermission().contains(LeaguePermissionEnum.LeaguePermissionEnum_1.getId())) {
             throw new GeneralErrorExecption("没有添加公会成员的权限");
         }
 
