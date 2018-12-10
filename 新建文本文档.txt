@@ -144,4 +144,5 @@ league_Kick playerUid
 #公会修改权限（未做）
 league_Change playerUid
 
-
+#退出公会
+league_Quit
