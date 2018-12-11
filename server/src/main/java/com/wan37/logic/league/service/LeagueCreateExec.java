@@ -5,9 +5,10 @@ import com.wan37.logic.chat.ChatFacade;
 import com.wan37.logic.league.LeagueGlobalManager;
 import com.wan37.logic.league.LeaguePositionEnum;
 import com.wan37.logic.league.dao.LeagueDao;
-import com.wan37.logic.league.dao.LeagueMemberDao;
 import com.wan37.logic.league.database.LeagueMemberDb;
 import com.wan37.logic.league.database.LeagueGlobalDb;
+import com.wan37.logic.league.entity.ILeague;
+import com.wan37.logic.league.entity.ILeagueMember;
 import com.wan37.logic.player.Player;
 import com.wan37.util.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +25,16 @@ public class LeagueCreateExec {
     private LeagueDao leagueDao;
 
     @Autowired
-    private LeagueMemberDao leagueMemberDao;
-
-    @Autowired
     private LeagueGlobalManager leagueGlobalManager;
 
     @Autowired
     private ChatFacade chatFacade;
+
+    @Autowired
+    private ILeague.Factory leagueFactory;
+
+    @Autowired
+    private ILeagueMember.Factory leagueMemberFactory;
 
     public void exec(Player player, String name) {
         if (leagueDao.existsByName(name)) {
@@ -43,15 +47,19 @@ public class LeagueCreateExec {
             throw new GeneralErrorExecption("已有公会，要创建公会需要退出或解散当前公会");
         }
 
+        // 创建公会
         LeagueGlobalDb leagueGlobalDb = leagueDao.save(createLeague(name));
-        player.setLeagueUid(leagueGlobalDb.getUid());
+        ILeague league = leagueFactory.create(leagueGlobalDb);
+        leagueGlobalManager.addLeague(league);
 
-        LeagueMemberDb memberDb = createMember(player.getUid());
-        leagueGlobalDb.addMember(memberDb);
+        // 创建成员
+        LeagueMemberDb memberDb = createMember(player.getUid(), league.getUid());
+        ILeagueMember leagueMember = leagueMemberFactory.create(memberDb);
 
-        leagueMemberDao.save(memberDb);
+        league.addMember(leagueMember);
+        league.save();
 
-        leagueGlobalManager.addLeague(leagueGlobalDb);
+        player.setLeagueUid(league.getUid());
 
         chatFacade.chatToWorld(String.format("【公告】 祝贺[%s]创建了[%s]公会", player.getName(), name));
     }
@@ -68,9 +76,10 @@ public class LeagueCreateExec {
         return rootDb;
     }
 
-    private LeagueMemberDb createMember(Long playerUid) {
+    private LeagueMemberDb createMember(Long playerUid, Long leagueUid) {
         LeagueMemberDb memberDb = new LeagueMemberDb();
         memberDb.setPlayerUid(playerUid);
+        memberDb.setLeagueUid(leagueUid);
         memberDb.setPosition(LeaguePositionEnum.LEAGUE_POSITION_1.getId());
         return memberDb;
     }

@@ -11,9 +11,8 @@ public class LeagueMemberDb {
 
     private Integer position;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "leagueUid")
-    private LeagueGlobalDb league;
+    @Column(name = "league_uid")
+    private Long leagueUid;
 
     public Long getPlayerUid() {
         return playerUid;
@@ -31,11 +30,11 @@ public class LeagueMemberDb {
         this.position = position;
     }
 
-    public LeagueGlobalDb getLeague() {
-        return league;
+    public Long getLeagueUid() {
+        return leagueUid;
     }
 
-    public void setLeague(LeagueGlobalDb league) {
-        this.league = league;
+    public void setLeagueUid(Long leagueUid) {
+        this.leagueUid = leagueUid;
     }
 }

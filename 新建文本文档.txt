@@ -141,7 +141,7 @@ league_Add playerUid
 #公会踢人
 league_Kick playerUid
 
-#公会修改权限（未做）
+#公会修改权限
 league_Change playerUid
 
 #退出公会

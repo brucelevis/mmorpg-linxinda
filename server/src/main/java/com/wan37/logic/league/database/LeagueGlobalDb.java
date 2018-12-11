@@ -17,7 +17,8 @@ public class LeagueGlobalDb {
 
     private int maxNum;
 
-    @OneToMany(mappedBy = "league", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name = "league_uid")
     private Set<LeagueMemberDb> members;
 
     public Long getUid() {
@@ -58,10 +59,5 @@ public class LeagueGlobalDb {
 
     public void setMaxNum(int maxNum) {
         this.maxNum = maxNum;
-    }
-
-    public void addMember(LeagueMemberDb memberDb) {
-        memberDb.setLeague(this);
-        this.members.add(memberDb);
     }
 }

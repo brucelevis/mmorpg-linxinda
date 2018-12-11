@@ -5,17 +5,13 @@ import com.wan37.logic.league.LeagueGlobalManager;
 import com.wan37.logic.league.LeaguePermissionEnum;
 import com.wan37.logic.league.config.LeaguePositionCfg;
 import com.wan37.logic.league.config.LeaguePositionCfgLoader;
-import com.wan37.logic.league.dao.LeagueMemberDao;
-import com.wan37.logic.league.database.LeagueGlobalDb;
-import com.wan37.logic.league.database.LeagueMemberDb;
+import com.wan37.logic.league.entity.ILeague;
+import com.wan37.logic.league.entity.ILeagueMember;
 import com.wan37.logic.player.Player;
-import com.wan37.util.NetTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service
 public class LeagueChangeExec {
@@ -26,49 +22,41 @@ public class LeagueChangeExec {
     @Autowired
     private LeaguePositionCfgLoader leaguePositionCfgLoader;
 
-    @Autowired
-    private NetTool netTool;
-
-    @Autowired
-    private LeagueMemberDao leagueMemberDao;
-
     public void exec(Player player, Player target) {
         if (player.getLeagueUid() == null) {
             throw new GeneralErrorExecption("你未加入公会");
         }
 
-        LeagueGlobalDb leagueGlobalDb = leagueGlobalManager.getLeague(player.getLeagueUid());
-        if (leagueGlobalDb == null) {
+        ILeague league = leagueGlobalManager.get(player.getLeagueUid());
+        if (league == null) {
             throw new GeneralErrorExecption("公会不存在");
         }
 
-        Integer myPosition = getPosition(leagueGlobalDb, player.getUid());
-        LeaguePositionCfg myPositionCfg = leaguePositionCfgLoader.load(myPosition)
+        ILeagueMember me = league.getMember(player.getUid());
+        LeaguePositionCfg myPositionCfg = leaguePositionCfgLoader.load(me.getPosition())
                 .orElseThrow(() -> new GeneralErrorExecption("找不到公会权限表"));
 
         if (!myPositionCfg.getPermission().contains(LeaguePermissionEnum.LeaguePermissionEnum_3.getId())) {
             throw new GeneralErrorExecption("你的职位不能改变公会成员的权限");
         }
 
-        LeagueMemberDb memberDb = findMember(leagueGlobalDb, target.getUid());
-        if (memberDb == null) {
+        ILeagueMember targetMember = league.getMember(target.getUid());
+        if (targetMember == null) {
             throw new GeneralErrorExecption("目标不是该公会成员");
+
         }
 
-        Integer targetPosition = getPosition(leagueGlobalDb, target.getUid());
-        if (myPosition >= targetPosition) {
+        if (me.getPosition() >= targetMember.getPosition()) {
             throw new GeneralErrorExecption("不能修改同职级或更高职级的人");
         }
 
-        LeaguePositionCfg newPositionCfg = getNewPositionCfg(myPosition, targetPosition);
-        memberDb.setPosition(newPositionCfg.getId());
-        leagueMemberDao.save(memberDb);
+        LeaguePositionCfg newPositionCfg = getNewPositionCfg(me.getPosition(), targetMember.getPosition());
+        targetMember.setPosition(newPositionCfg.getId());
+        league.save();
 
         // 广播
         String msg = String.format("【公会】 [%s]将[%s]的职位调整为[%s]", player.getName(), target.getName(), newPositionCfg.getName());
-        netTool.send(msg, leagueGlobalDb.getMembers().stream()
-                .map(LeagueMemberDb::getPlayerUid)
-                .collect(Collectors.toSet()));
+        league.notifyAll(msg);
     }
 
     private LeaguePositionCfg getNewPositionCfg(Integer myPosition, Integer targetPosition) {
@@ -80,20 +68,5 @@ public class LeagueChangeExec {
 
         return leaguePositionCfgLoader.load(targetPosition - 1)
                 .orElseThrow(() -> new GeneralErrorExecption("公会职位配置表出错"));
-    }
-
-    private Integer getPosition(LeagueGlobalDb leagueGlobalDb, Long playerUid) {
-        return leagueGlobalDb.getMembers().stream()
-                .filter(m -> Objects.equals(m.getPlayerUid(), playerUid))
-                .findAny()
-                .map(LeagueMemberDb::getPosition)
-                .orElseThrow(() -> new GeneralErrorExecption("公会成员权限异常"));
-    }
-
-    private LeagueMemberDb findMember(LeagueGlobalDb leagueGlobalDb, Long playerUid) {
-        return leagueGlobalDb.getMembers().stream()
-                .filter(m -> Objects.equals(m.getPlayerUid(), playerUid))
-                .findAny()
-                .orElse(null);
     }
 }
