@@ -151,7 +151,7 @@ league_Quit
 league_DonateItem index:amount,index:amount...
 
 #公会捐献钱
-league_Donate id:amount
+league_DonateMoney cfgId amount
 
 #公会仓库信息
 league_Warehouse

@@ -27,6 +27,10 @@ public class LeagueGlobalDb {
 
     private int capacity;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name = "league_uid")
+    private Set<LeagueCurrencyDb> currency;
+
     public Long getUid() {
         return uid;
     }
@@ -81,5 +85,13 @@ public class LeagueGlobalDb {
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
+    }
+
+    public Set<LeagueCurrencyDb> getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(Set<LeagueCurrencyDb> currency) {
+        this.currency = currency;
     }
 }

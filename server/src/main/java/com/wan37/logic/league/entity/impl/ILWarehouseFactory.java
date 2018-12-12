@@ -1,8 +1,9 @@
 package com.wan37.logic.league.entity.impl;
 
 import com.wan37.logic.league.database.LeagueGlobalDb;
-import com.wan37.logic.league.entity.ILeagueItem;
 import com.wan37.logic.league.entity.ILWarehouse;
+import com.wan37.logic.league.entity.ILeagueCurrency;
+import com.wan37.logic.league.entity.ILeagueItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,9 @@ public class ILWarehouseFactory implements ILWarehouse.Factory {
     @Autowired
     private ILeagueItem.Factory itemFactory;
 
+    @Autowired
+    private ILeagueCurrency.Factory currencyFactory;
+
     @Override
     public ILWarehouse create(LeagueGlobalDb leagueGlobalDb) {
         Lock lock = new ReentrantLock();
@@ -25,6 +29,10 @@ public class ILWarehouseFactory implements ILWarehouse.Factory {
                 .map(i -> itemFactory.create(i))
                 .collect(Collectors.toMap(ILeagueItem::getIndex, Function.identity()));
 
-        return new ILWarehouseImpl(leagueGlobalDb, items, lock);
+        Map<Integer, ILeagueCurrency> currency = leagueGlobalDb.getCurrency().stream()
+                .map(c -> currencyFactory.create(c))
+                .collect(Collectors.toMap(ILeagueCurrency::getCfgId, Function.identity()));
+
+        return new ILWarehouseImpl(leagueGlobalDb, items, currency, lock);
     }
 }

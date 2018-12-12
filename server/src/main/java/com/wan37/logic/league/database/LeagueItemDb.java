@@ -13,7 +13,6 @@ import javax.persistence.*;
 public class LeagueItemDb {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private Long itemUid;

@@ -1,8 +1,9 @@
 package com.wan37.logic.league.entity.impl;
 
 import com.wan37.logic.league.database.LeagueGlobalDb;
-import com.wan37.logic.league.entity.ILeagueItem;
 import com.wan37.logic.league.entity.ILWarehouse;
+import com.wan37.logic.league.entity.ILeagueCurrency;
+import com.wan37.logic.league.entity.ILeagueItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +12,10 @@ import java.util.concurrent.locks.Lock;
 
 class ILWarehouseImpl implements ILWarehouse {
 
-    public ILWarehouseImpl(LeagueGlobalDb leagueGlobalDb, Map<Integer, ILeagueItem> items, Lock lock) {
+    public ILWarehouseImpl(LeagueGlobalDb leagueGlobalDb, Map<Integer, ILeagueItem> items, Map<Integer, ILeagueCurrency> currency, Lock lock) {
         this.leagueGlobalDb = leagueGlobalDb;
         this.items = items;
+        this.currency = currency;
         this.lock = lock;
     }
 
@@ -27,6 +29,19 @@ class ILWarehouseImpl implements ILWarehouse {
         leagueItem.setIndex(index);
         leagueGlobalDb.getItems().add(leagueItem.getLItemDb());
         items.put(leagueItem.getIndex(), leagueItem);
+    }
+
+    @Override
+    public void addCurrency(ILeagueCurrency leagueCurrency) {
+        ILeagueCurrency target = currency.get(leagueCurrency.getCfgId());
+        if (target == null) {
+            currency.put(leagueCurrency.getCfgId(), leagueCurrency);
+            leagueGlobalDb.getCurrency().add(leagueCurrency.getLCurrencyDb());
+            return;
+        }
+
+        //FIXME: 上限问题
+        target.setAmount(target.getAmount() + leagueCurrency.getAmount());
     }
 
     @Override
@@ -54,6 +69,11 @@ class ILWarehouseImpl implements ILWarehouse {
         return new ArrayList<>(items.values());
     }
 
+    @Override
+    public List<ILeagueCurrency> getCurrency() {
+        return new ArrayList<>(currency.values());
+    }
+
     private Integer findEmptyIndex() {
         for (int i = 1; i <= getCapacity(); i++) {
             if (!items.containsKey(i)) {
@@ -66,5 +86,6 @@ class ILWarehouseImpl implements ILWarehouse {
 
     private final LeagueGlobalDb leagueGlobalDb;
     private final Map<Integer, ILeagueItem> items;
+    private final Map<Integer, ILeagueCurrency> currency;
     private final Lock lock;
 }

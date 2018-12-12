@@ -13,6 +13,8 @@ public interface ILWarehouse {
 
     void addItem(ILeagueItem leagueItem);
 
+    void addCurrency(ILeagueCurrency leagueCurrency);
+
     int getCurSize();
 
     int getCapacity();
@@ -22,4 +24,6 @@ public interface ILWarehouse {
     void unlock();
 
     List<ILeagueItem> getItems();
+
+    List<ILeagueCurrency> getCurrency();
 }

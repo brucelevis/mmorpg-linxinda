@@ -11,6 +11,7 @@ import com.wan37.logic.league.entity.ILeagueItem;
 import com.wan37.logic.league.entity.ILWarehouse;
 import com.wan37.logic.league.entity.ILeague;
 import com.wan37.logic.player.Player;
+import com.wan37.util.IdTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,9 @@ public class LeagueDonateItemExec {
 
     @Autowired
     private BackpackUpdateNotifier backpackUpdateNotifier;
+
+    @Autowired
+    private IdTool idTool;
 
     public void exec(Player player, ReqLDonateItem reqLDonateItem) {
         BackpackDb backpackDb = player.getPlayerDb().getBackpackDb();
@@ -80,6 +84,7 @@ public class LeagueDonateItemExec {
 
     private LeagueItemDb createLItem(ItemDb itemDb, int amout) {
         LeagueItemDb leagueItemDb = new LeagueItemDb();
+        leagueItemDb.setId(idTool.generate());
         leagueItemDb.setItemUid(itemDb.getUid());
         leagueItemDb.setCfgId(itemDb.getCfgId());
         leagueItemDb.setAmount(amout);

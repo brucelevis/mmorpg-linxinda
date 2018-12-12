@@ -71,6 +71,7 @@ public class LeagueCreateExec {
         leagueGlobalDb.setMembers(new HashSet<>());
         leagueGlobalDb.setCapacity(10);
         leagueGlobalDb.setItems(new HashSet<>());
+        leagueGlobalDb.setCurrency(new HashSet<>());
 
         long now = DateTimeUtils.toEpochMilli(LocalDateTime.now());
         leagueGlobalDb.setCreateTime(now);
