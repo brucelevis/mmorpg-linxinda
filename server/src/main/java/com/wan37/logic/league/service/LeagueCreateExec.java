@@ -65,15 +65,17 @@ public class LeagueCreateExec {
     }
 
     private LeagueGlobalDb createLeague(String name) {
-        LeagueGlobalDb rootDb = new LeagueGlobalDb();
-        rootDb.setMaxNum(20);
-        rootDb.setName(name);
-        rootDb.setMembers(new HashSet<>());
+        LeagueGlobalDb leagueGlobalDb = new LeagueGlobalDb();
+        leagueGlobalDb.setMaxNum(20);
+        leagueGlobalDb.setName(name);
+        leagueGlobalDb.setMembers(new HashSet<>());
+        leagueGlobalDb.setCapacity(10);
+        leagueGlobalDb.setItems(new HashSet<>());
 
         long now = DateTimeUtils.toEpochMilli(LocalDateTime.now());
-        rootDb.setCreateTime(now);
+        leagueGlobalDb.setCreateTime(now);
 
-        return rootDb;
+        return leagueGlobalDb;
     }
 
     private LeagueMemberDb createMember(Long playerUid, Long leagueUid) {

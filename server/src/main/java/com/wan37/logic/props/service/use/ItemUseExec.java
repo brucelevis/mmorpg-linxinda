@@ -60,7 +60,7 @@ public class ItemUseExec {
         }
 
         // 背包物品-1
-        backpackFacade.remove(player, index, 1);
+        backpackFacade.remove(backpackDb, index, 1);
         backpackUpdateNotifier.notify(player);
 
         String msg = String.format("你使用了%s", propsCfg.getName());

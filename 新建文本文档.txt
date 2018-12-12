@@ -146,3 +146,13 @@ league_Change playerUid
 
 #退出公会
 league_Quit
+
+#公会捐献物品
+league_DonateItem index:amount,index:amount...
+
+#公会捐献钱
+league_Donate id:amount
+
+#公会仓库信息
+league_Warehouse
+

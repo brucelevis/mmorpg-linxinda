@@ -131,7 +131,7 @@ public class MailSendExec {
             newItem.setAmount(sendAmount);
             mailItems.add(newItem);
 
-            backpackFacade.remove(player, mailItem.getIndex(), sendAmount);
+            backpackFacade.remove(backpackDb, mailItem.getIndex(), sendAmount);
         }
 
         MailItemDb mailItemDb = new MailItemDb();

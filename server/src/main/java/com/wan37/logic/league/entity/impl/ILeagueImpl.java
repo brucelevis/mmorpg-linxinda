@@ -4,6 +4,7 @@ import com.wan37.logic.league.LeaguePositionEnum;
 import com.wan37.logic.league.dao.LeagueDao;
 import com.wan37.logic.league.database.LeagueGlobalDb;
 import com.wan37.logic.league.database.LeagueMemberDb;
+import com.wan37.logic.league.entity.ILWarehouse;
 import com.wan37.logic.league.entity.ILeague;
 import com.wan37.logic.league.entity.ILeagueMember;
 import com.wan37.util.NetTool;
@@ -16,9 +17,10 @@ import java.util.stream.Collectors;
 
 class ILeagueImpl implements ILeague {
 
-    public ILeagueImpl(Map<Long, ILeagueMember> memberMap, LeagueGlobalDb leagueGlobalDb, LeagueDao leagueDao, NetTool netTool) {
+    public ILeagueImpl(Map<Long, ILeagueMember> memberMap, LeagueGlobalDb leagueGlobalDb, ILWarehouse warehouse, LeagueDao leagueDao, NetTool netTool) {
         this.memberMap = memberMap;
         this.leagueGlobalDb = leagueGlobalDb;
+        this.warehouse = warehouse;
         this.leagueDao = leagueDao;
         this.netTool = netTool;
     }
@@ -97,8 +99,14 @@ class ILeagueImpl implements ILeague {
                 .orElseThrow(() -> new RuntimeException("公会找不到会长"));
     }
 
+    @Override
+    public ILWarehouse getWarehouse() {
+        return warehouse;
+    }
+
     private final Map<Long, ILeagueMember> memberMap;
     private final LeagueGlobalDb leagueGlobalDb;
+    private final ILWarehouse warehouse;
 
     private final LeagueDao leagueDao;
     private final NetTool netTool;

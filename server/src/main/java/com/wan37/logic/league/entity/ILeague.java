@@ -34,4 +34,6 @@ public interface ILeague {
     void save();
 
     Long getLeaderUid();
+
+    ILWarehouse getWarehouse();
 }

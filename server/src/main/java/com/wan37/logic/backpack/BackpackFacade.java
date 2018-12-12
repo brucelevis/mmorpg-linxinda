@@ -55,8 +55,7 @@ public class BackpackFacade {
         backpackUpdateNotifier.notify(player);
     }
 
-    public void remove(Player player, Integer index, int amount) {
-        BackpackDb backpackDb = player.getPlayerDb().getBackpackDb();
+    public void remove(BackpackDb backpackDb, Integer index, int amount) {
         ItemDb itemDb = backpackDb.getItemMap().get(index);
         if (itemDb == null) {
             LOG.info("找不到要删除的背包物品");

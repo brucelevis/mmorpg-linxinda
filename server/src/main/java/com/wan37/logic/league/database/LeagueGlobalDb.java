@@ -21,6 +21,12 @@ public class LeagueGlobalDb {
     @JoinColumn(name = "league_uid")
     private Set<LeagueMemberDb> members;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name = "league_uid")
+    private Set<LeagueItemDb> items;
+
+    private int capacity;
+
     public Long getUid() {
         return uid;
     }
@@ -59,5 +65,21 @@ public class LeagueGlobalDb {
 
     public void setMaxNum(int maxNum) {
         this.maxNum = maxNum;
+    }
+
+    public Set<LeagueItemDb> getItems() {
+        return items;
+    }
+
+    public void setItems(Set<LeagueItemDb> items) {
+        this.items = items;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
     }
 }
