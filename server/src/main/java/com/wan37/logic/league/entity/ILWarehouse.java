@@ -15,6 +15,10 @@ public interface ILWarehouse {
 
     void addCurrency(ILeagueCurrency leagueCurrency);
 
+    void rmCurrency(Integer cfgId, long amount);
+
+    long queryCurrency(Integer cfgId);
+
     int getCurSize();
 
     int getCapacity();

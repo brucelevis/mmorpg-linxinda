@@ -47,6 +47,7 @@ public class LeagueDonateItemExec {
             warehouse.lock();
             if (reqLDonateItem.getDonateItems().size() > warehouse.getCapacity() - warehouse.getCurSize()) {
                 player.syncClient("公会仓库容量不足");
+                return;
             }
 
             reqLDonateItem.getDonateItems().forEach(i -> donate(backpackDb, warehouse, i));

@@ -156,3 +156,10 @@ league_DonateMoney cfgId amount
 #公会仓库信息
 league_Warehouse
 
+#公会仓库领取物品
+league_GetItem index:amount,index:amount....
+
+#公会仓库领钱
+league_GetMoney cfgId amount
+
+

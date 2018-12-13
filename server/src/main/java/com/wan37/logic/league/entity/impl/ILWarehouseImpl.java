@@ -8,7 +8,9 @@ import com.wan37.logic.league.entity.ILeagueItem;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.locks.Lock;
+import java.util.stream.Collectors;
 
 class ILWarehouseImpl implements ILWarehouse {
 
@@ -42,6 +44,31 @@ class ILWarehouseImpl implements ILWarehouse {
 
         //FIXME: 上限问题
         target.setAmount(target.getAmount() + leagueCurrency.getAmount());
+    }
+
+    @Override
+    public void rmCurrency(Integer cfgId, long amount) {
+        ILeagueCurrency leagueCurrency = currency.get(cfgId);
+        if (leagueCurrency.getAmount() == amount) {
+            // 注意：这里有个坑，不能用remove，否则Jpa不会联级删除many端的记录
+            leagueGlobalDb.setCurrency(leagueGlobalDb.getCurrency().stream()
+                    .filter(c -> !Objects.equals(c.getCfgId(), cfgId))
+                    .collect(Collectors.toSet()));
+            currency.remove(cfgId);
+            return;
+        }
+
+        leagueCurrency.setAmount(leagueCurrency.getAmount() - amount);
+    }
+
+    @Override
+    public long queryCurrency(Integer cfgId) {
+        ILeagueCurrency leagueCurrency = currency.get(cfgId);
+        if (leagueCurrency == null) {
+            return 0;
+        }
+
+        return leagueCurrency.getAmount();
     }
 
     @Override
