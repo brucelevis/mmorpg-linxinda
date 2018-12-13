@@ -18,4 +18,6 @@ public interface ILeagueItem {
     void setIndex(Integer index);
 
     int getAmount();
+
+    void setAmount(int amount);
 }

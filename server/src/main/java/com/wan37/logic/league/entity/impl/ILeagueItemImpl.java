@@ -34,5 +34,10 @@ class ILeagueItemImpl implements ILeagueItem {
         return leagueItemDb.getAmount();
     }
 
+    @Override
+    public void setAmount(int amount) {
+        leagueItemDb.setAmount(amount);
+    }
+
     private final LeagueItemDb leagueItemDb;
 }

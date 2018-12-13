@@ -34,6 +34,21 @@ class ILWarehouseImpl implements ILWarehouse {
     }
 
     @Override
+    public void rmItem(Integer index, int amount) {
+        ILeagueItem leagueItem = items.get(index);
+        if (leagueItem.getAmount() == amount) {
+            // 注意：这里有个坑，不能用remove，否则Jpa不会联级删除many端的记录
+            leagueGlobalDb.setItems(leagueGlobalDb.getItems().stream()
+                    .filter(i -> !Objects.equals(i.getIndex_(), index))
+                    .collect(Collectors.toSet()));
+            items.remove(index);
+            return;
+        }
+
+        leagueItem.setAmount(leagueItem.getAmount() - amount);
+    }
+
+    @Override
     public void addCurrency(ILeagueCurrency leagueCurrency) {
         ILeagueCurrency target = currency.get(leagueCurrency.getCfgId());
         if (target == null) {
@@ -59,6 +74,20 @@ class ILWarehouseImpl implements ILWarehouse {
         }
 
         leagueCurrency.setAmount(leagueCurrency.getAmount() - amount);
+    }
+
+    @Override
+    public int queryItem(Integer index) {
+        ILeagueItem leagueItem = items.get(index);
+        if (leagueItem == null) {
+            return 0;
+        }
+        return leagueItem.getAmount();
+    }
+
+    @Override
+    public ILeagueItem getItem(Integer index) {
+        return items.get(index);
     }
 
     @Override

@@ -13,9 +13,15 @@ public interface ILWarehouse {
 
     void addItem(ILeagueItem leagueItem);
 
+    void rmItem(Integer index, int amount);
+
     void addCurrency(ILeagueCurrency leagueCurrency);
 
     void rmCurrency(Integer cfgId, long amount);
+
+    int queryItem(Integer index);
+
+    ILeagueItem getItem(Integer index);
 
     long queryCurrency(Integer cfgId);
 
