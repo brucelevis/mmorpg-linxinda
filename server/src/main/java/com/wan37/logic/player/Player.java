@@ -7,6 +7,7 @@ import com.wan37.logic.attr.database.PAttrDb;
 import com.wan37.logic.buff.IBuff;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.skill.ISkill;
+import com.wan37.logic.trade.entity.ITrade;
 import com.wan37.util.GeneralNotifySenderUtil;
 import io.netty.channel.Channel;
 
@@ -22,6 +23,7 @@ public class Player implements FightingUnit, IPlayer {
 
     private Map<Integer, ISkill> skills;
     private List<IBuff> buffs = new CopyOnWriteArrayList<>();
+    private ITrade trade;
 
     public Channel getChannel() {
         return channel;
@@ -90,6 +92,15 @@ public class Player implements FightingUnit, IPlayer {
     @Override
     public Long getLeagueUid() {
         return playerDb.getLeagueUid();
+    }
+
+    @Override
+    public ITrade getTrade() {
+        return trade;
+    }
+
+    public void setTrade(ITrade trade) {
+        this.trade = trade;
     }
 
     @Override

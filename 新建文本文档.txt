@@ -163,3 +163,30 @@ league_GetItem index:amount,index:amount....
 league_GetMoney cfgId amount
 
 
+####################### 交易系统 ############################
+
+#发起交易请求 
+trade_Request playerUid
+
+#接受交易请求
+trade_Accept tradeUid
+
+#拒绝交易请求
+trade_Reject tradeUid
+
+#加入背包物品（未做）
+trade_AddItem  index:amount,index:amount...
+
+#加入钱（未做）
+trade_AddMoney cfgId:amount,cfgId:amount.....
+
+#交易取消
+trade_Close 
+
+#确认交易（未做）
+trade_Commit 
+
+
+
+
+

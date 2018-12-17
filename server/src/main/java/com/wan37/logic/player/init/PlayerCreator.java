@@ -6,11 +6,13 @@ import com.wan37.logic.skill.ISkill;
 import com.wan37.logic.skill.config.SkillCfg;
 import com.wan37.logic.skill.config.SkillCfgLoader;
 import com.wan37.logic.skill.database.PSkillDb;
+import com.wan37.logic.trade.entity.ITradeImpl;
 import io.netty.channel.Channel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -33,6 +35,8 @@ public class PlayerCreator {
                 .filter(Objects::nonNull)
                 .collect(Collectors.toMap(ISkill::getId, Function.identity())));
 
+        // FIXME: 缓存过期会清掉
+        player.setTrade(new ITradeImpl(null, new ReentrantLock()));
         return player;
     }
 

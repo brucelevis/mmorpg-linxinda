@@ -1,5 +1,7 @@
 package com.wan37.logic.player;
 
+import com.wan37.logic.trade.entity.ITrade;
+
 public interface IPlayer {
 
     Integer getFactionId();
@@ -15,4 +17,6 @@ public interface IPlayer {
     void setLeagueUid(Long uid);
 
     Long getLeagueUid();
+
+    ITrade getTrade();
 }
