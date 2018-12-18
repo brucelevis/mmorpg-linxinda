@@ -183,7 +183,7 @@ trade_AddMoney cfgId:amount
 #交易取消
 trade_Close 
 
-#确认交易（未做）
+#确认交易
 trade_Commit 
 
 

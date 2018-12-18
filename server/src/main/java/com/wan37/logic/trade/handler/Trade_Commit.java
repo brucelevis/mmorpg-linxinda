@@ -3,19 +3,19 @@ package com.wan37.logic.trade.handler;
 import com.wan37.handler.GeneralHandler;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
-import com.wan37.logic.trade.service.close.TradeCloseExec;
+import com.wan37.logic.trade.service.TradeCommitExec;
 import com.wan37.server.GeneralReqMsg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-class Trade_Close implements GeneralHandler {
+public class Trade_Commit implements GeneralHandler {
 
     @Autowired
     private PlayerGlobalManager playerGlobalManager;
 
     @Autowired
-    private TradeCloseExec tradeCloseExec;
+    private TradeCommitExec tradeCommitExec;
 
     @Override
     public void handle(GeneralReqMsg msg) {
@@ -24,6 +24,6 @@ class Trade_Close implements GeneralHandler {
             return;
         }
 
-        tradeCloseExec.exec(player);
+        tradeCommitExec.exec(player);
     }
 }

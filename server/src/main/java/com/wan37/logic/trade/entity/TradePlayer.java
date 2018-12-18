@@ -10,6 +10,7 @@ public class TradePlayer {
     private Player player;
     private Map<Integer, ItemDb> items;
     private Map<Integer, Long> currency;
+    private boolean commit;
 
     public Player getPlayer() {
         return player;
@@ -33,5 +34,13 @@ public class TradePlayer {
 
     public void setCurrency(Map<Integer, Long> currency) {
         this.currency = currency;
+    }
+
+    public boolean isCommit() {
+        return commit;
+    }
+
+    public void setCommit(boolean commit) {
+        this.commit = commit;
     }
 }

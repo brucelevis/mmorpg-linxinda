@@ -14,6 +14,7 @@ public class TradePlayerCreator {
         tradePlayer.setPlayer(player);
         tradePlayer.setItems(new HashMap<>());
         tradePlayer.setCurrency(new HashMap<>());
+        tradePlayer.setCommit(false);
         return tradePlayer;
     }
 }
