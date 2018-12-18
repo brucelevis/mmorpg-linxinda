@@ -132,7 +132,7 @@ league_Create name
 #查看公会
 league_Info 
 
-#公会解散（未做）
+#公会解散
 league_Dissolve
 
 #公会加人

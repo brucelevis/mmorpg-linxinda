@@ -40,4 +40,8 @@ public class LeagueGlobalManager {
 
         return leagueMap.get(uid);
     }
+
+    public void remove(Long uid) {
+        leagueMap.remove(uid);
+    }
 }
