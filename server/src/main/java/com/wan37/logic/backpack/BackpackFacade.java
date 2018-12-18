@@ -4,7 +4,10 @@ import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.backpack.database.ItemDb;
 import com.wan37.logic.backpack.encode.BackpackUpdateNotifier;
 import com.wan37.logic.backpack.service.find.BackpackEmptyIndexFinder;
+import com.wan37.logic.backpack.service.find.BackpackExistItemFinder;
 import com.wan37.logic.player.Player;
+import com.wan37.logic.props.config.PropsCfg;
+import com.wan37.logic.props.config.PropsCfgLoader;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BackpackFacade {
@@ -23,6 +27,12 @@ public class BackpackFacade {
 
     @Autowired
     private BackpackEmptyIndexFinder backpackEmptyIndexFinder;
+
+    @Autowired
+    private BackpackExistItemFinder backpackExistItemFinder;
+
+    @Autowired
+    private PropsCfgLoader propsCfgLoader;
 
     public Optional<ItemDb> find(BackpackDb backpackDb, Long uid) {
         return backpackDb.getItemMap().values().stream()
@@ -81,13 +91,45 @@ public class BackpackFacade {
     }
 
     public void add(BackpackDb backpackDb, ItemDb itemDb) {
-        Integer index = backpackEmptyIndexFinder.find(backpackDb);
+        PropsCfg propsCfg = propsCfgLoader.load(itemDb.getCfgId()).orElse(null);
+        if (propsCfg == null) {
+            return;
+        }
 
-        itemDb.setIndex(index);
-        backpackDb.getItemMap().put(index, itemDb);
+        if (propsCfg.getMaxOverLay() > 1) {
+            // 可堆叠，先找到已经存在的物品，并且物品叠加上限没满
+            List<ItemDb> existItems = backpackExistItemFinder.find(backpackDb, propsCfg.getId()).stream()
+                    .filter(i -> i.getAmount() < propsCfg.getMaxOverLay())
+                    .collect(Collectors.toList());
 
-        // 标记背包格子更新
-        backpackDb.getIndexs().add(index);
+            // 枚举一个个已存在物品塞满
+            for (int i = 0; i < existItems.size() && itemDb.getAmount() > 0; i++) {
+                ItemDb item = existItems.get(i);
+                int remainAmount = propsCfg.getMaxOverLay() - item.getAmount();
+
+                if (itemDb.getAmount() <= remainAmount) {
+                    // 可叠加用完
+                    item.setAmount(item.getAmount() + itemDb.getAmount());
+                    itemDb.setAmount(0);
+                } else {
+                    // 不可叠加用完
+                    item.setAmount(propsCfg.getMaxOverLay());
+                    itemDb.setAmount(itemDb.getAmount() - remainAmount);
+                }
+
+                // 标记背包格子更新
+                backpackDb.getIndexs().add(item.getIndex());
+            }
+        }
+
+        if (itemDb.getAmount() > 0) {
+            Integer index = backpackEmptyIndexFinder.find(backpackDb);
+            itemDb.setIndex(index);
+            backpackDb.getItemMap().put(index, itemDb);
+
+            // 标记背包格子更新
+            backpackDb.getIndexs().add(index);
+        }
     }
 
     public void add(Player player, List<ItemDb> items) {

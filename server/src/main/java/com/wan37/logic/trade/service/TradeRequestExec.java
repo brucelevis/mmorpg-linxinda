@@ -5,7 +5,7 @@ import com.wan37.logic.player.Player;
 import com.wan37.logic.trade.TradeGlobalManager;
 import com.wan37.logic.trade.entity.GTrade;
 import com.wan37.logic.trade.entity.ITrade;
-import com.wan37.logic.trade.entity.TradePlayer;
+import com.wan37.logic.trade.init.TradePlayerCreator;
 import com.wan37.util.IdTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +21,9 @@ public class TradeRequestExec {
 
     @Autowired
     private TradeGlobalManager tradeGlobalManager;
+
+    @Autowired
+    private TradePlayerCreator tradePlayerCreator;
 
     public void exec(Player from, Player to) {
         if (to.getTrade().getUid() != null) {
@@ -58,15 +61,9 @@ public class TradeRequestExec {
         trade.setTradePlayerMap(new HashMap<>());
 
         trade.setFromUid(from.getUid());
-        trade.getTradePlayerMap().put(from.getUid(), createTradePlayer(from));
+        trade.getTradePlayerMap().put(from.getUid(), tradePlayerCreator.create(from));
 
         trade.setToUid(to.getUid());
         return trade;
-    }
-
-    private TradePlayer createTradePlayer(Player player) {
-        TradePlayer tradePlayer = new TradePlayer();
-        tradePlayer.setPlayer(player);
-        return tradePlayer;
     }
 }
