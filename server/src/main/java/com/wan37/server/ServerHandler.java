@@ -5,6 +5,8 @@ import com.wan37.event.OfflineEvent;
 import com.wan37.exception.GeneralErrorExecption;
 import com.wan37.handler.GeneralDipatchHandlerManager;
 import com.wan37.handler.GeneralHandler;
+import com.wan37.logic.player.Player;
+import com.wan37.logic.player.PlayerGlobalManager;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -47,7 +49,14 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelInactive(ChannelHandlerContext ctx) {
         LOG.info("--- Server is inactive ---");
-        new GenernalEventListenersManager().fireEvent(new OfflineEvent(ctx.channel()));
+
+        PlayerGlobalManager playerGlobalManager = ServerStarter.springContext.getBean(PlayerGlobalManager.class);
+        Player player = playerGlobalManager.getPlayerByChannel(ctx.channel());
+        if (player == null) {
+            return;
+        }
+
+        new GenernalEventListenersManager().fireEvent(new OfflineEvent(player));
     }
 
     @Override

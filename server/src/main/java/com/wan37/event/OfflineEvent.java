@@ -1,16 +1,16 @@
 package com.wan37.event;
 
-import io.netty.channel.Channel;
+import com.wan37.logic.player.Player;
 
 public class OfflineEvent {
 
-    public OfflineEvent(Channel channel) {
-        this.channel = channel;
+    public OfflineEvent(Player player) {
+        this.player = player;
     }
 
-    public Channel getChannel() {
-        return channel;
+    public Player getPlayer() {
+        return player;
     }
 
-    private final Channel channel;
+    private final Player player;
 }

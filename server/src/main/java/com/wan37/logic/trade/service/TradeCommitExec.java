@@ -101,14 +101,14 @@ public class TradeCommitExec {
 
         int toSpareCapacity = backpackFacade.getSpareCapacity(toPlayer);
         if (from.getItems().size() > toSpareCapacity) {
-            String notify = String.format("交易失败，[%s]背包空间不够", toPlayer.getName());
+            String notify = String.format("[%s]背包空间不够", toPlayer.getName());
             notify(notify, fromPlayer, toPlayer);
             return false;
         }
 
         int fromSpareCapacity = backpackFacade.getSpareCapacity(fromPlayer);
         if (to.getItems().size() > fromSpareCapacity) {
-            String notify = String.format("交易失败，[%s]背包空间不够", fromPlayer.getName());
+            String notify = String.format("[%s]背包空间不够", fromPlayer.getName());
             notify(notify, fromPlayer, toPlayer);
             return false;
         }

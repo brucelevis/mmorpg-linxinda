@@ -7,7 +7,6 @@ import com.wan37.event.SceneLeaveEvent;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.player.dao.PlayerDao;
-import io.netty.channel.Channel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,16 +27,12 @@ class PlayerOnOffline implements GeneralEventListener<OfflineEvent> {
 
     @Override
     public void execute(OfflineEvent offlineEvent) {
-        Channel channel = offlineEvent.getChannel();
-        Player player = playerGlobalManager.getPlayerByChannel(channel);
-        if (player == null) {
-            return;
-        }
+        Player player = offlineEvent.getPlayer();
 
         // 玩家数据持久化
         playerDao.save(player.getPlayerDb());
 
-        playerGlobalManager.removeFromOnlineList(channel);
+        playerGlobalManager.removeFromOnlineList(player.getChannel());
         genernalEventListenersManager.fireEvent(new SceneLeaveEvent(player));
     }
 }

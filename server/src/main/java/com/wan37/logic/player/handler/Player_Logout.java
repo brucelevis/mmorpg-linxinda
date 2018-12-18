@@ -3,8 +3,9 @@ package com.wan37.logic.player.handler;
 import com.wan37.event.GenernalEventListenersManager;
 import com.wan37.event.OfflineEvent;
 import com.wan37.handler.GeneralHandler;
+import com.wan37.logic.player.Player;
+import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.server.GeneralReqMsg;
-import io.netty.channel.Channel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +15,17 @@ class Player_Logout implements GeneralHandler {
     @Autowired
     private GenernalEventListenersManager genernalEventListenersManager;
 
+    @Autowired
+    private PlayerGlobalManager playerGlobalManager;
+
     @Override
     public void handle(GeneralReqMsg msg) {
-        Channel channel = msg.getChannel();
-        genernalEventListenersManager.fireEvent(new OfflineEvent(channel));
+        Player player = playerGlobalManager.getPlayerByChannel(msg.getChannel());
+        if (player == null) {
+            return;
+        }
 
-        channel.writeAndFlush("下线成功\n");
+        genernalEventListenersManager.fireEvent(new OfflineEvent(player));
+        player.syncClient("下线成功");
     }
 }

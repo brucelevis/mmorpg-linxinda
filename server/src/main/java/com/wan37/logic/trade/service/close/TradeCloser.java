@@ -2,6 +2,7 @@ package com.wan37.logic.trade.service.close;
 
 import com.wan37.logic.backpack.BackpackFacade;
 import com.wan37.logic.player.Player;
+import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.props.ResourceFacade;
 import com.wan37.logic.props.resource.impl.ResourceCollectionImpl;
 import com.wan37.logic.props.resource.impl.ResourceElementImpl;
@@ -26,11 +27,27 @@ public class TradeCloser {
     @Autowired
     private ResourceFacade resourceFacade;
 
-    public void close(GTrade trade) {
-        trade.getTradePlayerMap().values().forEach(this::closeTrade);
+    @Autowired
+    private PlayerGlobalManager playerGlobalManager;
 
-        trade.getTradePlayerMap().clear();
-        tradeGlobalManager.rmTrade(trade.getUid());
+    public void close(GTrade trade) {
+        try {
+            trade.getLock().lock();
+
+            trade.getTradePlayerMap().values().stream()
+                    .map(TradePlayer::getPlayer)
+                    .filter(p -> playerGlobalManager.isOnline(p.getUid()))
+                    .forEach(p -> p.syncClient("交易关闭"));
+
+            trade.getTradePlayerMap().values().forEach(this::closeTrade);
+
+            trade.getTradePlayerMap().clear();
+            tradeGlobalManager.rmTrade(trade.getUid());
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            trade.getLock().unlock();
+        }
     }
 
     private void closeTrade(TradePlayer tradePlayer) {

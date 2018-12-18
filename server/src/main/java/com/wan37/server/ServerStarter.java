@@ -7,8 +7,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class ServerStarter {
 
+    public static ClassPathXmlApplicationContext springContext;
+
     public static void main(String[] args) {
-        new ClassPathXmlApplicationContext("applicationContext.xml");
+        springContext = new ClassPathXmlApplicationContext("applicationContext.xml");
         new NettyServer().start();
     }
 }
