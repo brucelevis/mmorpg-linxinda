@@ -19,4 +19,8 @@ public interface IPlayer {
     Long getLeagueUid();
 
     ITrade getTrade();
+
+    void setTeamUid(Long uid);
+
+    Long getTeamUid();
 }

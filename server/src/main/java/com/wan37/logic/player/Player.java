@@ -99,6 +99,16 @@ public class Player implements FightingUnit, IPlayer {
         return trade;
     }
 
+    @Override
+    public void setTeamUid(Long uid) {
+        playerDb.setTeamUid(uid);
+    }
+
+    @Override
+    public Long getTeamUid() {
+        return playerDb.getTeamUid();
+    }
+
     public void setTrade(ITrade trade) {
         this.trade = trade;
     }

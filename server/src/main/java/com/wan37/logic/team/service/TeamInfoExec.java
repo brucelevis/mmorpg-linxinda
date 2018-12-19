@@ -1,0 +1,56 @@
+package com.wan37.logic.team.service;
+
+import com.wan37.exception.GeneralErrorExecption;
+import com.wan37.logic.faction.config.FactionCfgLoader;
+import com.wan37.logic.player.Player;
+import com.wan37.logic.player.PlayerGlobalManager;
+import com.wan37.logic.team.TeamGlobalManager;
+import com.wan37.logic.team.entity.ITeam;
+import com.wan37.logic.team.entity.ITeamMember;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+@Service
+public class TeamInfoExec {
+
+    @Autowired
+    private TeamGlobalManager teamGlobalManager;
+
+    @Autowired
+    private PlayerGlobalManager playerGlobalManager;
+
+    @Autowired
+    private FactionCfgLoader factionCfgLoader;
+
+    public void exec(Player player) {
+        if (player.getTeamUid() == null) {
+            throw new GeneralErrorExecption("未加入组队");
+        }
+
+        ITeam team = teamGlobalManager.getTeam(player.getTeamUid());
+        String msg = encodeTeam(team);
+        player.syncClient(msg);
+    }
+
+    private String encodeTeam(ITeam team) {
+        String head = "组队信息如下：\n";
+        String msg = team.getMembers().stream()
+                .map(m -> encodeTeamMember(m, team.getLeaderUid()))
+                .collect(Collectors.joining("\n"));
+
+        return head + msg;
+    }
+
+    private String encodeTeamMember(ITeamMember member, Long leaderUid) {
+        Long playerUid = member.getPlayerUid();
+        Player player = playerGlobalManager.getPlayerByUid(playerUid);
+        boolean isOnline = playerGlobalManager.isOnline(playerUid);
+
+        return String.format("%s（playerUid：%s） %s lv%s %s（%s）", player.getName(), player.getUid(),
+                factionCfgLoader.getFactionName(player.getFactionId()), player.getLevel(),
+                Objects.equals(leaderUid, playerUid) ? "队长" : "成员", isOnline ? "在线" : "离线");
+    }
+}

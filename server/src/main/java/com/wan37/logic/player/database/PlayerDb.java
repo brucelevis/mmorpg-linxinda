@@ -109,6 +109,8 @@ public class PlayerDb {
 
     private volatile Long leagueUid;
 
+    private volatile Long teamUid;
+
     public Long getUid() {
         return uid;
     }
@@ -275,6 +277,14 @@ public class PlayerDb {
 
     public void setLeagueUid(Long leagueUid) {
         this.leagueUid = leagueUid;
+    }
+
+    public Long getTeamUid() {
+        return teamUid;
+    }
+
+    public void setTeamUid(Long teamUid) {
+        this.teamUid = teamUid;
     }
 
     /**

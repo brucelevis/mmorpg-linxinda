@@ -186,7 +186,30 @@ trade_Close
 #确认交易
 trade_Commit 
 
+####################### 组队系统 #############################
 
+#创建组队
+team_Create 
 
+#显示队伍信息
+team_Info
+
+#解散组队（未做）
+team_Dissolve
+
+#退出组队（未做）
+team_Quit
+
+#组队踢人（未做）
+team_Kick playerUid
+
+#组队邀请（未做）
+team_Invite playerUid
+
+#同意加入组队（未做）
+team_Accept teamUid
+
+#拒绝加入组队（未做）
+team_Reject teamUid
 
 
