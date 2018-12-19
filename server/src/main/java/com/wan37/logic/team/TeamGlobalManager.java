@@ -25,4 +25,8 @@ public class TeamGlobalManager {
     public ITeam getTeam(Long uid) {
         return teamMap.get(uid);
     }
+
+    public void rmTeam(Long uid) {
+        teamMap.remove(uid);
+    }
 }

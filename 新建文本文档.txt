@@ -194,13 +194,13 @@ team_Create
 #显示队伍信息
 team_Info
 
-#解散组队（未做）
+#解散组队
 team_Dissolve
 
 #退出组队
 team_Quit
 
-#组队踢人（未做）
+#组队踢人
 team_Kick playerUid
 
 #组队邀请

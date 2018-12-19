@@ -22,7 +22,8 @@ class TeamOnLogin implements GeneralEventListener<LoginEvent> {
         }
 
         ITeam team = teamGlobalManager.getTeam(player.getTeamUid());
-        if (team != null) {
+        if (team != null && team.getMember(player.getUid()) != null) {
+            // 组队存在且还在队伍里
             return;
         }
 
