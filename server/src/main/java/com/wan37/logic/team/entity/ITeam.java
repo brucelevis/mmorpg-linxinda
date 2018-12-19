@@ -24,4 +24,6 @@ public interface ITeam {
     void rmMember(Long playerUid);
 
     List<ITeamMember> getMembers();
+
+    ITeamMember getMember(Long playerUid);
 }

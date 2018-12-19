@@ -57,6 +57,11 @@ class ITeamImpl implements ITeam {
         return new ArrayList<>(members.values());
     }
 
+    @Override
+    public ITeamMember getMember(Long playerUid) {
+        return members.get(playerUid);
+    }
+
     private final Long uid;
     private final Lock lock;
     private final Map<Long, ITeamMember> members;
