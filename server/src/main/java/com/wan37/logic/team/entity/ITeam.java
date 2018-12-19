@@ -26,4 +26,6 @@ public interface ITeam {
     List<ITeamMember> getMembers();
 
     ITeamMember getMember(Long playerUid);
+
+    void broadcast(String msg);
 }

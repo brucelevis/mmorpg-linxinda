@@ -1,5 +1,6 @@
 package com.wan37.logic.team.entity.impl;
 
+import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.team.entity.ITeam;
 import com.wan37.logic.team.entity.ITeamMember;
 
@@ -10,10 +11,11 @@ import java.util.concurrent.locks.Lock;
 
 class ITeamImpl implements ITeam {
 
-    public ITeamImpl(Long uid, Lock lock, Map<Long, ITeamMember> members, Long leaderUid) {
+    public ITeamImpl(Long uid, Lock lock, Map<Long, ITeamMember> members, PlayerGlobalManager playerGlobalManager, Long leaderUid) {
         this.uid = uid;
         this.lock = lock;
         this.members = members;
+        this.playerGlobalManager = playerGlobalManager;
         this.leaderUid = leaderUid;
     }
 
@@ -62,9 +64,18 @@ class ITeamImpl implements ITeam {
         return members.get(playerUid);
     }
 
+    @Override
+    public void broadcast(String msg) {
+        members.values().stream()
+                .filter(ITeamMember::isOnline)
+                .map(m -> playerGlobalManager.getPlayerByUid(m.getPlayerUid()))
+                .forEach(p -> p.syncClient(msg));
+    }
+
     private final Long uid;
     private final Lock lock;
     private final Map<Long, ITeamMember> members;
+    private final PlayerGlobalManager playerGlobalManager;
 
     private Long leaderUid;
 }

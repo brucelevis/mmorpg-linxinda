@@ -197,7 +197,7 @@ team_Info
 #解散组队（未做）
 team_Dissolve
 
-#退出组队（未做）
+#退出组队
 team_Quit
 
 #组队踢人（未做）
@@ -206,7 +206,7 @@ team_Kick playerUid
 #组队邀请
 team_Invite playerUid
 
-#同意加入组队（未做）
+#同意加入组队
 team_Accept teamUid
 
 #拒绝加入组队
