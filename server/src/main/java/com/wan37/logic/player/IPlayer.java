@@ -1,5 +1,6 @@
 package com.wan37.logic.player;
 
+import com.wan37.logic.mission.entity.IMission;
 import com.wan37.logic.trade.entity.ITrade;
 
 public interface IPlayer {
@@ -19,6 +20,8 @@ public interface IPlayer {
     Long getLeagueUid();
 
     ITrade getTrade();
+
+    IMission getMission();
 
     void setTeamUid(Long uid);
 

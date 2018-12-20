@@ -1,8 +1,9 @@
-package com.wan37.logic.npc.config;
+package com.wan37.logic.mission.config;
 
 import com.wan37.config.ConfigManager;
-import com.wan37.config.entity.NpcCfgExcel;
-import com.wan37.logic.npc.config.impl.NpcCfgImpl;
+import com.wan37.config.GeneralCfgLoader;
+import com.wan37.config.entity.MissionCfgExcel;
+import com.wan37.logic.mission.config.impl.MissionCfgImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,26 +13,22 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class NpcCfgLoader {
+public class MissionCfgLoader implements GeneralCfgLoader<MissionCfg> {
 
     @Autowired
     private ConfigManager configManager;
 
-    public List<NpcCfg> loads() {
-        return configManager.loads(NpcCfgExcel.class).stream()
-                .map(NpcCfgImpl::new)
+    @Override
+    public List<MissionCfg> loads() {
+        return configManager.loads(MissionCfgExcel.class).stream()
+                .map(MissionCfgImpl::new)
                 .collect(Collectors.toList());
     }
 
-    public Optional<NpcCfg> load(Integer id) {
+    @Override
+    public Optional<MissionCfg> load(Integer id) {
         return loads().stream()
                 .filter(c -> Objects.equals(c.getId(), id))
                 .findAny();
-    }
-
-    public String loadName(Integer id) {
-        return load(id)
-                .map(NpcCfg::getName)
-                .orElse("NULL");
     }
 }

@@ -11,6 +11,7 @@ import com.wan37.logic.equipment.database.convert.EquipDbConverterImpl;
 import com.wan37.logic.friend.database.FriendDb;
 import com.wan37.logic.friend.database.FriendRequestDb;
 import com.wan37.logic.mail.database.MailDb;
+import com.wan37.logic.mission.database.MissionDb;
 import com.wan37.logic.skill.database.PlayerSkillDb;
 import com.wan37.logic.skill.database.convert.PlayerSkillDbConverterImpl;
 import com.wan37.logic.strength.database.PlayerStrengthDb;
@@ -106,6 +107,10 @@ public class PlayerDb {
 
     @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<FriendRequestDb> requestList;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "player_uid")
+    private MissionDb missionDb;
 
     private volatile Long leagueUid;
 
@@ -269,6 +274,14 @@ public class PlayerDb {
 
     public void setRequestList(Set<FriendRequestDb> requestList) {
         this.requestList = requestList;
+    }
+
+    public MissionDb getMissionDb() {
+        return missionDb;
+    }
+
+    public void setMissionDb(MissionDb missionDb) {
+        this.missionDb = missionDb;
     }
 
     public Long getLeagueUid() {

@@ -8,6 +8,7 @@ import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.currency.database.CurrencyDb;
 import com.wan37.logic.equipment.database.EquipDb;
 import com.wan37.logic.friend.database.FriendDb;
+import com.wan37.logic.mission.database.MissionDb;
 import com.wan37.logic.player.dao.PlayerDao;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.skill.database.PlayerSkillDb;
@@ -45,6 +46,7 @@ public class PlayerDbInitializer {
         initSkills(playerDb);
         initPlayerStrength(playerDb);
         initFriend(playerDb);
+        initMission(playerDb);
 
         playerDao.save(playerDb);
     }
@@ -146,5 +148,18 @@ public class PlayerDbInitializer {
         newDb.setPlayer(playerDb);
 
         playerDb.setFriendDb(newDb);
+    }
+
+    private void initMission(PlayerDb playerDb) {
+        MissionDb missionDb = playerDb.getMissionDb();
+        if (missionDb != null) {
+            return;
+        }
+
+        MissionDb newDb = new MissionDb();
+        newDb.setId(playerDb.getUid());
+        newDb.setMissions(new HashSet<>());
+
+        playerDb.setMissionDb(newDb);
     }
 }
