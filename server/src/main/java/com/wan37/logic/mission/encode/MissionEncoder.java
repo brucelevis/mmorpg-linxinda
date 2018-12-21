@@ -26,10 +26,11 @@ public class MissionEncoder {
     @Autowired
     private PropsCfgLoader propsCfgLoader;
 
-    public String encode(MissionCfg missionCfg) {
-        return String.format("任务（id：%s）：%s（%s：%s）\n描述：%s\n奖励：%s，exp×%s", missionCfg.getId(), missionCfg.getName(),
+    public String encode(MissionCfg missionCfg, boolean canComplete) {
+        return String.format("%s任务（id：%s）：%s（%s：%s）\n描述：%s\n完成条件：%s\n奖励：%s，exp×%s",
+                canComplete ? "（可完成） " : "", missionCfg.getId(), missionCfg.getName(),
                 sceneCfgLoader.loadName(missionCfg.getSceneId()), npcCfgLoader.loadName(missionCfg.getNpcId()),
-                missionCfg.getDesc(), encodeReward(missionCfg), missionCfg.getExp());
+                missionCfg.getDesc(), missionCfg.getDetail(), encodeReward(missionCfg), missionCfg.getExp());
     }
 
     private String encodeReward(MissionCfg missionCfg) {

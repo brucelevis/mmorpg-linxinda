@@ -15,6 +15,9 @@ public class MissionCfgExcel {
     private long exp;
     private Integer npcId;
     private Integer sceneId;
+    private Integer type;
+    private Integer targetId;
+    private int args;
 
     public Integer getId() {
         return id;
@@ -118,5 +121,29 @@ public class MissionCfgExcel {
 
     public void setSceneId(Integer sceneId) {
         this.sceneId = sceneId;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public Integer getTargetId() {
+        return targetId;
+    }
+
+    public void setTargetId(Integer targetId) {
+        this.targetId = targetId;
+    }
+
+    public int getArgs() {
+        return args;
+    }
+
+    public void setArgs(int args) {
+        this.args = args;
     }
 }

@@ -7,7 +7,7 @@ import com.wan37.logic.dungeon.config.DungeonRewardCfg;
 import com.wan37.logic.dungeon.scene.DungeonScene;
 import com.wan37.logic.mail.gm.GmMail;
 import com.wan37.logic.mail.gm.MailGmSender;
-import com.wan37.logic.mail.gm.impl.GmMailImpl;
+import com.wan37.logic.mail.init.GmMailCreator;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.props.ResourceFacade;
 import com.wan37.logic.props.config.PropsCfgLoader;
@@ -18,16 +18,11 @@ import com.wan37.logic.props.resource.impl.ResourceCollectionImpl;
 import com.wan37.logic.props.resource.impl.ResourceElementImpl;
 import com.wan37.logic.scene.scene.SceneFacade;
 import com.wan37.logic.scene.temporary.TemporarySceneGlobalManager;
-import com.wan37.util.DateTimeUtils;
 import com.wan37.util.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
@@ -53,6 +48,9 @@ public class DungeonCompleteHandler {
 
     @Autowired
     private MailGmSender mailGmSender;
+
+    @Autowired
+    private GmMailCreator gmMailCreator;
 
     public void handle(DungeonScene scene) {
         DungeonCfg dungeonCfg = scene.getDungeonCfg();
@@ -105,18 +103,11 @@ public class DungeonCompleteHandler {
             String title = String.format("%s奖励", dungeonCfg.getName());
             String content = String.format("英勇的%s，恭喜你通关%s", player.getName(), dungeonCfg.getName());
 
-            GmMail gmMail = createGmMail(title, content, player.getUid(), reward);
+            GmMail gmMail = gmMailCreator.create(title, content, player.getUid(), reward);
             mailGmSender.send(gmMail);
         }
 
         // 回到安全村
         sceneFacade.enterScene(1000, player);
-    }
-
-    private GmMail createGmMail(String title, String content, Long toPlayerUid, ResourceCollection rewards) {
-        LocalDateTime today_end = LocalDateTime.of(LocalDate.now(), LocalTime.MAX);
-        long expireTime = DateTimeUtils.toEpochMilli(today_end) + TimeUnit.DAYS.toMillis(7);
-
-        return new GmMailImpl("Gm管理员", title, content, expireTime, toPlayerUid, rewards);
     }
 }

@@ -29,4 +29,10 @@ public interface MissionCfg {
     Integer getNpcId();
 
     Integer getSceneId();
+
+    Integer getType();
+
+    Integer getTargetId();
+
+    int getArgs();
 }

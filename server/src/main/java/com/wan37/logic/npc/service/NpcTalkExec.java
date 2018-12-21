@@ -4,6 +4,7 @@ import com.wan37.exception.GeneralErrorExecption;
 import com.wan37.logic.mission.MissionCanAcceptListGetter;
 import com.wan37.logic.mission.config.MissionCfg;
 import com.wan37.logic.mission.encode.MissionEncoder;
+import com.wan37.logic.mission.entity.IPlayerMission;
 import com.wan37.logic.npc.config.NpcCfg;
 import com.wan37.logic.npc.config.NpcCfgLoader;
 import com.wan37.logic.player.Player;
@@ -32,19 +33,34 @@ public class NpcTalkExec {
 
         //TODO: 检查场景npc
 
-        List<MissionCfg> npcMission = missionCanAcceptListGetter.get(player.getLevel(), player.getMission()).stream()
+        // 可接受的该Npc的任务
+        List<MissionCfg> canAcceptList = missionCanAcceptListGetter.get(player.getLevel(), player.getMission()).stream()
                 .filter(c -> Objects.equals(c.getNpcId(), npcId))
                 .collect(Collectors.toList());
 
-        if (npcMission.isEmpty()) {
+        // 正在进行的该Npc的任务
+        List<IPlayerMission> proceedingList = player.getMission().getProceedingList().stream()
+                .filter(m -> Objects.equals(m.getMissionCfg().getNpcId(), npcId))
+                .collect(Collectors.toList());
+
+        if (canAcceptList.isEmpty() && proceedingList.isEmpty()) {
             // 没任务
             player.syncClient(npcCfg.getTalk());
             return;
         }
 
-        String msg = npcMission.stream()
-                .map(c -> missionEncoder.encode(c))
-                .collect(Collectors.joining("\n----------------------------------------\n"));
-        player.syncClient(msg);
+        if (!canAcceptList.isEmpty()) {
+            String msg = canAcceptList.stream()
+                    .map(c -> missionEncoder.encode(c, false))
+                    .collect(Collectors.joining("\n----------------------------------------\n"));
+            player.syncClient(msg);
+        }
+
+        if (!proceedingList.isEmpty()) {
+            String msg = proceedingList.stream()
+                    .map(m -> missionEncoder.encode(m.getMissionCfg(), m.canComplete()))
+                    .collect(Collectors.joining("\n----------------------------------------\n"));
+            player.syncClient(msg);
+        }
     }
 }

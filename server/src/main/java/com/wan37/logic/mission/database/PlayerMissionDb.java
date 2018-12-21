@@ -14,9 +14,16 @@ public class PlayerMissionDb {
 
     private Integer missionId;
 
+    /**
+     * 进度
+     */
+    private int progress;
+
     private long acceptTime;
 
     private long completeTime;
+
+    private boolean canComplete;
 
     @Column(name = "player_uid")
     private Long playerUid;
@@ -59,5 +66,21 @@ public class PlayerMissionDb {
 
     public void setPlayerUid(Long playerUid) {
         this.playerUid = playerUid;
+    }
+
+    public int getProgress() {
+        return progress;
+    }
+
+    public void setProgress(int progress) {
+        this.progress = progress;
+    }
+
+    public boolean isCanComplete() {
+        return canComplete;
+    }
+
+    public void setCanComplete(boolean canComplete) {
+        this.canComplete = canComplete;
     }
 }

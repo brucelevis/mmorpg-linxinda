@@ -87,6 +87,21 @@ public class MissionCfgImpl implements MissionCfg {
         return cfgExcel.getSceneId();
     }
 
+    @Override
+    public Integer getType() {
+        return cfgExcel.getType();
+    }
+
+    @Override
+    public Integer getTargetId() {
+        return cfgExcel.getTargetId();
+    }
+
+    @Override
+    public int getArgs() {
+        return cfgExcel.getArgs();
+    }
+
     private MissionRewardCfg createReward(String s) {
         String[] reward = s.split(":");
         Integer id = Integer.parseInt(reward[0]);

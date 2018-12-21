@@ -1,6 +1,9 @@
 package com.wan37.logic.mission.service;
 
+import com.wan37.behavior.BehaviorManager;
 import com.wan37.exception.GeneralErrorExecption;
+import com.wan37.logic.mission.complete.behavior.MissionCompleteBehavior;
+import com.wan37.logic.mission.complete.behavior.MissionCompleteContext;
 import com.wan37.logic.mission.config.MissionCfg;
 import com.wan37.logic.mission.config.MissionCfgLoader;
 import com.wan37.logic.mission.database.PlayerMissionDb;
@@ -25,6 +28,9 @@ public class MissionAcceptExec {
 
     @Autowired
     private IdTool idTool;
+
+    @Autowired
+    private BehaviorManager behaviorManager;
 
     public void exec(Player player, Integer missionId) {
         MissionCfg missionCfg = missionCfgLoader.load(missionId)
@@ -53,6 +59,11 @@ public class MissionAcceptExec {
 
         String msg = String.format("你领取了[%s]任务", missionCfg.getName());
         player.syncClient(msg);
+
+        // 任务完成检查
+        MissionCompleteBehavior behavior = (MissionCompleteBehavior) behaviorManager.get(
+                MissionCompleteBehavior.class, playerMission.getMissionCfg().getType());
+        behavior.behave(new MissionCompleteContext(player, playerMission));
     }
 
     private IPlayerMission createPlayerMission(Long playerUid, Integer missionId) {
@@ -65,6 +76,7 @@ public class MissionAcceptExec {
         db.setId(idTool.generate());
         db.setMissionId(missionId);
         db.setPlayerUid(playerUid);
+        db.setCanComplete(false);
         db.setAcceptTime(DateTimeUtils.toEpochMilli(LocalDateTime.now()));
         return db;
     }

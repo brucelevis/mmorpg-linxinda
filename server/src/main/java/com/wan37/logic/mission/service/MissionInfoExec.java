@@ -45,7 +45,7 @@ public class MissionInfoExec {
 
         // 等级达到，前置完成，没做过且不是正在进行
         String list = missionCanAcceptListGetter.get(playerLv, iMission).stream()
-                .map(c -> missionEncoder.encode(c))
+                .map(c -> missionEncoder.encode(c, false))
                 .collect(Collectors.joining(SEPARATOR));
 
         return head + list;
@@ -71,6 +71,6 @@ public class MissionInfoExec {
         MissionCfg missionCfg = missionCfgLoader.load(playerMission.getMissionId())
                 .orElseThrow(() -> new RuntimeException("任务配置表错误"));
 
-        return missionEncoder.encode(missionCfg);
+        return missionEncoder.encode(missionCfg, playerMission.canComplete());
     }
 }

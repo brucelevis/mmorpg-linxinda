@@ -20,4 +20,6 @@ public interface IMission {
     List<IPlayerMission> getCompleteList();
 
     List<IPlayerMission> getProceedingList();
+
+    IPlayerMission getPlayerMission(Integer missionId);
 }

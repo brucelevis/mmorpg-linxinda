@@ -47,6 +47,11 @@ class IMissionImpl implements IMission {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public IPlayerMission getPlayerMission(Integer missionId) {
+        return missionMap.get(missionId);
+    }
+
     private final MissionDb missionDb;
     private final Map<Integer, IPlayerMission> missionMap;
 }

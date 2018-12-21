@@ -220,7 +220,7 @@ mission_Info
 #接任务
 mission_Accept missionId
 
-#提交任务（未做）
+#提交任务
 mission_Commit missionId
 
 #Npc对话
