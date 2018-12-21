@@ -52,6 +52,7 @@ public class FriendAcceptExec {
         }
 
         genernalEventListenersManager.fireEvent(new FriendAddEvent(from));
+        genernalEventListenersManager.fireEvent(new FriendAddEvent(player));
     }
 
     public void rmRequest(PlayerDb playerDb, Long fromUid) {

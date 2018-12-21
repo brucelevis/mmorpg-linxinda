@@ -9,4 +9,6 @@ public interface EquipCfg {
     Integer getPart();
 
     List<EquipInitAttrCfg> getAttrs();
+
+    int getLevel();
 }

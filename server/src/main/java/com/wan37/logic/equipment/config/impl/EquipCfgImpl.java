@@ -31,6 +31,11 @@ public class EquipCfgImpl implements EquipCfg {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public int getLevel() {
+        return cfgExcel.getLevel();
+    }
+
     private EquipInitAttrCfgImpl createAttr(String attrStr) {
         String[] s = attrStr.split(":");
 

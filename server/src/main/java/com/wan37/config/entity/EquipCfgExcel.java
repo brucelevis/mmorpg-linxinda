@@ -5,6 +5,7 @@ public class EquipCfgExcel {
     private Integer id;
     private String attr;
     private Integer part;
+    private int level;
 
     public Integer getId() {
         return id;
@@ -28,5 +29,13 @@ public class EquipCfgExcel {
 
     public void setPart(Integer part) {
         this.part = part;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }

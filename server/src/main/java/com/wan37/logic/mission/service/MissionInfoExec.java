@@ -37,7 +37,9 @@ public class MissionInfoExec {
         String proceedingList = encodeProceedingList(player.getMission());
         String completeList = encodeCompleteList(player.getMission());
 
-        return head + canAcceptList + proceedingList + completeList;
+        return head + canAcceptList + "\n"
+                + proceedingList + "\n"
+                + completeList;
     }
 
     private String encodeCanAcceptList(int playerLv, IMission iMission) {

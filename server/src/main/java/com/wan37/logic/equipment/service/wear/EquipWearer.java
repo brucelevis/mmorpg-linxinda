@@ -1,6 +1,7 @@
 package com.wan37.logic.equipment.service.wear;
 
 import com.google.common.collect.ImmutableList;
+import com.wan37.event.EquipWearEvent;
 import com.wan37.event.GenernalEventListenersManager;
 import com.wan37.event.StrengthChangeEvent;
 import com.wan37.logic.backpack.BackpackFacade;
@@ -57,6 +58,9 @@ public class EquipWearer {
         equipUpdateNotifier.notify(player);
 
         // 触发战力面板变化事件
+        //FIXME: event写错了
         genernalEventListenersManager.fireEvent(new StrengthChangeEvent(player.getUid()));
+
+        genernalEventListenersManager.fireEvent(new EquipWearEvent(player));
     }
 }
