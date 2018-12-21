@@ -1,5 +1,7 @@
 package com.wan37.logic.friend.service;
 
+import com.wan37.event.FriendAddEvent;
+import com.wan37.event.GenernalEventListenersManager;
 import com.wan37.exception.GeneralErrorExecption;
 import com.wan37.logic.friend.database.FriendDb;
 import com.wan37.logic.friend.database.FriendRequestDb;
@@ -17,6 +19,9 @@ public class FriendAcceptExec {
 
     @Autowired
     private PlayerGlobalManager playerGlobalManager;
+
+    @Autowired
+    private GenernalEventListenersManager genernalEventListenersManager;
 
     public void exec(Player player, Long id) {
         PlayerDb playerDb = player.getPlayerDb();
@@ -45,6 +50,8 @@ public class FriendAcceptExec {
         if (playerGlobalManager.isOnline(fromUid)) {
             from.syncClient(String.format("%s接受了你的好友请求", player.getName()));
         }
+
+        genernalEventListenersManager.fireEvent(new FriendAddEvent(from));
     }
 
     public void rmRequest(PlayerDb playerDb, Long fromUid) {
