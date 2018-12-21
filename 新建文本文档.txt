@@ -223,7 +223,8 @@ mission_Accept missionId
 #提交任务（未做）
 mission_Commit missionId
 
-
+#Npc对话
+Npc_Talk npcId
 
 
 

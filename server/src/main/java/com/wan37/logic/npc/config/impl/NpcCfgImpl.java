@@ -5,19 +5,24 @@ import com.wan37.logic.npc.config.NpcCfg;
 
 public class NpcCfgImpl implements NpcCfg {
 
-    public NpcCfgImpl(NpcCfgExcel npcCfgExcel) {
-        this.npcCfgExcel = npcCfgExcel;
+    public NpcCfgImpl(NpcCfgExcel cfgExcel) {
+        this.cfgExcel = cfgExcel;
     }
 
     @Override
     public Integer getId() {
-        return npcCfgExcel.getId();
+        return cfgExcel.getId();
     }
 
     @Override
     public String getName() {
-        return npcCfgExcel.getName();
+        return cfgExcel.getName();
     }
 
-    private final NpcCfgExcel npcCfgExcel;
+    @Override
+    public String getTalk() {
+        return cfgExcel.getTalk();
+    }
+
+    private final NpcCfgExcel cfgExcel;
 }

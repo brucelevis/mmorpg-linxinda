@@ -5,4 +5,6 @@ public interface NpcCfg {
     Integer getId();
 
     String getName();
+
+    String getTalk();
 }
