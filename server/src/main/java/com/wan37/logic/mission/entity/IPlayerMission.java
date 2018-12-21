@@ -23,4 +23,8 @@ public interface IPlayerMission {
     boolean canComplete();
 
     void setCanComplete(boolean canComplete);
+
+    int getProgress();
+
+    void setProgress(int progress);
 }

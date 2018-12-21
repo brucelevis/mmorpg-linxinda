@@ -45,7 +45,8 @@ public class NpcTalkExec {
 
         if (canAcceptList.isEmpty() && proceedingList.isEmpty()) {
             // 没任务
-            player.syncClient(npcCfg.getTalk());
+            String msg = String.format("【%s】 %s", npcCfg.getName(), npcCfg.getTalk());
+            player.syncClient(msg);
             return;
         }
 

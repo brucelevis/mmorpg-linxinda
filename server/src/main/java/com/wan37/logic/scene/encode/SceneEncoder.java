@@ -65,7 +65,7 @@ public class SceneEncoder {
     }
 
     private String encodeNpc(Npc npc) {
-        String msg = "名字：%s ";
-        return String.format(msg, npc.getName());
+        String msg = "名字：%s （cfgId：%s）";
+        return String.format(msg, npc.getName(), npc.getCfgId());
     }
 }

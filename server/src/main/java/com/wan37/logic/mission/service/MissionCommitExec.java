@@ -11,6 +11,7 @@ import com.wan37.logic.mission.entity.IMission;
 import com.wan37.logic.mission.entity.IPlayerMission;
 import com.wan37.logic.npc.config.NpcCfgLoader;
 import com.wan37.logic.player.Player;
+import com.wan37.logic.player.service.PlayerExpAdder;
 import com.wan37.logic.props.ResourceFacade;
 import com.wan37.logic.props.resource.ResourceCollection;
 import com.wan37.logic.props.resource.ResourceElement;
@@ -40,6 +41,9 @@ public class MissionCommitExec {
 
     @Autowired
     private GmMailCreator gmMailCreator;
+
+    @Autowired
+    private PlayerExpAdder playerExpAdder;
 
     public void exec(Player player, Integer missionId) {
         IMission iMission = player.getMission();
@@ -76,6 +80,9 @@ public class MissionCommitExec {
             GmMail gmMail = gmMailCreator.create(title, title, player.getUid(), rewards);
             mailGmSender.send(gmMail);
         }
+
+        // 奖励经验
+        playerExpAdder.add(player, missionCfg.getExp());
     }
 
     private ResourceCollection getRewards(MissionCfg missionCfg) {
