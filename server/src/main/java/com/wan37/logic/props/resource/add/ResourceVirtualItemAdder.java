@@ -1,5 +1,7 @@
 package com.wan37.logic.props.resource.add;
 
+import com.wan37.event.GenernalEventListenersManager;
+import com.wan37.event.VirtualItemAddEvent;
 import com.wan37.logic.currency.database.CurrencyDb;
 import com.wan37.logic.currency.database.CurrencyItemDb;
 import com.wan37.logic.player.Player;
@@ -14,6 +16,9 @@ public class ResourceVirtualItemAdder {
 
     @Autowired
     private VirtualItemCfgLoader virtualItemCfgLoader;
+
+    @Autowired
+    private GenernalEventListenersManager genernalEventListenersManager;
 
     public boolean add(ResourceElement element, Player player) {
         Integer cfgId = element.getCfgId();
@@ -39,6 +44,9 @@ public class ResourceVirtualItemAdder {
 
         itemDb.setAmount(itemDb.getAmount() + amount);
         currencyDb.getIds().add(cfgId);
+
+        // 抛出加钱事件
+        genernalEventListenersManager.fireEvent(new VirtualItemAddEvent(element.getCfgId(), element.getAmount(), player));
 
         return true;
     }

@@ -41,7 +41,6 @@ public class MonsterDieHandler {
             if (player != null && Objects.equals(player.getSceneId(), sceneId)) {
                 // 还在当前场景的最后攻击怪物的人获得经验
                 int exp = monster.getMonsterCfg().getExp();
-                player.syncClient(String.format("获得%s经验", exp));
                 playerExpAdder.add(player, exp);
             }
         }

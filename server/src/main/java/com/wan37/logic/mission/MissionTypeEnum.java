@@ -4,7 +4,8 @@ public enum MissionTypeEnum {
 
     MISSION_TYPE_1(1, "击杀怪物"),
     MISSION_TYPE_2(2, "提升等级"),
-    MISSION_TYPE_3(3, "npc对话");
+    MISSION_TYPE_3(3, "npc对话"),
+    MISSION_TYPE_4(4, "某种虚物达到多少");
 
     private Integer id;
     private String name;

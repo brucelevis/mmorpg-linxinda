@@ -27,6 +27,8 @@ public class PlayerExpAdder {
     private GenernalEventListenersManager genernalEventListenersManager;
 
     public void add(Player player, long exp) {
+        player.syncClient(String.format("获得%s经验", exp));
+
         List<ExpCfg> cfgList = expCfgLoader.loads().stream()
                 .filter(c -> player.getLevel() <= c.getId())
                 .sorted(Comparator.comparingInt(ExpCfg::getId))

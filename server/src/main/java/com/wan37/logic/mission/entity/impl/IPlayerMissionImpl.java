@@ -46,6 +46,16 @@ class IPlayerMissionImpl implements IPlayerMission {
         playerMissionDb.setCanComplete(canComplete);
     }
 
+    @Override
+    public int getProgress() {
+        return playerMissionDb.getProgress();
+    }
+
+    @Override
+    public void setProgress(int progress) {
+        playerMissionDb.setProgress(progress);
+    }
+
     private final PlayerMissionDb playerMissionDb;
     private final MissionCfg missionCfg;
 }
