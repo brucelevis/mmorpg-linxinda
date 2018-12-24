@@ -2,8 +2,13 @@ package com.wan37.logic.backpack.service.item.behavior;
 
 public class ItemExtraEncodeBehavContext {
 
-    public ItemExtraEncodeBehavContext(Object extraDb) {
+    public ItemExtraEncodeBehavContext(Integer cfgId, Object extraDb) {
+        this.cfgId = cfgId;
         this.extraDb = extraDb;
+    }
+
+    public Integer getCfgId() {
+        return cfgId;
     }
 
     public Object getExtraDb() {
@@ -18,6 +23,7 @@ public class ItemExtraEncodeBehavContext {
         this.result = result;
     }
 
+    private final Integer cfgId;
     private final Object extraDb;
     private String result;
 }

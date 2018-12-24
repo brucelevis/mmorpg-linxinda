@@ -9,6 +9,7 @@ import com.wan37.logic.equipment.database.EquipAttrDb;
 import com.wan37.logic.equipment.database.EquipExtraDb;
 import com.wan37.logic.props.behavior.init.PropsInitBehavior;
 import com.wan37.logic.props.behavior.init.PropsInitContext;
+import com.wan37.util.RandomUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,7 +42,7 @@ class PropsInitBehav1 implements PropsInitBehavior {
         EquipExtraDb extraDb = new EquipExtraDb();
 
         //FIXME: 初始耐久度先写死
-        extraDb.setDurabilityv(70);
+        extraDb.setDurabilityv(100);
 
         extraDb.setBaseAttrs(equipCfg.getAttrs().stream()
                 .map(this::createAttr)
@@ -53,7 +54,7 @@ class PropsInitBehav1 implements PropsInitBehavior {
     private EquipAttrDb createAttr(EquipInitAttrCfg cfg) {
         EquipAttrDb db = new EquipAttrDb();
         db.setCfgId(cfg.getAttrCfgId());
-        db.setValue(cfg.getValue());
+        db.setValue(cfg.getBaseValue() + cfg.getStep() * RandomUtil.rand(cfg.getMaxRandInt()));
 
         db.setName(attrCfgLoader.load(cfg.getAttrCfgId())
                 .map(AttrCfg::getName)

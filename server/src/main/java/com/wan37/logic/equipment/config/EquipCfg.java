@@ -11,4 +11,6 @@ public interface EquipCfg {
     List<EquipInitAttrCfg> getAttrs();
 
     int getLevel();
+
+    List<EquipQualityCfg> getQuality();
 }

@@ -34,5 +34,10 @@ public class AttrCfgImpl implements AttrCfg {
         return cfgExcel.getBaseDefenseValue();
     }
 
+    @Override
+    public int getEquipBaseScore() {
+        return cfgExcel.getEquipBaseScore();
+    }
+
     private final AttrCfgExcel cfgExcel;
 }

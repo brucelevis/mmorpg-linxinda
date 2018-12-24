@@ -7,6 +7,7 @@ public class AttrCfgExcel {
     private String desc;
     private double baseAttackValue;
     private double baseDefenseValue;
+    private int equipBaseScore;
 
     public Integer getId() {
         return id;
@@ -46,5 +47,13 @@ public class AttrCfgExcel {
 
     public void setBaseDefenseValue(double baseDefenseValue) {
         this.baseDefenseValue = baseDefenseValue;
+    }
+
+    public int getEquipBaseScore() {
+        return equipBaseScore;
+    }
+
+    public void setEquipBaseScore(int equipBaseScore) {
+        this.equipBaseScore = equipBaseScore;
     }
 }

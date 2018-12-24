@@ -11,4 +11,6 @@ public interface AttrCfg {
     double getBaseAttackValue();
 
     double getBaseDefenseValue();
+
+    int getEquipBaseScore();
 }

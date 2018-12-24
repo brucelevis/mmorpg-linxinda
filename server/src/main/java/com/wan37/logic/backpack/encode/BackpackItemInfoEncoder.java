@@ -30,7 +30,7 @@ public class BackpackItemInfoEncoder {
         Integer type = propsCfg.getType();
         ItemExtraEncodeBehavior behavior = (ItemExtraEncodeBehavior) behaviorManager.get(ItemExtraEncodeBehavior.class, type);
 
-        ItemExtraEncodeBehavContext ctx = new ItemExtraEncodeBehavContext(itemDb.getExtraDb());
+        ItemExtraEncodeBehavContext ctx = new ItemExtraEncodeBehavContext(itemDb.getCfgId(), itemDb.getExtraDb());
         behavior.behave(ctx);
 
         return baseMsg + ctx.getResult();

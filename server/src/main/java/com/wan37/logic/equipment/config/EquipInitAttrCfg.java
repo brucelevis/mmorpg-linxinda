@@ -4,5 +4,9 @@ public interface EquipInitAttrCfg {
 
     Integer getAttrCfgId();
 
-    double getValue();
+    double getBaseValue();
+
+    double getStep();
+
+    int getMaxRandInt();
 }

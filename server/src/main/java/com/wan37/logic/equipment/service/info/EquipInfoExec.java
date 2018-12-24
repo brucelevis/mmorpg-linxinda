@@ -47,7 +47,7 @@ public class EquipInfoExec {
         String partName = EquipPartEnum.getName(part);
 
         ItemExtraEncodeBehavior behavior = (ItemExtraEncodeBehavior) behaviorManager.get(ItemExtraEncodeBehavior.class, propsCfg.getType());
-        ItemExtraEncodeBehavContext ctx = new ItemExtraEncodeBehavContext(itemDb.getExtraDb());
+        ItemExtraEncodeBehavContext ctx = new ItemExtraEncodeBehavContext(itemDb.getCfgId(), itemDb.getExtraDb());
         behavior.behave(ctx);
 
         String msg = "部位：%s（partId：%s），名字：%s, %s";

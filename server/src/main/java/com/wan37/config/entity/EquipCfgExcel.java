@@ -6,6 +6,7 @@ public class EquipCfgExcel {
     private String attr;
     private Integer part;
     private int level;
+    private String quality;
 
     public Integer getId() {
         return id;
@@ -37,5 +38,13 @@ public class EquipCfgExcel {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public String getQuality() {
+        return quality;
+    }
+
+    public void setQuality(String quality) {
+        this.quality = quality;
     }
 }
