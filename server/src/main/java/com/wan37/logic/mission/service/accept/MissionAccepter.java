@@ -1,13 +1,10 @@
-package com.wan37.logic.mission.service;
+package com.wan37.logic.mission.service.accept;
 
 import com.wan37.behavior.BehaviorManager;
-import com.wan37.exception.GeneralErrorExecption;
 import com.wan37.logic.mission.complete.behavior.MissionCompleteBehavior;
 import com.wan37.logic.mission.complete.behavior.MissionCompleteContext;
 import com.wan37.logic.mission.config.MissionCfg;
-import com.wan37.logic.mission.config.MissionCfgLoader;
 import com.wan37.logic.mission.database.PlayerMissionDb;
-import com.wan37.logic.mission.entity.IMission;
 import com.wan37.logic.mission.entity.IPlayerMission;
 import com.wan37.logic.player.Player;
 import com.wan37.util.DateTimeUtils;
@@ -18,10 +15,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 
 @Service
-public class MissionAcceptExec {
-
-    @Autowired
-    private MissionCfgLoader missionCfgLoader;
+public class MissionAccepter {
 
     @Autowired
     private IPlayerMission.Factory playerMissionFactory;
@@ -32,30 +26,9 @@ public class MissionAcceptExec {
     @Autowired
     private BehaviorManager behaviorManager;
 
-    public void exec(Player player, Integer missionId) {
-        MissionCfg missionCfg = missionCfgLoader.load(missionId)
-                .orElseThrow(() -> new GeneralErrorExecption("找不到对应的任务配置表"));
-
-        if (player.getLevel() < missionCfg.getLevel()) {
-            throw new GeneralErrorExecption("等级不足");
-        }
-
-        IMission iMission = player.getMission();
-        if (iMission.hadCompleted(missionId)) {
-            throw new GeneralErrorExecption("任务已经完成");
-        }
-
-        if (iMission.isProceeding((missionId))) {
-            throw new GeneralErrorExecption("正在进行的任务");
-        }
-
-        Integer preId = missionCfg.getPreId();
-        if (preId != null && !iMission.hadCompleted(preId)) {
-            throw new GeneralErrorExecption("前置任务未完成");
-        }
-
-        IPlayerMission playerMission = createPlayerMission(player.getUid(), missionId);
-        iMission.acceptMission(playerMission);
+    public void accept(Player player, MissionCfg missionCfg) {
+        IPlayerMission playerMission = createPlayerMission(player.getUid(), missionCfg.getId());
+        player.getMission().acceptMission(playerMission);
 
         String msg = String.format("你领取了[%s]任务", missionCfg.getName());
         player.syncClient(msg);

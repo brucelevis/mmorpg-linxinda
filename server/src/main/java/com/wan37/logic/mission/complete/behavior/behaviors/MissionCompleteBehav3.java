@@ -1,10 +1,12 @@
 package com.wan37.logic.mission.complete.behavior.behaviors;
 
+import com.wan37.logic.mission.complete.MissionCompleteHandler;
 import com.wan37.logic.mission.complete.behavior.MissionCompleteBehavior;
 import com.wan37.logic.mission.complete.behavior.MissionCompleteContext;
 import com.wan37.logic.mission.config.MissionCfg;
 import com.wan37.logic.mission.entity.IPlayerMission;
 import com.wan37.logic.player.Player;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,6 +14,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 class MissionCompleteBehav3 implements MissionCompleteBehavior {
+
+    @Autowired
+    private MissionCompleteHandler missionCompleteHandler;
 
     @Override
     public void behave(MissionCompleteContext context) {
@@ -28,5 +33,9 @@ class MissionCompleteBehav3 implements MissionCompleteBehavior {
 
         String msg = String.format("[%s]任务完成", missionCfg.getName());
         player.syncClient(msg);
+
+        if (missionCfg.isAutoCommit()) {
+            missionCompleteHandler.handle(player, playerMission);
+        }
     }
 }

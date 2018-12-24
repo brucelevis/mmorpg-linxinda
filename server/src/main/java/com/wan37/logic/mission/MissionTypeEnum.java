@@ -7,7 +7,8 @@ public enum MissionTypeEnum {
     MISSION_TYPE_3(3, "npc对话"),
     MISSION_TYPE_4(4, "某种虚物达到多少"),
     MISSION_TYPE_5(5, "添加一个好友"),
-    MISSION_TYPE_6(6, "装备穿戴等级总和达到多少");
+    MISSION_TYPE_6(6, "装备穿戴等级总和达到多少"),
+    MISSION_TYPE_7(7, "第一次加入组队");
 
     private Integer id;
     private String name;

@@ -1,5 +1,6 @@
 package com.wan37.logic.mission.complete.behavior.behaviors;
 
+import com.wan37.logic.mission.complete.MissionCompleteHandler;
 import com.wan37.logic.mission.complete.behavior.MissionCompleteBehavior;
 import com.wan37.logic.mission.complete.behavior.MissionCompleteContext;
 import com.wan37.logic.mission.entity.IPlayerMission;
@@ -17,6 +18,9 @@ class MissionCompleteBehav5 implements MissionCompleteBehavior {
     @Autowired
     private PlayerGlobalManager playerGlobalManager;
 
+    @Autowired
+    private MissionCompleteHandler missionCompleteHandler;
+
     @Override
     public void behave(MissionCompleteContext context) {
         Player player = context.getPlayer();
@@ -31,6 +35,8 @@ class MissionCompleteBehav5 implements MissionCompleteBehavior {
         if (playerGlobalManager.isOnline(player.getUid())) {
             String msg = String.format("[%s]任务完成", playerMission.getMissionCfg().getName());
             player.syncClient(msg);
+
+            missionCompleteHandler.handle(player, playerMission);
         }
     }
 }

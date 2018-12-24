@@ -102,6 +102,16 @@ public class MissionCfgImpl implements MissionCfg {
         return cfgExcel.getArgs();
     }
 
+    @Override
+    public boolean isAutoCommit() {
+        return cfgExcel.isAutoCommit();
+    }
+
+    @Override
+    public boolean isAutoAccept() {
+        return cfgExcel.isAutoAccept();
+    }
+
     private MissionRewardCfg createReward(String s) {
         String[] reward = s.split(":");
         Integer id = Integer.parseInt(reward[0]);

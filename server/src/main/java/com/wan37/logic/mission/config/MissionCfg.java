@@ -35,4 +35,8 @@ public interface MissionCfg {
     Integer getTargetId();
 
     int getArgs();
+
+    boolean isAutoCommit();
+
+    boolean isAutoAccept();
 }

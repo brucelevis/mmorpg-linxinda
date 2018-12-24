@@ -1,7 +1,7 @@
 package com.wan37.logic.mission.handler;
 
 import com.wan37.handler.GeneralHandler;
-import com.wan37.logic.mission.service.MissionAcceptExec;
+import com.wan37.logic.mission.service.accept.MissionAcceptExec;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.server.GeneralReqMsg;

@@ -18,6 +18,8 @@ public class MissionCfgExcel {
     private Integer type;
     private Integer targetId;
     private int args;
+    private boolean autoAccept;
+    private boolean autoCommit;
 
     public Integer getId() {
         return id;
@@ -145,5 +147,21 @@ public class MissionCfgExcel {
 
     public void setArgs(int args) {
         this.args = args;
+    }
+
+    public boolean isAutoAccept() {
+        return autoAccept;
+    }
+
+    public void setAutoAccept(boolean autoAccept) {
+        this.autoAccept = autoAccept;
+    }
+
+    public boolean isAutoCommit() {
+        return autoCommit;
+    }
+
+    public void setAutoCommit(boolean autoCommit) {
+        this.autoCommit = autoCommit;
     }
 }

@@ -1,5 +1,7 @@
 package com.wan37.logic.team.service;
 
+import com.wan37.event.GenernalEventListenersManager;
+import com.wan37.event.TeamJoinEvent;
 import com.wan37.exception.GeneralErrorExecption;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.team.TeamGlobalManager;
@@ -19,6 +21,9 @@ public class TeamAcceptExec {
 
     @Autowired
     private ITeamMember.Factory teamMemberFactory;
+
+    @Autowired
+    private GenernalEventListenersManager genernalEventListenersManager;
 
     public void exec(Player player, Long teamUid) {
         if (player.getTeamUid() != null) {
@@ -51,5 +56,8 @@ public class TeamAcceptExec {
         } finally {
             team.unLock();
         }
+
+        // 抛出加入组队事件
+        genernalEventListenersManager.fireEvent(new TeamJoinEvent(player));
     }
 }

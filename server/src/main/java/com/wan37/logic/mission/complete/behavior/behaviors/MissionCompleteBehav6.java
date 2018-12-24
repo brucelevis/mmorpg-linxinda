@@ -3,6 +3,7 @@ package com.wan37.logic.mission.complete.behavior.behaviors;
 import com.wan37.logic.equipment.config.EquipCfg;
 import com.wan37.logic.equipment.config.EquipCfgLoader;
 import com.wan37.logic.equipment.database.EquipDb;
+import com.wan37.logic.mission.complete.MissionCompleteHandler;
 import com.wan37.logic.mission.complete.behavior.MissionCompleteBehavior;
 import com.wan37.logic.mission.complete.behavior.MissionCompleteContext;
 import com.wan37.logic.mission.config.MissionCfg;
@@ -21,6 +22,9 @@ class MissionCompleteBehav6 implements MissionCompleteBehavior {
 
     @Autowired
     private EquipCfgLoader equipCfgLoader;
+
+    @Autowired
+    private MissionCompleteHandler missionCompleteHandler;
 
     @Override
     public void behave(MissionCompleteContext context) {
@@ -45,5 +49,7 @@ class MissionCompleteBehav6 implements MissionCompleteBehavior {
 
         String msg = String.format("[%s]任务完成", playerMission.getMissionCfg().getName());
         player.syncClient(msg);
+
+        missionCompleteHandler.handle(player, playerMission);
     }
 }
