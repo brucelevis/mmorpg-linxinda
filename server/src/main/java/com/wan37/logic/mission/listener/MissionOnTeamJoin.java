@@ -23,6 +23,7 @@ class MissionOnTeamJoin implements GeneralEventListener<TeamJoinEvent> {
 
         player.getMission().getProceedingList().stream()
                 .filter(m -> Objects.equals(m.getMissionCfg().getType(), MissionTypeEnum.MISSION_TYPE_7.getId()))
+                .filter(m -> !m.canComplete())
                 .forEach(m -> completeImpl(player, m));
     }
 

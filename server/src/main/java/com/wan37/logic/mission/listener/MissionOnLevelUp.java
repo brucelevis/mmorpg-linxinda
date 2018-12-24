@@ -31,6 +31,7 @@ class MissionOnLevelUp implements GeneralEventListener<LevelUpEvent> {
 
         player.getMission().getProceedingList().stream()
                 .filter(m -> Objects.equals(m.getMissionCfg().getType(), MissionTypeEnum.MISSION_TYPE_2.getId()))
+                .filter(m -> !m.canComplete())
                 .forEach(m -> missionCompleteChecker.check(player, m));
 
         // 自动接取任务

@@ -22,6 +22,7 @@ class MissionOnMissionComplete implements GeneralEventListener<MissionCompleteEv
 
         player.getMission().getProceedingList().stream()
                 .filter(m -> Objects.equals(m.getMissionCfg().getType(), MissionTypeEnum.MISSION_TYPE_10.getId()))
+                .filter(m -> !m.canComplete())
                 .forEach(m -> missionCompleteChecker.check(player, m));
     }
 }

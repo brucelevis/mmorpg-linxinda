@@ -24,6 +24,7 @@ class MissionOnVituralItemAdd implements GeneralEventListener<VirtualItemAddEven
         player.getMission().getProceedingList().stream()
                 .filter(m -> Objects.equals(m.getMissionCfg().getType(), MissionTypeEnum.MISSION_TYPE_4.getId()))
                 .filter(m -> Objects.equals(m.getMissionCfg().getTargetId(), cfgId))
+                .filter(m -> !m.canComplete())
                 .forEach(m -> missionCompleteChecker.check(player, m));
     }
 }
