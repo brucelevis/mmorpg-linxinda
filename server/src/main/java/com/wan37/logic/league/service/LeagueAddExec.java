@@ -1,5 +1,7 @@
 package com.wan37.logic.league.service;
 
+import com.wan37.event.GenernalEventListenersManager;
+import com.wan37.event.LeagueJoinEvent;
 import com.wan37.exception.GeneralErrorExecption;
 import com.wan37.logic.league.LeagueGlobalManager;
 import com.wan37.logic.league.LeaguePermissionEnum;
@@ -24,6 +26,9 @@ public class LeagueAddExec {
 
     @Autowired
     private ILeagueMember.Factory leagueMemberFactory;
+
+    @Autowired
+    private GenernalEventListenersManager genernalEventListenersManager;
 
     public void exec(Player player, Player target) {
         if (player.getLeagueUid() == null) {
@@ -58,6 +63,9 @@ public class LeagueAddExec {
         // 公会广播
         String msg = String.format("【公会】 恭喜[%s]加入[%s]", target.getName(), league.getName());
         league.notifyAll(msg);
+
+        // 抛出加入公会事件
+        genernalEventListenersManager.fireEvent(new LeagueJoinEvent(target));
     }
 
     private LeagueMemberDb createMember(Long playerUid) {

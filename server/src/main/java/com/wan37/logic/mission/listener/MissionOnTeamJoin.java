@@ -27,7 +27,6 @@ class MissionOnTeamJoin implements GeneralEventListener<TeamJoinEvent> {
     }
 
     private void completeImpl(Player player, IPlayerMission playerMission) {
-        // npc对话进度
         playerMission.setProgress(1);
         missionCompleteChecker.check(player, playerMission);
     }

@@ -3,9 +3,8 @@ package com.wan37.logic.mission.complete.behavior.behaviors;
 import com.wan37.logic.equipment.config.EquipCfg;
 import com.wan37.logic.equipment.config.EquipCfgLoader;
 import com.wan37.logic.equipment.database.EquipDb;
-import com.wan37.logic.mission.complete.MissionCompleteHandler;
-import com.wan37.logic.mission.complete.behavior.MissionCompleteBehavior;
-import com.wan37.logic.mission.complete.behavior.MissionCompleteContext;
+import com.wan37.logic.mission.complete.behavior.MissionCompleteCheckBehavior;
+import com.wan37.logic.mission.complete.behavior.MissionCompleteCheckContext;
 import com.wan37.logic.mission.config.MissionCfg;
 import com.wan37.logic.mission.entity.IPlayerMission;
 import com.wan37.logic.player.Player;
@@ -18,16 +17,13 @@ import java.util.Optional;
  * @see com.wan37.logic.mission.MissionTypeEnum#MISSION_TYPE_6
  */
 @Service
-class MissionCompleteBehav6 implements MissionCompleteBehavior {
+class MissionCompleteCheckBehav6 implements MissionCompleteCheckBehavior {
 
     @Autowired
     private EquipCfgLoader equipCfgLoader;
 
-    @Autowired
-    private MissionCompleteHandler missionCompleteHandler;
-
     @Override
-    public void behave(MissionCompleteContext context) {
+    public void behave(MissionCompleteCheckContext context) {
         Player player = context.getPlayer();
         EquipDb equipDb = player.getPlayerDb().getEquipDb();
 
@@ -44,12 +40,6 @@ class MissionCompleteBehav6 implements MissionCompleteBehavior {
             return;
         }
 
-        // 设置任务可以完成
-        playerMission.setCanComplete(true);
-
-        String msg = String.format("[%s]任务完成", playerMission.getMissionCfg().getName());
-        player.syncClient(msg);
-
-        missionCompleteHandler.handle(player, playerMission);
+        context.setResult(true);
     }
 }

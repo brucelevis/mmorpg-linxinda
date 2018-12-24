@@ -1,7 +1,7 @@
 package com.wan37.logic.mission.listener;
 
-import com.wan37.event.FriendAddEvent;
 import com.wan37.event.GeneralEventListener;
+import com.wan37.event.LeagueJoinEvent;
 import com.wan37.logic.mission.MissionTypeEnum;
 import com.wan37.logic.mission.complete.MissionCompleteChecker;
 import com.wan37.logic.mission.entity.IPlayerMission;
@@ -12,17 +12,17 @@ import org.springframework.stereotype.Service;
 import java.util.Objects;
 
 @Service
-class MissionOnFriendAdd implements GeneralEventListener<FriendAddEvent> {
+class MissionOnLeagueJoin implements GeneralEventListener<LeagueJoinEvent> {
 
     @Autowired
     private MissionCompleteChecker missionCompleteChecker;
 
     @Override
-    public void execute(FriendAddEvent friendAddEvent) {
-        Player player = friendAddEvent.getPlayer();
+    public void execute(LeagueJoinEvent leagueJoinEvent) {
+        Player player = leagueJoinEvent.getPlayer();
 
         player.getMission().getProceedingList().stream()
-                .filter(m -> Objects.equals(m.getMissionCfg().getType(), MissionTypeEnum.MISSION_TYPE_5.getId()))
+                .filter(m -> Objects.equals(m.getMissionCfg().getType(), MissionTypeEnum.MISSION_TYPE_8.getId()))
                 .forEach(m -> completeImpl(player, m));
     }
 

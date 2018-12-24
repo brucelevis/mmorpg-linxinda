@@ -5,8 +5,10 @@ import com.wan37.logic.mail.gm.GmMail;
 import com.wan37.logic.mail.gm.MailGmSender;
 import com.wan37.logic.mail.init.GmMailCreator;
 import com.wan37.logic.mission.config.MissionCfg;
+import com.wan37.logic.mission.config.MissionCfgLoader;
 import com.wan37.logic.mission.config.MissionRewardCfg;
 import com.wan37.logic.mission.entity.IPlayerMission;
+import com.wan37.logic.mission.service.accept.MissionAccepter;
 import com.wan37.logic.npc.config.NpcCfgLoader;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.service.PlayerExpAdder;
@@ -43,6 +45,12 @@ public class MissionCompleteHandler {
     @Autowired
     private NpcCfgLoader npcCfgLoader;
 
+    @Autowired
+    private MissionAccepter missionAccepter;
+
+    @Autowired
+    private MissionCfgLoader missionCfgLoader;
+
     public void handle(Player player, IPlayerMission playerMission) {
         playerMission.setCanComplete(false);
         playerMission.setCompleteTime(DateTimeUtils.toEpochMilli(LocalDateTime.now()));
@@ -67,6 +75,13 @@ public class MissionCompleteHandler {
 
         // 奖励经验
         playerExpAdder.add(player, missionCfg.getExp());
+
+        if (missionCfg.getNextId() != null) {
+            // 有下一个任务
+            MissionCfg nextMissionCfg = missionCfgLoader.load(missionCfg.getNextId())
+                    .orElseThrow(() -> new RuntimeException("策划任务导表配置出错"));
+            missionAccepter.accept(player, nextMissionCfg);
+        }
     }
 
     private ResourceCollection getRewards(MissionCfg missionCfg) {

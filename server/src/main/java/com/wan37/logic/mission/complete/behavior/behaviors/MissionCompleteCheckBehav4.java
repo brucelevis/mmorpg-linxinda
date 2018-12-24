@@ -1,8 +1,7 @@
 package com.wan37.logic.mission.complete.behavior.behaviors;
 
-import com.wan37.logic.mission.complete.MissionCompleteHandler;
-import com.wan37.logic.mission.complete.behavior.MissionCompleteBehavior;
-import com.wan37.logic.mission.complete.behavior.MissionCompleteContext;
+import com.wan37.logic.mission.complete.behavior.MissionCompleteCheckBehavior;
+import com.wan37.logic.mission.complete.behavior.MissionCompleteCheckContext;
 import com.wan37.logic.mission.config.MissionCfg;
 import com.wan37.logic.mission.entity.IPlayerMission;
 import com.wan37.logic.player.Player;
@@ -14,16 +13,13 @@ import org.springframework.stereotype.Service;
  * @see com.wan37.logic.mission.MissionTypeEnum#MISSION_TYPE_4
  */
 @Service
-class MissionCompleteBehav4 implements MissionCompleteBehavior {
+class MissionCompleteCheckBehav4 implements MissionCompleteCheckBehavior {
 
     @Autowired
     private ResourceFacade resourceFacade;
 
-    @Autowired
-    private MissionCompleteHandler missionCompleteHandler;
-
     @Override
-    public void behave(MissionCompleteContext context) {
+    public void behave(MissionCompleteCheckContext context) {
         Player player = context.getPlayer();
         IPlayerMission playerMission = context.getPlayerMission();
         MissionCfg missionCfg = playerMission.getMissionCfg();
@@ -32,14 +28,6 @@ class MissionCompleteBehav4 implements MissionCompleteBehavior {
             return;
         }
 
-        // 设置任务可以完成
-        playerMission.setCanComplete(true);
-
-        String msg = String.format("[%s]任务完成", missionCfg.getName());
-        player.syncClient(msg);
-
-        if (missionCfg.isAutoCommit()) {
-            missionCompleteHandler.handle(player, playerMission);
-        }
+        context.setResult(true);
     }
 }
