@@ -1,5 +1,7 @@
 package com.wan37.logic.trade.service;
 
+import com.wan37.event.GenernalEventListenersManager;
+import com.wan37.event.TradeSuccessEvent;
 import com.wan37.exception.GeneralErrorExecption;
 import com.wan37.logic.backpack.BackpackFacade;
 import com.wan37.logic.player.Player;
@@ -31,6 +33,9 @@ public class TradeCommitExec {
 
     @Autowired
     private TradeCloser tradeCloser;
+
+    @Autowired
+    private GenernalEventListenersManager genernalEventListenersManager;
 
     public void exec(Player player) {
         ITrade iTrade = player.getTrade();
@@ -83,6 +88,10 @@ public class TradeCommitExec {
             toPlayer.syncClient("交易成功");
 
             finishTrade(trade);
+
+            // 抛出交易成功事件
+            genernalEventListenersManager.fireEvent(new TradeSuccessEvent(fromPlayer));
+            genernalEventListenersManager.fireEvent(new TradeSuccessEvent(toPlayer));
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

@@ -175,10 +175,10 @@ trade_Accept tradeUid
 trade_Reject tradeUid
 
 #加入背包物品
-trade_AddItem  index:amount
+trade_AddItem  index amount
 
 #加入钱
-trade_AddMoney cfgId:amount
+trade_AddMoney cfgId amount
 
 #交易取消
 trade_Close 
