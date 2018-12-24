@@ -16,7 +16,7 @@ class MissionCompleteCheckBehav2 implements MissionCompleteCheckBehavior {
     public void behave(MissionCompleteCheckContext context) {
         Player player = context.getPlayer();
         IPlayerMission playerMission = context.getPlayerMission();
-        if (player.getLevel() < playerMission.getMissionCfg().getArgs()) {
+        if (player.getLevel() < playerMission.getMissionCfg().getArgsAsInt()) {
             // 任务没完成;
             return;
         }

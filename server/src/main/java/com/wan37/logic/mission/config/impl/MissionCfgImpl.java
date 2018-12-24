@@ -7,6 +7,7 @@ import com.wan37.logic.mission.config.MissionRewardCfg;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class MissionCfgImpl implements MissionCfg {
@@ -98,8 +99,15 @@ public class MissionCfgImpl implements MissionCfg {
     }
 
     @Override
-    public int getArgs() {
-        return cfgExcel.getArgs();
+    public int getArgsAsInt() {
+        return Integer.parseInt(cfgExcel.getArgs());
+    }
+
+    @Override
+    public Set<Integer> getArgsAsIntSet() {
+        return Arrays.stream(cfgExcel.getArgs().split(","))
+                .map(Integer::parseInt)
+                .collect(Collectors.toSet());
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.wan37.logic.mission.complete;
 
+import com.wan37.event.GenernalEventListenersManager;
+import com.wan37.event.MissionCompleteEvent;
 import com.wan37.logic.backpack.BackpackFacade;
 import com.wan37.logic.mail.gm.GmMail;
 import com.wan37.logic.mail.gm.MailGmSender;
@@ -51,6 +53,9 @@ public class MissionCompleteHandler {
     @Autowired
     private MissionCfgLoader missionCfgLoader;
 
+    @Autowired
+    private GenernalEventListenersManager genernalEventListenersManager;
+
     public void handle(Player player, IPlayerMission playerMission) {
         playerMission.setCanComplete(false);
         playerMission.setCompleteTime(DateTimeUtils.toEpochMilli(LocalDateTime.now()));
@@ -82,6 +87,9 @@ public class MissionCompleteHandler {
                     .orElseThrow(() -> new RuntimeException("策划任务导表配置出错"));
             missionAccepter.accept(player, nextMissionCfg);
         }
+
+        // 抛出任务完成事件
+        genernalEventListenersManager.fireEvent(new MissionCompleteEvent(player));
     }
 
     private ResourceCollection getRewards(MissionCfg missionCfg) {

@@ -10,7 +10,8 @@ public enum MissionTypeEnum {
     MISSION_TYPE_6(6, "装备穿戴等级总和达到多少"),
     MISSION_TYPE_7(7, "第一次加入组队"),
     MISSION_TYPE_8(8, "第一次加入公会"),
-    MISSION_TYPE_9(9, "第一次与玩家交易成功");
+    MISSION_TYPE_9(9, "第一次与玩家交易成功"),
+    MISSION_TYPE_10(10, "完成系列任务");
 
     private Integer id;
     private String name;

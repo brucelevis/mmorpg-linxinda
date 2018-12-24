@@ -36,7 +36,7 @@ class MissionCompleteCheckBehav6 implements MissionCompleteCheckBehavior {
 
         IPlayerMission playerMission = context.getPlayerMission();
         MissionCfg missionCfg = playerMission.getMissionCfg();
-        if (totalEquipLv < missionCfg.getArgs()) {
+        if (totalEquipLv < missionCfg.getArgsAsInt()) {
             return;
         }
 

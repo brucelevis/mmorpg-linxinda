@@ -1,8 +1,6 @@
 package com.wan37.logic.mission.service.accept;
 
-import com.wan37.behavior.BehaviorManager;
-import com.wan37.logic.mission.complete.behavior.MissionCompleteCheckBehavior;
-import com.wan37.logic.mission.complete.behavior.MissionCompleteCheckContext;
+import com.wan37.logic.mission.complete.MissionCompleteChecker;
 import com.wan37.logic.mission.config.MissionCfg;
 import com.wan37.logic.mission.database.PlayerMissionDb;
 import com.wan37.logic.mission.entity.IPlayerMission;
@@ -24,7 +22,7 @@ public class MissionAccepter {
     private IdTool idTool;
 
     @Autowired
-    private BehaviorManager behaviorManager;
+    private MissionCompleteChecker missionCompleteChecker;
 
     public void accept(Player player, MissionCfg missionCfg) {
         IPlayerMission playerMission = createPlayerMission(player.getUid(), missionCfg.getId());
@@ -34,9 +32,7 @@ public class MissionAccepter {
         player.syncClient(msg);
 
         // 任务完成检查
-        MissionCompleteCheckBehavior behavior = (MissionCompleteCheckBehavior) behaviorManager.get(
-                MissionCompleteCheckBehavior.class, playerMission.getMissionCfg().getType());
-        behavior.behave(new MissionCompleteCheckContext(player, playerMission));
+        missionCompleteChecker.check(player, playerMission);
     }
 
     private IPlayerMission createPlayerMission(Long playerUid, Integer missionId) {

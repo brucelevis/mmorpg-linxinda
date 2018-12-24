@@ -17,7 +17,7 @@ public class MissionCfgExcel {
     private Integer sceneId;
     private Integer type;
     private Integer targetId;
-    private int args;
+    private String args;
     private boolean autoAccept;
     private boolean autoCommit;
 
@@ -141,11 +141,11 @@ public class MissionCfgExcel {
         this.targetId = targetId;
     }
 
-    public int getArgs() {
+    public String getArgs() {
         return args;
     }
 
-    public void setArgs(int args) {
+    public void setArgs(String args) {
         this.args = args;
     }
 

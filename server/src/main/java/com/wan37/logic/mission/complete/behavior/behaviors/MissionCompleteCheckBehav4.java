@@ -24,7 +24,7 @@ class MissionCompleteCheckBehav4 implements MissionCompleteCheckBehavior {
         IPlayerMission playerMission = context.getPlayerMission();
         MissionCfg missionCfg = playerMission.getMissionCfg();
 
-        if (resourceFacade.queryCurrency(missionCfg.getTargetId(), player) < missionCfg.getArgs()) {
+        if (resourceFacade.queryCurrency(missionCfg.getTargetId(), player) < missionCfg.getArgsAsInt()) {
             return;
         }
 

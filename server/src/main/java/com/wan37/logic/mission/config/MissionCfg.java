@@ -1,6 +1,7 @@
 package com.wan37.logic.mission.config;
 
 import java.util.List;
+import java.util.Set;
 
 public interface MissionCfg {
 
@@ -34,7 +35,9 @@ public interface MissionCfg {
 
     Integer getTargetId();
 
-    int getArgs();
+    int getArgsAsInt();
+
+    Set<Integer> getArgsAsIntSet();
 
     boolean isAutoCommit();
 
