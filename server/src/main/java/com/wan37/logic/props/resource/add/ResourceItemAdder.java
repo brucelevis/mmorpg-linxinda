@@ -1,5 +1,7 @@
 package com.wan37.logic.props.resource.add;
 
+import com.wan37.event.GenernalEventListenersManager;
+import com.wan37.event.ItemAddEvent;
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.backpack.database.ItemDb;
 import com.wan37.logic.backpack.service.find.BackpackEmptyIndexFinder;
@@ -34,6 +36,9 @@ public class ResourceItemAdder {
 
     @Autowired
     private BackpackExistItemFinder backpackExistItemFinder;
+
+    @Autowired
+    private GenernalEventListenersManager genernalEventListenersManager;
 
     public boolean add(ResourceElement element, Player player) {
         PropsCfg propsCfg = propsCfgLoader.load(element.getCfgId()).orElse(null);
@@ -108,6 +113,9 @@ public class ResourceItemAdder {
                 amount--;
             }
         }
+
+        // 抛出加物品事件
+        genernalEventListenersManager.fireEvent(new ItemAddEvent(propsCfg, (int) amount, player));
 
         return true;
     }
