@@ -13,7 +13,8 @@ public enum MissionTypeEnum {
     MISSION_TYPE_9(9, "第一次与玩家交易成功"),
     MISSION_TYPE_10(10, "完成系列任务"),
     MISSION_TYPE_11(11, "通关某个副本n次"),
-    MISSION_TYPE_12(12, "获得n件达到最高品级的装备");
+    MISSION_TYPE_12(12, "获得n件达到最高品级的装备"),
+    MISSION_TYPE_13(13, "第一次在pk中战胜");
 
     private Integer id;
     private String name;
