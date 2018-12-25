@@ -6,6 +6,7 @@ import com.wan37.logic.attr.config.AttrEnum;
 import com.wan37.logic.attr.database.PAttrDb;
 import com.wan37.logic.buff.IBuff;
 import com.wan37.logic.mission.entity.IMission;
+import com.wan37.logic.pk.entity.IPk;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.skill.ISkill;
 import com.wan37.logic.trade.entity.ITrade;
@@ -26,6 +27,7 @@ public class Player implements FightingUnit, IPlayer {
     private List<IBuff> buffs = new CopyOnWriteArrayList<>();
     private ITrade trade;
     private IMission mission;
+    private IPk pk;
 
     public Channel getChannel() {
         return channel;
@@ -108,6 +110,15 @@ public class Player implements FightingUnit, IPlayer {
     @Override
     public IMission getMission() {
         return mission;
+    }
+
+    @Override
+    public IPk getPk() {
+        return pk;
+    }
+
+    public void setPk(IPk pk) {
+        this.pk = pk;
     }
 
     public void setMission(IMission mission) {

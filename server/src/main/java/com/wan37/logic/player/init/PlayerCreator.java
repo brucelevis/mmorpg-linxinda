@@ -1,6 +1,7 @@
 package com.wan37.logic.player.init;
 
 import com.wan37.logic.mission.entity.IMission;
+import com.wan37.logic.pk.entity.impl.IPkImpl;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.skill.ISkill;
@@ -12,6 +13,7 @@ import io.netty.channel.Channel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Function;
@@ -43,6 +45,7 @@ public class PlayerCreator {
         player.setTrade(new ITradeImpl(null, new ReentrantLock()));
 
         player.setMission(missionFactory.create(playerDb.getMissionDb()));
+        player.setPk(new IPkImpl(new ReentrantLock(), new HashMap<>()));
         return player;
     }
 

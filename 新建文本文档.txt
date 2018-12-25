@@ -226,6 +226,15 @@ mission_Commit missionId
 #Npc对话
 Npc_Talk npcId
 
+########################  pk  ##################################
 
+#决斗邀请
+pk_Invite playerUid
+
+#拒绝决斗
+pk_Reject playerUid 
+
+#同意决斗
+pk_Accept playerUid
 
 

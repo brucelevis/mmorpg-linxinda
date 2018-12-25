@@ -23,6 +23,6 @@ class PlayerOnDie implements GeneralEventListener<DieEvent> {
         player.setDeadTime(now);
         player.getBuffs().clear();
 
-        player.syncClient("你已阵亡，倒计时10s传送到安全区域");
+        player.syncClient("你已阵亡，等待传送到安全区域");
     }
 }
