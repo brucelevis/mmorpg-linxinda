@@ -115,6 +115,8 @@ public class DungeonCompleteHandler {
         // 抛出副本完成事件
         genernalEventListenersManager.fireEvent(new DungeonCompleteEvent(player, dungeonCfg.getId()));
 
+        temporarySceneGlobalManager.removePlayerFromScene(player.getSceneUid(), player);
+
         // 回到安全村
         sceneFacade.enterScene(1000, player);
     }

@@ -76,6 +76,11 @@ public class DungeonCfgImpl implements DungeonCfg {
         return cfgExcel.getCompleteTip();
     }
 
+    @Override
+    public int getLimitNum() {
+        return cfgExcel.getLimitNum();
+    }
+
     private DungeonRewardCfg createReward(String s) {
         String[] reward = s.split(":");
 

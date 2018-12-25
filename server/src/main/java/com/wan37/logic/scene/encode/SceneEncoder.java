@@ -26,7 +26,7 @@ public class SceneEncoder {
     private SceneItemEncoder sceneItemEncoder;
 
     public String encode(AbstractScene scene) {
-        String sceneHead = String.format("当前场景：%s\n", scene.getName());
+        String sceneHead = String.format("\n当前场景：%s\n", scene.getName());
 
         String playerHead = "当前场景人物：\n";
         String players = scene.getPlayers().stream()

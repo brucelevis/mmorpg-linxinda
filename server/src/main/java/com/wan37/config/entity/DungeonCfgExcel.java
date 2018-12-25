@@ -10,6 +10,7 @@ public class DungeonCfgExcel {
     private String desc;
     private Integer sceneId;
     private String completeTip;
+    private int limitNum;
 
     public Integer getId() {
         return id;
@@ -73,5 +74,13 @@ public class DungeonCfgExcel {
 
     public void setCompleteTip(String completeTip) {
         this.completeTip = completeTip;
+    }
+
+    public int getLimitNum() {
+        return limitNum;
+    }
+
+    public void setLimitNum(int limitNum) {
+        this.limitNum = limitNum;
     }
 }

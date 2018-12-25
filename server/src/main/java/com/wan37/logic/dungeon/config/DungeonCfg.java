@@ -20,4 +20,6 @@ public interface DungeonCfg {
     Map<Integer, DungeonMonsterGroupCfg> getMonsters();
 
     String getCompleteTip();
+
+    int getLimitNum();
 }

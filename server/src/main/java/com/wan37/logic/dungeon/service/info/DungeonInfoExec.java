@@ -36,7 +36,8 @@ public class DungeonInfoExec {
     }
 
     private String encodeDungeon(DungeonCfg cfg) {
-        String msg = String.format("主题（id：%s）：%s （%s分钟）\n描述：%s", cfg.getId(), cfg.getName(), cfg.getLimitTime(), cfg.getDesc());
+        String msg = String.format("主题（id：%s）：%s （%s分钟）|要求：%s人以上\n描述：%s",
+                cfg.getId(), cfg.getName(), cfg.getLimitTime(), cfg.getLimitNum(), cfg.getDesc());
 
         String monsters = "消灭：" + cfg.getMonsters().values().stream()
                 .map(DungeonMonsterGroupCfg::getMonsters)

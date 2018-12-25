@@ -1,5 +1,6 @@
 package com.wan37.logic.monster.die;
 
+import com.google.common.collect.ImmutableList;
 import com.wan37.logic.monster.Monster;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
@@ -8,6 +9,9 @@ import com.wan37.logic.player.service.PlayerExpAdder;
 import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.scene.encode.SceneItemEncoder;
 import com.wan37.logic.scene.item.SceneItem;
+import com.wan37.logic.team.TeamGlobalManager;
+import com.wan37.logic.team.entity.ITeam;
+import com.wan37.logic.team.entity.ITeamMember;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,17 +37,18 @@ public class MonsterDieHandler {
     @Autowired
     private PlayerExpAdder playerExpAdder;
 
+    @Autowired
+    private TeamGlobalManager teamGlobalManager;
+
     public void handle(Monster monster, long now) {
         Long lastAttackUid = monster.getLastAttackId();
         Integer sceneId = monster.getSceneId();
-        if (playerGlobalManager.isOnline(lastAttackUid)) {
-            Player player = playerGlobalManager.getPlayerByUid(lastAttackUid);
-            if (player != null && Objects.equals(player.getSceneId(), sceneId)) {
-                // 还在当前场景的最后攻击怪物的人获得经验
-                int exp = monster.getMonsterCfg().getExp();
-                playerExpAdder.add(player, exp);
-            }
-        }
+
+        // 结算经验：最后攻击的人所在的队伍在线且在当前场景里就能分到经验
+        Player lastAttacker = playerGlobalManager.getPlayerByUid(lastAttackUid);
+        List<Player> playerList = getRelatedPlayerList(lastAttacker, sceneId);
+        int perExp = monster.getMonsterCfg().getExp() / playerList.size();
+        playerList.forEach(p -> playerExpAdder.add(p, perExp));
 
         monster.setHp(0);
         monster.setAlive(false);
@@ -64,5 +69,18 @@ public class MonsterDieHandler {
                     .collect(Collectors.joining("，"));
             scene.getPlayers().forEach(p -> p.syncClient(head + items));
         }
+    }
+
+    private List<Player> getRelatedPlayerList(Player player, Integer sceneId) {
+        if (player.getTeamUid() == null) {
+            return ImmutableList.of(player);
+        }
+
+        ITeam team = teamGlobalManager.getTeam(player.getTeamUid());
+        return team.getMembers().stream()
+                .filter(ITeamMember::isOnline)
+                .map(m -> playerGlobalManager.getPlayerByUid(m.getPlayerUid()))
+                .filter(p -> Objects.equals(p.getSceneId(), sceneId))
+                .collect(Collectors.toList());
     }
 }
