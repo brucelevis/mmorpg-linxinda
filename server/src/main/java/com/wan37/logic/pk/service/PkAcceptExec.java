@@ -54,7 +54,7 @@ public class PkAcceptExec {
 
                 if (myPk.isPking() || inviterPk.isPking()) {
                     // 有一方已经在pk了
-                    player.syncClient("请稍后再试");
+                    player.syncClient("有一方已在决斗");
                     return;
                 }
 
@@ -82,6 +82,8 @@ public class PkAcceptExec {
                 // 进入竞技场开始决斗
                 enterArena(inviter, arenaScene);
                 enterArena(player, arenaScene);
+            } else {
+                player.syncClient("请稍后再试");
             }
         } catch (Exception e) {
             e.printStackTrace();

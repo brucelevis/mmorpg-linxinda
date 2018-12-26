@@ -36,6 +36,8 @@ public class AttackP2PExec {
             throw new GeneralErrorExecption("该地图不允许攻击");
         }
 
+        //TODO: 竞技场才能攻击玩家
+
         ISkill skill = attacker.getSkills().get(skillId);
         // 攻击前检查
         if (!fightingBeforeChecker.check(attacker, target, skill)) {

@@ -1,5 +1,7 @@
 package com.wan37.logic.pk.schedule;
 
+import com.wan37.event.GenernalEventListenersManager;
+import com.wan37.event.PkWinEvent;
 import com.wan37.logic.pk.scene.ArenaScene;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.init.PlayerReviveInitializer;
@@ -16,6 +18,9 @@ public class ArenaPlayerCheckerScheduler {
     @Autowired
     private SceneFacade sceneFacade;
 
+    @Autowired
+    private GenernalEventListenersManager genernalEventListenersManager;
+
     public void schedule(ArenaScene scene) {
         // 检查死亡玩家并传送出场景
         scene.getPlayers().forEach(this::checkAndRevive);
@@ -24,7 +29,10 @@ public class ArenaPlayerCheckerScheduler {
         if (scene.getPlayers().size() == 1) {
             Player player = scene.getPlayers().get(0);
             player.syncClient("恭喜你！决斗胜利");
-            leave(player);
+            resetPkAndLeave(player);
+
+            // 抛出决斗胜利事件
+            genernalEventListenersManager.fireEvent(new PkWinEvent(player));
         }
     }
 
@@ -34,10 +42,13 @@ public class ArenaPlayerCheckerScheduler {
         }
 
         playerReviveInitializer.init(player);
-        leave(player);
+        resetPkAndLeave(player);
     }
 
-    private void leave(Player player) {
+    private void resetPkAndLeave(Player player) {
+        // 重置决斗标记
+        player.getPk().setPking(false);
+
         //FIXME: 写死默认复活安全场景
         Integer toSceneId = 1000;
         sceneFacade.forceSwitchScene(player, toSceneId);

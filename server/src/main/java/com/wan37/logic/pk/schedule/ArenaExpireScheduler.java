@@ -38,6 +38,12 @@ public class ArenaExpireScheduler {
 
     private void syncTipAndLeave(Player player) {
         player.syncClient("平手");
-        sceneFacade.enterScene(1000, player);
+
+        // 重置决斗标记
+        player.getPk().setPking(false);
+
+        //FIXME: 写死默认复活安全场景
+        Integer toSceneId = 1000;
+        sceneFacade.enterScene(toSceneId, player);
     }
 }
