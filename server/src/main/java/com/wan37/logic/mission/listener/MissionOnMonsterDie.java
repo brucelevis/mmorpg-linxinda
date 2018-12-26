@@ -1,0 +1,37 @@
+package com.wan37.logic.mission.listener;
+
+import com.wan37.event.GeneralEventListener;
+import com.wan37.event.MonsterDieEvent;
+import com.wan37.logic.mission.MissionTypeEnum;
+import com.wan37.logic.mission.complete.MissionCompleteChecker;
+import com.wan37.logic.mission.entity.IPlayerMission;
+import com.wan37.logic.monster.Monster;
+import com.wan37.logic.player.Player;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Objects;
+
+@Service
+class MissionOnMonsterDie implements GeneralEventListener<MonsterDieEvent> {
+
+    @Autowired
+    private MissionCompleteChecker missionCompleteChecker;
+
+    @Override
+    public void execute(MonsterDieEvent monsterDieEvent) {
+        Player attacker = monsterDieEvent.getAttacker();
+        Monster monster = monsterDieEvent.getMonster();
+
+        attacker.getMission().getProceedingList().stream()
+                .filter(m -> Objects.equals(m.getMissionCfg().getType(), MissionTypeEnum.MISSION_TYPE_1.getId()))
+                .filter(m -> Objects.equals(m.getMissionCfg().getTargetId(), monster.getMonsterCfg().getId()))
+                .filter(m -> !m.canComplete())
+                .forEach(m -> completeImpl(attacker, m));
+    }
+
+    private void completeImpl(Player player, IPlayerMission playerMission) {
+        playerMission.setProgress(playerMission.getProgress() + 1);
+        missionCompleteChecker.check(player, playerMission);
+    }
+}
