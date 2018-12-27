@@ -22,7 +22,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
- * 获取释放技能目标对象
+ * 获取人物释放技能目标对象
  */
 @Service
 public class PlayerSkillCastTargetsGetter {

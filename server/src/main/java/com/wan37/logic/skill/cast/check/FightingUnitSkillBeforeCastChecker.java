@@ -1,6 +1,8 @@
 package com.wan37.logic.skill.cast.check;
 
 import com.wan37.exception.GeneralErrorExecption;
+import com.wan37.logic.player.scene.SceneActorSceneGetter;
+import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.buff.BuffEffectEnum;
 import com.wan37.logic.buff.IBuff;
@@ -22,11 +24,19 @@ public class FightingUnitSkillBeforeCastChecker {
     @Autowired
     private PlayerSkillBeforeCastChecker playerSkillBeforeCastChecker;
 
+    @Autowired
+    private SceneActorSceneGetter sceneActorSceneGetter;
+
     public boolean check(FightingUnit caster, ISkill skill) {
         if (isPlayer(caster)) {
             // 攻击者是玩家需要特殊处理
             Player player = (Player) caster;
-            playerSkillBeforeCastChecker.check(player);
+            playerSkillBeforeCastChecker.check(player, skill);
+        }
+
+        AbstractScene scene = sceneActorSceneGetter.get(caster);
+        if (!scene.getSceneCfg().canAttack()) {
+            return throwIfIsPlayer(caster, "安全地图不能攻击");
         }
 
         if (!caster.isAlive()) {
@@ -38,12 +48,6 @@ public class FightingUnitSkillBeforeCastChecker {
         long interval = now - skill.getLastUseTime();
         if (interval < skill.getCdInterval()) {
             return throwIfIsPlayer(caster, "技能cd中，无法使用");
-        }
-
-        // 检查蓝量
-        int costMp = skill.getCostMp();
-        if (caster.getMp() < costMp) {
-            return throwIfIsPlayer(caster, "蓝量不足，无法攻击");
         }
 
         // 检查攻击者BUFF异常状态，如眩晕，封印，击飞等

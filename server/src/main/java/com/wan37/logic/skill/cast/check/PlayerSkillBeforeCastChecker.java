@@ -8,6 +8,7 @@ import com.wan37.logic.equipment.database.EquipExtraDb;
 import com.wan37.logic.equipment.service.EquipExtraDbGetter;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.database.PlayerDb;
+import com.wan37.logic.skill.entity.ISkill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class PlayerSkillBeforeCastChecker {
     @Autowired
     private EquipExtraDbGetter equipExtraDbGetter;
 
-    public void check(Player player) {
+    public void check(Player player, ISkill skill) {
         PlayerDb playerDb = player.getPlayerDb();
         EquipDb equipDb = playerDb.getEquipDb();
         ItemDb equipItem = equipDb.getItems().get(EquipPartEnum.PART_1.getId());
@@ -32,6 +33,12 @@ public class PlayerSkillBeforeCastChecker {
         if (equipExtraDb.getDurabilityv() < 20) {
             //FIXME: 写死攻击时武器耐久度要求
             throw new GeneralErrorExecption("武器耐久度过低，请及时修理");
+        }
+
+        // 检查蓝量
+        int costMp = skill.getCostMp();
+        if (player.getMp() < costMp) {
+            throw new GeneralErrorExecption("蓝量不足，无法施放技能");
         }
     }
 }

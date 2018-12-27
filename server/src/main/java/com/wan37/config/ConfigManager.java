@@ -1,6 +1,7 @@
 package com.wan37.config;
 
 import com.wan37.util.excel.ExcelUtils;
+import org.apache.log4j.Logger;
 import org.apache.poi.ss.formula.functions.T;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +14,20 @@ import java.util.Map;
 @Service
 public class ConfigManager {
 
+    private static final Logger LOG = Logger.getLogger(ConfigManager.class);
+
     private static final String EXCEL_PATH = "./server/docs";
 
     /**
      * key: class name
      */
     private static Map<String, List<T>> cfgMap = null;
+
+    private ConfigManager() {
+        LOG.info("开始初始化导表...");
+        init();
+        LOG.info("初始化导表完成");
+    }
 
     @SuppressWarnings("unchecked")
     public <V> List<V> loads(Class<V> clazz) {

@@ -1,29 +1,32 @@
 package com.wan37.logic.scene.schedule;
 
+import com.wan37.behavior.BehaviorManager;
 import com.wan37.logic.monster.Monster;
-import com.wan37.logic.monster.ai.MonsterAutoAttacker;
-import com.wan37.logic.player.Player;
-import com.wan37.logic.player.PlayerGlobalManager;
+import com.wan37.logic.monster.ai.MonsterSkillCastTargetsGetter;
 import com.wan37.logic.scene.base.AbstractScene;
+import com.wan37.logic.scene.base.FightingUnit;
+import com.wan37.logic.skill.cast.behavior.SkillEffectLogicBehavior;
+import com.wan37.logic.skill.cast.behavior.SkillEffectLogicContext;
+import com.wan37.logic.skill.cast.check.FightingUnitSkillBeforeCastChecker;
 import com.wan37.logic.skill.entity.ISkill;
-import com.wan37.util.DateTimeUtils;
 import com.wan37.util.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service
 public class SceneMonsterAiScheduler {
 
     @Autowired
-    private PlayerGlobalManager playerGlobalManager;
+    private MonsterSkillCastTargetsGetter monsterSkillCastTargetsGetter;
 
     @Autowired
-    private MonsterAutoAttacker monsterAutoAttacker;
+    private BehaviorManager behaviorManager;
+
+    @Autowired
+    private FightingUnitSkillBeforeCastChecker fightingUnitSkillBeforeCastChecker;
 
     public void schedule(AbstractScene scene) {
         scene.getMonsters().stream()
@@ -32,41 +35,28 @@ public class SceneMonsterAiScheduler {
     }
 
     private void autoAttack(Monster monster, AbstractScene scene) {
-        long now = DateTimeUtils.toEpochMilli(LocalDateTime.now());
-        ISkill skill = randSkill(monster, now);
+        ISkill skill = randSkill(monster);
         if (skill == null) {
             return;
         }
 
-        if (skill.isEffectAll()) {
-            // 全屏技能
-            monsterAutoAttacker.attack(monster, scene.getPlayers(), skill, scene);
+        if (!fightingUnitSkillBeforeCastChecker.check(monster, skill)) {
             return;
         }
 
-        Long lastAttackId = monster.getLastAttackId();
-        if (lastAttackId == null) {
+        List<FightingUnit> targetList = monsterSkillCastTargetsGetter.get(monster, skill.getSkillCfg(), scene);
+        if (targetList.isEmpty()) {
             return;
         }
 
-        Player player = playerGlobalManager.getPlayerByUid(lastAttackId);
-        if (player == null) {
-            return;
-        }
-
-        if (!Objects.equals(player.getSceneId(), monster.getSceneId())) {
-            monster.setLastAttackId(null);
-            return;
-        }
-
-        monsterAutoAttacker.attack(monster, player, skill, scene);
+        // 技能生效逻辑
+        SkillEffectLogicBehavior behavior = (SkillEffectLogicBehavior) behaviorManager.get(
+                SkillEffectLogicBehavior.class, skill.getSkillCfg().getEffectLogic());
+        behavior.behave(new SkillEffectLogicContext(monster, skill, targetList));
     }
 
-    private ISkill randSkill(Monster monster, long now) {
-        List<ISkill> skills = monster.getSkills().values().stream()
-                .filter(i -> i.getLastUseTime() + i.getCdInterval() <= now)
-                .collect(Collectors.toList());
-
+    private ISkill randSkill(Monster monster) {
+        List<ISkill> skills = new ArrayList<>(monster.getSkills().values());
         int size = skills.size();
         if (size == 0) {
             return null;
