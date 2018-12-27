@@ -24,7 +24,7 @@ public class FightingAttackHandler {
 
     public void handle(FightingUnit attacker, FightingUnit target, ISkill skill, AbstractScene scene) {
         double baseAttackVal = attacker.getBaseAttackVal();
-        double skillDemageAddition = skill.getDemageAddition();
+        double skillDemageAddition = skill.getEffectValue();
         long demage = Math.round(baseAttackVal * skillDemageAddition);
 
         long defense = target.getBaseDefenseVal();

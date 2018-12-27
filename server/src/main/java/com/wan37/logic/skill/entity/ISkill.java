@@ -26,9 +26,7 @@ public interface ISkill {
 
     int getCostMp();
 
-    double getDemageAddition();
+    double getEffectValue();
 
     SkillCfg getSkillCfg();
-
-    boolean isEffectAll();
 }

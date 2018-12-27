@@ -1,7 +1,7 @@
 package com.wan37.logic.scene.schedule;
 
 import com.wan37.logic.player.Player;
-import com.wan37.logic.player.service.addmp.FightingUnitMpAdder;
+import com.wan37.logic.player.service.FightingUnitMpAdder;
 import com.wan37.logic.scene.scene.Scene;
 import com.wan37.util.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;

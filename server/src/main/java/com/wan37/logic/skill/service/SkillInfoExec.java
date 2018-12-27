@@ -17,7 +17,7 @@ public class SkillInfoExec {
 
     public void exec(Player player) {
         PlayerSkillDb playerSkillDb = player.getPlayerDb().getPlayerSkillDb();
-        String msg = "技能列表|" + encode(playerSkillDb);
+        String msg = "技能列表：\n" + encode(playerSkillDb);
         player.syncClient(msg);
     }
 
@@ -25,7 +25,7 @@ public class SkillInfoExec {
     private String encode(PlayerSkillDb playerSkillDb) {
         return playerSkillDb.getSkills().values().stream()
                 .map(this::encodeSkill)
-                .collect(Collectors.joining("，"));
+                .collect(Collectors.joining("\n"));
     }
 
     public String encodeSkill(PSkillDb pSkillDb) {

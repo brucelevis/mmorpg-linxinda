@@ -50,7 +50,7 @@ public class PlayerSkillCastTargetsGetter {
                 return ImmutableList.of(caster);
             }
 
-            ITeam team = teamGlobalManager.getTeam(targetUid);
+            ITeam team = teamGlobalManager.getTeam(caster.getTeamUid());
             if (skillCfg.isEffectAll()) {
                 // 群体技能
                 return team.getMembers().stream()

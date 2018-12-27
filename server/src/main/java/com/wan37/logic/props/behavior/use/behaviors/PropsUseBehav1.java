@@ -1,7 +1,7 @@
 package com.wan37.logic.props.behavior.use.behaviors;
 
 import com.wan37.logic.player.Player;
-import com.wan37.logic.player.service.addmp.FightingUnitMpAdder;
+import com.wan37.logic.player.service.FightingUnitMpAdder;
 import com.wan37.logic.props.behavior.use.PropsUseBehavior;
 import com.wan37.logic.props.behavior.use.PropsUseContext;
 import com.wan37.logic.props.config.PropsCfg;

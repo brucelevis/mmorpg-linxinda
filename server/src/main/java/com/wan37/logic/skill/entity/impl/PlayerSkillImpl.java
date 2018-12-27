@@ -47,18 +47,13 @@ class PlayerSkillImpl implements ISkill {
     }
 
     @Override
-    public double getDemageAddition() {
+    public double getEffectValue() {
         return skillCfg.getEffectValue(skillDb.getLevel());
     }
 
     @Override
     public SkillCfg getSkillCfg() {
         return skillCfg;
-    }
-
-    @Override
-    public boolean isEffectAll() {
-        return skillCfg.isEffectAll();
     }
 
     private final SkillCfg skillCfg;
