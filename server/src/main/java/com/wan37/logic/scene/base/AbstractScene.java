@@ -95,4 +95,11 @@ public abstract class AbstractScene implements IScene {
     public Integer getType() {
         return sceneCfg.getType();
     }
+
+    @Override
+    public void notify(String msg) {
+        if (msg != null) {
+            players.forEach(p -> p.syncClient(msg));
+        }
+    }
 }

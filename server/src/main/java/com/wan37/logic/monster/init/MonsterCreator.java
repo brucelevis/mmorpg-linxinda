@@ -7,7 +7,7 @@ import com.wan37.logic.monster.config.MonsterCfg;
 import com.wan37.logic.monster.config.MonsterInitAttrCfg;
 import com.wan37.logic.monster.config.MonsterInitSkillCfg;
 import com.wan37.logic.scene.base.AbstractScene;
-import com.wan37.logic.skill.ISkill;
+import com.wan37.logic.skill.entity.ISkill;
 import com.wan37.logic.skill.config.SkillCfg;
 import com.wan37.logic.skill.config.SkillCfgLoader;
 import com.wan37.util.IdTool;

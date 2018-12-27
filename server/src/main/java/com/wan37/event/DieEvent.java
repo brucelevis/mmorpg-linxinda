@@ -1,6 +1,6 @@
 package com.wan37.event;
 
-import com.wan37.logic.attack.fighting.FightingUnit;
+import com.wan37.logic.scene.base.FightingUnit;
 
 public class DieEvent {
 

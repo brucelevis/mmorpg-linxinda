@@ -2,7 +2,7 @@ package com.wan37.logic.player.listeners;
 
 import com.wan37.event.DieEvent;
 import com.wan37.event.GeneralEventListener;
-import com.wan37.logic.attack.fighting.FightingUnit;
+import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.player.Player;
 import org.springframework.stereotype.Service;
 

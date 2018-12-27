@@ -2,7 +2,7 @@ package com.wan37.logic.monster.listener;
 
 import com.wan37.event.DieEvent;
 import com.wan37.event.GeneralEventListener;
-import com.wan37.logic.attack.fighting.FightingUnit;
+import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.monster.Monster;
 import com.wan37.logic.monster.die.MonsterDieHandler;
 import org.springframework.beans.factory.annotation.Autowired;

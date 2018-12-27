@@ -11,4 +11,6 @@ public interface IScene extends Runnable {
     boolean canAttack();
 
     Integer getType();
+
+    void notify(String msg);
 }

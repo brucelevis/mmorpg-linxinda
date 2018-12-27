@@ -1,6 +1,6 @@
 package com.wan37.logic.buff.effect.behavior;
 
-import com.wan37.logic.attack.fighting.FightingUnit;
+import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.buff.IBuff;
 
 public class BuffEffectContext {

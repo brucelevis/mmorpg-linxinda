@@ -7,10 +7,12 @@ public class SkillCfgExcel {
     private String desc;
     private String cd;
     private int maxLevel;
-    private String demage;
+    private String effectValue;
     private String costMp;
     private String buffs;
     private boolean effectAll;
+    private Integer effectLogic;
+    private Integer targetType;
 
     public Integer getId() {
         return id;
@@ -52,14 +54,6 @@ public class SkillCfgExcel {
         this.maxLevel = maxLevel;
     }
 
-    public String getDemage() {
-        return demage;
-    }
-
-    public void setDemage(String demage) {
-        this.demage = demage;
-    }
-
     public String getCostMp() {
         return costMp;
     }
@@ -82,5 +76,29 @@ public class SkillCfgExcel {
 
     public void setEffectAll(boolean effectAll) {
         this.effectAll = effectAll;
+    }
+
+    public String getEffectValue() {
+        return effectValue;
+    }
+
+    public void setEffectValue(String effectValue) {
+        this.effectValue = effectValue;
+    }
+
+    public Integer getEffectLogic() {
+        return effectLogic;
+    }
+
+    public void setEffectLogic(Integer effectLogic) {
+        this.effectLogic = effectLogic;
+    }
+
+    public Integer getTargetType() {
+        return targetType;
+    }
+
+    public void setTargetType(Integer targetType) {
+        this.targetType = targetType;
     }
 }

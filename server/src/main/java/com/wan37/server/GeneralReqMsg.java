@@ -22,21 +22,37 @@ public class GeneralReqMsg implements ParameterFormator {
 
     @Override
     public Integer getParamAsInt(int index) {
+        if (index >= params.length) {
+            return null;
+        }
+
         return Integer.parseInt(params[index]);
     }
 
     @Override
     public String getParamAsString(int index) {
+        if (index >= params.length) {
+            return null;
+        }
+
         return params[index];
     }
 
     @Override
     public Long getParamAsLong(int index) {
+        if (index >= params.length) {
+            return null;
+        }
+
         return Long.parseLong(params[index]);
     }
 
     @Override
     public Double getParamAsDouble(int index) {
+        if (index >= params.length) {
+            return null;
+        }
+
         return Double.parseDouble(params[index]);
     }
 }

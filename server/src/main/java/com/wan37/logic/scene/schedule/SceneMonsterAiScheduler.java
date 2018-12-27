@@ -5,7 +5,7 @@ import com.wan37.logic.monster.ai.MonsterAutoAttacker;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.scene.base.AbstractScene;
-import com.wan37.logic.skill.ISkill;
+import com.wan37.logic.skill.entity.ISkill;
 import com.wan37.util.DateTimeUtils;
 import com.wan37.util.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;

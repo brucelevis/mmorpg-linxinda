@@ -1,17 +1,17 @@
-package com.wan37.logic.scene.base;
+package com.wan37.logic.skill;
 
-public enum SceneTypeEnum {
+public enum SkillTargetTypeEnum {
 
-    SCENE_TYPE_1(1, "普通场景"),
-    SCENE_TYPE_2(2, "副本场景"),
-    SCENE_TYPE_3(3, "竞技场场景");
+    SKILL_TARGET_TYPE_1(1, "自己"),
+    SKILL_TARGET_TYPE_2(2, "友方"),
+    SKILL_TARGET_TYPE_3(3, "特定目标");
 
     private Integer id;
     private String name;
 
-    SceneTypeEnum(Integer id, String name) {
-        this.id = id;
-        this.name = name;
+    SkillTargetTypeEnum(Integer id, String name) {
+        this.setId(id);
+        this.setName(name);
     }
 
     public Integer getId() {

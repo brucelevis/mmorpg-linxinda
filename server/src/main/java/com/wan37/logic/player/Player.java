@@ -1,14 +1,14 @@
 package com.wan37.logic.player;
 
 
-import com.wan37.logic.attack.fighting.FightingUnit;
+import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.attr.config.AttrEnum;
 import com.wan37.logic.attr.database.PAttrDb;
 import com.wan37.logic.buff.IBuff;
 import com.wan37.logic.mission.entity.IMission;
 import com.wan37.logic.pk.entity.IPk;
 import com.wan37.logic.player.database.PlayerDb;
-import com.wan37.logic.skill.ISkill;
+import com.wan37.logic.skill.entity.ISkill;
 import com.wan37.logic.trade.entity.ITrade;
 import com.wan37.util.GeneralNotifySenderUtil;
 import io.netty.channel.Channel;

@@ -1,10 +1,10 @@
 package com.wan37.logic.monster;
 
-import com.wan37.logic.attack.fighting.FightingUnit;
+import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.attr.config.AttrEnum;
 import com.wan37.logic.buff.IBuff;
 import com.wan37.logic.monster.config.MonsterCfg;
-import com.wan37.logic.skill.ISkill;
+import com.wan37.logic.skill.entity.ISkill;
 
 import java.util.List;
 import java.util.Map;

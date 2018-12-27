@@ -1,13 +1,14 @@
-package com.wan37.logic.skill.impl;
+package com.wan37.logic.skill.entity.impl;
 
-import com.wan37.logic.skill.ISkill;
+import com.wan37.logic.skill.entity.ISkill;
 import com.wan37.logic.skill.config.SkillCfg;
+import com.wan37.logic.skill.database.PSkillDb;
 
-class MonsterSkillImpl implements ISkill {
+class PlayerSkillImpl implements ISkill {
 
-    public MonsterSkillImpl(SkillCfg skillCfg, int level) {
+    public PlayerSkillImpl(SkillCfg skillCfg, PSkillDb skillDb) {
         this.skillCfg = skillCfg;
-        this.level = level;
+        this.skillDb = skillDb;
     }
 
     @Override
@@ -22,32 +23,32 @@ class MonsterSkillImpl implements ISkill {
 
     @Override
     public int getLevel() {
-        return level;
+        return skillDb.getLevel();
     }
 
     @Override
     public long getLastUseTime() {
-        return lastUseTime;
+        return skillDb.getLastUseTime();
     }
 
     @Override
     public void setLastUseTime(long time) {
-        lastUseTime = time;
+        skillDb.setLastUseTime(time);
     }
 
     @Override
     public int getCdInterval() {
-        return skillCfg.getCd(level);
+        return skillCfg.getCd(skillDb.getLevel());
     }
 
     @Override
     public int getCostMp() {
-        return skillCfg.getCostMp(level);
+        return skillCfg.getCostMp(skillDb.getLevel());
     }
 
     @Override
     public double getDemageAddition() {
-        return skillCfg.getDemage(level);
+        return skillCfg.getEffectValue(skillDb.getLevel());
     }
 
     @Override
@@ -61,7 +62,5 @@ class MonsterSkillImpl implements ISkill {
     }
 
     private final SkillCfg skillCfg;
-    private final int level;
-
-    private long lastUseTime;
+    private final PSkillDb skillDb;
 }

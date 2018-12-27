@@ -46,9 +46,9 @@ public class SkillCfgImpl implements SkillCfg {
     }
 
     @Override
-    public double getDemage(int lv) {
+    public double getEffectValue(int lv) {
         Map<String, Object> bindgings = createDemageBindging(lv);
-        return ScriptEngineUtil.eval(cfgExcel.getDemage(), bindgings);
+        return ScriptEngineUtil.eval(cfgExcel.getEffectValue(), bindgings);
     }
 
     @Override
@@ -72,6 +72,16 @@ public class SkillCfgImpl implements SkillCfg {
     @Override
     public boolean isEffectAll() {
         return cfgExcel.isEffectAll();
+    }
+
+    @Override
+    public Integer getEffectLogic() {
+        return cfgExcel.getEffectLogic();
+    }
+
+    @Override
+    public Integer getTargetType() {
+        return cfgExcel.getTargetType();
     }
 
     private SkillBuffCfg createBuff(String s) {

@@ -1,6 +1,6 @@
-package com.wan37.logic.skill.impl;
+package com.wan37.logic.skill.entity.impl;
 
-import com.wan37.logic.skill.ISkill;
+import com.wan37.logic.skill.entity.ISkill;
 import com.wan37.logic.skill.config.SkillCfg;
 import com.wan37.logic.skill.database.PSkillDb;
 import org.springframework.stereotype.Service;

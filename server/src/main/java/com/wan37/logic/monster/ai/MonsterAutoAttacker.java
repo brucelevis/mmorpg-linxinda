@@ -1,14 +1,14 @@
 package com.wan37.logic.monster.ai;
 
-import com.wan37.logic.attack.fighting.FightingAttackHandler;
-import com.wan37.logic.attack.fighting.after.FightingAfterHandler;
-import com.wan37.logic.attack.fighting.before.FightingBeforeChecker;
+import com.wan37.logic.skill.cast.FightingAttackHandler;
+import com.wan37.logic.skill.cast.after.FightingAfterHandler;
+import com.wan37.logic.skill.cast.check.FightingUnitSkillBeforeCastChecker;
 import com.wan37.logic.buff.rand.SkillBuffRandomer;
 import com.wan37.logic.monster.Monster;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.encode.PlayerInfoEncoder;
 import com.wan37.logic.scene.base.AbstractScene;
-import com.wan37.logic.skill.ISkill;
+import com.wan37.logic.skill.entity.ISkill;
 import com.wan37.util.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ import java.util.List;
 public class MonsterAutoAttacker {
 
     @Autowired
-    private FightingBeforeChecker fightingBeforeChecker;
+    private FightingUnitSkillBeforeCastChecker fightingUnitSkillBeforeCastChecker;
 
     @Autowired
     private FightingAttackHandler fightingAttackHandler;
@@ -35,18 +35,18 @@ public class MonsterAutoAttacker {
     private SkillBuffRandomer skillBuffRandomer;
 
     public void attack(Monster monster, Player player, ISkill skill, AbstractScene scene) {
-        // 攻击前检查
-        if (!fightingBeforeChecker.check(monster, player, skill)) {
-            return;
-        }
-
-        // 攻击
-        fightingAttackHandler.handle(monster, player, skill, scene);
-
-        // 攻击后
-        fightingAfterHandler.handle(monster, player, skill, scene);
-
-        notifyPlayer(player, scene);
+//        // 攻击前检查
+//        if (!fightingUnitSkillBeforeCastChecker.check(monster, player, skill)) {
+//            return;
+//        }
+//
+//        // 攻击
+//        fightingAttackHandler.handle(monster, player, skill, scene);
+//
+//        // 攻击后
+//        fightingAfterHandler.handle(monster, player, skill, scene);
+//
+//        notifyPlayer(player, scene);
     }
 
     public void attack(Monster monster, List<Player> players, ISkill skill, AbstractScene scene) {

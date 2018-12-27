@@ -1,6 +1,6 @@
 package com.wan37.logic.player.service.addmp;
 
-import com.wan37.logic.attack.fighting.FightingUnit;
+import com.wan37.logic.scene.base.FightingUnit;
 import org.springframework.stereotype.Service;
 
 @Service

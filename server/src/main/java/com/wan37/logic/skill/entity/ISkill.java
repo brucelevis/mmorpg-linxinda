@@ -1,4 +1,4 @@
-package com.wan37.logic.skill;
+package com.wan37.logic.skill.entity;
 
 import com.wan37.logic.skill.config.SkillCfg;
 import com.wan37.logic.skill.database.PSkillDb;

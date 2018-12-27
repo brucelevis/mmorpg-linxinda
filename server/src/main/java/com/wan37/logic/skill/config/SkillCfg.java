@@ -14,11 +14,15 @@ public interface SkillCfg {
 
     int getMaxLevel();
 
-    double getDemage(int lv);
+    double getEffectValue(int lv);
 
     int getCostMp(int lv);
 
     List<SkillBuffCfg> getBuffs();
 
     boolean isEffectAll();
+
+    Integer getEffectLogic();
+
+    Integer getTargetType();
 }
