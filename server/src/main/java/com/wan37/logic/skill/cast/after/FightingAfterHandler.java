@@ -14,7 +14,7 @@ public class FightingAfterHandler {
     private SkillBuffRandomer skillBuffRandomer;
 
     public void handle(FightingUnit attacker, FightingUnit target, ISkill skill, AbstractScene scene) {
-        // 攻击技能概率触发Buff
+        // 概率触发Buff
         skill.getSkillCfg().getBuffs().forEach(c -> skillBuffRandomer.rand(attacker, target, c, scene));
     }
 }

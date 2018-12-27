@@ -2,13 +2,13 @@ package com.wan37.logic.monster.ai;
 
 import com.google.common.collect.ImmutableList;
 import com.wan37.logic.monster.Monster;
-import com.wan37.logic.player.Player;
 import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.skill.SkillTargetTypeEnum;
 import com.wan37.logic.skill.config.SkillCfg;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -30,9 +30,7 @@ public class MonsterSkillCastTargetsGetter {
             // 友方
             if (skillCfg.isEffectAll()) {
                 // 群体技能
-                return scene.getMonsters().stream()
-                        .filter(Monster::isAlive)
-                        .collect(Collectors.toList());
+                return new ArrayList<>(scene.getMonsters());
             }
 
             // 这里不是群体施放默认给自己
@@ -43,9 +41,7 @@ public class MonsterSkillCastTargetsGetter {
             // 对特定目标
             if (skillCfg.isEffectAll()) {
                 // AOE 群体伤害玩家
-                return scene.getPlayers().stream()
-                        .filter(Player::isAlive)
-                        .collect(Collectors.toList());
+                return new ArrayList<>(scene.getPlayers());
             }
 
             Long lastAttackerUid = caster.getLastAttackId();
@@ -55,7 +51,6 @@ public class MonsterSkillCastTargetsGetter {
 
             return scene.getPlayers().stream()
                     .filter(p -> Objects.equals(p.getUid(), lastAttackerUid))
-                    .filter(Player::isAlive)
                     .collect(Collectors.toList());
         }
 
