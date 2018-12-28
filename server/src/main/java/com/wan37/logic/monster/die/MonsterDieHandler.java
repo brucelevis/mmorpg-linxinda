@@ -6,12 +6,12 @@ import com.wan37.event.entity.MonsterDieEvent;
 import com.wan37.logic.monster.Monster;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
-import com.wan37.logic.scene.SceneActorSceneGetter;
 import com.wan37.logic.player.service.PlayerExpAdder;
+import com.wan37.logic.scene.SceneActorSceneGetter;
 import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.scene.base.FightingUnit;
-import com.wan37.logic.scene.encode.SceneItemEncoder;
 import com.wan37.logic.scene.base.SceneItem;
+import com.wan37.logic.scene.encode.SceneItemEncoder;
 import com.wan37.logic.summoning.Summoning;
 import com.wan37.logic.team.TeamGlobalManager;
 import com.wan37.logic.team.entity.ITeam;
@@ -48,36 +48,45 @@ public class MonsterDieHandler {
     private GenernalEventListenersManager genernalEventListenersManager;
 
     public void handle(Monster monster, long now) {
-        AbstractScene scene = sceneActorSceneGetter.get(monster);
-        Long lastAttackUid = monster.getLastAttackId();
+        synchronized (monster) {
+            if (!monster.isAlive()) {
+                return;
+            }
 
-        // 结算经验：最后攻击的人所在的队伍在线且在当前场景里就能分到经验
-        Player lastAttacker = getLastAttacker(scene, lastAttackUid);
-        List<Player> playerList = getRelatedPlayerList(lastAttacker, scene.getId());
-        int perExp = monster.getMonsterCfg().getExp() / playerList.size();
-        playerList.forEach(p -> playerExpAdder.add(p, perExp));
+            AbstractScene scene = sceneActorSceneGetter.get(monster);
+            Long lastAttackUid = monster.getLastAttackId();
 
-        // 抛出击杀怪物事件
-        playerList.forEach(p -> genernalEventListenersManager.fireEvent(new MonsterDieEvent(p, monster)));
+            Player lastAttacker = getLastAttacker(scene, lastAttackUid);
+            //FIXME: 写死最后一击额外奖励（exp×10）
+            playerExpAdder.add(lastAttacker, 10);
 
-        // 怪物数据重置
-        monster.setHp(0);
-        monster.setAlive(false);
-        monster.setDeadTime(now);
-        monster.getBuffs().clear();
-        monster.setLastAttackId(null);
+            // 结算经验：最后攻击的人所在的队伍在线且在当前场景里就能分到经验
+            List<Player> playerList = getRelatedPlayerList(lastAttacker, scene.getId());
+            int perExp = monster.getMonsterCfg().getExp() / playerList.size();
+            playerList.forEach(p -> playerExpAdder.add(p, perExp));
 
-        // 爆物
-        List<SceneItem> rewards = sceneItemFactory.create(monster.getMonsterCfg());
-        if (!rewards.isEmpty()) {
-            rewards.forEach(i -> scene.getItems().put(i.getUid(), i));
+            // 抛出击杀怪物事件
+            playerList.forEach(p -> genernalEventListenersManager.fireEvent(new MonsterDieEvent(p, monster)));
 
-            // 通知玩家地上物品更新
-            String head = String.format("%s怪物掉落：", monster.getName());
-            String items = rewards.stream()
-                    .map(i -> sceneItemEncoder.encode(i))
-                    .collect(Collectors.joining("，"));
-            scene.getPlayers().forEach(p -> p.syncClient(head + items));
+            // 怪物数据重置
+            monster.setHp(0);
+            monster.setAlive(false);
+            monster.setDeadTime(now);
+            monster.getBuffs().clear();
+            monster.setLastAttackId(null);
+
+            // 爆物
+            List<SceneItem> rewards = sceneItemFactory.create(monster.getMonsterCfg());
+            if (!rewards.isEmpty()) {
+                rewards.forEach(i -> scene.getItems().put(i.getUid(), i));
+
+                // 通知玩家地上物品更新
+                String head = String.format("%s怪物掉落：", monster.getName());
+                String items = rewards.stream()
+                        .map(i -> sceneItemEncoder.encode(i))
+                        .collect(Collectors.joining("，"));
+                scene.getPlayers().forEach(p -> p.syncClient(head + items));
+            }
         }
     }
 
