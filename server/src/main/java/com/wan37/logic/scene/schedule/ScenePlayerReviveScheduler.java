@@ -40,7 +40,5 @@ public class ScenePlayerReviveScheduler {
         //FIXME: 写死默认复活安全场景
         Integer toSceneId = 1000;
         sceneFacade.forceSwitchScene(player, toSceneId);
-
-        //FIXME: 玩家死了在副本的相关处理
     }
 }

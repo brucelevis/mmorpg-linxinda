@@ -1,4 +1,4 @@
-package com.wan37.logic.summoning.ai;
+package com.wan37.logic.skill.cast.ai.target;
 
 import com.google.common.collect.ImmutableList;
 import com.wan37.logic.monster.Monster;

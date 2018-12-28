@@ -1,4 +1,4 @@
-package com.wan37.logic.skill.cast;
+package com.wan37.logic.skill.cast.ai.target;
 
 import com.google.common.collect.ImmutableList;
 import com.wan37.exception.GeneralErrorExecption;

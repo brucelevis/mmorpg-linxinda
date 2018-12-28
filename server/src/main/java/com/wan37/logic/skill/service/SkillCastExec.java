@@ -4,7 +4,7 @@ import com.wan37.behavior.BehaviorManager;
 import com.wan37.exception.GeneralErrorExecption;
 import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.player.Player;
-import com.wan37.logic.skill.cast.PlayerSkillCastTargetsGetter;
+import com.wan37.logic.skill.cast.ai.target.PlayerSkillCastTargetsGetter;
 import com.wan37.logic.skill.cast.behavior.SkillEffectLogicBehavior;
 import com.wan37.logic.skill.cast.behavior.SkillEffectLogicContext;
 import com.wan37.logic.skill.cast.check.FightingUnitSkillBeforeCastChecker;

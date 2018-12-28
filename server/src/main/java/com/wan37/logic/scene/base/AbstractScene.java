@@ -6,10 +6,7 @@ import com.wan37.logic.player.Player;
 import com.wan37.logic.scene.config.SceneCfg;
 import com.wan37.logic.summoning.Summoning;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class AbstractScene implements IScene {
@@ -147,5 +144,14 @@ public abstract class AbstractScene implements IScene {
         return summonings.stream()
                 .filter(s -> Objects.equals(s.getUid(), uid))
                 .findAny();
+    }
+
+    @Override
+    public List<FightingUnit> getAllUnit() {
+        List<FightingUnit> unitList = new ArrayList<>();
+        unitList.addAll(players);
+        unitList.addAll(monsters);
+        unitList.addAll(summonings);
+        return unitList;
     }
 }
