@@ -4,7 +4,7 @@ public enum SkillTargetTypeEnum {
 
     SKILL_TARGET_TYPE_1(1, "自己"),
     SKILL_TARGET_TYPE_2(2, "友方"),
-    SKILL_TARGET_TYPE_3(3, "特定目标");
+    SKILL_TARGET_TYPE_3(3, "敌人");
 
     private Integer id;
     private String name;

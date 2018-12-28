@@ -13,4 +13,6 @@ public interface IScene extends Runnable {
     Integer getType();
 
     void notify(String msg);
+
+    FightingUnit getTargetUnit(Long uid);
 }

@@ -27,6 +27,7 @@ public class ArenaSceneCreator {
         scene.setUid(idTool.generate());
         scene.setSceneCfg(sceneCfg);
         scene.setPlayers(new ArrayList<>());
+        scene.setSummonings(new ArrayList<>());
 
         long now = DateTimeUtils.toEpochMilli(LocalDateTime.now());
         //FIXME: 写死决斗时间

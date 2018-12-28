@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * 获取怪物施放技能目标对象
@@ -49,9 +48,12 @@ public class MonsterSkillCastTargetsGetter {
                 return ImmutableList.of();
             }
 
-            return scene.getPlayers().stream()
-                    .filter(p -> Objects.equals(p.getUid(), lastAttackerUid))
-                    .collect(Collectors.toList());
+            FightingUnit target = scene.getTargetUnit(lastAttackerUid);
+            if (target == null) {
+                return ImmutableList.of();
+            }
+
+            return ImmutableList.of(target);
         }
 
         return ImmutableList.of();

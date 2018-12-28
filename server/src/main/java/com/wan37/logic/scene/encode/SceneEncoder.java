@@ -2,7 +2,6 @@ package com.wan37.logic.scene.encode;
 
 import com.wan37.logic.faction.config.FactionCfgLoader;
 import com.wan37.logic.monster.Monster;
-import com.wan37.logic.monster.encode.MonsterEncoder;
 import com.wan37.logic.npc.Npc;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.database.PlayerDb;
@@ -20,10 +19,10 @@ public class SceneEncoder {
     private FactionCfgLoader factionCfgLoader;
 
     @Autowired
-    private MonsterEncoder monsterEncoder;
+    private SceneItemEncoder sceneItemEncoder;
 
     @Autowired
-    private SceneItemEncoder sceneItemEncoder;
+    private FightingUnitEncoder fightingUnitEncoder;
 
     public String encode(AbstractScene scene) {
         String sceneHead = String.format("\n当前场景：%s\n", scene.getName());
@@ -36,7 +35,12 @@ public class SceneEncoder {
         String monsterHead = "当前场景怪物：\n";
         String monsters = scene.getMonsters().stream()
                 .filter(Monster::isAlive)
-                .map(m -> monsterEncoder.encode(m))
+                .map(m -> fightingUnitEncoder.encode(m))
+                .collect(Collectors.joining("\n"));
+
+        String summoningHead = "当前场景召唤兽：\n";
+        String summonings = scene.getSummonings().stream()
+                .map(m -> fightingUnitEncoder.encode(m))
                 .collect(Collectors.joining("\n"));
 
         String npcHead = "当前场景npc：\n";
@@ -52,6 +56,7 @@ public class SceneEncoder {
         return sceneHead
                 + playerHead + players + "\n"
                 + monsterHead + monsters + "\n"
+                + summoningHead + summonings + "\n"
                 + npcHead + npcs + "\n"
                 + itemHead + items;
     }

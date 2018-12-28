@@ -9,8 +9,10 @@ import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.player.scene.SceneActorSceneGetter;
 import com.wan37.logic.player.service.PlayerExpAdder;
 import com.wan37.logic.scene.base.AbstractScene;
+import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.scene.encode.SceneItemEncoder;
 import com.wan37.logic.scene.item.SceneItem;
+import com.wan37.logic.summoning.entity.Summoning;
 import com.wan37.logic.team.TeamGlobalManager;
 import com.wan37.logic.team.entity.ITeam;
 import com.wan37.logic.team.entity.ITeamMember;
@@ -46,12 +48,12 @@ public class MonsterDieHandler {
     private GenernalEventListenersManager genernalEventListenersManager;
 
     public void handle(Monster monster, long now) {
+        AbstractScene scene = sceneActorSceneGetter.get(monster);
         Long lastAttackUid = monster.getLastAttackId();
-        Integer sceneId = monster.getSceneId();
 
         // 结算经验：最后攻击的人所在的队伍在线且在当前场景里就能分到经验
-        Player lastAttacker = playerGlobalManager.getPlayerByUid(lastAttackUid);
-        List<Player> playerList = getRelatedPlayerList(lastAttacker, sceneId);
+        Player lastAttacker = getLastAttacker(scene, lastAttackUid);
+        List<Player> playerList = getRelatedPlayerList(lastAttacker, scene.getId());
         int perExp = monster.getMonsterCfg().getExp() / playerList.size();
         playerList.forEach(p -> playerExpAdder.add(p, perExp));
 
@@ -66,7 +68,6 @@ public class MonsterDieHandler {
         monster.setLastAttackId(null);
 
         // 爆物
-        AbstractScene scene = sceneActorSceneGetter.get(monster);
         List<SceneItem> rewards = sceneItemFactory.create(monster.getMonsterCfg());
         if (!rewards.isEmpty()) {
             rewards.forEach(i -> scene.getItems().put(i.getUid(), i));
@@ -78,6 +79,17 @@ public class MonsterDieHandler {
                     .collect(Collectors.joining("，"));
             scene.getPlayers().forEach(p -> p.syncClient(head + items));
         }
+    }
+
+    private Player getLastAttacker(AbstractScene scene, Long lastAttackerUid) {
+        FightingUnit unit = scene.getTargetUnit(lastAttackerUid);
+        if (unit instanceof Summoning) {
+            // 是召唤兽杀的
+            Summoning summoning = (Summoning) unit;
+            return playerGlobalManager.getPlayerByUid(summoning.getBelongUid());
+        }
+
+        return (Player) unit;
     }
 
     private List<Player> getRelatedPlayerList(Player player, Integer sceneId) {

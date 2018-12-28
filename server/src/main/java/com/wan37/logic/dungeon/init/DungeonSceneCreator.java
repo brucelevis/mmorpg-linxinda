@@ -34,6 +34,7 @@ public class DungeonSceneCreator {
         scene.setUid(idTool.generate());
         scene.setSceneCfg(sceneCfg);
         scene.setPlayers(new ArrayList<>());
+        scene.setSummonings(new ArrayList<>());
         scene.setNpcs(new ArrayList<>());
         scene.setDungeonCfg(dungeonCfg);
 

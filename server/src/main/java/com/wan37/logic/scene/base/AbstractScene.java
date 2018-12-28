@@ -5,9 +5,12 @@ import com.wan37.logic.npc.Npc;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.scene.config.SceneCfg;
 import com.wan37.logic.scene.item.SceneItem;
+import com.wan37.logic.summoning.entity.Summoning;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class AbstractScene implements IScene {
@@ -21,6 +24,8 @@ public abstract class AbstractScene implements IScene {
     protected List<Monster> monsters;
 
     protected List<Npc> npcs;
+
+    protected List<Summoning> summonings;
 
     /**
      * 地上奖励
@@ -68,6 +73,14 @@ public abstract class AbstractScene implements IScene {
         this.npcs = npcs;
     }
 
+    public List<Summoning> getSummonings() {
+        return summonings;
+    }
+
+    public void setSummonings(List<Summoning> summonings) {
+        this.summonings = summonings;
+    }
+
     public Map<Long, SceneItem> getItems() {
         return items;
     }
@@ -101,5 +114,39 @@ public abstract class AbstractScene implements IScene {
         if (msg != null) {
             players.forEach(p -> p.syncClient(msg));
         }
+    }
+
+    @Override
+    public FightingUnit getTargetUnit(Long uid) {
+        Optional<Player> player = findPlayer(uid);
+        if (player.isPresent()) {
+            return player.get();
+        }
+
+        Optional<Monster> monster = findMonster(uid);
+        if (monster.isPresent()) {
+            return monster.get();
+        }
+
+        Optional<Summoning> summoning = findSummoning(uid);
+        return summoning.orElse(null);
+    }
+
+    private Optional<Player> findPlayer(Long uid) {
+        return players.stream()
+                .filter(p -> Objects.equals(p.getUid(), uid))
+                .findAny();
+    }
+
+    private Optional<Monster> findMonster(Long uid) {
+        return monsters.stream()
+                .filter(m -> Objects.equals(m.getUid(), uid))
+                .findAny();
+    }
+
+    private Optional<Summoning> findSummoning(Long uid) {
+        return summonings.stream()
+                .filter(s -> Objects.equals(s.getUid(), uid))
+                .findAny();
     }
 }

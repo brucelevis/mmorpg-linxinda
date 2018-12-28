@@ -28,6 +28,9 @@ public class SceneScheduler {
     @Autowired
     private ScenePlayerReviveScheduler scenePlayerReviveScheduler;
 
+    @Autowired
+    private SceneSummoningAiScheduler sceneSummoningAiScheduler;
+
     public void schedule(Scene scene) {
         // 刷新怪物
         sceneMonsterScheduler.schedule(scene);
@@ -46,6 +49,9 @@ public class SceneScheduler {
 
         // 怪物自动攻击
         sceneMonsterAiScheduler.schedule(scene);
+
+        // 召唤兽自当攻击
+        sceneSummoningAiScheduler.schedule(scene);
 
         // 玩家复活
         scenePlayerReviveScheduler.schedule(scene);

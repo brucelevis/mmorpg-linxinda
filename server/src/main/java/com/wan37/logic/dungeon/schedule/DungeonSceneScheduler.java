@@ -30,6 +30,9 @@ public class DungeonSceneScheduler {
     @Autowired
     private DungeonMonsterRefreshScheduler dungeonMonsterRefreshScheduler;
 
+    @Autowired
+    private SceneSummoningAiScheduler sceneSummoningAiScheduler;
+
     public void schedule(AbstractScene scene) {
         // 刷新物品
         sceneItemScheduler.schedule(scene);
@@ -42,6 +45,9 @@ public class DungeonSceneScheduler {
 
         // 怪物自动攻击
         sceneMonsterAiScheduler.schedule(scene);
+
+        // 召唤兽自当攻击
+        sceneSummoningAiScheduler.schedule(scene);
 
         // 玩家复活
         scenePlayerReviveScheduler.schedule(scene);

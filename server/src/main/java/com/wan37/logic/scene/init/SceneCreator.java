@@ -49,6 +49,7 @@ public class SceneCreator {
         Scene scene = new Scene();
         scene.setSceneCfg(sceneCfg);
         scene.setPlayers(new ArrayList<>());
+        scene.setSummonings(new ArrayList<>());
 
         scene.setMonsters(sceneCfg.getMonsters().stream()
                 .map(m -> createMonsters(m, scene))
