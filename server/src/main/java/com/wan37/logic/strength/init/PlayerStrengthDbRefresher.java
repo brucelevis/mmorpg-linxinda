@@ -4,7 +4,7 @@ import com.wan37.logic.attr.config.AttrCfg;
 import com.wan37.logic.attr.config.AttrCfgLoader;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.strength.database.PlayerStrengthDb;
-import com.wan37.logic.strength.service.calculate.StrengthAttrsCalculator;
+import com.wan37.logic.strength.calculate.StrengthAttrsCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

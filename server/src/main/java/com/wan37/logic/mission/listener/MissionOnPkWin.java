@@ -1,7 +1,7 @@
 package com.wan37.logic.mission.listener;
 
 import com.wan37.event.GeneralEventListener;
-import com.wan37.event.PkWinEvent;
+import com.wan37.event.entity.PkWinEvent;
 import com.wan37.logic.mission.MissionTypeEnum;
 import com.wan37.logic.mission.complete.MissionCompleteChecker;
 import com.wan37.logic.mission.entity.IPlayerMission;

@@ -1,10 +1,10 @@
 package com.wan37.logic.skill.cast;
 
-import com.wan37.event.DieEvent;
+import com.wan37.event.entity.DieEvent;
 import com.wan37.event.GenernalEventListenersManager;
 import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.buff.BuffEffectEnum;
-import com.wan37.logic.buff.IBuff;
+import com.wan37.logic.buff.entity.IBuff;
 import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.skill.entity.ISkill;
 import com.wan37.util.DateTimeUtils;

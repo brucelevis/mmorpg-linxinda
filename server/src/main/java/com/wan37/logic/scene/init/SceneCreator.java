@@ -10,7 +10,7 @@ import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.scene.config.SceneCfg;
 import com.wan37.logic.scene.config.SceneCfgLoader;
 import com.wan37.logic.scene.config.SceneMonsterCfg;
-import com.wan37.logic.scene.scene.Scene;
+import com.wan37.logic.scene.base.Scene;
 import com.wan37.logic.scene.schedule.SceneScheduler;
 import com.wan37.util.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,8 +2,8 @@ package com.wan37.logic.pk.schedule;
 
 import com.wan37.logic.pk.scene.ArenaScene;
 import com.wan37.logic.player.Player;
-import com.wan37.logic.scene.scene.SceneFacade;
-import com.wan37.logic.scene.temporary.TemporarySceneGlobalManager;
+import com.wan37.logic.scene.SceneFacade;
+import com.wan37.logic.scene.TemporarySceneGlobalManager;
 import com.wan37.util.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

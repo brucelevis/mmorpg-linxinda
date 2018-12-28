@@ -6,10 +6,10 @@ import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.scene.base.FightingUnit;
-import com.wan37.logic.scene.base.SceneTypeEnum;
+import com.wan37.logic.scene.SceneTypeEnum;
 import com.wan37.logic.skill.SkillTargetTypeEnum;
 import com.wan37.logic.skill.config.SkillCfg;
-import com.wan37.logic.summoning.entity.Summoning;
+import com.wan37.logic.summoning.Summoning;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

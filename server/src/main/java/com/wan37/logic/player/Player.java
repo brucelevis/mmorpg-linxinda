@@ -4,7 +4,7 @@ package com.wan37.logic.player;
 import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.attr.config.AttrEnum;
 import com.wan37.logic.attr.database.PAttrDb;
-import com.wan37.logic.buff.IBuff;
+import com.wan37.logic.buff.entity.IBuff;
 import com.wan37.logic.mission.entity.IMission;
 import com.wan37.logic.pk.entity.IPk;
 import com.wan37.logic.player.database.PlayerDb;

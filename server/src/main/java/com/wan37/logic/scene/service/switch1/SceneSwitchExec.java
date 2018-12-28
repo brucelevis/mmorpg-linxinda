@@ -2,7 +2,7 @@ package com.wan37.logic.scene.service.switch1;
 
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
-import com.wan37.logic.scene.scene.SceneFacade;
+import com.wan37.logic.scene.SceneFacade;
 import com.wan37.logic.scene.config.SceneCfg;
 import com.wan37.logic.scene.config.SceneCfgLoader;
 import io.netty.channel.Channel;

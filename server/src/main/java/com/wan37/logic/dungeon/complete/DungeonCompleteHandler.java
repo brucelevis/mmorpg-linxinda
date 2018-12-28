@@ -1,6 +1,6 @@
 package com.wan37.logic.dungeon.complete;
 
-import com.wan37.event.DungeonCompleteEvent;
+import com.wan37.event.entity.DungeonCompleteEvent;
 import com.wan37.event.GenernalEventListenersManager;
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.chat.ChatFacade;
@@ -18,8 +18,8 @@ import com.wan37.logic.props.resource.ResourceCollection;
 import com.wan37.logic.props.resource.ResourceElement;
 import com.wan37.logic.props.resource.impl.ResourceCollectionImpl;
 import com.wan37.logic.props.resource.impl.ResourceElementImpl;
-import com.wan37.logic.scene.scene.SceneFacade;
-import com.wan37.logic.scene.temporary.TemporarySceneGlobalManager;
+import com.wan37.logic.scene.SceneFacade;
+import com.wan37.logic.scene.TemporarySceneGlobalManager;
 import com.wan37.util.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

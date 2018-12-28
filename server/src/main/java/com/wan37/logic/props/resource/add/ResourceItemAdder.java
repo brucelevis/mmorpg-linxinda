@@ -1,7 +1,7 @@
 package com.wan37.logic.props.resource.add;
 
 import com.wan37.event.GenernalEventListenersManager;
-import com.wan37.event.ItemAddEvent;
+import com.wan37.event.entity.ItemAddEvent;
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.backpack.database.ItemDb;
 import com.wan37.logic.backpack.service.find.BackpackEmptyIndexFinder;

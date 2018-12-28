@@ -3,7 +3,7 @@ package com.wan37.logic.props.handler;
 import com.wan37.handler.GeneralHandler;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
-import com.wan37.logic.props.service.add.ItemAddExec;
+import com.wan37.logic.props.service.ItemAddExec;
 import com.wan37.server.GeneralReqMsg;
 import io.netty.channel.Channel;
 import org.springframework.beans.factory.annotation.Autowired;

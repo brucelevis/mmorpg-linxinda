@@ -1,11 +1,11 @@
 package com.wan37.logic.player.service;
 
 import com.wan37.event.GenernalEventListenersManager;
-import com.wan37.event.LevelUpEvent;
+import com.wan37.event.entity.LevelUpEvent;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.config.ExpCfg;
 import com.wan37.logic.player.config.ExpCfgLoader;
-import com.wan37.logic.player.scene.SceneActorSceneGetter;
+import com.wan37.logic.scene.SceneActorSceneGetter;
 import com.wan37.logic.scene.base.AbstractScene;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

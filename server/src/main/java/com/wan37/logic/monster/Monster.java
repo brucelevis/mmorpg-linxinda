@@ -2,7 +2,7 @@ package com.wan37.logic.monster;
 
 import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.attr.config.AttrEnum;
-import com.wan37.logic.buff.IBuff;
+import com.wan37.logic.buff.entity.IBuff;
 import com.wan37.logic.monster.config.MonsterCfg;
 import com.wan37.logic.skill.entity.ISkill;
 

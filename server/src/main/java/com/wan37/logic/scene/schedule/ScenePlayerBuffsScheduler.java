@@ -1,6 +1,6 @@
 package com.wan37.logic.scene.schedule;
 
-import com.wan37.logic.buff.IBuff;
+import com.wan37.logic.buff.entity.IBuff;
 import com.wan37.logic.buff.effect.BuffEffectHandler;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.scene.base.AbstractScene;

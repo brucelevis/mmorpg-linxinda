@@ -1,7 +1,7 @@
 package com.wan37.logic.mission.complete;
 
 import com.wan37.event.GenernalEventListenersManager;
-import com.wan37.event.MissionCompleteEvent;
+import com.wan37.event.entity.MissionCompleteEvent;
 import com.wan37.logic.backpack.BackpackFacade;
 import com.wan37.logic.mail.gm.GmMail;
 import com.wan37.logic.mail.gm.MailGmSender;

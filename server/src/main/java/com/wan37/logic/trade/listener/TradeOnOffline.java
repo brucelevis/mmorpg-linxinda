@@ -1,7 +1,7 @@
 package com.wan37.logic.trade.listener;
 
 import com.wan37.event.GeneralEventListener;
-import com.wan37.event.OfflineEvent;
+import com.wan37.event.entity.OfflineEvent;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.dao.PlayerDao;
 import com.wan37.logic.trade.TradeGlobalManager;

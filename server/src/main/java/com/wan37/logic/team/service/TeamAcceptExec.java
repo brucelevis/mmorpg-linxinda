@@ -1,7 +1,7 @@
 package com.wan37.logic.team.service;
 
 import com.wan37.event.GenernalEventListenersManager;
-import com.wan37.event.TeamJoinEvent;
+import com.wan37.event.entity.TeamJoinEvent;
 import com.wan37.exception.GeneralErrorExecption;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.team.TeamGlobalManager;

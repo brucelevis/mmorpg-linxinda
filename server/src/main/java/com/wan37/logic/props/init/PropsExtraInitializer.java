@@ -1,8 +1,6 @@
 package com.wan37.logic.props.init;
 
 import com.wan37.behavior.BehaviorManager;
-import com.wan37.logic.props.behavior.init.PropsInitBehavior;
-import com.wan37.logic.props.behavior.init.PropsInitContext;
 import com.wan37.logic.props.config.PropsCfg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

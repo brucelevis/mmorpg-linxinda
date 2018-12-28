@@ -1,13 +1,13 @@
 package com.wan37.logic.scene.listener;
 
 import com.wan37.event.GeneralEventListener;
-import com.wan37.event.SceneLeaveEvent;
+import com.wan37.event.entity.SceneLeaveEvent;
 import com.wan37.logic.player.Player;
-import com.wan37.logic.player.scene.SceneActorSceneGetter;
+import com.wan37.logic.scene.SceneActorSceneGetter;
 import com.wan37.logic.scene.base.AbstractScene;
-import com.wan37.logic.scene.scene.Scene;
-import com.wan37.logic.scene.scene.SceneGlobalManager;
-import com.wan37.logic.scene.temporary.TemporarySceneGlobalManager;
+import com.wan37.logic.scene.base.Scene;
+import com.wan37.logic.scene.SceneGlobalManager;
+import com.wan37.logic.scene.TemporarySceneGlobalManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
 package com.wan37.logic.trade.service;
 
 import com.wan37.event.GenernalEventListenersManager;
-import com.wan37.event.TradeSuccessEvent;
+import com.wan37.event.entity.TradeSuccessEvent;
 import com.wan37.exception.GeneralErrorExecption;
 import com.wan37.logic.backpack.BackpackFacade;
 import com.wan37.logic.player.Player;

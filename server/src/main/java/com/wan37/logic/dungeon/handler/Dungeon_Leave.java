@@ -1,7 +1,7 @@
 package com.wan37.logic.dungeon.handler;
 
 import com.wan37.handler.GeneralHandler;
-import com.wan37.logic.dungeon.service.leave.DungeonLeaveExec;
+import com.wan37.logic.dungeon.service.DungeonLeaveExec;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.server.GeneralReqMsg;

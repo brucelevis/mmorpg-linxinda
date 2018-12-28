@@ -3,7 +3,7 @@ package com.wan37.logic.scene.service.aoi;
 import com.wan37.exception.GeneralErrorExecption;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
-import com.wan37.logic.player.scene.SceneActorSceneGetter;
+import com.wan37.logic.scene.SceneActorSceneGetter;
 import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.scene.encode.SceneEncoder;
 import io.netty.channel.Channel;

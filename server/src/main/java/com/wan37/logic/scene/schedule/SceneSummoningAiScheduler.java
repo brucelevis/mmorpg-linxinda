@@ -8,7 +8,7 @@ import com.wan37.logic.skill.cast.behavior.SkillEffectLogicContext;
 import com.wan37.logic.skill.cast.check.FightingUnitSkillBeforeCastChecker;
 import com.wan37.logic.skill.entity.ISkill;
 import com.wan37.logic.summoning.ai.SummoningSkillCastTargetsGetter;
-import com.wan37.logic.summoning.entity.Summoning;
+import com.wan37.logic.summoning.Summoning;
 import com.wan37.util.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

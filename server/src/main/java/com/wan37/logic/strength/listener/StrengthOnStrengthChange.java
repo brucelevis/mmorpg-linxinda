@@ -1,7 +1,7 @@
 package com.wan37.logic.strength.listener;
 
 import com.wan37.event.GeneralEventListener;
-import com.wan37.event.StrengthChangeEvent;
+import com.wan37.event.entity.StrengthChangeEvent;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.player.database.PlayerDb;

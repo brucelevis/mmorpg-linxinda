@@ -1,7 +1,7 @@
 package com.wan37.logic.equipment.handler;
 
 import com.wan37.handler.GeneralHandler;
-import com.wan37.logic.equipment.service.info.EquipInfoExec;
+import com.wan37.logic.equipment.service.EquipInfoExec;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.server.GeneralReqMsg;

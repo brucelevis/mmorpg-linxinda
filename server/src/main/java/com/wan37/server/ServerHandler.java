@@ -1,7 +1,7 @@
 package com.wan37.server;
 
 import com.wan37.event.GenernalEventListenersManager;
-import com.wan37.event.OfflineEvent;
+import com.wan37.event.entity.OfflineEvent;
 import com.wan37.exception.GeneralErrorExecption;
 import com.wan37.handler.GeneralDipatchHandlerManager;
 import com.wan37.handler.GeneralHandler;

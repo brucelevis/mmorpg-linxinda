@@ -1,7 +1,7 @@
 package com.wan37.logic.backpack.handler;
 
 import com.wan37.handler.GeneralHandler;
-import com.wan37.logic.backpack.service.clean.BackpackCleanExec;
+import com.wan37.logic.backpack.service.BackpackCleanExec;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.server.GeneralReqMsg;

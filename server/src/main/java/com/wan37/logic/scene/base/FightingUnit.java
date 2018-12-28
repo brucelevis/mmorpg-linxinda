@@ -1,6 +1,6 @@
 package com.wan37.logic.scene.base;
 
-import com.wan37.logic.buff.IBuff;
+import com.wan37.logic.buff.entity.IBuff;
 import com.wan37.logic.skill.entity.ISkill;
 
 import java.util.List;

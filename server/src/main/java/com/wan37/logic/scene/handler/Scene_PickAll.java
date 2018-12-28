@@ -3,7 +3,7 @@ package com.wan37.logic.scene.handler;
 import com.wan37.handler.GeneralHandler;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
-import com.wan37.logic.scene.service.pick.ScenePickAllExec;
+import com.wan37.logic.scene.service.ScenePickAllExec;
 import com.wan37.server.GeneralReqMsg;
 import io.netty.channel.Channel;
 import org.springframework.beans.factory.annotation.Autowired;

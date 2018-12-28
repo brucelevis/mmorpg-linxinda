@@ -1,9 +1,9 @@
 package com.wan37.logic.chat;
 
 import com.wan37.logic.scene.base.TemporaryScene;
-import com.wan37.logic.scene.scene.Scene;
-import com.wan37.logic.scene.scene.SceneGlobalManager;
-import com.wan37.logic.scene.temporary.TemporarySceneGlobalManager;
+import com.wan37.logic.scene.base.Scene;
+import com.wan37.logic.scene.SceneGlobalManager;
+import com.wan37.logic.scene.TemporarySceneGlobalManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

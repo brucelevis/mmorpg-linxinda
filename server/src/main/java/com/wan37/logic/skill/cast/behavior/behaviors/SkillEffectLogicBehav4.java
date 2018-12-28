@@ -1,6 +1,6 @@
 package com.wan37.logic.skill.cast.behavior.behaviors;
 
-import com.wan37.logic.player.scene.SceneActorSceneGetter;
+import com.wan37.logic.scene.SceneActorSceneGetter;
 import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.scene.encode.FightingUnitEncoder;
@@ -12,7 +12,7 @@ import com.wan37.logic.skill.cast.check.FightingUnitBeCastFilters;
 import com.wan37.logic.skill.entity.ISkill;
 import com.wan37.logic.summoning.config.SummoningCfg;
 import com.wan37.logic.summoning.config.SummoningCfgLoader;
-import com.wan37.logic.summoning.entity.Summoning;
+import com.wan37.logic.summoning.Summoning;
 import com.wan37.logic.summoning.init.SummoningCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

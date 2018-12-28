@@ -2,7 +2,7 @@ package com.wan37.logic.scene.schedule;
 
 import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.scene.encode.SceneItemEncoder;
-import com.wan37.logic.scene.item.SceneItem;
+import com.wan37.logic.scene.base.SceneItem;
 import com.wan37.util.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

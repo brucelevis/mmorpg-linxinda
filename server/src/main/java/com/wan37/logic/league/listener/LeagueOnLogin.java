@@ -1,7 +1,7 @@
 package com.wan37.logic.league.listener;
 
 import com.wan37.event.GeneralEventListener;
-import com.wan37.event.LoginEvent;
+import com.wan37.event.entity.LoginEvent;
 import com.wan37.logic.league.LeagueGlobalManager;
 import com.wan37.logic.league.entity.ILeague;
 import com.wan37.logic.player.Player;

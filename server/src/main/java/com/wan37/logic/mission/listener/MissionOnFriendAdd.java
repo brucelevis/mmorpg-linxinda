@@ -1,6 +1,6 @@
 package com.wan37.logic.mission.listener;
 
-import com.wan37.event.FriendAddEvent;
+import com.wan37.event.entity.FriendAddEvent;
 import com.wan37.event.GeneralEventListener;
 import com.wan37.logic.mission.MissionTypeEnum;
 import com.wan37.logic.mission.complete.MissionCompleteChecker;

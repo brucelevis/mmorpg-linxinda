@@ -6,11 +6,11 @@ import com.wan37.logic.pk.init.ArenaSceneCreator;
 import com.wan37.logic.pk.scene.ArenaScene;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
-import com.wan37.logic.scene.base.SceneTypeEnum;
+import com.wan37.logic.scene.SceneTypeEnum;
 import com.wan37.logic.scene.config.SceneCfg;
 import com.wan37.logic.scene.config.SceneCfgLoader;
-import com.wan37.logic.scene.scene.SceneFacade;
-import com.wan37.logic.scene.temporary.TemporarySceneGlobalManager;
+import com.wan37.logic.scene.SceneFacade;
+import com.wan37.logic.scene.TemporarySceneGlobalManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

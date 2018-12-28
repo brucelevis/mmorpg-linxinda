@@ -10,7 +10,7 @@ import com.wan37.logic.GeneralResponseDtoEncoder;
 import com.wan37.logic.monster.Monster;
 import com.wan37.logic.npc.Npc;
 import com.wan37.logic.player.Player;
-import com.wan37.logic.scene.scene.Scene;
+import com.wan37.logic.scene.base.Scene;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

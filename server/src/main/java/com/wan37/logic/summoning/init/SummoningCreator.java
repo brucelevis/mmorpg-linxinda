@@ -9,7 +9,7 @@ import com.wan37.logic.skill.entity.ISkill;
 import com.wan37.logic.summoning.config.SummoningCfg;
 import com.wan37.logic.summoning.config.SummoningInitAttrCfg;
 import com.wan37.logic.summoning.config.SummoningInitSkillCfg;
-import com.wan37.logic.summoning.entity.Summoning;
+import com.wan37.logic.summoning.Summoning;
 import com.wan37.util.IdTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

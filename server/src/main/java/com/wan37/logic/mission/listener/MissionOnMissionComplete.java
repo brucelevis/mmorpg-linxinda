@@ -1,7 +1,7 @@
 package com.wan37.logic.mission.listener;
 
 import com.wan37.event.GeneralEventListener;
-import com.wan37.event.MissionCompleteEvent;
+import com.wan37.event.entity.MissionCompleteEvent;
 import com.wan37.logic.mission.MissionTypeEnum;
 import com.wan37.logic.mission.complete.MissionCompleteChecker;
 import com.wan37.logic.player.Player;

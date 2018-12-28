@@ -1,6 +1,6 @@
 package com.wan37.logic.friend.service;
 
-import com.wan37.event.FriendAddEvent;
+import com.wan37.event.entity.FriendAddEvent;
 import com.wan37.event.GenernalEventListenersManager;
 import com.wan37.exception.GeneralErrorExecption;
 import com.wan37.logic.friend.database.FriendDb;

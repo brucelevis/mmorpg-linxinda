@@ -1,6 +1,6 @@
 package com.wan37.logic.summoning.encode;
 
-import com.wan37.logic.summoning.entity.Summoning;
+import com.wan37.logic.summoning.Summoning;
 import org.springframework.stereotype.Service;
 
 @Service

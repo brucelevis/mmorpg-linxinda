@@ -6,7 +6,7 @@ import com.wan37.logic.player.Player;
 import com.wan37.logic.player.encode.PlayerInfoEncoder;
 import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.summoning.encode.SummoningEncoder;
-import com.wan37.logic.summoning.entity.Summoning;
+import com.wan37.logic.summoning.Summoning;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

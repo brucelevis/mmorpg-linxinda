@@ -3,7 +3,7 @@ package com.wan37.logic.scene.schedule;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.init.PlayerReviveInitializer;
 import com.wan37.logic.scene.base.AbstractScene;
-import com.wan37.logic.scene.scene.SceneFacade;
+import com.wan37.logic.scene.SceneFacade;
 import com.wan37.util.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

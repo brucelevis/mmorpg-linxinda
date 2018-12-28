@@ -2,7 +2,7 @@ package com.wan37.logic.chat.service;
 
 import com.wan37.logic.chat.ChatTypeEnum;
 import com.wan37.logic.player.Player;
-import com.wan37.logic.player.scene.SceneActorSceneGetter;
+import com.wan37.logic.scene.SceneActorSceneGetter;
 import com.wan37.logic.scene.base.AbstractScene;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

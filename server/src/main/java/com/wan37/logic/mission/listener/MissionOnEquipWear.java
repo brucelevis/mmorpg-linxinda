@@ -1,6 +1,6 @@
 package com.wan37.logic.mission.listener;
 
-import com.wan37.event.EquipWearEvent;
+import com.wan37.event.entity.EquipWearEvent;
 import com.wan37.event.GeneralEventListener;
 import com.wan37.logic.mission.MissionTypeEnum;
 import com.wan37.logic.mission.complete.MissionCompleteChecker;

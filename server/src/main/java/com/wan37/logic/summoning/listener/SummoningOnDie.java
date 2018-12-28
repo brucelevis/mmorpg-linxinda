@@ -1,11 +1,11 @@
 package com.wan37.logic.summoning.listener;
 
-import com.wan37.event.DieEvent;
+import com.wan37.event.entity.DieEvent;
 import com.wan37.event.GeneralEventListener;
-import com.wan37.logic.player.scene.SceneActorSceneGetter;
+import com.wan37.logic.scene.SceneActorSceneGetter;
 import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.scene.base.FightingUnit;
-import com.wan37.logic.summoning.entity.Summoning;
+import com.wan37.logic.summoning.Summoning;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

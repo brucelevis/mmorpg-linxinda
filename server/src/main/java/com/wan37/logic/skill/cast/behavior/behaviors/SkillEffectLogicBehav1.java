@@ -1,7 +1,7 @@
 package com.wan37.logic.skill.cast.behavior.behaviors;
 
 import com.wan37.logic.skill.cast.FightingAttackHandler;
-import com.wan37.logic.player.scene.SceneActorSceneGetter;
+import com.wan37.logic.scene.SceneActorSceneGetter;
 import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.scene.encode.FightingUnitEncoder;

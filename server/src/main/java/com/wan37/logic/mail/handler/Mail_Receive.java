@@ -1,7 +1,7 @@
 package com.wan37.logic.mail.handler;
 
 import com.wan37.handler.GeneralHandler;
-import com.wan37.logic.mail.service.receive.MailReceiveExec;
+import com.wan37.logic.mail.service.MailReceiveExec;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.server.GeneralReqMsg;

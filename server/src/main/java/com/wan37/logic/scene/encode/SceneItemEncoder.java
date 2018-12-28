@@ -1,6 +1,6 @@
 package com.wan37.logic.scene.encode;
 
-import com.wan37.logic.scene.item.SceneItem;
+import com.wan37.logic.scene.base.SceneItem;
 import org.springframework.stereotype.Service;
 
 @Service

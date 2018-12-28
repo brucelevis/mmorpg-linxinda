@@ -1,7 +1,7 @@
 package com.wan37.logic.player.service.login;
 
 import com.wan37.event.GenernalEventListenersManager;
-import com.wan37.event.LoginEvent;
+import com.wan37.event.entity.LoginEvent;
 import com.wan37.exception.GeneralErrorExecption;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;

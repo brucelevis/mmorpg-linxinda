@@ -1,7 +1,7 @@
 package com.wan37.logic.league.service;
 
 import com.wan37.event.GenernalEventListenersManager;
-import com.wan37.event.LeagueJoinEvent;
+import com.wan37.event.entity.LeagueJoinEvent;
 import com.wan37.exception.GeneralErrorExecption;
 import com.wan37.logic.league.LeagueGlobalManager;
 import com.wan37.logic.league.LeaguePermissionEnum;
