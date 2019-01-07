@@ -13,7 +13,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * 属性配置表加载类
+ * 属性配置表加载器
+ *
+ * @author linda
  */
 @Service
 public class AttrCfgLoader implements GeneralCfgLoader<AttrCfg> {

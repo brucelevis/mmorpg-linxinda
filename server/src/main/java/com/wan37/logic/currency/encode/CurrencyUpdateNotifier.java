@@ -13,6 +13,8 @@ import java.util.stream.Collectors;
 
 /**
  * 玩家虚物变化推送
+ *
+ * @author linda
  */
 @Service
 public class CurrencyUpdateNotifier {
@@ -36,7 +38,6 @@ public class CurrencyUpdateNotifier {
         currencyDb.getIds().clear();
     }
 
-    @Deprecated
     private String encodeUpdate(CurrencyDb currencyDb) {
         Set<Integer> ids = currencyDb.getIds();
         if (ids.isEmpty()) {
@@ -49,7 +50,6 @@ public class CurrencyUpdateNotifier {
                 .collect(Collectors.joining("\n"));
     }
 
-    @Deprecated
     private String encodeItem(Integer id, CurrencyItemDb itemDb) {
         if (itemDb == null) {
             // 虚物用完了

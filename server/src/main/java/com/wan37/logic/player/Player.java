@@ -3,8 +3,8 @@ package com.wan37.logic.player;
 
 import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.attr.config.AttrEnum;
-import com.wan37.logic.attr.database.PAttrDb;
-import com.wan37.logic.buff.entity.IBuff;
+import com.wan37.logic.attr.database.PlayerEachAttrDb;
+import com.wan37.logic.buff.entity.Buff;
 import com.wan37.logic.mission.entity.IMission;
 import com.wan37.logic.pk.entity.IPk;
 import com.wan37.logic.player.database.PlayerDb;
@@ -24,7 +24,7 @@ public class Player implements FightingUnit, IPlayer {
     private PlayerDb playerDb;
 
     private Map<Integer, ISkill> skills;
-    private List<IBuff> buffs = new CopyOnWriteArrayList<>();
+    private List<Buff> buffs = new CopyOnWriteArrayList<>();
     private ITrade trade;
     private IMission mission;
     private IPk pk;
@@ -49,7 +49,7 @@ public class Player implements FightingUnit, IPlayer {
         this.skills = skills;
     }
 
-    public void setBuffs(List<IBuff> buffs) {
+    public void setBuffs(List<Buff> buffs) {
         this.buffs = buffs;
     }
 
@@ -146,7 +146,7 @@ public class Player implements FightingUnit, IPlayer {
     }
 
     @Override
-    public List<IBuff> getBuffs() {
+    public List<Buff> getBuffs() {
         return buffs;
     }
 
@@ -197,8 +197,8 @@ public class Player implements FightingUnit, IPlayer {
 
     @Override
     public long getMaxHp() {
-        PAttrDb pAttrDb = playerDb.getPlayerAttrDb().getAttrs().get(AttrEnum.ATTR_HP.getId());
-        return pAttrDb == null ? 0 : Math.round(pAttrDb.getValue());
+        PlayerEachAttrDb playerEachAttrDb = playerDb.getPlayerAttrDb().getAttrs().get(AttrEnum.ATTR_HP.getId());
+        return playerEachAttrDb == null ? 0 : Math.round(playerEachAttrDb.getValue());
     }
 
     @Override
@@ -213,8 +213,8 @@ public class Player implements FightingUnit, IPlayer {
 
     @Override
     public long getMaxMp() {
-        PAttrDb pAttrDb = playerDb.getPlayerAttrDb().getAttrs().get(AttrEnum.ATTR_MP.getId());
-        return pAttrDb == null ? 0 : Math.round(pAttrDb.getValue());
+        PlayerEachAttrDb playerEachAttrDb = playerDb.getPlayerAttrDb().getAttrs().get(AttrEnum.ATTR_MP.getId());
+        return playerEachAttrDb == null ? 0 : Math.round(playerEachAttrDb.getValue());
     }
 
     @Override

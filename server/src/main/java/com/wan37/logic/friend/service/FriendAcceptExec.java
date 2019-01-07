@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * @author linda
+ */
 @Service
 public class FriendAcceptExec {
 
@@ -32,19 +35,19 @@ public class FriendAcceptExec {
 
         Long fromUid = requestDb.getFromPlayerUid();
         FriendDb friendDb = playerDb.getFriendDb();
-        if (friendDb.getFriendUids().contains(fromUid)) {
+        if (friendDb.getFriendUid().contains(fromUid)) {
             rmRequest(playerDb, fromUid);
             player.syncClient("已经是好友");
             return;
         }
 
-        friendDb.getFriendUids().add(fromUid);
+        friendDb.getFriendUid().add(fromUid);
         rmRequest(playerDb, fromUid);
         player.syncClient("添加好友成功");
 
         //FIXME: 先简单实现，把玩家Load出来
         Player from = playerGlobalManager.getPlayerByUid(fromUid);
-        from.getPlayerDb().getFriendDb().getFriendUids().add(player.getUid());
+        from.getPlayerDb().getFriendDb().getFriendUid().add(player.getUid());
 
         // 如果对方在线
         if (playerGlobalManager.isOnline(fromUid)) {

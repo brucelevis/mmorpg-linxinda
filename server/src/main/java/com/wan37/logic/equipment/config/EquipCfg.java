@@ -11,25 +11,39 @@ import java.util.List;
  */
 public interface EquipCfg {
 
+    /**
+     * 唯一id
+     *
+     * @return Integer
+     */
     Integer getId();
 
     /**
-     * @Retrun Integer
+     * 部位id
+     *
+     * @return Integer
      * @see EquipPartEnum#getId()
      */
     Integer getPart();
 
     /**
-     * hehe
+     * 装备初始属性配置
      *
      * @return List<EquipInitAttrCfg>
      */
     List<EquipInitAttrCfg> getAttrs();
 
     /**
+     * 佩戴等级
      *
+     * @return int
      */
     int getLevel();
 
+    /**
+     * 装备品质配置
+     *
+     * @return List<EquipQualityCfg>
+     */
     List<EquipQualityCfg> getQuality();
 }

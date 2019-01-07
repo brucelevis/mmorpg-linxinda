@@ -1,7 +1,7 @@
-package com.wan37.logic.equipment.handler;
+package com.wan37.logic.friend.handler;
 
 import com.wan37.handler.GeneralHandler;
-import com.wan37.logic.equipment.service.wear.EquipWearExec;
+import com.wan37.logic.friend.service.FriendInfoExec;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.server.GeneralReqMsg;
@@ -10,25 +10,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-class Equip_Wear implements GeneralHandler {
-
-    @Autowired
-    private EquipWearExec equipWearExec;
+class FriendInfoCmd implements GeneralHandler {
 
     @Autowired
     private PlayerGlobalManager playerGlobalManager;
 
+    @Autowired
+    private FriendInfoExec friendInfoExec;
+
     @Override
     public void handle(GeneralReqMsg msg) {
         Channel channel = msg.getChannel();
-        String[] params = msg.getParams();
-        Long uid = Long.parseLong(params[1]);
-
         Player player = playerGlobalManager.getPlayerByChannel(channel);
         if (player == null) {
             return;
         }
 
-        equipWearExec.exec(player, uid);
+        friendInfoExec.exec(player);
     }
 }

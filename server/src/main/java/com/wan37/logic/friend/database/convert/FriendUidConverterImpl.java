@@ -6,7 +6,12 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class FriendUidsConverterImpl implements AttributeConverter<Set<Long>, String> {
+/**
+ * 玩家好友id集合持久化成字符串到数据库
+ *
+ * @author linda
+ */
+public class FriendUidConverterImpl implements AttributeConverter<Set<Long>, String> {
 
     @Override
     public String convertToDatabaseColumn(Set<Long> longs) {

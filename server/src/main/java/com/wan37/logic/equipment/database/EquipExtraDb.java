@@ -2,21 +2,26 @@ package com.wan37.logic.equipment.database;
 
 import java.util.List;
 
+/**
+ * 装备额外信息数据库实体类
+ *
+ * @author linda
+ */
 public class EquipExtraDb {
 
     /**
      * 耐久度
      */
-    private double durabilityv;
+    private double durability;
 
     private List<EquipAttrDb> baseAttrs;
 
-    public double getDurabilityv() {
-        return durabilityv;
+    public double getDurability() {
+        return durability;
     }
 
-    public void setDurabilityv(double durabilityv) {
-        this.durabilityv = durabilityv;
+    public void setDurability(double durability) {
+        this.durability = durability;
     }
 
     public List<EquipAttrDb> getBaseAttrs() {

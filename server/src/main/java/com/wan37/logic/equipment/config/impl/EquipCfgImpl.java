@@ -9,6 +9,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * @author linda
+ */
 public class EquipCfgImpl implements EquipCfg {
 
     public EquipCfgImpl(EquipCfgExcel cfgExcel) {

@@ -75,7 +75,7 @@ public class ResourceItemAdder {
                 }
 
                 // 标记背包格子更新
-                backpackDb.getIndexs().add(itemDb.getIndex());
+                backpackDb.getIndex().add(itemDb.getIndex());
             }
 
             // 还有开始找格子创建
@@ -91,7 +91,7 @@ public class ResourceItemAdder {
                     amount = 0;
                 }
 
-                backpackDb.getIndexs().add(index);
+                backpackDb.getIndex().add(index);
                 backpackDb.getItemMap().put(index, itemDb);
             }
         } else {
@@ -105,7 +105,7 @@ public class ResourceItemAdder {
                 Object extraDb = propsExtraInitializer.init(propsCfg);
                 itemDb.setExtraDb(extraDb);
 
-                backpackDb.getIndexs().add(index);
+                backpackDb.getIndex().add(index);
                 backpackDb.getItemMap().put(index, itemDb);
                 amount--;
             }

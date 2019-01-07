@@ -4,6 +4,11 @@ import com.wan37.logic.player.database.PlayerDb;
 
 import javax.persistence.*;
 
+/**
+ * 好友请求信息数据库实体类
+ *
+ * @author linda
+ */
 @Entity
 @Table(name = "tb_friend_request")
 public class FriendRequestDb {

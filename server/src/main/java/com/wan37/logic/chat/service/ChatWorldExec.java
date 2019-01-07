@@ -10,6 +10,9 @@ import com.wan37.logic.props.resource.impl.ResourceElementImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author linda
+ */
 @Service
 public class ChatWorldExec {
 

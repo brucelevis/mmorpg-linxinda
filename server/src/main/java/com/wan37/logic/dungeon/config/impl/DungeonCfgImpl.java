@@ -15,6 +15,9 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ * @author linda
+ */
 public class DungeonCfgImpl implements DungeonCfg {
 
     public DungeonCfgImpl(DungeonCfgExcel cfgExcel) {

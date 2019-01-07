@@ -4,6 +4,8 @@ import com.wan37.logic.props.config.VirtualItemCfg;
 
 /**
  * 玩家的一种虚物
+ *
+ * @author linda
  */
 public class CurrencyItemDb {
 

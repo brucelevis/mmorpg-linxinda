@@ -1,8 +1,11 @@
 package com.wan37.logic.backpack.service.item.behavior;
 
-public class ItemExtraEncodeBehavContext {
+/**
+ * @author linda
+ */
+public class ItemExtraEncodeBehaviorContext {
 
-    public ItemExtraEncodeBehavContext(Integer cfgId, Object extraDb) {
+    public ItemExtraEncodeBehaviorContext(Integer cfgId, Object extraDb) {
         this.cfgId = cfgId;
         this.extraDb = extraDb;
     }

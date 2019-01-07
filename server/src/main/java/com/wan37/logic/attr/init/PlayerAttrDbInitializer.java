@@ -1,6 +1,6 @@
 package com.wan37.logic.attr.init;
 
-import com.wan37.logic.attr.database.PAttrDb;
+import com.wan37.logic.attr.database.PlayerEachAttrDb;
 import com.wan37.logic.attr.database.PlayerAttrDb;
 import com.wan37.logic.faction.config.FactionCfg;
 import com.wan37.logic.faction.config.FactionCfgLoader;
@@ -13,6 +13,8 @@ import java.util.stream.Collectors;
 
 /**
  * 初始化人物属性数据库实体类
+ *
+ * @author linda
  */
 @Service
 public class PlayerAttrDbInitializer {
@@ -28,11 +30,11 @@ public class PlayerAttrDbInitializer {
     private void initImpl(PlayerAttrDb attrDb, FactionCfg factionCfg) {
         attrDb.setAttrs(factionCfg.getInitAttrs().stream()
                 .map(this::createAttr)
-                .collect(Collectors.toMap(PAttrDb::getCfgId, Function.identity())));
+                .collect(Collectors.toMap(PlayerEachAttrDb::getCfgId, Function.identity())));
     }
 
-    private PAttrDb createAttr(FactionInitAttrCfg attrCfg) {
-        PAttrDb db = new PAttrDb();
+    private PlayerEachAttrDb createAttr(FactionInitAttrCfg attrCfg) {
+        PlayerEachAttrDb db = new PlayerEachAttrDb();
         db.setCfgId(attrCfg.getAttrCfgId());
         db.setValue(attrCfg.getValue());
         return db;

@@ -9,13 +9,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
 
+/**
+ * @author linda
+ */
 @Service
 public class FactionInfoExec {
 
     @Autowired
     private FactionCfgLoader factionCfgLoader;
 
-    @Deprecated
     public void exec(Channel channel) {
         String head = "门派信息如下：\n";
         String msg = factionCfgLoader.loads().stream()

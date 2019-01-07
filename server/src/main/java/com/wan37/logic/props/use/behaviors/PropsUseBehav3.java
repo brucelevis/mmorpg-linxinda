@@ -1,7 +1,7 @@
 package com.wan37.logic.props.use.behaviors;
 
 import com.google.common.base.Objects;
-import com.wan37.logic.buff.entity.IBuff;
+import com.wan37.logic.buff.entity.Buff;
 import com.wan37.logic.buff.config.BuffCfg;
 import com.wan37.logic.buff.config.BuffCfgLoader;
 import com.wan37.logic.player.Player;
@@ -23,7 +23,7 @@ class PropsUseBehav3 implements PropsUseBehavior {
     private BuffCfgLoader buffCfgLoader;
 
     @Autowired
-    private IBuff.Factory IBuffFactory;
+    private Buff.Factory IBuffFactory;
 
     @Override
     public void behave(PropsUseContext context) {
@@ -36,10 +36,10 @@ class PropsUseBehav3 implements PropsUseBehavior {
         }
 
         Player player = context.getPlayer();
-        IBuff buff = IBuffFactory.create(buffCfg);
+        Buff buff = IBuffFactory.create(buffCfg);
 
         // 去重
-        List<IBuff> buffs = player.getBuffs();
+        List<Buff> buffs = player.getBuffs();
         buffs.stream().filter(b -> Objects.equal(b.getId(), buff.getId()))
                 .findAny()
                 .ifPresent(buffs::remove);

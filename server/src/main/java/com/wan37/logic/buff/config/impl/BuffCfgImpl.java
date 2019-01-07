@@ -3,6 +3,11 @@ package com.wan37.logic.buff.config.impl;
 import com.wan37.config.entity.BuffCfgExcel;
 import com.wan37.logic.buff.config.BuffCfg;
 
+/**
+ * Buff配置表加载器
+ *
+ * @author linda
+ */
 public class BuffCfgImpl implements BuffCfg {
 
     public BuffCfgImpl(BuffCfgExcel cfgExcel) {
@@ -50,7 +55,7 @@ public class BuffCfgImpl implements BuffCfg {
     }
 
     @Override
-    public Integer getTatget() {
+    public Integer getTarget() {
         return cfgExcel.getTarget();
     }
 

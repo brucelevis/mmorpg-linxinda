@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
 
+/**
+ * @author linda
+ */
 @Service
 public class FriendInfoExec {
 
@@ -23,7 +26,7 @@ public class FriendInfoExec {
         PlayerDb playerDb = player.getPlayerDb();
 
         String friendHead = "好友列表如下：\n";
-        String friendList = playerDb.getFriendDb().getFriendUids().stream()
+        String friendList = playerDb.getFriendDb().getFriendUid().stream()
                 .map(this::encodeFriend)
                 .collect(Collectors.joining("\n"));
 

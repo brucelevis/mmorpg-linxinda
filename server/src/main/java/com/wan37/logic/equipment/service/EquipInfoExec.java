@@ -2,7 +2,7 @@ package com.wan37.logic.equipment.service;
 
 import com.wan37.behavior.BehaviorManager;
 import com.wan37.logic.backpack.database.ItemDb;
-import com.wan37.logic.backpack.service.item.behavior.ItemExtraEncodeBehavContext;
+import com.wan37.logic.backpack.service.item.behavior.ItemExtraEncodeBehaviorContext;
 import com.wan37.logic.backpack.service.item.behavior.ItemExtraEncodeBehavior;
 import com.wan37.logic.equipment.EquipPartEnum;
 import com.wan37.logic.equipment.database.EquipDb;
@@ -15,6 +15,9 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * @author linda
+ */
 @Service
 public class EquipInfoExec {
 
@@ -30,7 +33,6 @@ public class EquipInfoExec {
         player.syncClient(msg);
     }
 
-    @Deprecated
     private String encode(EquipDb equipDb) {
         return equipDb.getItems().entrySet().stream()
                 .map(this::encodeEquip)
@@ -47,7 +49,7 @@ public class EquipInfoExec {
         String partName = EquipPartEnum.getName(part);
 
         ItemExtraEncodeBehavior behavior = (ItemExtraEncodeBehavior) behaviorManager.get(ItemExtraEncodeBehavior.class, propsCfg.getType());
-        ItemExtraEncodeBehavContext ctx = new ItemExtraEncodeBehavContext(itemDb.getCfgId(), itemDb.getExtraDb());
+        ItemExtraEncodeBehaviorContext ctx = new ItemExtraEncodeBehaviorContext(itemDb.getCfgId(), itemDb.getExtraDb());
         behavior.behave(ctx);
 
         String msg = "部位：%s（partId：%s），名字：%s, %s";

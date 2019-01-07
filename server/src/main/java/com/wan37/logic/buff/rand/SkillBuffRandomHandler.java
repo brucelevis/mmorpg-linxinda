@@ -2,7 +2,7 @@ package com.wan37.logic.buff.rand;
 
 import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.buff.BuffTargetEnum;
-import com.wan37.logic.buff.entity.IBuff;
+import com.wan37.logic.buff.entity.Buff;
 import com.wan37.logic.buff.config.BuffCfg;
 import com.wan37.logic.buff.config.BuffCfgLoader;
 import com.wan37.logic.player.service.FightingUnitBuffAdder;
@@ -16,21 +16,23 @@ import java.util.Objects;
 
 /**
  * Buff触发逻辑类
+ *
+ * @author linda
  */
 @Service
-public class SkillBuffRandomer {
+public class SkillBuffRandomHandler {
 
     @Autowired
     private BuffCfgLoader buffCfgLoader;
 
     @Autowired
-    private IBuff.Factory buffFactory;
+    private Buff.Factory buffFactory;
 
     @Autowired
     private FightingUnitBuffAdder fightingUnitBuffAdder;
 
-    public void rand(FightingUnit attacker, FightingUnit target, SkillBuffCfg cfg, AbstractScene scene) {
-        if (!RandomUtil.isHit(cfg.getProbability())) {
+    public void handle(FightingUnit attacker, FightingUnit target, SkillBuffCfg cfg, AbstractScene scene) {
+        if (RandomUtil.isNotHit(cfg.getProbability())) {
             // 没触发buff
             return;
         }
@@ -40,7 +42,7 @@ public class SkillBuffRandomer {
             return;
         }
 
-        IBuff buff = buffFactory.create(buffCfg);
+        Buff buff = buffFactory.create(buffCfg);
         if (Objects.equals(buff.getTarget(), BuffTargetEnum.BUFF_TARGET_1.getId())) {
             // 对自己施加buff
             fightingUnitBuffAdder.add(attacker, buff);

@@ -1,9 +1,25 @@
 package com.wan37.logic.equipment;
 
+/**
+ * 装备部位枚举类
+ *
+ * @author linda
+ */
 public enum EquipPartEnum {
 
+    /**
+     * 武器
+     */
     PART_1(1, "武器"),
+
+    /**
+     * 手套
+     */
     PART_2(2, "手套"),
+
+    /**
+     * 帽子
+     */
     PART_3(3, "帽子");
 
     private Integer id;

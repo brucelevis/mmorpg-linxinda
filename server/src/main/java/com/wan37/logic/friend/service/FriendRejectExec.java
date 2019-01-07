@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * @author linda
+ */
 @Service
 public class FriendRejectExec {
 

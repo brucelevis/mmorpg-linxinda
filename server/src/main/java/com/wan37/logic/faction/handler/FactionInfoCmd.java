@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-class Faction_Info implements GeneralHandler {
+class FactionInfoCmd implements GeneralHandler {
 
     @Autowired
     private FactionInfoExec factionInfoExec;

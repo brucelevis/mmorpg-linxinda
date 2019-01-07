@@ -2,10 +2,19 @@ package com.wan37.logic.buff;
 
 /**
  * Buff目标
+ *
+ * @author linda
  */
 public enum BuffTargetEnum {
 
+    /**
+     * 自己
+     */
     BUFF_TARGET_1(1, "自己"),
+
+    /**
+     * 敌人
+     */
     BUFF_TARGET_2(2, "敌人");
 
     private Integer id;

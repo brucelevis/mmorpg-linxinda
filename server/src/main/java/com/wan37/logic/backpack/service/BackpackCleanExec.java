@@ -17,6 +17,8 @@ import java.util.stream.Collectors;
 
 /**
  * 背包整理
+ *
+ * @author linda
  */
 @Service
 public class BackpackCleanExec {
@@ -35,7 +37,7 @@ public class BackpackCleanExec {
                 .entrySet();
 
         int index = 1;
-        Map<Integer, ItemDb> backpack = new HashMap<>();
+        Map<Integer, ItemDb> backpack = new HashMap<>(0);
         for (Map.Entry<Integer, List<ItemDb>> entry : entries) {
             PropsCfg propsCfg = propsCfgLoader.load(entry.getKey())
                     .orElseThrow(() -> new RuntimeException("物品导表找不到对应物品"));

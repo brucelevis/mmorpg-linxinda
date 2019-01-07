@@ -8,7 +8,11 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Deprecated
+/**
+ * 背包信息编码
+ *
+ * @author linda
+ */
 @Service
 public class BackpackInfoEncoder {
 

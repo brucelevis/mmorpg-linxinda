@@ -1,7 +1,7 @@
 package com.wan37.logic.scene.schedule;
 
 import com.wan37.logic.buff.effect.BuffEffectHandler;
-import com.wan37.logic.buff.entity.IBuff;
+import com.wan37.logic.buff.entity.Buff;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.scene.base.FightingUnit;
@@ -24,7 +24,7 @@ public class SceneFightingUnitBuffsScheduler {
     }
 
     private void updateBuffs(long now, FightingUnit unit) {
-        List<IBuff> buffs = unit.getBuffs();
+        List<Buff> buffs = unit.getBuffs();
 
         // 移除过期Buff
         buffs.stream()
@@ -38,7 +38,7 @@ public class SceneFightingUnitBuffsScheduler {
                 .forEach(b -> buffEffectHandler.handle(unit, b, now));
     }
 
-    private void removeBuffAndNotify(FightingUnit unit, IBuff buff) {
+    private void removeBuffAndNotify(FightingUnit unit, Buff buff) {
         unit.getBuffs().remove(buff);
 
         if (unit instanceof Player) {

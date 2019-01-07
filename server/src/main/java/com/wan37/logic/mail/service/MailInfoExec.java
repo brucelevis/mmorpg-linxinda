@@ -2,7 +2,7 @@ package com.wan37.logic.mail.service;
 
 import com.wan37.behavior.BehaviorManager;
 import com.wan37.logic.backpack.database.ItemDb;
-import com.wan37.logic.backpack.service.item.behavior.ItemExtraEncodeBehavContext;
+import com.wan37.logic.backpack.service.item.behavior.ItemExtraEncodeBehaviorContext;
 import com.wan37.logic.backpack.service.item.behavior.ItemExtraEncodeBehavior;
 import com.wan37.logic.mail.database.MailDb;
 import com.wan37.logic.mail.database.MailItemDb;
@@ -78,7 +78,7 @@ public class MailInfoExec {
         Integer type = propsCfg.getType();
         ItemExtraEncodeBehavior behavior = (ItemExtraEncodeBehavior) behaviorManager.get(ItemExtraEncodeBehavior.class, type);
 
-        ItemExtraEncodeBehavContext ctx = new ItemExtraEncodeBehavContext(itemDb.getCfgId(), itemDb.getExtraDb());
+        ItemExtraEncodeBehaviorContext ctx = new ItemExtraEncodeBehaviorContext(itemDb.getCfgId(), itemDb.getExtraDb());
         behavior.behave(ctx);
 
         return String.format("名字：%s，数量：%s %s", propsCfg.getName(), itemDb.getAmount(), ctx.getResult());

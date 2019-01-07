@@ -2,7 +2,7 @@ package com.wan37.logic.equipment.config.impl;
 
 import com.wan37.logic.equipment.config.EquipInitAttrCfg;
 
-public class EquipInitAttrCfgImpl implements EquipInitAttrCfg {
+class EquipInitAttrCfgImpl implements EquipInitAttrCfg {
 
     public EquipInitAttrCfgImpl(Integer attrCfgId, double value, double step, int maxRandInt) {
         this.attrCfgId = attrCfgId;

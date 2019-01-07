@@ -1,11 +1,11 @@
 package com.wan37.logic.buff.entity.impl;
 
 import com.wan37.logic.buff.config.BuffCfg;
-import com.wan37.logic.buff.entity.IBuff;
+import com.wan37.logic.buff.entity.Buff;
 
-class IBuffImpl implements IBuff {
+class BuffImpl implements Buff {
 
-    public IBuffImpl(long expireTime, BuffCfg buffCfg, long lastEffectTime) {
+    public BuffImpl(long expireTime, BuffCfg buffCfg, long lastEffectTime) {
         this.expireTime = expireTime;
         this.buffCfg = buffCfg;
         this.lastEffectTime = lastEffectTime;
@@ -63,7 +63,7 @@ class IBuffImpl implements IBuff {
 
     @Override
     public Integer getTarget() {
-        return buffCfg.getTatget();
+        return buffCfg.getTarget();
     }
 
     private final long expireTime;

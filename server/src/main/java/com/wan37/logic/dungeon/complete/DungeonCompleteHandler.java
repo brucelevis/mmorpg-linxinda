@@ -29,6 +29,8 @@ import java.util.stream.Collectors;
 
 /**
  * 副本完成处理类
+ *
+ * @author linda
  */
 @Service
 public class DungeonCompleteHandler {
@@ -89,7 +91,7 @@ public class DungeonCompleteHandler {
     }
 
     private ResourceElement randReward(DungeonRewardCfg cfg) {
-        if (!RandomUtil.isHit(cfg.getProbability())) {
+        if (RandomUtil.isNotHit(cfg.getProbability())) {
             return null;
         }
 

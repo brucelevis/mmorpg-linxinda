@@ -14,6 +14,11 @@ import com.wan37.logic.props.config.PropsCfgLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * 装备穿戴逻辑
+ *
+ * @author linda
+ */
 @Service
 public class EquipWearer {
 

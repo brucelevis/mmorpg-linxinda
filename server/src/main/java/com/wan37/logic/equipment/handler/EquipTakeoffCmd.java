@@ -1,7 +1,7 @@
-package com.wan37.logic.dungeon.handler;
+package com.wan37.logic.equipment.handler;
 
 import com.wan37.handler.GeneralHandler;
-import com.wan37.logic.dungeon.service.DungeonInfoExec;
+import com.wan37.logic.equipment.service.EquipTakeoffExec;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.server.GeneralReqMsg;
@@ -10,16 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * 副本信息
+ * 脱装备
  */
 @Service
-class Dungeon_Info implements GeneralHandler {
+class EquipTakeoffCmd implements GeneralHandler {
+
+    @Autowired
+    private EquipTakeoffExec equipTakeoffExec;
 
     @Autowired
     private PlayerGlobalManager playerGlobalManager;
-
-    @Autowired
-    private DungeonInfoExec dungeonInfoExec;
 
     @Override
     public void handle(GeneralReqMsg msg) {
@@ -29,6 +29,8 @@ class Dungeon_Info implements GeneralHandler {
             return;
         }
 
-        dungeonInfoExec.exec(player);
+        String[] param = msg.getParams();
+        Integer part = Integer.parseInt(param[1]);
+        equipTakeoffExec.exec(player, part);
     }
 }

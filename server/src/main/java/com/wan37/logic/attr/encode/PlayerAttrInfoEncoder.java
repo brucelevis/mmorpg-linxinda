@@ -1,14 +1,18 @@
 package com.wan37.logic.attr.encode;
 
 import com.wan37.logic.attr.config.AttrCfgLoader;
-import com.wan37.logic.attr.database.PAttrDb;
+import com.wan37.logic.attr.database.PlayerEachAttrDb;
 import com.wan37.logic.attr.database.PlayerAttrDb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
 
-@Deprecated
+/**
+ * 玩家属性信息编码
+ *
+ * @author linda
+ */
 @Service
 public class PlayerAttrInfoEncoder {
 
@@ -24,8 +28,8 @@ public class PlayerAttrInfoEncoder {
         return head + attrs;
     }
 
-    private String encodeAttr(PAttrDb pAttrDb) {
+    private String encodeAttr(PlayerEachAttrDb playerEachAttrDb) {
         String msg = "%s：%s";
-        return String.format(msg, attrCfgLoader.getName(pAttrDb.getCfgId()), pAttrDb.getValue());
+        return String.format(msg, attrCfgLoader.getName(playerEachAttrDb.getCfgId()), playerEachAttrDb.getValue());
     }
 }

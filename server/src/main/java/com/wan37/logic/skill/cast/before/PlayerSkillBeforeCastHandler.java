@@ -31,7 +31,7 @@ public class PlayerSkillBeforeCastHandler {
         if (equipItem != null) {
             //FIXME: 写死减少装备耐久度1
             EquipExtraDb equipExtraDb = equipExtraDbGetter.get(equipItem.getExtraDb());
-            equipExtraDb.setDurabilityv(equipExtraDb.getDurabilityv() - 1);
+            equipExtraDb.setDurability(equipExtraDb.getDurability() - 1);
         }
     }
 }

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 /**
  * 副本场景定时器
+ *
+ * @author linda
  */
 @Service
 public class DungeonSceneScheduler extends GeneralSceneScheduler {

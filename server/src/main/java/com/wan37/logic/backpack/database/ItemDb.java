@@ -4,6 +4,8 @@ import com.wan37.logic.props.config.PropsCfg;
 
 /**
  * 背包格子数据库实体类
+ *
+ * @author linda
  */
 public class ItemDb {
 

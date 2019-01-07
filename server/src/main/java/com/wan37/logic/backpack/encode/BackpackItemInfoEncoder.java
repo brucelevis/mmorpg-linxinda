@@ -2,14 +2,18 @@ package com.wan37.logic.backpack.encode;
 
 import com.wan37.behavior.BehaviorManager;
 import com.wan37.logic.backpack.database.ItemDb;
-import com.wan37.logic.backpack.service.item.behavior.ItemExtraEncodeBehavContext;
+import com.wan37.logic.backpack.service.item.behavior.ItemExtraEncodeBehaviorContext;
 import com.wan37.logic.backpack.service.item.behavior.ItemExtraEncodeBehavior;
 import com.wan37.logic.props.config.PropsCfg;
 import com.wan37.logic.props.config.PropsCfgLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Deprecated
+/**
+ * 背包单个物品详细信息编码
+ *
+ * @author linda
+ */
 @Service
 public class BackpackItemInfoEncoder {
 
@@ -30,7 +34,7 @@ public class BackpackItemInfoEncoder {
         Integer type = propsCfg.getType();
         ItemExtraEncodeBehavior behavior = (ItemExtraEncodeBehavior) behaviorManager.get(ItemExtraEncodeBehavior.class, type);
 
-        ItemExtraEncodeBehavContext ctx = new ItemExtraEncodeBehavContext(itemDb.getCfgId(), itemDb.getExtraDb());
+        ItemExtraEncodeBehaviorContext ctx = new ItemExtraEncodeBehaviorContext(itemDb.getCfgId(), itemDb.getExtraDb());
         behavior.behave(ctx);
 
         return baseMsg + ctx.getResult();

@@ -2,6 +2,11 @@ package com.wan37.logic.equipment.database;
 
 import com.wan37.logic.attr.config.AttrCfg;
 
+/**
+ * 装备属性信息
+ *
+ * @author linda
+ */
 public class EquipAttrDb {
 
     /**
@@ -10,11 +15,6 @@ public class EquipAttrDb {
     private Integer cfgId;
 
     private double value;
-
-    /**
-     * FIXME: 为了方便前端显示，把属性名存起来
-     */
-    private String name;
 
     public Integer getCfgId() {
         return cfgId;
@@ -30,13 +30,5 @@ public class EquipAttrDb {
 
     public void setValue(double value) {
         this.value = value;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }

@@ -1,7 +1,7 @@
-package com.wan37.logic.dungeon.handler;
+package com.wan37.logic.chat.handler;
 
 import com.wan37.handler.GeneralHandler;
-import com.wan37.logic.dungeon.service.DungeonLeaveExec;
+import com.wan37.logic.chat.service.ChatSceneExec;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.server.GeneralReqMsg;
@@ -10,25 +10,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * 离开副本
+ * 当前场景聊天
  */
 @Service
-class Dungeon_Leave implements GeneralHandler {
+class ChatSceneCmd implements GeneralHandler {
+
+    @Autowired
+    private ChatSceneExec chatSceneExec;
 
     @Autowired
     private PlayerGlobalManager playerGlobalManager;
-
-    @Autowired
-    private DungeonLeaveExec dungeonLeaveExec;
 
     @Override
     public void handle(GeneralReqMsg msg) {
         Channel channel = msg.getChannel();
         Player player = playerGlobalManager.getPlayerByChannel(channel);
-        if (channel == null) {
+        if (player == null) {
             return;
         }
 
-        dungeonLeaveExec.exec(player);
+        String[] params = msg.getParams();
+        chatSceneExec.exec(player, params[1]);
     }
 }

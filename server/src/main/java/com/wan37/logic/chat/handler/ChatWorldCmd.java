@@ -1,7 +1,7 @@
 package com.wan37.logic.chat.handler;
 
 import com.wan37.handler.GeneralHandler;
-import com.wan37.logic.chat.service.ChatSceneExec;
+import com.wan37.logic.chat.service.ChatWorldExec;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.server.GeneralReqMsg;
@@ -10,13 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * 当前场景聊天
+ * 世界聊天
  */
 @Service
-class Chat_Scene implements GeneralHandler {
+class ChatWorldCmd implements GeneralHandler {
 
     @Autowired
-    private ChatSceneExec chatSceneExec;
+    private ChatWorldExec chatWorldExec;
 
     @Autowired
     private PlayerGlobalManager playerGlobalManager;
@@ -29,7 +29,7 @@ class Chat_Scene implements GeneralHandler {
             return;
         }
 
-        String[] params = msg.getParams();
-        chatSceneExec.exec(player, params[1]);
+        String content = msg.getParams()[1];
+        chatWorldExec.exec(player, content);
     }
 }

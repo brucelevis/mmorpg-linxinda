@@ -3,6 +3,9 @@ package com.wan37.logic.attr.config.impl;
 import com.wan37.config.entity.AttrCfgExcel;
 import com.wan37.logic.attr.config.AttrCfg;
 
+/**
+ * @author linda
+ */
 public class AttrCfgImpl implements AttrCfg {
 
     public AttrCfgImpl(AttrCfgExcel cfgExcel) {

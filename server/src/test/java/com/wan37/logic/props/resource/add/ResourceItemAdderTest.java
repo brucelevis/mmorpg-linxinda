@@ -63,7 +63,7 @@ public class ResourceItemAdderTest {
         _element = mock(ResourceElement.class);
 
         _db = new BackpackDb();
-        _db.setIndexs(new HashSet<>());
+        _db.setIndex(new HashSet<>());
         _db.setItemMap(new HashMap<>());
 
         _player = mock(Player.class);

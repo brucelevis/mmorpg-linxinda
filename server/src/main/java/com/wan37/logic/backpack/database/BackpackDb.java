@@ -8,6 +8,8 @@ import java.util.Set;
 
 /**
  * 人物背包数据库实体类
+ *
+ * @author linda
  */
 public class BackpackDb {
 
@@ -25,7 +27,7 @@ public class BackpackDb {
      * 保存背包格子需要推送更新的索引
      */
     @JSONField(serialize = false)
-    private Set<Integer> indexs = new HashSet<>();
+    private Set<Integer> index = new HashSet<>();
 
     public Map<Integer, ItemDb> getItemMap() {
         return itemMap;
@@ -43,11 +45,11 @@ public class BackpackDb {
         this.capacity = capacity;
     }
 
-    public Set<Integer> getIndexs() {
-        return indexs;
+    public Set<Integer> getIndex() {
+        return index;
     }
 
-    public void setIndexs(Set<Integer> indexs) {
-        this.indexs = indexs;
+    public void setIndex(Set<Integer> index) {
+        this.index = index;
     }
 }

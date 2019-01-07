@@ -12,6 +12,11 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * 装备配置加载器
+ *
+ * @author linda
+ */
 @Service
 public class EquipCfgLoader implements GeneralCfgLoader<EquipCfg> {
 

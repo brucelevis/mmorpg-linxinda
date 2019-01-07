@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+/**
+ * @author linda
+ */
 @Service
 public class FriendAddExec {
 
@@ -27,7 +30,7 @@ public class FriendAddExec {
     private FriendRequestDao friendRequestDao;
 
     public void exec(Player player, Long uid) {
-        if (player.getPlayerDb().getFriendDb().getFriendUids().contains(uid)) {
+        if (player.getPlayerDb().getFriendDb().getFriendUid().contains(uid)) {
             throw new GeneralErrorException("已经是好友");
         }
 

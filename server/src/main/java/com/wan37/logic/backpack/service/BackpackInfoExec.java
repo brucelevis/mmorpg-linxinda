@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 /**
  * 背包信息打印
+ *
+ * @author linda
  */
 @Service
 public class BackpackInfoExec {

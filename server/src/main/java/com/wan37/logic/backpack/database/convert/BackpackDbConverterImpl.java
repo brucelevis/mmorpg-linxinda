@@ -7,6 +7,8 @@ import javax.persistence.AttributeConverter;
 
 /**
  * 玩家背包持久化成json数据到数据库
+ *
+ * @author linda
  */
 public class BackpackDbConverterImpl implements AttributeConverter<BackpackDb, String> {
 

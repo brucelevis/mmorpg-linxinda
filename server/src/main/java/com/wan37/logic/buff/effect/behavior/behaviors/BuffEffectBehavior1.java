@@ -1,7 +1,7 @@
 package com.wan37.logic.buff.effect.behavior.behaviors;
 
 import com.wan37.logic.scene.base.FightingUnit;
-import com.wan37.logic.buff.entity.IBuff;
+import com.wan37.logic.buff.entity.Buff;
 import com.wan37.logic.buff.effect.behavior.BuffEffectBehavior;
 import com.wan37.logic.buff.effect.behavior.BuffEffectContext;
 import com.wan37.logic.scene.SceneActorSceneGetter;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
  * @see com.wan37.logic.buff.BuffEffectEnum#BUFF_EFFECT_1
  */
 @Service
-class BuffEffectBehav1 implements BuffEffectBehavior {
+class BuffEffectBehavior1 implements BuffEffectBehavior {
 
     @Autowired
     private FightingUnitMpAdder fightingUnitMpAdder;
@@ -30,7 +30,7 @@ class BuffEffectBehav1 implements BuffEffectBehavior {
 
     @Override
     public void behave(BuffEffectContext context) {
-        IBuff buff = context.getBuff();
+        Buff buff = context.getBuff();
 
         FightingUnit unit = context.getUnit();
         long curMp = unit.getMp();

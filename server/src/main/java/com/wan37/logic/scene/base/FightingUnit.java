@@ -1,6 +1,6 @@
 package com.wan37.logic.scene.base;
 
-import com.wan37.logic.buff.entity.IBuff;
+import com.wan37.logic.buff.entity.Buff;
 import com.wan37.logic.skill.entity.ISkill;
 
 import java.util.List;
@@ -14,7 +14,7 @@ public interface FightingUnit extends SceneActor {
 
     Map<Integer, ISkill> getSkills();
 
-    List<IBuff> getBuffs();
+    List<Buff> getBuffs();
 
     long getBaseAttackVal();
 

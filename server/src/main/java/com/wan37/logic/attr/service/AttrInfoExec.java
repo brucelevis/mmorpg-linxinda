@@ -9,6 +9,9 @@ import com.wan37.logic.strength.encode.PlayerStrengthInfoEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author linda
+ */
 @Service
 public class AttrInfoExec {
 

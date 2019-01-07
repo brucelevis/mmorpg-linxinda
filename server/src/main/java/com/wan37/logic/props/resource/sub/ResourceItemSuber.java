@@ -58,7 +58,7 @@ public class ResourceItemSuber {
             }
 
             // 标记推送的格子索引
-            backpackDb.getIndexs().add(index);
+            backpackDb.getIndex().add(index);
         }
 
         return true;

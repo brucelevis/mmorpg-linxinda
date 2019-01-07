@@ -1,7 +1,7 @@
-package com.wan37.logic.dungeon.handler;
+package com.wan37.logic.backpack.handler;
 
 import com.wan37.handler.GeneralHandler;
-import com.wan37.logic.dungeon.service.DungeonEnterExec;
+import com.wan37.logic.backpack.service.BackpackCleanExec;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.server.GeneralReqMsg;
@@ -10,16 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * 副本进入
+ * 背包整理
  */
 @Service
-class Dungeon_Enter implements GeneralHandler {
+class BackpackCleanCmd implements GeneralHandler {
 
     @Autowired
     private PlayerGlobalManager playerGlobalManager;
 
     @Autowired
-    private DungeonEnterExec dungeonEnterExec;
+    private BackpackCleanExec backpackCleanExec;
 
     @Override
     public void handle(GeneralReqMsg msg) {
@@ -29,7 +29,6 @@ class Dungeon_Enter implements GeneralHandler {
             return;
         }
 
-        Integer dungeonId = msg.getParamAsInt(1);
-        dungeonEnterExec.exec(player, dungeonId);
+        backpackCleanExec.exec(player);
     }
 }

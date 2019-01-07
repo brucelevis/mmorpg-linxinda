@@ -1,7 +1,7 @@
-package com.wan37.logic.friend.handler;
+package com.wan37.logic.equipment.handler;
 
 import com.wan37.handler.GeneralHandler;
-import com.wan37.logic.friend.service.FriendInfoExec;
+import com.wan37.logic.equipment.service.EquipInfoExec;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.server.GeneralReqMsg;
@@ -9,14 +9,17 @@ import io.netty.channel.Channel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * 装备栏信息
+ */
 @Service
-class Friend_Info implements GeneralHandler {
+class EquipInfoCmd implements GeneralHandler {
+
+    @Autowired
+    private EquipInfoExec equipInfoExec;
 
     @Autowired
     private PlayerGlobalManager playerGlobalManager;
-
-    @Autowired
-    private FriendInfoExec friendInfoExec;
 
     @Override
     public void handle(GeneralReqMsg msg) {
@@ -26,6 +29,6 @@ class Friend_Info implements GeneralHandler {
             return;
         }
 
-        friendInfoExec.exec(player);
+        equipInfoExec.exec(player);
     }
 }

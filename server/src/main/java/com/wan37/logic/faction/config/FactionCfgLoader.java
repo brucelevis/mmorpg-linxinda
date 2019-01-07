@@ -12,6 +12,11 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * 门派配置加载器
+ *
+ * @author linda
+ */
 @Service
 public class FactionCfgLoader implements GeneralCfgLoader<FactionCfg> {
 

@@ -4,8 +4,10 @@ import com.wan37.logic.attr.config.AttrCfg;
 
 /**
  * 人物一条属性
+ *
+ * @author linda
  */
-public class PAttrDb {
+public class PlayerEachAttrDb {
 
     /**
      * @see AttrCfg#getId

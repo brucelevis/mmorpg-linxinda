@@ -1,7 +1,7 @@
 package com.wan37.logic.props.use.behaviors;
 
 import com.wan37.logic.attr.config.AttrEnum;
-import com.wan37.logic.attr.database.PAttrDb;
+import com.wan37.logic.attr.database.PlayerEachAttrDb;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.props.use.PropsUseBehavior;
@@ -25,7 +25,7 @@ class PropsUseBehav2 implements PropsUseBehavior {
         long cur = playerDb.getHp();
         long hp = cur + addHp;
 
-        PAttrDb hpDb = playerDb.getPlayerAttrDb().getAttrs().get(AttrEnum.ATTR_HP.getId());
+        PlayerEachAttrDb hpDb = playerDb.getPlayerAttrDb().getAttrs().get(AttrEnum.ATTR_HP.getId());
         if (hpDb == null) {
             return;
         }

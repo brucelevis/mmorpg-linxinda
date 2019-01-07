@@ -1,7 +1,7 @@
 package com.wan37.logic.player.init;
 
 import com.wan37.logic.attr.config.AttrEnum;
-import com.wan37.logic.attr.database.PAttrDb;
+import com.wan37.logic.attr.database.PlayerEachAttrDb;
 import com.wan37.logic.attr.database.PlayerAttrDb;
 import com.wan37.logic.attr.init.PlayerAttrDbInitializer;
 import com.wan37.logic.backpack.database.BackpackDb;
@@ -102,13 +102,13 @@ public class PlayerDbInitializer {
     }
 
     private void initPlayer(PlayerDb playerDb) {
-        Map<Integer, PAttrDb> attrs = playerDb.getPlayerAttrDb().getAttrs();
+        Map<Integer, PlayerEachAttrDb> attrs = playerDb.getPlayerAttrDb().getAttrs();
 
-        PAttrDb hpDb = attrs.get(AttrEnum.ATTR_HP.getId());
+        PlayerEachAttrDb hpDb = attrs.get(AttrEnum.ATTR_HP.getId());
         int hp = hpDb != null ? (int) Math.round(hpDb.getValue()) : 0;
         playerDb.setHp(hp);
 
-        PAttrDb mpDb = attrs.get(AttrEnum.ATTR_MP.getId());
+        PlayerEachAttrDb mpDb = attrs.get(AttrEnum.ATTR_MP.getId());
         int mp = mpDb != null ? (int) Math.round(mpDb.getValue()) : 0;
         playerDb.setMp(mp);
 
@@ -144,7 +144,7 @@ public class PlayerDbInitializer {
 
         FriendDb newDb = new FriendDb();
         newDb.setId(playerDb.getUid());
-        newDb.setFriendUids(new HashSet<>());
+        newDb.setFriendUid(new HashSet<>());
         newDb.setPlayer(playerDb);
 
         playerDb.setFriendDb(newDb);

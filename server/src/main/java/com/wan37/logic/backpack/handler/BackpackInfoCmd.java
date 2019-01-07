@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
  * 背包信息
  */
 @Service
-class Backpack_Info implements GeneralHandler {
+class BackpackInfoCmd implements GeneralHandler {
 
     @Autowired
     private BackpackInfoExec backpackInfoExec;

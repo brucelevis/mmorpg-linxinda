@@ -11,6 +11,8 @@ import java.util.Collection;
 
 /**
  * 门面模式：聊天操作统一入口
+ *
+ * @author linda
  */
 @Service
 public class ChatFacade {

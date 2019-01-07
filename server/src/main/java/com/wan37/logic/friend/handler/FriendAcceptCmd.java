@@ -1,7 +1,7 @@
-package com.wan37.logic.backpack.handler;
+package com.wan37.logic.friend.handler;
 
 import com.wan37.handler.GeneralHandler;
-import com.wan37.logic.backpack.service.BackpackCleanExec;
+import com.wan37.logic.friend.service.FriendAcceptExec;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.server.GeneralReqMsg;
@@ -9,26 +9,25 @@ import io.netty.channel.Channel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * 背包整理
- */
 @Service
-class Backpack_Clean implements GeneralHandler {
+class FriendAcceptCmd implements GeneralHandler {
 
     @Autowired
     private PlayerGlobalManager playerGlobalManager;
 
     @Autowired
-    private BackpackCleanExec backpackCleanExec;
+    private FriendAcceptExec friendAcceptExec;
 
     @Override
     public void handle(GeneralReqMsg msg) {
+        //FIXME: 冗余代码
         Channel channel = msg.getChannel();
         Player player = playerGlobalManager.getPlayerByChannel(channel);
         if (player == null) {
             return;
         }
 
-        backpackCleanExec.exec(player);
+        Long id = msg.getParamAsLong(1);
+        friendAcceptExec.exec(player, id);
     }
 }

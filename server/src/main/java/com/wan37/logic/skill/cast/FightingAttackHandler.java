@@ -4,7 +4,7 @@ import com.wan37.event.entity.DieEvent;
 import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.buff.BuffEffectEnum;
-import com.wan37.logic.buff.entity.IBuff;
+import com.wan37.logic.buff.entity.Buff;
 import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.skill.entity.ISkill;
 import com.wan37.util.DateTimeUtils;
@@ -37,10 +37,10 @@ public class FightingAttackHandler {
         }
 
         // 护盾抵挡
-        List<IBuff> shieldBuffs = target.getBuffs().stream()
+        List<Buff> shieldBuffs = target.getBuffs().stream()
                 .filter(b -> Objects.equals(b.getId(), BuffEffectEnum.BUFF_EFFECT_3.getId()))
                 .collect(Collectors.toList());
-        for (IBuff buff : shieldBuffs) {
+        for (Buff buff : shieldBuffs) {
             long shield = Long.parseLong(buff.getArg());
             if (demage >= shield) {
                 // 护盾打破

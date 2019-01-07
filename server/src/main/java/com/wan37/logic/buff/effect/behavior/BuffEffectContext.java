@@ -1,11 +1,14 @@
 package com.wan37.logic.buff.effect.behavior;
 
 import com.wan37.logic.scene.base.FightingUnit;
-import com.wan37.logic.buff.entity.IBuff;
+import com.wan37.logic.buff.entity.Buff;
 
+/**
+ * @author linda
+ */
 public class BuffEffectContext {
 
-    public BuffEffectContext(FightingUnit unit, IBuff buff, long now) {
+    public BuffEffectContext(FightingUnit unit, Buff buff, long now) {
         this.unit = unit;
         this.buff = buff;
         this.now = now;
@@ -15,7 +18,7 @@ public class BuffEffectContext {
         return unit;
     }
 
-    public IBuff getBuff() {
+    public Buff getBuff() {
         return buff;
     }
 
@@ -24,6 +27,6 @@ public class BuffEffectContext {
     }
 
     private final FightingUnit unit;
-    private final IBuff buff;
+    private final Buff buff;
     private final long now;
 }

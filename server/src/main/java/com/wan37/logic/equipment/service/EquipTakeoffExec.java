@@ -16,6 +16,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
+/**
+ * @author linda
+ */
 @Service
 public class EquipTakeoffExec {
 

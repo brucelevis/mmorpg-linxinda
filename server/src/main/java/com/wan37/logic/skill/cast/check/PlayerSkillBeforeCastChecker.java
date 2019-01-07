@@ -30,7 +30,7 @@ public class PlayerSkillBeforeCastChecker {
         }
 
         EquipExtraDb equipExtraDb = equipExtraDbGetter.get(equipItem.getExtraDb());
-        if (equipExtraDb.getDurabilityv() < 20) {
+        if (equipExtraDb.getDurability() < 20) {
             //FIXME: 写死攻击时武器耐久度要求
             throw new GeneralErrorException("武器耐久度过低，请及时修理");
         }

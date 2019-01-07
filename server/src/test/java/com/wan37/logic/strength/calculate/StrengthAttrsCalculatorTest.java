@@ -2,7 +2,7 @@ package com.wan37.logic.strength.calculate;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.wan37.logic.attr.database.PAttrDb;
+import com.wan37.logic.attr.database.PlayerEachAttrDb;
 import com.wan37.logic.attr.database.PlayerAttrDb;
 import com.wan37.logic.backpack.database.ItemDb;
 import com.wan37.logic.equipment.database.EquipAttrDb;
@@ -76,8 +76,8 @@ public class StrengthAttrsCalculatorTest {
         ));
     }
 
-    private PAttrDb mockPAttrDb(Integer id, double value) {
-        PAttrDb db = new PAttrDb();
+    private PlayerEachAttrDb mockPAttrDb(Integer id, double value) {
+        PlayerEachAttrDb db = new PlayerEachAttrDb();
         db.setCfgId(id);
         db.setValue(value);
         return db;

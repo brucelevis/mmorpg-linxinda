@@ -19,6 +19,8 @@ import java.util.stream.Collectors;
 
 /**
  * 门面模式：背包操作统一入口
+ *
+ * @author linda
  */
 @Service
 public class BackpackFacade {
@@ -63,7 +65,7 @@ public class BackpackFacade {
         backpackDb.getItemMap().remove(index);
 
         // 标记背包格子更新
-        backpackDb.getIndexs().add(index);
+        backpackDb.getIndex().add(index);
 
         backpackUpdateNotifier.notify(player);
     }
@@ -90,7 +92,7 @@ public class BackpackFacade {
         }
 
         // 标记背包格子更新
-        backpackDb.getIndexs().add(index);
+        backpackDb.getIndex().add(index);
     }
 
     public void add(BackpackDb backpackDb, ItemDb itemDb) {
@@ -121,7 +123,7 @@ public class BackpackFacade {
                 }
 
                 // 标记背包格子更新
-                backpackDb.getIndexs().add(item.getIndex());
+                backpackDb.getIndex().add(item.getIndex());
             }
         }
 
@@ -131,7 +133,7 @@ public class BackpackFacade {
             backpackDb.getItemMap().put(index, itemDb);
 
             // 标记背包格子更新
-            backpackDb.getIndexs().add(index);
+            backpackDb.getIndex().add(index);
         }
     }
 

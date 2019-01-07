@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
 
 /**
  * 背包更新推送
+ *
+ * @author linda
  */
 @Service
 public class BackpackUpdateNotifier {
@@ -30,23 +32,21 @@ public class BackpackUpdateNotifier {
         player.syncClient("背包物品更新：\n" + msg);
 
         // 背包格子变化标记清空
-        backpackDb.getIndexs().clear();
+        backpackDb.getIndex().clear();
     }
 
-    @Deprecated
     private String encodeUpdate(BackpackDb backpackDb) {
-        Set<Integer> indexs = backpackDb.getIndexs();
-        if (indexs.isEmpty()) {
+        Set<Integer> index = backpackDb.getIndex();
+        if (index.isEmpty()) {
             return null;
         }
 
         Map<Integer, ItemDb> items = backpackDb.getItemMap();
-        return indexs.stream()
+        return index.stream()
                 .map(i -> encodeItem(i, items.get(i)))
                 .collect(Collectors.joining("\n"));
     }
 
-    @Deprecated
     private String encodeItem(Integer index, ItemDb itemDb) {
         if (itemDb == null) {
             // 背包物品没格子

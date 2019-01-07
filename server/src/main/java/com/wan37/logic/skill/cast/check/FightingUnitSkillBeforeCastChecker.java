@@ -5,7 +5,7 @@ import com.wan37.logic.scene.SceneActorSceneGetter;
 import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.buff.BuffEffectEnum;
-import com.wan37.logic.buff.entity.IBuff;
+import com.wan37.logic.buff.entity.Buff;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.skill.entity.ISkill;
 import com.wan37.util.DateTimeUtils;
@@ -51,7 +51,7 @@ public class FightingUnitSkillBeforeCastChecker {
         }
 
         // 检查攻击者BUFF异常状态，如眩晕，封印，击飞等
-        IBuff abnormality = caster.getBuffs().stream()
+        Buff abnormality = caster.getBuffs().stream()
                 .filter(b -> Objects.equals(b.getEffectId(), BuffEffectEnum.BUFF_EFFECT_4.getId()))
                 .findAny()
                 .orElse(null);

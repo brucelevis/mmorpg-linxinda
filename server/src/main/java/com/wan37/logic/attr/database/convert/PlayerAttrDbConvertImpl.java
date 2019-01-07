@@ -7,6 +7,8 @@ import javax.persistence.AttributeConverter;
 
 /**
  * 玩家基础属性持久化成json数据到数据库
+ *
+ * @author linda
  */
 public class PlayerAttrDbConvertImpl implements AttributeConverter<PlayerAttrDb, String> {
 

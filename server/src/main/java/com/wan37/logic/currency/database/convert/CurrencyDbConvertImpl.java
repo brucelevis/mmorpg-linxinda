@@ -8,6 +8,8 @@ import javax.persistence.AttributeConverter;
 
 /**
  * 玩家虚物持久化成Json数据到数据库
+ *
+ * @author linda
  */
 public class CurrencyDbConvertImpl implements AttributeConverter<CurrencyDb, String> {
 

@@ -1,7 +1,7 @@
-package com.wan37.logic.equipment.handler;
+package com.wan37.logic.backpack.handler;
 
 import com.wan37.handler.GeneralHandler;
-import com.wan37.logic.equipment.service.EquipInfoExec;
+import com.wan37.logic.backpack.service.item.BackpackItemInfoExec;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.server.GeneralReqMsg;
@@ -9,11 +9,14 @@ import io.netty.channel.Channel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * 背包某一物品详细信息
+ */
 @Service
-class Equip_Info implements GeneralHandler {
+class BackpackItemInfoCmd implements GeneralHandler {
 
     @Autowired
-    private EquipInfoExec equipInfoExec;
+    private BackpackItemInfoExec backpackItemInfoExec;
 
     @Autowired
     private PlayerGlobalManager playerGlobalManager;
@@ -21,11 +24,14 @@ class Equip_Info implements GeneralHandler {
     @Override
     public void handle(GeneralReqMsg msg) {
         Channel channel = msg.getChannel();
+        String[] params = msg.getParams();
+
         Player player = playerGlobalManager.getPlayerByChannel(channel);
         if (player == null) {
             return;
         }
 
-        equipInfoExec.exec(player);
+        long uid = Long.parseLong(params[1]);
+        backpackItemInfoExec.exec(player, uid);
     }
 }

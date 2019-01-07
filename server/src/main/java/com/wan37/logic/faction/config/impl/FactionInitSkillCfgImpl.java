@@ -2,6 +2,9 @@ package com.wan37.logic.faction.config.impl;
 
 import com.wan37.logic.faction.config.FactionInitSkillCfg;
 
+/**
+ * @author linda
+ */
 public class FactionInitSkillCfgImpl implements FactionInitSkillCfg {
 
     public FactionInitSkillCfgImpl(Integer skillCfgId, int level) {

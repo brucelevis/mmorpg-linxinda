@@ -1,7 +1,5 @@
 package com.wan37.logic.props.init.behaviors;
 
-import com.wan37.logic.attr.config.AttrCfg;
-import com.wan37.logic.attr.config.AttrCfgLoader;
 import com.wan37.logic.equipment.config.EquipCfg;
 import com.wan37.logic.equipment.config.EquipCfgLoader;
 import com.wan37.logic.equipment.config.EquipInitAttrCfg;
@@ -27,9 +25,6 @@ class PropsInitBehav1 implements PropsInitBehavior {
     @Autowired
     private EquipCfgLoader equipCfgLoader;
 
-    @Autowired
-    private AttrCfgLoader attrCfgLoader;
-
     @Override
     public void behave(PropsInitContext context) {
         Integer cfgId = context.getPropsCfg().getId();
@@ -42,7 +37,7 @@ class PropsInitBehav1 implements PropsInitBehavior {
         EquipExtraDb extraDb = new EquipExtraDb();
 
         //FIXME: 初始耐久度先写死
-        extraDb.setDurabilityv(100);
+        extraDb.setDurability(100);
 
         extraDb.setBaseAttrs(equipCfg.getAttrs().stream()
                 .map(this::createAttr)
@@ -55,11 +50,6 @@ class PropsInitBehav1 implements PropsInitBehavior {
         EquipAttrDb db = new EquipAttrDb();
         db.setCfgId(cfg.getAttrCfgId());
         db.setValue(cfg.getBaseValue() + cfg.getStep() * RandomUtil.rand(cfg.getMaxRandInt()));
-
-        db.setName(attrCfgLoader.load(cfg.getAttrCfgId())
-                .map(AttrCfg::getName)
-                .orElse(null));
-
         return db;
     }
 }

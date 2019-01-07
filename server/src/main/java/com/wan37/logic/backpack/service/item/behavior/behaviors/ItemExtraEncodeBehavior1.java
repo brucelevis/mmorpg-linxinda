@@ -2,14 +2,15 @@ package com.wan37.logic.backpack.service.item.behavior.behaviors;
 
 import com.wan37.logic.attr.config.AttrCfg;
 import com.wan37.logic.attr.config.AttrCfgLoader;
-import com.wan37.logic.backpack.service.item.behavior.ItemExtraEncodeBehavContext;
 import com.wan37.logic.backpack.service.item.behavior.ItemExtraEncodeBehavior;
+import com.wan37.logic.backpack.service.item.behavior.ItemExtraEncodeBehaviorContext;
 import com.wan37.logic.equipment.config.EquipCfg;
 import com.wan37.logic.equipment.config.EquipCfgLoader;
 import com.wan37.logic.equipment.config.EquipQualityCfg;
 import com.wan37.logic.equipment.database.EquipAttrDb;
 import com.wan37.logic.equipment.database.EquipExtraDb;
 import com.wan37.logic.equipment.service.EquipExtraDbGetter;
+import com.wan37.logic.props.config.PropsCfgLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
  * 1：装备
  */
 @Service
-class ItemExtraEncodeBehav1 implements ItemExtraEncodeBehavior {
+class ItemExtraEncodeBehavior1 implements ItemExtraEncodeBehavior {
 
     @Autowired
     private EquipExtraDbGetter equipExtraDbGetter;
@@ -31,11 +32,14 @@ class ItemExtraEncodeBehav1 implements ItemExtraEncodeBehavior {
     @Autowired
     private EquipCfgLoader equipCfgLoader;
 
+    @Autowired
+    private PropsCfgLoader propsCfgLoader;
+
     @Override
-    public void behave(ItemExtraEncodeBehavContext context) {
+    public void behave(ItemExtraEncodeBehaviorContext context) {
         EquipExtraDb equipExtraDb = equipExtraDbGetter.get(context.getExtraDb());
 
-        String durability = String.format("耐久度：%s，", equipExtraDb.getDurabilityv());
+        String durability = String.format("耐久度：%s，", equipExtraDb.getDurability());
         String msg = String.format("装备属性信息（品级：%s）：", encodeQuality(context.getCfgId(), equipExtraDb)) + encodeExtra(equipExtraDb);
         context.setResult(durability + msg);
     }
@@ -68,6 +72,6 @@ class ItemExtraEncodeBehav1 implements ItemExtraEncodeBehavior {
 
     private String encodeAttr(EquipAttrDb db) {
         String msg = "%s：%s";
-        return String.format(msg, db.getName(), db.getValue());
+        return String.format(msg, propsCfgLoader.getName(db.getCfgId()), db.getValue());
     }
 }

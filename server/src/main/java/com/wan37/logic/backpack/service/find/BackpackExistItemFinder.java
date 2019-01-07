@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 
 /**
  * 返回背包中同种物品的所有格子
+ *
+ * @author linda
  */
 @Service
 public class BackpackExistItemFinder {

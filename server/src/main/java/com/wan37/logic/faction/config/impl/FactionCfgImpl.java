@@ -9,6 +9,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * @author linda
+ */
 public class FactionCfgImpl implements FactionCfg {
 
     public FactionCfgImpl(FactionCfgExcel cfgExcel) {

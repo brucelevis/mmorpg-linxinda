@@ -2,7 +2,7 @@ package com.wan37.logic.monster;
 
 import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.attr.config.AttrEnum;
-import com.wan37.logic.buff.entity.IBuff;
+import com.wan37.logic.buff.entity.Buff;
 import com.wan37.logic.monster.config.MonsterCfg;
 import com.wan37.logic.skill.entity.ISkill;
 
@@ -29,7 +29,7 @@ public class Monster implements FightingUnit {
 
     private Map<Integer, Double> attrs;
     private Map<Integer, ISkill> skills;
-    private List<IBuff> buffs = new CopyOnWriteArrayList<>();
+    private List<Buff> buffs = new CopyOnWriteArrayList<>();
 
     public void setUid(Long uid) {
         this.uid = uid;
@@ -67,7 +67,7 @@ public class Monster implements FightingUnit {
         this.skills = skills;
     }
 
-    public void setBuffs(List<IBuff> buffs) {
+    public void setBuffs(List<Buff> buffs) {
         this.buffs = buffs;
     }
 
@@ -87,7 +87,7 @@ public class Monster implements FightingUnit {
     }
 
     @Override
-    public List<IBuff> getBuffs() {
+    public List<Buff> getBuffs() {
         return buffs;
     }
 

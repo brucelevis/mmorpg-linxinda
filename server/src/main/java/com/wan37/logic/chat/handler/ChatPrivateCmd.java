@@ -1,7 +1,7 @@
-package com.wan37.logic.attr.handler;
+package com.wan37.logic.chat.handler;
 
 import com.wan37.handler.GeneralHandler;
-import com.wan37.logic.attr.service.AttrInfoExec;
+import com.wan37.logic.chat.service.ChatPrivateExec;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.server.GeneralReqMsg;
@@ -10,13 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * 人物属性面板信息
+ * 私聊
  */
 @Service
-class Attr_Info implements GeneralHandler {
+class ChatPrivateCmd implements GeneralHandler {
 
     @Autowired
-    private AttrInfoExec attrInfoExec;
+    private ChatPrivateExec chatPrivateExec;
 
     @Autowired
     private PlayerGlobalManager playerGlobalManager;
@@ -29,6 +29,10 @@ class Attr_Info implements GeneralHandler {
             return;
         }
 
-        attrInfoExec.exec(player);
+        String[] params = msg.getParams();
+        Long uid = Long.parseLong(params[1]);
+        String content = params[2];
+
+        chatPrivateExec.exec(player, uid, content);
     }
 }

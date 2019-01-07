@@ -6,6 +6,9 @@ import com.wan37.logic.player.PlayerGlobalManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author linda
+ */
 @Service
 public class ChatPrivateExec {
 

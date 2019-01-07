@@ -5,6 +5,11 @@ import com.wan37.logic.equipment.database.EquipDb;
 
 import javax.persistence.AttributeConverter;
 
+/**
+ * 玩家装备栏信息持久化成Json数据到数据库
+ *
+ * @author linda
+ */
 public class EquipDbConverterImpl implements AttributeConverter<EquipDb, String> {
 
     @Override

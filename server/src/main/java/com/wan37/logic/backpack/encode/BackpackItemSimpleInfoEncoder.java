@@ -5,7 +5,11 @@ import com.wan37.logic.props.config.PropsCfgLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Deprecated
+/**
+ * 背包单个物品简单信息编码
+ *
+ * @author linda
+ */
 @Service
 public class BackpackItemSimpleInfoEncoder {
 

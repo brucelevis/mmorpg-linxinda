@@ -8,6 +8,8 @@ import java.util.Set;
 
 /**
  * 玩家虚物数据库实体类
+ *
+ * @author linda
  */
 public class CurrencyDb {
 
@@ -32,9 +34,5 @@ public class CurrencyDb {
 
     public Set<Integer> getIds() {
         return ids;
-    }
-
-    public void setIds(Set<Integer> ids) {
-        this.ids = ids;
     }
 }

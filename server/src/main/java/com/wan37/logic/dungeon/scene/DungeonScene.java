@@ -6,6 +6,8 @@ import com.wan37.logic.dungeon.schedule.DungeonSceneScheduler;
 
 /**
  * 副本场景
+ *
+ * @author linda
  */
 public class DungeonScene extends TemporaryScene {
 
@@ -24,10 +26,6 @@ public class DungeonScene extends TemporaryScene {
 
     public void setMonsterGroupId(int monsterGroupId) {
         this.monsterGroupId = monsterGroupId;
-    }
-
-    public DungeonSceneScheduler getDungeonSceneScheduler() {
-        return dungeonSceneScheduler;
     }
 
     public void setDungeonSceneScheduler(DungeonSceneScheduler dungeonSceneScheduler) {

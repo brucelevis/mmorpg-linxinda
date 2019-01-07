@@ -8,7 +8,9 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * 装备栏
+ * 玩家装备栏信息数据库实体
+ *
+ * @author linda
  */
 public class EquipDb {
 
@@ -33,9 +35,5 @@ public class EquipDb {
 
     public Set<Integer> getParts() {
         return parts;
-    }
-
-    public void setParts(Set<Integer> parts) {
-        this.parts = parts;
     }
 }
