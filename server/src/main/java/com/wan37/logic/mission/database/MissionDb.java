@@ -3,6 +3,11 @@ package com.wan37.logic.mission.database;
 import javax.persistence.*;
 import java.util.Set;
 
+/**
+ * 玩家任务系统数据库实体类
+ *
+ * @author linda
+ */
 @Entity
 @Table(name = "tb_mission")
 public class MissionDb {

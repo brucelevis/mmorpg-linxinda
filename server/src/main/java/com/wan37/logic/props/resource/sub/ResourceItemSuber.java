@@ -12,6 +12,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * 扣除实物
+ *
+ * @author linda
+ */
 @Service
 public class ResourceItemSuber {
 
@@ -26,7 +31,6 @@ public class ResourceItemSuber {
         if (propsCfg == null) {
             return false;
         }
-
 
         BackpackDb backpackDb = player.getPlayerDb().getBackpackDb();
         List<ItemDb> existItems = backpackExistItemFinder.find(backpackDb, propsCfg.getId());

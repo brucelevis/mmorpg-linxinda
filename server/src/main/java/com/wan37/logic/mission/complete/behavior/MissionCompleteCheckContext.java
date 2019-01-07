@@ -1,11 +1,16 @@
 package com.wan37.logic.mission.complete.behavior;
 
-import com.wan37.logic.mission.entity.IPlayerMission;
+import com.wan37.logic.mission.entity.PlayerMission;
 import com.wan37.logic.player.Player;
 
+/**
+ * 任务完成检查上下文
+ *
+ * @author linda
+ */
 public class MissionCompleteCheckContext {
 
-    public MissionCompleteCheckContext(Player player, IPlayerMission playerMission) {
+    public MissionCompleteCheckContext(Player player, PlayerMission playerMission) {
         this.player = player;
         this.playerMission = playerMission;
     }
@@ -14,7 +19,7 @@ public class MissionCompleteCheckContext {
         return player;
     }
 
-    public IPlayerMission getPlayerMission() {
+    public PlayerMission getPlayerMission() {
         return playerMission;
     }
 
@@ -27,7 +32,7 @@ public class MissionCompleteCheckContext {
     }
 
     private final Player player;
-    private final IPlayerMission playerMission;
+    private final PlayerMission playerMission;
 
     private boolean result;
 }

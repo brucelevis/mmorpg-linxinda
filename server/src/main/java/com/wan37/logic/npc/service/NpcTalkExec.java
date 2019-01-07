@@ -6,7 +6,7 @@ import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.mission.MissionCanAcceptListGetter;
 import com.wan37.logic.mission.config.MissionCfg;
 import com.wan37.logic.mission.encode.MissionEncoder;
-import com.wan37.logic.mission.entity.IPlayerMission;
+import com.wan37.logic.mission.entity.PlayerMission;
 import com.wan37.logic.npc.config.NpcCfg;
 import com.wan37.logic.npc.config.NpcCfgLoader;
 import com.wan37.logic.player.Player;
@@ -17,6 +17,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * @author linda
+ */
 @Service
 public class NpcTalkExec {
 
@@ -47,7 +50,7 @@ public class NpcTalkExec {
                 .collect(Collectors.toList());
 
         // 正在进行的该Npc的任务
-        List<IPlayerMission> proceedingList = player.getMission().getProceedingList().stream()
+        List<PlayerMission> proceedingList = player.getMission().getProceedingList().stream()
                 .filter(m -> Objects.equals(m.getMissionCfg().getNpcId(), npcId))
                 .collect(Collectors.toList());
 

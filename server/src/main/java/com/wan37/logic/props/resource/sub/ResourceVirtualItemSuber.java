@@ -6,6 +6,11 @@ import com.wan37.logic.player.Player;
 import com.wan37.logic.props.resource.ResourceElement;
 import org.springframework.stereotype.Service;
 
+/**
+ * 消耗虚物
+ *
+ * @author linda
+ */
 @Service
 public class ResourceVirtualItemSuber {
 

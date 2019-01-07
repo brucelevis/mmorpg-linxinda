@@ -12,6 +12,11 @@ import com.wan37.logic.props.resource.sub.ResourceSuber;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * 门面模式：资源系统统一入口
+ *
+ * @author linda
+ */
 @Service
 public class ResourceFacade {
 

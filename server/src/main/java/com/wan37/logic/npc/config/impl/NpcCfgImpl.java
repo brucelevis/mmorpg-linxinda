@@ -3,6 +3,9 @@ package com.wan37.logic.npc.config.impl;
 import com.wan37.config.entity.NpcCfgExcel;
 import com.wan37.logic.npc.config.NpcCfg;
 
+/**
+ * @author linda
+ */
 public class NpcCfgImpl implements NpcCfg {
 
     public NpcCfgImpl(NpcCfgExcel cfgExcel) {

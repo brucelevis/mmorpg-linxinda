@@ -6,6 +6,11 @@ import com.wan37.logic.player.database.PlayerDb;
 
 import javax.persistence.*;
 
+/**
+ * 玩家邮件系统数据库实体类
+ *
+ * @author linda
+ */
 @Entity
 @Table(name = "tb_mail")
 public class MailDb {

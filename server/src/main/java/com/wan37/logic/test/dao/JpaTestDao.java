@@ -5,6 +5,9 @@ import org.springframework.data.repository.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * @author linda
+ */
 @Service
 public interface JpaTestDao extends Repository<JpaTestDb, Integer> {
 

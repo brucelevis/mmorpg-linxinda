@@ -5,6 +5,9 @@ import com.wan37.logic.props.resource.ResourceElement;
 
 import java.util.List;
 
+/**
+ * @author linda
+ */
 public class ResourceCollectionImpl implements ResourceCollection {
 
     public ResourceCollectionImpl(List<ResourceElement> elements) {

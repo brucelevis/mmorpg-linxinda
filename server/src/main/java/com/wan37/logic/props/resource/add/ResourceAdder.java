@@ -5,6 +5,11 @@ import com.wan37.logic.props.resource.ResourceElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * 添加资源
+ *
+ * @author linda
+ */
 @Service
 public class ResourceAdder {
 

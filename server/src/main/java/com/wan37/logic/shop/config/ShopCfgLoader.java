@@ -12,6 +12,11 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * 商店配置表加载器
+ *
+ * @author linda
+ */
 @Service
 public class ShopCfgLoader implements GeneralCfgLoader<ShopCfg> {
 

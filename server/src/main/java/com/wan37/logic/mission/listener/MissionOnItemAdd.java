@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Objects;
 
 /**
+ * 任务监听加物品事件
  * FIXME: 这里应该再分一层是加装备的，MissionOnEquipAdd
  */
 @Service

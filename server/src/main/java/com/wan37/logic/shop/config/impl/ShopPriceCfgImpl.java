@@ -2,6 +2,9 @@ package com.wan37.logic.shop.config.impl;
 
 import com.wan37.logic.shop.config.ShopPriceCfg;
 
+/**
+ * @author linda
+ */
 public class ShopPriceCfgImpl implements ShopPriceCfg {
 
     public ShopPriceCfgImpl(Integer id, int value) {

@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
+/**
+ * 邮件系统监听玩家登录事件处理类
+ */
 @Service
 class MailOnPlayerLogin implements GeneralEventListener<LoginEvent> {
 

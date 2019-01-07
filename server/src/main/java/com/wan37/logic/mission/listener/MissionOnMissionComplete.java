@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
+/**
+ * 任务监听任务完成事件
+ */
 @Service
 class MissionOnMissionComplete implements GeneralEventListener<MissionCompleteEvent> {
 

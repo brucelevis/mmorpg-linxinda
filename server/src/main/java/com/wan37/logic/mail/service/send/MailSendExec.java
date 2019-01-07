@@ -25,6 +25,9 @@ import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+/**
+ * @author linda
+ */
 @Service
 public class MailSendExec {
 
@@ -74,8 +77,8 @@ public class MailSendExec {
         mailDb.setHadReceived(false);
 
         //FIXME: 写死1周过期
-        LocalDateTime today_end = LocalDateTime.of(LocalDate.now(), LocalTime.MAX);
-        mailDb.setExpireTime(DateTimeUtils.toEpochMilli(today_end) + TimeUnit.DAYS.toMillis(7));
+        LocalDateTime todayEnd = LocalDateTime.of(LocalDate.now(), LocalTime.MAX);
+        mailDb.setExpireTime(DateTimeUtils.toEpochMilli(todayEnd) + TimeUnit.DAYS.toMillis(7));
 
         Player from = mail.getFromPlayer();
         mailDb.setFromName(from.getName());

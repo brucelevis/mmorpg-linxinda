@@ -1,6 +1,6 @@
 package com.wan37.logic.player.init;
 
-import com.wan37.logic.mission.entity.IMission;
+import com.wan37.logic.mission.entity.Mission;
 import com.wan37.logic.pk.entity.impl.IPkImpl;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.database.PlayerDb;
@@ -29,7 +29,7 @@ public class PlayerCreator {
     private SkillCfgLoader skillCfgLoader;
 
     @Autowired
-    private IMission.Factory missionFactory;
+    private Mission.Factory missionFactory;
 
     public Player create(PlayerDb playerDb, Channel channel) {
         Player player = new Player();

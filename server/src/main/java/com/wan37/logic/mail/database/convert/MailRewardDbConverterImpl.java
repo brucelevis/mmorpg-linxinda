@@ -5,6 +5,11 @@ import com.wan37.logic.mail.database.MailRewardDb;
 
 import javax.persistence.AttributeConverter;
 
+/**
+ * 邮件系统奖励持久化成json到数据库
+ *
+ * @author linda
+ */
 public class MailRewardDbConverterImpl implements AttributeConverter<MailRewardDb, String> {
 
     @Override

@@ -2,6 +2,9 @@ package com.wan37.logic.test.database;
 
 import javax.persistence.*;
 
+/**
+ * @author linda
+ */
 @Entity
 @Table(name = "jpa_test_many")
 public class JpaManyDb {

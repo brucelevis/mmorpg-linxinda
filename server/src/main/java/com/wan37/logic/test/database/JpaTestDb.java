@@ -1,7 +1,7 @@
 package com.wan37.logic.test.database;
 
 import com.wan37.logic.test.database.convert.JpaTestSubDbAttrConverterImpl;
-import com.wan37.logic.test.database.convert.UidsSetConverterImpl;
+import com.wan37.logic.test.database.convert.UidSetConverterImpl;
 
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -12,6 +12,8 @@ import java.util.Set;
 
 /**
  * 测试Jpa的表
+ *
+ * @author linda
  */
 @Entity
 @Table(name = "jpa_test")
@@ -29,7 +31,7 @@ public class JpaTestDb {
     @Convert(converter = JpaTestSubDbAttrConverterImpl.class)
     private JpaTestSubDb jpaTestSubDb;
 
-    @Convert(converter = UidsSetConverterImpl.class)
+    @Convert(converter = UidSetConverterImpl.class)
     private Set<Long> uids = new HashSet<>();
 
     public Integer getId() {

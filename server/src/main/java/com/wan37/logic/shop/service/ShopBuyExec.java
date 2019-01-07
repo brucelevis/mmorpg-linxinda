@@ -14,6 +14,9 @@ import com.wan37.logic.shop.config.ShopPriceCfg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author linda
+ */
 @Service
 public class ShopBuyExec {
 
@@ -59,8 +62,8 @@ public class ShopBuyExec {
         }
 
         ResourceElement give = createResElement(propsCfg.getId(), amount);
-        boolean sucess = resourceFacade.giveResource(give, player);
-        if (sucess) {
+        boolean success = resourceFacade.giveResource(give, player);
+        if (success) {
             ResourceElement consume = createResElement(priceCfg.getId(), cost);
             resourceFacade.consumeResource(consume, player);
         }

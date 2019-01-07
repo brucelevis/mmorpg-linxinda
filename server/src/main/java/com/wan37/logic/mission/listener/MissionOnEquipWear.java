@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
+/**
+ * 任务监听穿戴装备事件
+ */
 @Service
 class MissionOnEquipWear implements GeneralEventListener<EquipWearEvent> {
 

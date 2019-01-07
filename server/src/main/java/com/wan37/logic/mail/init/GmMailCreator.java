@@ -11,12 +11,17 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Gm邮件生成类
+ *
+ * @author linda
+ */
 @Service
 public class GmMailCreator {
 
     public GmMail create(String title, String content, Long toPlayerUid, ResourceCollection rewards) {
-        LocalDateTime today_end = LocalDateTime.of(LocalDate.now(), LocalTime.MAX);
-        long expireTime = DateTimeUtils.toEpochMilli(today_end) + TimeUnit.DAYS.toMillis(7);
+        LocalDateTime todayEnd = LocalDateTime.of(LocalDate.now(), LocalTime.MAX);
+        long expireTime = DateTimeUtils.toEpochMilli(todayEnd) + TimeUnit.DAYS.toMillis(7);
 
         return new GmMailImpl("Gm管理员", title, content, expireTime, toPlayerUid, rewards);
     }

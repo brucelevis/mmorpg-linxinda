@@ -1,5 +1,10 @@
 package com.wan37.logic.mail.database;
 
+/**
+ * 玩家邮件奖励物品数据库实体类
+ *
+ * @author linda
+ */
 public class MailRewardItemDb {
 
     private Integer cfgId;

@@ -10,6 +10,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+/**
+ * 召唤兽实体类
+ *
+ * @author linda
+ */
 public class Summoning implements FightingUnit {
 
     private Long uid;
@@ -147,10 +152,6 @@ public class Summoning implements FightingUnit {
         this.uid = uid;
     }
 
-    public SummoningCfg getSummoningCfg() {
-        return summoningCfg;
-    }
-
     public void setSummoningCfg(SummoningCfg summoningCfg) {
         this.summoningCfg = summoningCfg;
     }
@@ -169,10 +170,6 @@ public class Summoning implements FightingUnit {
 
     public void setSkills(Map<Integer, ISkill> skills) {
         this.skills = skills;
-    }
-
-    public void setBuffs(List<Buff> buffs) {
-        this.buffs = buffs;
     }
 
     public Long getBelongUid() {

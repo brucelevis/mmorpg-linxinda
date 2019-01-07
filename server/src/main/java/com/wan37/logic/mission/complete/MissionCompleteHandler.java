@@ -9,7 +9,7 @@ import com.wan37.logic.mail.init.GmMailCreator;
 import com.wan37.logic.mission.config.MissionCfg;
 import com.wan37.logic.mission.config.MissionCfgLoader;
 import com.wan37.logic.mission.config.MissionRewardCfg;
-import com.wan37.logic.mission.entity.IPlayerMission;
+import com.wan37.logic.mission.entity.PlayerMission;
 import com.wan37.logic.mission.service.accept.MissionAccepter;
 import com.wan37.logic.npc.config.NpcCfgLoader;
 import com.wan37.logic.player.Player;
@@ -26,6 +26,11 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
+/**
+ * 任务完成处理类
+ *
+ * @author linda
+ */
 @Service
 public class MissionCompleteHandler {
 
@@ -56,7 +61,7 @@ public class MissionCompleteHandler {
     @Autowired
     private GeneralEventListenersManager generalEventListenersManager;
 
-    public void handle(Player player, IPlayerMission playerMission) {
+    public void handle(Player player, PlayerMission playerMission) {
         playerMission.setCanComplete(false);
         playerMission.setCompleteTime(DateTimeUtils.toEpochMilli(LocalDateTime.now()));
 

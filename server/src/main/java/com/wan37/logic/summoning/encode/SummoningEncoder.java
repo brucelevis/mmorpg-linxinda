@@ -3,6 +3,11 @@ package com.wan37.logic.summoning.encode;
 import com.wan37.logic.summoning.Summoning;
 import org.springframework.stereotype.Service;
 
+/**
+ * 召唤兽信息编码
+ *
+ * @author linda
+ */
 @Service
 public class SummoningEncoder {
 

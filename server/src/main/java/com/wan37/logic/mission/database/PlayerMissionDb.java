@@ -5,6 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * 玩家任务数据数据库实体
+ *
+ * @author linda
+ */
 @Entity
 @Table(name = "tb_player_mission")
 public class PlayerMissionDb {

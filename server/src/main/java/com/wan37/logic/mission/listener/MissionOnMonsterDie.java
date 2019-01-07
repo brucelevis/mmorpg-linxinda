@@ -4,7 +4,7 @@ import com.wan37.event.GeneralEventListener;
 import com.wan37.event.entity.MonsterDieEvent;
 import com.wan37.logic.mission.MissionTypeEnum;
 import com.wan37.logic.mission.complete.MissionCompleteChecker;
-import com.wan37.logic.mission.entity.IPlayerMission;
+import com.wan37.logic.mission.entity.PlayerMission;
 import com.wan37.logic.monster.Monster;
 import com.wan37.logic.player.Player;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
+/**
+ * 任务监听怪物死亡事件
+ */
 @Service
 class MissionOnMonsterDie implements GeneralEventListener<MonsterDieEvent> {
 
@@ -30,7 +33,7 @@ class MissionOnMonsterDie implements GeneralEventListener<MonsterDieEvent> {
                 .forEach(m -> completeImpl(attacker, m));
     }
 
-    private void completeImpl(Player player, IPlayerMission playerMission) {
+    private void completeImpl(Player player, PlayerMission playerMission) {
         playerMission.setProgress(playerMission.getProgress() + 1);
         missionCompleteChecker.check(player, playerMission);
     }

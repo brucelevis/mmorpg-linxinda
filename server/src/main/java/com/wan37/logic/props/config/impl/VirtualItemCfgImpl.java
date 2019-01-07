@@ -3,6 +3,9 @@ package com.wan37.logic.props.config.impl;
 import com.wan37.config.entity.VirtualItemCfgExcel;
 import com.wan37.logic.props.config.VirtualItemCfg;
 
+/**
+ * @author linda
+ */
 public class VirtualItemCfgImpl implements VirtualItemCfg {
 
     public VirtualItemCfgImpl(VirtualItemCfgExcel cfgExcel) {

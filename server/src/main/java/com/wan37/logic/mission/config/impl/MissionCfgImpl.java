@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * @author linda
+ */
 public class MissionCfgImpl implements MissionCfg {
 
     public MissionCfgImpl(MissionCfgExcel cfgExcel) {

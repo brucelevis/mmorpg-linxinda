@@ -3,6 +3,11 @@ package com.wan37.logic.props.use;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.props.config.PropsCfg;
 
+/**
+ * 物品使用上下文
+ *
+ * @author linda
+ */
 public class PropsUseContext {
 
     public PropsUseContext(Player player, PropsCfg propsCfg) {

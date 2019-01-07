@@ -4,6 +4,11 @@ import com.wan37.logic.attr.config.AttrCfg;
 
 import java.util.Map;
 
+/**
+ * 玩家战力数据库实体类
+ *
+ * @author linda
+ */
 public class PlayerStrengthDb {
 
     /**

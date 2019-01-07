@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
+/**
+ * 任务监听升级事件
+ */
 @Service
 class MissionOnLevelUp implements GeneralEventListener<LevelUpEvent> {
 

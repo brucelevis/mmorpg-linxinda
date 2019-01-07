@@ -3,6 +3,9 @@ package com.wan37.logic.props.config.impl;
 import com.wan37.config.entity.PropsCfgExcel;
 import com.wan37.logic.props.config.PropsCfg;
 
+/**
+ * @author linda
+ */
 public class PropsCfgImpl implements PropsCfg {
 
     public PropsCfgImpl(PropsCfgExcel cfgExcel) {

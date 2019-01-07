@@ -5,6 +5,11 @@ import com.wan37.logic.props.config.PropsCfg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * 初始化物品额外信息
+ *
+ * @author linda
+ */
 @Service
 public class PropsExtraInitializer {
 

@@ -1,9 +1,11 @@
 package com.wan37.logic.test.database;
 
+/**
+ * @author linda
+ */
 public class JpaTestSubDb {
 
     private Integer id;
-
     private String s;
 
     public Integer getId() {

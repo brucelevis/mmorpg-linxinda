@@ -12,6 +12,11 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * 任务配置表加载器
+ *
+ * @author linda
+ */
 @Service
 public class MissionCfgLoader implements GeneralCfgLoader<MissionCfg> {
 

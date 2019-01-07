@@ -3,11 +3,14 @@ package com.wan37.logic.mission.service.accept;
 import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.mission.config.MissionCfg;
 import com.wan37.logic.mission.config.MissionCfgLoader;
-import com.wan37.logic.mission.entity.IMission;
+import com.wan37.logic.mission.entity.Mission;
 import com.wan37.logic.player.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author linda
+ */
 @Service
 public class MissionAcceptExec {
 
@@ -25,17 +28,17 @@ public class MissionAcceptExec {
             throw new GeneralErrorException("等级不足");
         }
 
-        IMission iMission = player.getMission();
-        if (iMission.hadCompleted(missionId)) {
+        Mission mission = player.getMission();
+        if (mission.hadCompleted(missionId)) {
             throw new GeneralErrorException("任务已经完成");
         }
 
-        if (iMission.isProceeding((missionId))) {
+        if (mission.isProceeding((missionId))) {
             throw new GeneralErrorException("正在进行的任务");
         }
 
         Integer preId = missionCfg.getPreId();
-        if (preId != null && !iMission.hadCompleted(preId)) {
+        if (preId != null && !mission.hadCompleted(preId)) {
             throw new GeneralErrorException("前置任务未完成");
         }
 

@@ -5,6 +5,11 @@ import com.wan37.logic.strength.database.PlayerStrengthDb;
 
 import javax.persistence.AttributeConverter;
 
+/**
+ * 玩家战力属性值持久化成json到数据库
+ *
+ * @author linda
+ */
 public class PlayerStrengthDbConverterImpl implements AttributeConverter<PlayerStrengthDb, String> {
 
     @Override

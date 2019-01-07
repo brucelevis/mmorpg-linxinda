@@ -13,6 +13,11 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 战力属性值计算器
+ *
+ * @author linda
+ */
 @Service
 public class StrengthAttrsCalculator {
 
@@ -20,7 +25,7 @@ public class StrengthAttrsCalculator {
     private EquipExtraDbGetter equipExtraDbGetter;
 
     public Map<Integer, Double> calc(PlayerDb playerDb) {
-        Map<Integer, Double> result = new HashMap<>();
+        Map<Integer, Double> result = new HashMap<>(0);
 
         // 人物基础属性
         PlayerAttrDb playerAttrDb = playerDb.getPlayerAttrDb();

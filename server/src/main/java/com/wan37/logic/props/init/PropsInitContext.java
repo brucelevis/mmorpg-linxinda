@@ -2,6 +2,11 @@ package com.wan37.logic.props.init;
 
 import com.wan37.logic.props.config.PropsCfg;
 
+/**
+ * 物品初始化上下文
+ *
+ * @author linda
+ */
 public class PropsInitContext {
 
     public PropsInitContext(PropsCfg propsCfg) {

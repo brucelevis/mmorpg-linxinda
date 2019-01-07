@@ -4,6 +4,11 @@ import com.wan37.logic.backpack.database.ItemDb;
 
 import java.util.List;
 
+/**
+ * 玩家邮件道具附件数据库实体类
+ *
+ * @author linda
+ */
 public class MailItemDb {
 
     private List<ItemDb> items;

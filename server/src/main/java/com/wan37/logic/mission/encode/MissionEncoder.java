@@ -11,6 +11,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
 
+/**
+ * 任务信息编码
+ *
+ * @author linda
+ */
 @Service
 public class MissionEncoder {
 
@@ -26,7 +31,9 @@ public class MissionEncoder {
     @Autowired
     private PropsCfgLoader propsCfgLoader;
 
+    @Deprecated
     public String encode(MissionCfg missionCfg, boolean canComplete) {
+        //FIXME: 代码整洁之道：传布尔值意味着做了不止一件事。
         return String.format("%s任务（id：%s）：%s（%s：%s）\n描述：%s\n完成条件：%s\n奖励：%s，exp×%s",
                 canComplete ? "（可完成） " : "", missionCfg.getId(), missionCfg.getName(),
                 sceneCfgLoader.loadName(missionCfg.getSceneId()), npcCfgLoader.loadName(missionCfg.getNpcId()),

@@ -20,6 +20,11 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+/**
+ * 召唤兽生成器
+ *
+ * @author linda
+ */
 @Service
 public class SummoningCreator {
 

@@ -19,6 +19,9 @@ import org.springframework.stereotype.Service;
 import java.time.format.DateTimeFormatter;
 import java.util.stream.Collectors;
 
+/**
+ * @author linda
+ */
 @Service
 public class MailInfoExec {
 
@@ -40,7 +43,6 @@ public class MailInfoExec {
         player.syncClient(head + content);
     }
 
-    @Deprecated
     private String encodeMail(MailDb mailDb) {
         MailItemDb mailItemDb = mailDb.getMailItemDb();
         MailRewardDb mailRewardDb = mailDb.getMailRewardDb();

@@ -5,7 +5,7 @@ import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.attr.config.AttrEnum;
 import com.wan37.logic.attr.database.PlayerEachAttrDb;
 import com.wan37.logic.buff.entity.Buff;
-import com.wan37.logic.mission.entity.IMission;
+import com.wan37.logic.mission.entity.Mission;
 import com.wan37.logic.pk.entity.IPk;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.skill.entity.ISkill;
@@ -26,7 +26,7 @@ public class Player implements FightingUnit, IPlayer {
     private Map<Integer, ISkill> skills;
     private List<Buff> buffs = new CopyOnWriteArrayList<>();
     private ITrade trade;
-    private IMission mission;
+    private Mission mission;
     private IPk pk;
 
     public Channel getChannel() {
@@ -108,7 +108,7 @@ public class Player implements FightingUnit, IPlayer {
     }
 
     @Override
-    public IMission getMission() {
+    public Mission getMission() {
         return mission;
     }
 
@@ -121,7 +121,7 @@ public class Player implements FightingUnit, IPlayer {
         this.pk = pk;
     }
 
-    public void setMission(IMission mission) {
+    public void setMission(Mission mission) {
         this.mission = mission;
     }
 

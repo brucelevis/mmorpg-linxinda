@@ -11,6 +11,11 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * 更新玩家战力信息
+ *
+ * @author linda
+ */
 @Service
 public class PlayerStrengthDbRefresher {
 

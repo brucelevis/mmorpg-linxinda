@@ -2,6 +2,9 @@ package com.wan37.logic.props.resource.impl;
 
 import com.wan37.logic.props.resource.ResourceElement;
 
+/**
+ * @author linda
+ */
 public class ResourceElementImpl implements ResourceElement {
 
     public ResourceElementImpl(Integer cfgId, long amount) {

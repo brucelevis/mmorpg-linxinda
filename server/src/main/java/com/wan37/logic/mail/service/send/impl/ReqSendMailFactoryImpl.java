@@ -4,6 +4,9 @@ import com.wan37.logic.mail.service.send.ReqSendMail;
 import com.wan37.logic.player.Player;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author linda
+ */
 @Service
 public class ReqSendMailFactoryImpl implements ReqSendMail.Factory {
 

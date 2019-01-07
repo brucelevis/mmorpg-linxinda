@@ -4,13 +4,16 @@ import com.wan37.event.GeneralEventListener;
 import com.wan37.event.entity.TradeSuccessEvent;
 import com.wan37.logic.mission.MissionTypeEnum;
 import com.wan37.logic.mission.complete.MissionCompleteChecker;
-import com.wan37.logic.mission.entity.IPlayerMission;
+import com.wan37.logic.mission.entity.PlayerMission;
 import com.wan37.logic.player.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
+/**
+ * 任务监听交易成功事件
+ */
 @Service
 class MissionOnTradeSuccess implements GeneralEventListener<TradeSuccessEvent> {
 
@@ -27,7 +30,7 @@ class MissionOnTradeSuccess implements GeneralEventListener<TradeSuccessEvent> {
                 .forEach(m -> completeImpl(player, m));
     }
 
-    private void completeImpl(Player player, IPlayerMission playerMission) {
+    private void completeImpl(Player player, PlayerMission playerMission) {
         playerMission.setProgress(1);
         missionCompleteChecker.check(player, playerMission);
     }

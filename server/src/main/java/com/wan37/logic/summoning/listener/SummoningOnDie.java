@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * 召唤兽死亡监听
+ */
 @Service
 class SummoningOnDie implements GeneralEventListener<DieEvent> {
 

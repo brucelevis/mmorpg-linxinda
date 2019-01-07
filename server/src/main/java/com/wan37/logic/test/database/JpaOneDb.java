@@ -3,6 +3,9 @@ package com.wan37.logic.test.database;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * @author linda
+ */
 @Entity
 @Table(name = "jpa_test_one")
 public class JpaOneDb {

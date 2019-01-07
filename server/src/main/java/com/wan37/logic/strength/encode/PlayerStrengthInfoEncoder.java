@@ -7,7 +7,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
 
-@Deprecated
+/**
+ * 玩家战力信息编码
+ *
+ * @author linda
+ */
 @Service
 public class PlayerStrengthInfoEncoder {
 

@@ -4,6 +4,9 @@ import com.wan37.config.entity.ShopCfgExcel;
 import com.wan37.logic.shop.config.ShopCfg;
 import com.wan37.logic.shop.config.ShopPriceCfg;
 
+/**
+ * @author linda
+ */
 public class ShopCfgImpl implements ShopCfg {
 
     public ShopCfgImpl(ShopCfgExcel cfgExcel) {

@@ -5,6 +5,9 @@ import com.wan37.logic.test.database.JpaTestSubDb;
 
 import javax.persistence.AttributeConverter;
 
+/**
+ * @author linda
+ */
 public class JpaTestSubDbAttrConverterImpl implements AttributeConverter<JpaTestSubDb, String> {
 
     @Override

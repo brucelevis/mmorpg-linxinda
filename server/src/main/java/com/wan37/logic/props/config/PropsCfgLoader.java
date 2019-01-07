@@ -12,6 +12,11 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * 实物配置表加载器
+ *
+ * @author linda
+ */
 @Service
 public class PropsCfgLoader implements GeneralCfgLoader<PropsCfg> {
 

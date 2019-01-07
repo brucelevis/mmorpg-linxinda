@@ -14,6 +14,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Gm邮件发送器
+ *
+ * @author linda
+ */
 @Service
 public class MailGmSender {
 

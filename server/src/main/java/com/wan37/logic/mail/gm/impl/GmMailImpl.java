@@ -8,6 +8,9 @@ import com.wan37.logic.props.resource.ResourceElement;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * @author linda
+ */
 public class GmMailImpl implements GmMail {
 
     public GmMailImpl(String fromName, String title, String content, long expireTime, Long toPlayerUid, ResourceCollection rewards) {

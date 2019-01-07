@@ -10,6 +10,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
 
+/**
+ * 交易信息编码
+ *
+ * @author linda
+ */
 @Service
 public class TradeEncoder {
 

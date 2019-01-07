@@ -19,6 +19,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * 添加实物
+ *
+ * @author linda
+ */
 @Service
 public class ResourceItemAdder {
 

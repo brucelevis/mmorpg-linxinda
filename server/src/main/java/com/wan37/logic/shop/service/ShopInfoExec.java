@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * @author linda
+ */
 @Service
 public class ShopInfoExec {
 
@@ -28,7 +31,7 @@ public class ShopInfoExec {
     public void exec(Player player) {
         String head = "商店商店列表如下: \n";
         String content = shopCfgLoader.loads().stream()
-                .map(this::toTruple)
+                .map(this::toTuple)
                 .filter(Objects::nonNull)
                 .map(this::encodeItem)
                 .collect(Collectors.joining("\n"));
@@ -36,7 +39,7 @@ public class ShopInfoExec {
         player.syncClient(head + content);
     }
 
-    private Truple toTruple(ShopCfg shopCfg) {
+    private Tuple toTuple(ShopCfg shopCfg) {
         PropsCfg propsCfg = propsCfgLoader.load(shopCfg.getItemId()).orElse(null);
         if (propsCfg == null) {
             return null;
@@ -47,25 +50,25 @@ public class ShopInfoExec {
             return null;
         }
 
-        Truple truple = new Truple();
-        truple.shopCfg = shopCfg;
-        truple.propsCfg = propsCfg;
-        truple.virtualItemCfg = virtualItemCfg;
-        return truple;
+        Tuple tuple = new Tuple();
+        tuple.shopCfg = shopCfg;
+        tuple.propsCfg = propsCfg;
+        tuple.virtualItemCfg = virtualItemCfg;
+        return tuple;
     }
 
-    private String encodeItem(Truple truple) {
+    private String encodeItem(Tuple tuple) {
         String msg = "id：%s，name：%s，price：%s%s，desc：%s";
 
-        ShopCfg shopCfg = truple.shopCfg;
-        PropsCfg propsCfg = truple.propsCfg;
-        VirtualItemCfg virtualItemCfg = truple.virtualItemCfg;
+        ShopCfg shopCfg = tuple.shopCfg;
+        PropsCfg propsCfg = tuple.propsCfg;
+        VirtualItemCfg virtualItemCfg = tuple.virtualItemCfg;
 
         return String.format(msg, shopCfg.getId(), propsCfg.getName(), shopCfg.getPriceCfg().getValue(),
                 virtualItemCfg.getName(), propsCfg.getDesc());
     }
 
-    private static class Truple {
+    private static class Tuple {
 
         ShopCfg shopCfg;
 

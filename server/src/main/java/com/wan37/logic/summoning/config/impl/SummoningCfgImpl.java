@@ -10,6 +10,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * @author linda
+ */
 public class SummoningCfgImpl implements SummoningCfg {
 
     public SummoningCfgImpl(SummoningCfgExcel cfgExcel) {

@@ -4,12 +4,17 @@ import com.wan37.behavior.BehaviorManager;
 import com.wan37.logic.mission.complete.behavior.MissionCompleteCheckBehavior;
 import com.wan37.logic.mission.complete.behavior.MissionCompleteCheckContext;
 import com.wan37.logic.mission.config.MissionCfg;
-import com.wan37.logic.mission.entity.IPlayerMission;
+import com.wan37.logic.mission.entity.PlayerMission;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * 任务完成检查器
+ *
+ * @author linda
+ */
 @Service
 public class MissionCompleteChecker {
 
@@ -22,7 +27,7 @@ public class MissionCompleteChecker {
     @Autowired
     private PlayerGlobalManager playerGlobalManager;
 
-    public void check(Player player, IPlayerMission playerMission) {
+    public void check(Player player, PlayerMission playerMission) {
         MissionCfg missionCfg = playerMission.getMissionCfg();
 
         MissionCompleteCheckBehavior behavior = (MissionCompleteCheckBehavior) behaviorManager.get(MissionCompleteCheckBehavior.class, missionCfg.getType());
