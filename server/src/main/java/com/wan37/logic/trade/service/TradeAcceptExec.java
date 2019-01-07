@@ -1,6 +1,6 @@
 package com.wan37.logic.trade.service;
 
-import com.wan37.exception.GeneralErrorExecption;
+import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.trade.TradeGlobalManager;
@@ -28,11 +28,11 @@ public class TradeAcceptExec {
     public void exec(Player to, Long tradeUid) {
         GTrade trade = tradeGlobalManager.getTrade(tradeUid);
         if (trade == null) {
-            throw new GeneralErrorExecption("交易已关闭");
+            throw new GeneralErrorException("交易已关闭");
         }
 
         if (!Objects.equals(trade.getToUid(), to.getUid())) {
-            throw new GeneralErrorExecption("错误的交易uid");
+            throw new GeneralErrorException("错误的交易uid");
         }
 
         // 接受交易

@@ -1,8 +1,8 @@
 package com.wan37.logic.player.service.login;
 
-import com.wan37.event.GenernalEventListenersManager;
+import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.event.entity.LoginEvent;
-import com.wan37.exception.GeneralErrorExecption;
+import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.player.encode.PlayerInfoEncoder;
@@ -17,7 +17,7 @@ public class PlayerLoginExec {
     private PlayerGlobalManager playerGlobalManager;
 
     @Autowired
-    private GenernalEventListenersManager genernalEventListenersManager;
+    private GeneralEventListenersManager generalEventListenersManager;
 
     @Autowired
     private PlayerInfoEncoder playerInfoEncoder;
@@ -28,19 +28,19 @@ public class PlayerLoginExec {
 
         // 登录检查
         if (playerGlobalManager.isOnline(playerUid)) {
-            throw new GeneralErrorExecption("已经登录的角色");
+            throw new GeneralErrorException("已经登录的角色");
         }
 
         Player player = playerGlobalManager.getPlayerByUid(playerUid);
         if (player == null) {
-            throw new GeneralErrorExecption("找不到角色");
+            throw new GeneralErrorException("找不到角色");
         }
 
         player.setChannel(channel);
         playerGlobalManager.addInOnlineList(player);
 
         // 触发登录事件
-        genernalEventListenersManager.fireEvent(new LoginEvent(player));
+        generalEventListenersManager.fireEvent(new LoginEvent(player));
 
         String msg = "登录成功|" + playerInfoEncoder.encode(player);
         player.syncClient(msg);

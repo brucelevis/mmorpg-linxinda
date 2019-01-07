@@ -1,8 +1,8 @@
 package com.wan37.logic.npc.service;
 
-import com.wan37.event.GenernalEventListenersManager;
+import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.event.entity.NpcTalkEvent;
-import com.wan37.exception.GeneralErrorExecption;
+import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.mission.MissionCanAcceptListGetter;
 import com.wan37.logic.mission.config.MissionCfg;
 import com.wan37.logic.mission.encode.MissionEncoder;
@@ -30,14 +30,14 @@ public class NpcTalkExec {
     private MissionEncoder missionEncoder;
 
     @Autowired
-    private GenernalEventListenersManager genernalEventListenersManager;
+    private GeneralEventListenersManager generalEventListenersManager;
 
     public void exec(Player player, Integer npcId) {
         NpcCfg npcCfg = npcCfgLoader.load(npcId)
-                .orElseThrow(() -> new GeneralErrorExecption("找不到对应Npc配置表"));
+                .orElseThrow(() -> new GeneralErrorException("找不到对应Npc配置表"));
 
         // 抛出NPC对话事件
-        genernalEventListenersManager.fireEvent(new NpcTalkEvent(npcId, player));
+        generalEventListenersManager.fireEvent(new NpcTalkEvent(npcId, player));
 
         //TODO: 检查场景npc
 

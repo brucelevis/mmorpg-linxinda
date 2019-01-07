@@ -1,6 +1,6 @@
 package com.wan37.logic.friend.service;
 
-import com.wan37.exception.GeneralErrorExecption;
+import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.friend.dao.FriendRequestDao;
 import com.wan37.logic.friend.database.FriendRequestDb;
 import com.wan37.logic.player.Player;
@@ -8,7 +8,7 @@ import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.player.dao.PlayerDao;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.util.DateTimeUtils;
-import com.wan37.util.IdTool;
+import com.wan37.util.IdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,12 +26,9 @@ public class FriendAddExec {
     @Autowired
     private FriendRequestDao friendRequestDao;
 
-    @Autowired
-    private IdTool idTool;
-
     public void exec(Player player, Long uid) {
         if (player.getPlayerDb().getFriendDb().getFriendUids().contains(uid)) {
-            throw new GeneralErrorExecption("已经是好友");
+            throw new GeneralErrorException("已经是好友");
         }
 
         //TODO: 不可重复发送好友请求的检查
@@ -53,7 +50,7 @@ public class FriendAddExec {
         }
 
         if (!playerDao.existsByUid(uid)) {
-            throw new GeneralErrorExecption("不存在的玩家uid");
+            throw new GeneralErrorException("不存在的玩家uid");
         }
 
         friendRequestDao.save(requestDb);
@@ -62,7 +59,7 @@ public class FriendAddExec {
 
     private FriendRequestDb createRequest(Long fromPlayerUid, Long toPlayerUid) {
         FriendRequestDb db = new FriendRequestDb();
-        db.setId(idTool.generate());
+        db.setId(IdUtil.generate());
         db.setFromPlayerUid(fromPlayerUid);
         db.setTime(DateTimeUtils.toEpochMilli(LocalDateTime.now()));
 

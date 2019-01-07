@@ -1,6 +1,6 @@
 package com.wan37.logic.pk.service;
 
-import com.wan37.exception.GeneralErrorExecption;
+import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.pk.entity.IPk;
 import com.wan37.logic.pk.init.ArenaSceneCreator;
 import com.wan37.logic.pk.scene.ArenaScene;
@@ -37,7 +37,7 @@ public class PkAcceptExec {
     public void exec(Player player, Long inviterUid) {
         IPk myPk = player.getPk();
         if (!myPk.hadInvited(inviterUid)) {
-            throw new GeneralErrorExecption("对方并没邀请你决斗");
+            throw new GeneralErrorException("对方并没邀请你决斗");
         }
 
         if (!playerGlobalManager.isOnline(inviterUid)) {

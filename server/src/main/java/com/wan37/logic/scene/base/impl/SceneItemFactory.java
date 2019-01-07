@@ -8,7 +8,7 @@ import com.wan37.logic.props.config.VirtualItemCfg;
 import com.wan37.logic.props.config.VirtualItemCfgLoader;
 import com.wan37.logic.scene.base.SceneItem;
 import com.wan37.util.DateTimeUtils;
-import com.wan37.util.IdTool;
+import com.wan37.util.IdUtil;
 import com.wan37.util.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,9 +28,6 @@ public class SceneItemFactory implements SceneItem.Factory {
     @Autowired
     private PropsCfgLoader propsCfgLoader;
 
-    @Autowired
-    private IdTool idTool;
-
     @Override
     public List<SceneItem> create(MonsterCfg monsterCfg) {
         //FIXME: 写死物品掉落1分钟过期
@@ -47,7 +44,7 @@ public class SceneItemFactory implements SceneItem.Factory {
             return null;
         }
 
-        Long uid = idTool.generate();
+        Long uid = IdUtil.generate();
         if (cfg.getCfgId() < 200) {
             return createVirtualItem(uid, cfg.getCfgId(), cfg.getAmount(), expireTime);
         }

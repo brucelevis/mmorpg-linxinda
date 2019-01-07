@@ -1,6 +1,6 @@
 package com.wan37.logic.player.service;
 
-import com.wan37.event.GenernalEventListenersManager;
+import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.event.entity.LevelUpEvent;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.config.ExpCfg;
@@ -24,7 +24,7 @@ public class PlayerExpAdder {
     private SceneActorSceneGetter sceneActorSceneGetter;
 
     @Autowired
-    private GenernalEventListenersManager genernalEventListenersManager;
+    private GeneralEventListenersManager generalEventListenersManager;
 
     public void add(Player player, long exp) {
         player.syncClient(String.format("获得%s经验", exp));
@@ -51,7 +51,7 @@ public class PlayerExpAdder {
             String msg = String.format("升级通知|%s升到了%s级", player.getName(), player.getLevel());
             scene.getPlayers().forEach(p -> p.syncClient(msg));
 
-            genernalEventListenersManager.fireEvent(new LevelUpEvent(player));
+            generalEventListenersManager.fireEvent(new LevelUpEvent(player));
         }
     }
 }

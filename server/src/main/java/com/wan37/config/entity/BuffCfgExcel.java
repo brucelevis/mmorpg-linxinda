@@ -2,6 +2,8 @@ package com.wan37.config.entity;
 
 /**
  * Buff配置表实体类
+ *
+ * @author linda
  */
 public class BuffCfgExcel {
 

@@ -2,6 +2,8 @@ package com.wan37.config.entity;
 
 /**
  * 副本配置表实体类
+ *
+ * @author linda
  */
 public class DungeonCfgExcel {
 

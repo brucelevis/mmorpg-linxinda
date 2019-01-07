@@ -15,6 +15,9 @@ import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author linda
+ */
 @Service
 public class NettyServer {
 
@@ -29,8 +32,8 @@ public class NettyServer {
 
             // server端采用简洁的连写方式，client端才用分段普通写法。
             serverBootstrap.group(bossGroup, workerGroup)
-                    .channel(NioServerSocketChannel.class) // 指定channel[通道]类型
-                    .childHandler(new ChannelInitializer<SocketChannel>() {  // 指定Handler [操纵者]
+                    .channel(NioServerSocketChannel.class)
+                    .childHandler(new ChannelInitializer<SocketChannel>() {
 
                         @Override
                         public void initChannel(SocketChannel ch) {
@@ -50,7 +53,7 @@ public class NettyServer {
             ChannelFuture f = serverBootstrap.bind(8000).sync();
             f.channel().closeFuture().sync();
         } catch (InterruptedException e) {
-            // NOOP
+            e.printStackTrace();
         } finally {
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();

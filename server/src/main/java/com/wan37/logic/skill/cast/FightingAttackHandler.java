@@ -1,7 +1,7 @@
 package com.wan37.logic.skill.cast;
 
 import com.wan37.event.entity.DieEvent;
-import com.wan37.event.GenernalEventListenersManager;
+import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.buff.BuffEffectEnum;
 import com.wan37.logic.buff.entity.IBuff;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class FightingAttackHandler {
 
     @Autowired
-    private GenernalEventListenersManager genernalEventListenersManager;
+    private GeneralEventListenersManager generalEventListenersManager;
 
     public void handle(FightingUnit attacker, FightingUnit target, ISkill skill, AbstractScene scene) {
         double baseAttackVal = attacker.getBaseAttackVal();
@@ -77,7 +77,7 @@ public class FightingAttackHandler {
             scene.getPlayers().forEach(p -> p.syncClient(notify));
 
             long now = DateTimeUtils.toEpochMilli(LocalDateTime.now());
-            genernalEventListenersManager.fireEvent(new DieEvent(target, now));
+            generalEventListenersManager.fireEvent(new DieEvent(target, now));
         }
     }
 }

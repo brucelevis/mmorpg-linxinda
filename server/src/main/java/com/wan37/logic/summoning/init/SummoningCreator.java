@@ -10,7 +10,7 @@ import com.wan37.logic.summoning.config.SummoningCfg;
 import com.wan37.logic.summoning.config.SummoningInitAttrCfg;
 import com.wan37.logic.summoning.config.SummoningInitSkillCfg;
 import com.wan37.logic.summoning.Summoning;
-import com.wan37.util.IdTool;
+import com.wan37.util.IdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +24,6 @@ import java.util.stream.Collectors;
 public class SummoningCreator {
 
     @Autowired
-    private IdTool idTool;
-
-    @Autowired
     private AttrCfgLoader attrCfgLoader;
 
     @Autowired
@@ -37,7 +34,7 @@ public class SummoningCreator {
 
     public Summoning create(Long masterUid, SummoningCfg cfg, AbstractScene scene) {
         Summoning summoning = new Summoning();
-        summoning.setUid(idTool.generate());
+        summoning.setUid(IdUtil.generate());
         summoning.setSummoningCfg(cfg);
         summoning.setBelongUid(masterUid);
         summoning.setSceneId(scene.getId());

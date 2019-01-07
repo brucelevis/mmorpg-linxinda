@@ -2,6 +2,8 @@ package com.wan37.config.entity;
 
 /**
  * 虚物（如钱，积分等）配置表实体类
+ *
+ * @author linda
  */
 public class VirtualItemCfgExcel {
 

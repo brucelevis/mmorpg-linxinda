@@ -2,6 +2,8 @@ package com.wan37.config.entity;
 
 /**
  * 实物（可进背包）配置表实体类
+ *
+ * @author linda
  */
 public class PropsCfgExcel {
 

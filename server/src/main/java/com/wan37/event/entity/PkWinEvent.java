@@ -4,6 +4,8 @@ import com.wan37.logic.player.Player;
 
 /**
  * 决斗胜利事件
+ *
+ * @author linda
  */
 public class PkWinEvent {
 

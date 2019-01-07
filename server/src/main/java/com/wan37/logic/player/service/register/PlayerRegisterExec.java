@@ -6,7 +6,7 @@ import com.wan37.logic.player.encode.PlayerRegisterResponseEncoder;
 import com.wan37.logic.player.init.PlayerDbInitializer;
 import com.wan37.logic.scene.config.SceneCfg;
 import com.wan37.logic.scene.config.SceneCfgLoader;
-import com.wan37.util.IdTool;
+import com.wan37.util.IdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +15,6 @@ public class PlayerRegisterExec {
 
     @Autowired
     private SceneCfgLoader sceneCfgLoader;
-
-    @Autowired
-    private IdTool idTool;
 
     @Autowired
     private PlayerDbInitializer playerDbInitializer;
@@ -38,7 +35,7 @@ public class PlayerRegisterExec {
 
     private PlayerDb createPlayerDb(PRegisterPlayer regPlayer) {
         PlayerDb db = new PlayerDb();
-        db.setUid(idTool.generate());
+        db.setUid(IdUtil.generate());
         db.setName(regPlayer.getName());
         db.setLevel(1);
 

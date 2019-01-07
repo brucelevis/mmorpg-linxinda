@@ -3,6 +3,8 @@ package com.wan37.util;
 import com.alibaba.fastjson.JSON;
 
 /**
+ * Json工具类
+ *
  * @author linda
  */
 public class JsonUtil {

@@ -7,7 +7,7 @@ import com.wan37.logic.mail.database.MailRewardItemDb;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.player.database.PlayerDb;
-import com.wan37.util.IdTool;
+import com.wan37.util.IdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +16,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class MailGmSender {
-
-    @Autowired
-    private IdTool idTool;
 
     @Autowired
     private PlayerGlobalManager playerGlobalManager;
@@ -50,7 +47,7 @@ public class MailGmSender {
 
     private MailDb createMail(GmMail mail) {
         MailDb mailDb = new MailDb();
-        mailDb.setId(idTool.generate());
+        mailDb.setId(IdUtil.generate());
         mailDb.setHadReceived(false);
         mailDb.setTitle(mail.getTitle());
         mailDb.setContent(mail.getContent());

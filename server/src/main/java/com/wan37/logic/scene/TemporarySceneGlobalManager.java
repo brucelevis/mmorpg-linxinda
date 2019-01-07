@@ -1,6 +1,6 @@
 package com.wan37.logic.scene;
 
-import com.wan37.event.GenernalEventListenersManager;
+import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.event.entity.SceneEnterEvent;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.scene.base.TemporaryScene;
@@ -33,7 +33,7 @@ public class TemporarySceneGlobalManager {
     private static ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(20);
 
     @Autowired
-    private GenernalEventListenersManager genernalEventListenersManager;
+    private GeneralEventListenersManager generalEventListenersManager;
 
     public Collection<TemporaryScene> getAllScenes() {
         return sceneMap.values();
@@ -58,7 +58,7 @@ public class TemporarySceneGlobalManager {
         scene.getPlayers().add(player);
 
         // 触发进入场景事件
-        genernalEventListenersManager.fireEvent(new SceneEnterEvent(player));
+        generalEventListenersManager.fireEvent(new SceneEnterEvent(player));
     }
 
     public void removePlayerFromScene(Long sceneUid, Player player) {

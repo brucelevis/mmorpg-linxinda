@@ -1,7 +1,7 @@
 package com.wan37.logic.player.listeners;
 
 import com.wan37.event.GeneralEventListener;
-import com.wan37.event.GenernalEventListenersManager;
+import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.event.entity.OfflineEvent;
 import com.wan37.event.entity.SceneLeaveEvent;
 import com.wan37.logic.player.Player;
@@ -20,7 +20,7 @@ class PlayerOnOffline implements GeneralEventListener<OfflineEvent> {
     private PlayerGlobalManager playerGlobalManager;
 
     @Autowired
-    private GenernalEventListenersManager genernalEventListenersManager;
+    private GeneralEventListenersManager generalEventListenersManager;
 
     @Autowired
     private PlayerDao playerDao;
@@ -33,6 +33,6 @@ class PlayerOnOffline implements GeneralEventListener<OfflineEvent> {
         playerDao.save(player.getPlayerDb());
 
         playerGlobalManager.removeFromOnlineList(player.getChannel());
-        genernalEventListenersManager.fireEvent(new SceneLeaveEvent(player));
+        generalEventListenersManager.fireEvent(new SceneLeaveEvent(player));
     }
 }

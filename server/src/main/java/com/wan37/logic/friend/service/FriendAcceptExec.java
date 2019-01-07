@@ -1,8 +1,8 @@
 package com.wan37.logic.friend.service;
 
 import com.wan37.event.entity.FriendAddEvent;
-import com.wan37.event.GenernalEventListenersManager;
-import com.wan37.exception.GeneralErrorExecption;
+import com.wan37.event.GeneralEventListenersManager;
+import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.friend.database.FriendDb;
 import com.wan37.logic.friend.database.FriendRequestDb;
 import com.wan37.logic.player.Player;
@@ -21,14 +21,14 @@ public class FriendAcceptExec {
     private PlayerGlobalManager playerGlobalManager;
 
     @Autowired
-    private GenernalEventListenersManager genernalEventListenersManager;
+    private GeneralEventListenersManager generalEventListenersManager;
 
     public void exec(Player player, Long id) {
         PlayerDb playerDb = player.getPlayerDb();
         FriendRequestDb requestDb = playerDb.getRequestList().stream()
                 .filter(r -> Objects.equals(r.getId(), id))
                 .findAny()
-                .orElseThrow(() -> new GeneralErrorExecption("找不到好友请求id"));
+                .orElseThrow(() -> new GeneralErrorException("找不到好友请求id"));
 
         Long fromUid = requestDb.getFromPlayerUid();
         FriendDb friendDb = playerDb.getFriendDb();
@@ -51,8 +51,8 @@ public class FriendAcceptExec {
             from.syncClient(String.format("%s接受了你的好友请求", player.getName()));
         }
 
-        genernalEventListenersManager.fireEvent(new FriendAddEvent(from));
-        genernalEventListenersManager.fireEvent(new FriendAddEvent(player));
+        generalEventListenersManager.fireEvent(new FriendAddEvent(from));
+        generalEventListenersManager.fireEvent(new FriendAddEvent(player));
     }
 
     public void rmRequest(PlayerDb playerDb, Long fromUid) {

@@ -1,6 +1,6 @@
 package com.wan37.logic.player.handler;
 
-import com.wan37.event.GenernalEventListenersManager;
+import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.event.entity.OfflineEvent;
 import com.wan37.handler.GeneralHandler;
 import com.wan37.logic.player.Player;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 class Player_Logout implements GeneralHandler {
 
     @Autowired
-    private GenernalEventListenersManager genernalEventListenersManager;
+    private GeneralEventListenersManager generalEventListenersManager;
 
     @Autowired
     private PlayerGlobalManager playerGlobalManager;
@@ -25,7 +25,7 @@ class Player_Logout implements GeneralHandler {
             return;
         }
 
-        genernalEventListenersManager.fireEvent(new OfflineEvent(player));
+        generalEventListenersManager.fireEvent(new OfflineEvent(player));
         player.syncClient("下线成功");
     }
 }

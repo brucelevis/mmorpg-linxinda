@@ -1,6 +1,6 @@
 package com.wan37.logic.dungeon.service;
 
-import com.wan37.exception.GeneralErrorExecption;
+import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.dungeon.config.DungeonCfg;
 import com.wan37.logic.dungeon.config.DungeonCfgLoader;
 import com.wan37.logic.dungeon.init.DungeonSceneCreator;
@@ -48,34 +48,34 @@ public class DungeonEnterExec {
 
     public void exec(Player player, Integer dungeonId) {
         SceneCfg sceneCfg = sceneCfgLoader.load(player.getSceneId())
-                .orElseThrow(() -> new GeneralErrorExecption("找不到当前场景配置"));
+                .orElseThrow(() -> new GeneralErrorException("找不到当前场景配置"));
 
         if (!Objects.equals(sceneCfg.getType(), SceneTypeEnum.SCENE_TYPE_1.getId())) {
-            throw new GeneralErrorExecption("请切换到普通场景再尝试进入副本");
+            throw new GeneralErrorException("请切换到普通场景再尝试进入副本");
         }
 
         DungeonCfg dungeonCfg = dungeonCfgLoader.load(dungeonId)
-                .orElseThrow(() -> new GeneralErrorExecption("找不到相应的副本"));
+                .orElseThrow(() -> new GeneralErrorException("找不到相应的副本"));
 
         SceneCfg dungeonSceneCfg = sceneCfgLoader.load(dungeonCfg.getSceneId())
-                .orElseThrow(() -> new GeneralErrorExecption("找不到副本场景配置"));
+                .orElseThrow(() -> new GeneralErrorException("找不到副本场景配置"));
 
         if (player.getTeamUid() == null) {
-            throw new GeneralErrorExecption("挑战副本需要创建队伍");
+            throw new GeneralErrorException("挑战副本需要创建队伍");
         }
 
         ITeam team = teamGlobalManager.getTeam(player.getTeamUid());
         if (!Objects.equals(team.getLeaderUid(), player.getUid())) {
-            throw new GeneralErrorExecption("只有队长才能发起副本挑战");
+            throw new GeneralErrorException("只有队长才能发起副本挑战");
         }
 
         if (!isAllOnline(team)) {
-            throw new GeneralErrorExecption("有队员不在线");
+            throw new GeneralErrorException("有队员不在线");
         }
 
         List<Player> teamMembers = getTeamMembers(team);
         if (!isInSameScene(teamMembers)) {
-            throw new GeneralErrorExecption("队员不在同一场景");
+            throw new GeneralErrorException("队员不在同一场景");
         }
 
         // 创建副本场景

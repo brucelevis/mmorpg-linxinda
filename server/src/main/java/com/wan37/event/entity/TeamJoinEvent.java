@@ -4,6 +4,8 @@ import com.wan37.logic.player.Player;
 
 /**
  * 加入组队事件
+ *
+ * @author linda
  */
 public class TeamJoinEvent {
 

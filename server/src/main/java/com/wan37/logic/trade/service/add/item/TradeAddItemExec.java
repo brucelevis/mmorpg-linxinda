@@ -1,6 +1,6 @@
 package com.wan37.logic.trade.service.add.item;
 
-import com.wan37.exception.GeneralErrorExecption;
+import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.backpack.BackpackFacade;
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.backpack.database.ItemDb;
@@ -38,20 +38,20 @@ public class TradeAddItemExec {
     public void exec(Player player, Integer index, int amount) {
         BackpackDb backpackDb = player.getPlayerDb().getBackpackDb();
         ItemDb itemDb = backpackFacade.find(backpackDb, index)
-                .orElseThrow(() -> new GeneralErrorExecption("找不到对应的背包格子物品"));
+                .orElseThrow(() -> new GeneralErrorException("找不到对应的背包格子物品"));
 
         if (itemDb.getAmount() < amount) {
-            throw new GeneralErrorExecption("背包物品数量不足");
+            throw new GeneralErrorException("背包物品数量不足");
         }
 
         ITrade iTrade = player.getTrade();
         if (iTrade.getUid() == null) {
-            throw new GeneralErrorExecption("未在交易");
+            throw new GeneralErrorException("未在交易");
         }
 
         GTrade trade = tradeGlobalManager.getTrade(iTrade.getUid());
         if (trade == null) {
-            throw new GeneralErrorExecption("交易不存在");
+            throw new GeneralErrorException("交易不存在");
         }
 
         try {

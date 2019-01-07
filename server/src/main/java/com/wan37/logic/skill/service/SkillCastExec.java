@@ -1,7 +1,7 @@
 package com.wan37.logic.skill.service;
 
 import com.wan37.behavior.BehaviorManager;
-import com.wan37.exception.GeneralErrorExecption;
+import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.skill.cast.ai.target.PlayerSkillCastTargetsGetter;
@@ -29,7 +29,7 @@ public class SkillCastExec {
     public void exec(Player caster, Integer skillId, Long targetUid) {
         ISkill skill = caster.getSkills().get(skillId);
         if (skill == null) {
-            throw new GeneralErrorExecption("找不到目标技能");
+            throw new GeneralErrorException("找不到目标技能");
         }
 
         if (!fightingUnitSkillBeforeCastChecker.check(caster, skill)) {
@@ -39,7 +39,7 @@ public class SkillCastExec {
         // 根据作用目标类型找出目标
         List<FightingUnit> targetList = playerSkillCastTargetsGetter.get(caster, skill.getSkillCfg(), targetUid);
         if (targetList.isEmpty()) {
-            throw new GeneralErrorExecption("找不到技能施放目标");
+            throw new GeneralErrorException("找不到技能施放目标");
         }
 
         // 技能生效逻辑

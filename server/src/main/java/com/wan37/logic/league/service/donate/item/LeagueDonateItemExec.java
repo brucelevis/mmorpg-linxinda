@@ -1,6 +1,6 @@
 package com.wan37.logic.league.service.donate.item;
 
-import com.wan37.exception.GeneralErrorExecption;
+import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.backpack.BackpackFacade;
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.backpack.database.ItemDb;
@@ -11,7 +11,7 @@ import com.wan37.logic.league.entity.ILeagueItem;
 import com.wan37.logic.league.entity.ILWarehouse;
 import com.wan37.logic.league.entity.ILeague;
 import com.wan37.logic.player.Player;
-import com.wan37.util.IdTool;
+import com.wan37.util.IdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,15 +30,12 @@ public class LeagueDonateItemExec {
     @Autowired
     private BackpackUpdateNotifier backpackUpdateNotifier;
 
-    @Autowired
-    private IdTool idTool;
-
     public void exec(Player player, ReqLDonateItem reqLDonateItem) {
         BackpackDb backpackDb = player.getPlayerDb().getBackpackDb();
         reqLDonateItem.getDonateItems().forEach(i -> checkBackpackItem(backpackDb, i.getIndex(), i.getAmount()));
 
         if (player.getLeagueUid() == null) {
-            throw new GeneralErrorExecption("未加入公会");
+            throw new GeneralErrorException("未加入公会");
         }
 
         ILeague league = leagueGlobalManager.get(player.getLeagueUid());
@@ -74,18 +71,18 @@ public class LeagueDonateItemExec {
     private void checkBackpackItem(BackpackDb backpackDb, Integer index, int amount) {
         ItemDb itemDb = getItem(backpackDb, index);
         if (itemDb.getAmount() < amount) {
-            throw new GeneralErrorExecption("要捐献的背包物品数量不足");
+            throw new GeneralErrorException("要捐献的背包物品数量不足");
         }
     }
 
     private ItemDb getItem(BackpackDb backpackDb, Integer index) {
         return backpackFacade.find(backpackDb, index)
-                .orElseThrow(() -> new GeneralErrorExecption("找不到对应背包格子"));
+                .orElseThrow(() -> new GeneralErrorException("找不到对应背包格子"));
     }
 
     private LeagueItemDb createLItem(ItemDb itemDb, int amout) {
         LeagueItemDb leagueItemDb = new LeagueItemDb();
-        leagueItemDb.setId(idTool.generate());
+        leagueItemDb.setId(IdUtil.generate());
         leagueItemDb.setItemUid(itemDb.getUid());
         leagueItemDb.setCfgId(itemDb.getCfgId());
         leagueItemDb.setAmount(amout);

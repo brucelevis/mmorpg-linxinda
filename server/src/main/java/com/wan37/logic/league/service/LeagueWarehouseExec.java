@@ -1,6 +1,6 @@
 package com.wan37.logic.league.service;
 
-import com.wan37.exception.GeneralErrorExecption;
+import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.league.LeagueGlobalManager;
 import com.wan37.logic.league.entity.ILeagueCurrency;
 import com.wan37.logic.league.entity.ILeagueItem;
@@ -28,7 +28,7 @@ public class LeagueWarehouseExec {
 
     public void exec(Player player) {
         if (player.getLeagueUid() == null) {
-            throw new GeneralErrorExecption("未加入公会");
+            throw new GeneralErrorException("未加入公会");
         }
 
         ILeague league = leagueGlobalManager.get(player.getLeagueUid());

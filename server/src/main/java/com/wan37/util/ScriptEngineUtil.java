@@ -8,6 +8,8 @@ import java.util.Map;
 
 /**
  * 公式计算工具类
+ *
+ * @author linda
  */
 public class ScriptEngineUtil {
 

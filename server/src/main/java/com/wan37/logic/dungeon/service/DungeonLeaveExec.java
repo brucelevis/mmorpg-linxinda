@@ -1,6 +1,6 @@
 package com.wan37.logic.dungeon.service;
 
-import com.wan37.event.GenernalEventListenersManager;
+import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.event.entity.SceneLeaveEvent;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.scene.SceneFacade;
@@ -18,11 +18,11 @@ public class DungeonLeaveExec {
     private TemporarySceneGlobalManager temporarySceneGlobalManager;
 
     @Autowired
-    private GenernalEventListenersManager genernalEventListenersManager;
+    private GeneralEventListenersManager generalEventListenersManager;
 
     public void exec(Player player) {
         // 离开副本场景
-        genernalEventListenersManager.fireEvent(new SceneLeaveEvent(player));
+        generalEventListenersManager.fireEvent(new SceneLeaveEvent(player));
         temporarySceneGlobalManager.destoryScene(player.getSceneUid());
 
         // 回到安全村

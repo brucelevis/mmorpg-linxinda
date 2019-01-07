@@ -10,7 +10,7 @@ import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.skill.entity.ISkill;
 import com.wan37.logic.skill.config.SkillCfg;
 import com.wan37.logic.skill.config.SkillCfgLoader;
-import com.wan37.util.IdTool;
+import com.wan37.util.IdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,9 +22,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class MonsterCreator {
-
-    @Autowired
-    private IdTool idTool;
 
     @Autowired
     private MonsterInitializer monsterInitializer;
@@ -40,7 +37,7 @@ public class MonsterCreator {
 
     public Monster create(MonsterCfg cfg, AbstractScene scene) {
         Monster monster = new Monster();
-        monster.setUid(idTool.generate());
+        monster.setUid(IdUtil.generate());
         monster.setMonsterCfg(cfg);
         monster.setSceneId(scene.getId());
         monster.setSceneUid(scene.getUid());

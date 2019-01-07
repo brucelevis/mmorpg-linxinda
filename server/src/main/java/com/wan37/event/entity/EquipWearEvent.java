@@ -4,6 +4,8 @@ import com.wan37.logic.player.Player;
 
 /**
  * 装备穿戴事件
+ *
+ * @author linda
  */
 public class EquipWearEvent {
 

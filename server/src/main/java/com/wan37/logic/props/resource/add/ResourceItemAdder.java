@@ -1,6 +1,6 @@
 package com.wan37.logic.props.resource.add;
 
-import com.wan37.event.GenernalEventListenersManager;
+import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.event.entity.ItemAddEvent;
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.backpack.database.ItemDb;
@@ -11,7 +11,7 @@ import com.wan37.logic.props.config.PropsCfg;
 import com.wan37.logic.props.config.PropsCfgLoader;
 import com.wan37.logic.props.init.PropsExtraInitializer;
 import com.wan37.logic.props.resource.ResourceElement;
-import com.wan37.util.IdTool;
+import com.wan37.util.IdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +26,6 @@ public class ResourceItemAdder {
     private PropsCfgLoader propsCfgLoader;
 
     @Autowired
-    private IdTool idTool;
-
-    @Autowired
     private BackpackEmptyIndexFinder backpackEmptyIndexFinder;
 
     @Autowired
@@ -38,7 +35,7 @@ public class ResourceItemAdder {
     private BackpackExistItemFinder backpackExistItemFinder;
 
     @Autowired
-    private GenernalEventListenersManager genernalEventListenersManager;
+    private GeneralEventListenersManager generalEventListenersManager;
 
     public boolean add(ResourceElement element, Player player) {
         PropsCfg propsCfg = propsCfgLoader.load(element.getCfgId()).orElse(null);
@@ -115,7 +112,7 @@ public class ResourceItemAdder {
         }
 
         // 抛出加物品事件
-        genernalEventListenersManager.fireEvent(new ItemAddEvent(propsCfg, (int) amount, player));
+        generalEventListenersManager.fireEvent(new ItemAddEvent(propsCfg, (int) amount, player));
 
         return true;
     }
@@ -123,7 +120,7 @@ public class ResourceItemAdder {
     private ItemDb createItem(PropsCfg propsCfg, Integer index, int amount) {
         ItemDb itemDb = new ItemDb();
 
-        itemDb.setUid(idTool.generate());
+        itemDb.setUid(IdUtil.generate());
         itemDb.setCfgId(propsCfg.getId());
         itemDb.setAmount(amount);
         itemDb.setIndex(index);

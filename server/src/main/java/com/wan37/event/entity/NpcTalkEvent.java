@@ -4,6 +4,8 @@ import com.wan37.logic.player.Player;
 
 /**
  * npc对话事件
+ *
+ * @author linda
  */
 public class NpcTalkEvent {
 

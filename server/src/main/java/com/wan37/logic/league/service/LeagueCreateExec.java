@@ -1,6 +1,6 @@
 package com.wan37.logic.league.service;
 
-import com.wan37.exception.GeneralErrorExecption;
+import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.chat.ChatFacade;
 import com.wan37.logic.league.LeagueGlobalManager;
 import com.wan37.logic.league.LeaguePositionEnum;
@@ -38,13 +38,13 @@ public class LeagueCreateExec {
 
     public void exec(Player player, String name) {
         if (leagueDao.existsByName(name)) {
-            throw new GeneralErrorExecption("已经存在的公会名");
+            throw new GeneralErrorException("已经存在的公会名");
         }
 
         //TODO: 检查创建公会的条件如钱啊啥的
 
         if (player.getLeagueUid() != null) {
-            throw new GeneralErrorExecption("已有公会，要创建公会需要退出或解散当前公会");
+            throw new GeneralErrorException("已有公会，要创建公会需要退出或解散当前公会");
         }
 
         // 创建公会

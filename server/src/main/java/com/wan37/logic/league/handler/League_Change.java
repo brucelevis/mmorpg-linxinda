@@ -1,6 +1,6 @@
 package com.wan37.logic.league.handler;
 
-import com.wan37.exception.GeneralErrorExecption;
+import com.wan37.exception.GeneralErrorException;
 import com.wan37.handler.GeneralHandler;
 import com.wan37.logic.league.service.LeagueChangeExec;
 import com.wan37.logic.player.Player;
@@ -28,7 +28,7 @@ class League_Change implements GeneralHandler {
         Long uid = msg.getParamAsLong(1);
         Player target = playerGlobalManager.getPlayerByUid(uid);
         if (target == null) {
-            throw new GeneralErrorExecption("目标不存在");
+            throw new GeneralErrorException("目标不存在");
         }
 
         leagueChangeExec.exec(player, target);

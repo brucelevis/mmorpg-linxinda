@@ -2,6 +2,8 @@ package com.wan37.event.entity;
 
 /**
  * 战力变化事件
+ *
+ * @author linda
  */
 public class StrengthChangeEvent {
 

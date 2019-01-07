@@ -4,6 +4,8 @@ import com.wan37.logic.player.Player;
 
 /**
  * 升级事件
+ *
+ * @author linda
  */
 public class LevelUpEvent {
 

@@ -1,7 +1,7 @@
 package com.wan37.logic.dungeon.complete;
 
 import com.wan37.event.entity.DungeonCompleteEvent;
-import com.wan37.event.GenernalEventListenersManager;
+import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.chat.ChatFacade;
 import com.wan37.logic.dungeon.config.DungeonCfg;
@@ -58,7 +58,7 @@ public class DungeonCompleteHandler {
     private GmMailCreator gmMailCreator;
 
     @Autowired
-    private GenernalEventListenersManager genernalEventListenersManager;
+    private GeneralEventListenersManager generalEventListenersManager;
 
     public void handle(DungeonScene scene) {
         DungeonCfg dungeonCfg = scene.getDungeonCfg();
@@ -116,7 +116,7 @@ public class DungeonCompleteHandler {
         }
 
         // 抛出副本完成事件
-        genernalEventListenersManager.fireEvent(new DungeonCompleteEvent(player, dungeonCfg.getId()));
+        generalEventListenersManager.fireEvent(new DungeonCompleteEvent(player, dungeonCfg.getId()));
 
         temporarySceneGlobalManager.removePlayerFromScene(player.getSceneUid(), player);
 

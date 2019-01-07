@@ -4,6 +4,8 @@ import com.wan37.logic.player.Player;
 
 /**
  * 进入场景事件
+ *
+ * @author linda
  */
 public class SceneEnterEvent {
 

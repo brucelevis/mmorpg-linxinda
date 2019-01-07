@@ -5,6 +5,8 @@ import com.wan37.logic.player.Player;
 
 /**
  * 怪物死亡事件
+ *
+ * @author linda
  */
 public class MonsterDieEvent {
 

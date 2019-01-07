@@ -1,6 +1,6 @@
 package com.wan37.logic.league.service;
 
-import com.wan37.exception.GeneralErrorExecption;
+import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.league.LeagueGlobalManager;
 import com.wan37.logic.league.LeaguePositionEnum;
 import com.wan37.logic.league.entity.ILeague;
@@ -23,12 +23,12 @@ public class LeagueInfoExec {
 
     public void exec(Player player) {
         if (player.getLeagueUid() == null) {
-            throw new GeneralErrorExecption("你当前没有公会信息");
+            throw new GeneralErrorException("你当前没有公会信息");
         }
 
         ILeague league = leagueGlobalManager.get(player.getLeagueUid());
         if (league == null) {
-            throw new GeneralErrorExecption("公会不存在");
+            throw new GeneralErrorException("公会不存在");
         }
 
         String msg = String.format("公会名：%s  人数：%s/%s\n", league.getName(), league.getCurNum(), league.getMaxNum());

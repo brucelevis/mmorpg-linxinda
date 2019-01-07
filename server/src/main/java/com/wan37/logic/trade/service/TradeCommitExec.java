@@ -1,8 +1,8 @@
 package com.wan37.logic.trade.service;
 
-import com.wan37.event.GenernalEventListenersManager;
+import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.event.entity.TradeSuccessEvent;
-import com.wan37.exception.GeneralErrorExecption;
+import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.backpack.BackpackFacade;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.props.ResourceFacade;
@@ -35,17 +35,17 @@ public class TradeCommitExec {
     private TradeCloser tradeCloser;
 
     @Autowired
-    private GenernalEventListenersManager genernalEventListenersManager;
+    private GeneralEventListenersManager generalEventListenersManager;
 
     public void exec(Player player) {
         ITrade iTrade = player.getTrade();
         if (iTrade.getUid() == null) {
-            throw new GeneralErrorExecption("未在交易");
+            throw new GeneralErrorException("未在交易");
         }
 
         GTrade trade = tradeGlobalManager.getTrade(iTrade.getUid());
         if (trade == null) {
-            throw new GeneralErrorExecption("交易不存在");
+            throw new GeneralErrorException("交易不存在");
         }
 
         try {
@@ -90,8 +90,8 @@ public class TradeCommitExec {
             finishTrade(trade);
 
             // 抛出交易成功事件
-            genernalEventListenersManager.fireEvent(new TradeSuccessEvent(fromPlayer));
-            genernalEventListenersManager.fireEvent(new TradeSuccessEvent(toPlayer));
+            generalEventListenersManager.fireEvent(new TradeSuccessEvent(fromPlayer));
+            generalEventListenersManager.fireEvent(new TradeSuccessEvent(toPlayer));
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

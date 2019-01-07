@@ -1,6 +1,6 @@
 package com.wan37.logic.league.service;
 
-import com.wan37.exception.GeneralErrorExecption;
+import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.currency.encode.CurrencyUpdateNotifier;
 import com.wan37.logic.league.LeagueGlobalManager;
 import com.wan37.logic.league.LeaguePermissionEnum;
@@ -33,16 +33,16 @@ public class LeagueGetMoneyExec {
 
     public void exec(Player player, Integer cfgId, long amount) {
         if (player.getLeagueUid() == null) {
-            throw new GeneralErrorExecption("未加入公会");
+            throw new GeneralErrorException("未加入公会");
         }
 
         ILeague league = leagueGlobalManager.get(player.getLeagueUid());
         ILeagueMember me = league.getMember(player.getUid());
         LeaguePositionCfg positionCfg = leaguePositionCfgLoader.load(me.getPosition())
-                .orElseThrow(() -> new GeneralErrorExecption("找不到公会权限表"));
+                .orElseThrow(() -> new GeneralErrorException("找不到公会权限表"));
 
         if (!positionCfg.getPermission().contains(LeaguePermissionEnum.LeaguePermissionEnum_4.getId())) {
-            throw new GeneralErrorExecption("没有取帮会物品的权限");
+            throw new GeneralErrorException("没有取帮会物品的权限");
         }
 
         ILWarehouse warehouse = league.getWarehouse();

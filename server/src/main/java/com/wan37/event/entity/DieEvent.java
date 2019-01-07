@@ -4,6 +4,8 @@ import com.wan37.logic.scene.base.FightingUnit;
 
 /**
  * 死亡事件
+ *
+ * @author linda
  */
 public class DieEvent {
 

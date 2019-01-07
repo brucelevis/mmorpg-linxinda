@@ -9,7 +9,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Service
-public class GeneralDipatchHandlerManagerTest extends BaseTest {
+public class GeneralDispatchHandlerManagerTest extends BaseTest {
 
     @Test
     public void test_() {
@@ -17,7 +17,7 @@ public class GeneralDipatchHandlerManagerTest extends BaseTest {
         String req = "player_Login";
 
         // Act
-        Optional<GeneralHandler> result = GeneralDipatchHandlerManager.get(req);
+        Optional<GeneralHandler> result = GeneralDispatchHandlerManager.get(req);
 
         // Assert
         assertThat(result).isNotEmpty();

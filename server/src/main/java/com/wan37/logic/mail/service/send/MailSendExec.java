@@ -11,7 +11,7 @@ import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.util.DateTimeUtils;
-import com.wan37.util.IdTool;
+import com.wan37.util.IdUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,9 +39,6 @@ public class MailSendExec {
 
     @Autowired
     private BackpackUpdateNotifier backpackUpdateNotifier;
-
-    @Autowired
-    private IdTool idTool;
 
     public void exec(ReqSendMail mail) {
         Player from = mail.getFromPlayer();
@@ -71,7 +68,7 @@ public class MailSendExec {
 
     private MailDb createMail(ReqSendMail mail) {
         MailDb mailDb = new MailDb();
-        mailDb.setId(idTool.generate());
+        mailDb.setId(IdUtil.generate());
         mailDb.setTitle(mail.getTitle());
         mailDb.setContent(mail.getContent());
         mailDb.setHadReceived(false);

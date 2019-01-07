@@ -1,8 +1,8 @@
 package com.wan37.logic.team.service;
 
-import com.wan37.event.GenernalEventListenersManager;
+import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.event.entity.TeamJoinEvent;
-import com.wan37.exception.GeneralErrorExecption;
+import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.team.TeamGlobalManager;
 import com.wan37.logic.team.entity.ITeam;
@@ -23,16 +23,16 @@ public class TeamAcceptExec {
     private ITeamMember.Factory teamMemberFactory;
 
     @Autowired
-    private GenernalEventListenersManager genernalEventListenersManager;
+    private GeneralEventListenersManager generalEventListenersManager;
 
     public void exec(Player player, Long teamUid) {
         if (player.getTeamUid() != null) {
-            throw new GeneralErrorExecption("你已有组队");
+            throw new GeneralErrorException("你已有组队");
         }
 
         ITeam team = teamGlobalManager.getTeam(teamUid);
         if (team == null) {
-            throw new GeneralErrorExecption("组队不存在");
+            throw new GeneralErrorException("组队不存在");
         }
 
         try {
@@ -58,6 +58,6 @@ public class TeamAcceptExec {
         }
 
         // 抛出加入组队事件
-        genernalEventListenersManager.fireEvent(new TeamJoinEvent(player));
+        generalEventListenersManager.fireEvent(new TeamJoinEvent(player));
     }
 }

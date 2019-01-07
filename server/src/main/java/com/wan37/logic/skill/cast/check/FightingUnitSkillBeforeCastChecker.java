@@ -1,6 +1,6 @@
 package com.wan37.logic.skill.cast.check;
 
-import com.wan37.exception.GeneralErrorExecption;
+import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.scene.SceneActorSceneGetter;
 import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.scene.base.FightingUnit;
@@ -64,7 +64,7 @@ public class FightingUnitSkillBeforeCastChecker {
 
     private boolean throwIfIsPlayer(FightingUnit unit, String msg) {
         if (isPlayer(unit)) {
-            throw new GeneralErrorExecption(msg);
+            throw new GeneralErrorException(msg);
         }
 
         return false;

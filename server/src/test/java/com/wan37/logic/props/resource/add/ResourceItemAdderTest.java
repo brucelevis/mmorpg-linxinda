@@ -1,5 +1,6 @@
 package com.wan37.logic.props.resource.add;
 
+import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.backpack.database.ItemDb;
 import com.wan37.logic.backpack.service.find.BackpackEmptyIndexFinder;
@@ -10,7 +11,6 @@ import com.wan37.logic.props.config.PropsCfg;
 import com.wan37.logic.props.config.PropsCfgLoader;
 import com.wan37.logic.props.init.PropsExtraInitializer;
 import com.wan37.logic.props.resource.ResourceElement;
-import com.wan37.util.IdTool;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,14 +39,14 @@ public class ResourceItemAdderTest {
     @Mock
     PropsCfgLoader _loader;
 
-    @Mock
-    IdTool _idTool;
-
     @Spy
     BackpackEmptyIndexFinder _finder;
 
     @Spy
     BackpackExistItemFinder _backpackExistItemFinder;
+
+    @Mock
+    GeneralEventListenersManager _generalEventListenersManager;
 
     @Mock
     PropsExtraInitializer _initializer;

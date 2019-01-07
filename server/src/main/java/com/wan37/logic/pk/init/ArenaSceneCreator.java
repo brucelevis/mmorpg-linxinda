@@ -4,7 +4,7 @@ import com.wan37.logic.pk.scene.ArenaScene;
 import com.wan37.logic.pk.schedule.ArenaSceneScheduler;
 import com.wan37.logic.scene.config.SceneCfg;
 import com.wan37.util.DateTimeUtils;
-import com.wan37.util.IdTool;
+import com.wan37.util.IdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,15 +16,12 @@ import java.util.concurrent.TimeUnit;
 public class ArenaSceneCreator {
 
     @Autowired
-    private IdTool idTool;
-
-    @Autowired
     private ArenaSceneScheduler arenaSceneScheduler;
 
     public ArenaScene create(SceneCfg sceneCfg) {
         ArenaScene scene = new ArenaScene();
 
-        scene.setUid(idTool.generate());
+        scene.setUid(IdUtil.generate());
         scene.setSceneCfg(sceneCfg);
         scene.setPlayers(new ArrayList<>());
         scene.setSummonings(new ArrayList<>());

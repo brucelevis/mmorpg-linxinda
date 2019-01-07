@@ -1,5 +1,6 @@
 package com.wan37.config;
 
+import com.google.common.collect.ImmutableList;
 import com.wan37.util.excel.ExcelUtils;
 import org.apache.log4j.Logger;
 import org.apache.poi.ss.formula.functions.T;
@@ -13,29 +14,27 @@ import java.util.Map;
 
 /**
  * 数据配置导表管理器
+ *
+ * @author linda
  */
 @Service
 public class ConfigManager {
 
     private static final Logger LOG = Logger.getLogger(ConfigManager.class);
-
     private static final String EXCEL_PATH = "./server/docs";
 
     /**
      * key: class name
      */
-    private static Map<String, List<T>> cfgMap = null;
-
-    private ConfigManager() {
-        LOG.info("开始初始化导表...");
-        init();
-        LOG.info("初始化导表完成");
-    }
+    private static Map<String, List<T>> cfgMap;
 
     @SuppressWarnings("unchecked")
     public <V> List<V> loads(Class<V> clazz) {
+        // FIXME: 这里要改成起服就读取配置表
         if (cfgMap == null) {
+            LOG.info("开始初始化导表...");
             init();
+            LOG.info("初始化导表完成");
         }
 
         return (List<V>) cfgMap.get(clazz.getName());
@@ -48,11 +47,11 @@ public class ConfigManager {
             throw new RuntimeException("错误的导表路径");
         }
 
-        String[] filelist = directory.list();
-        assert filelist != null;
+        String[] files = directory.list();
+        assert files != null;
 
-        cfgMap = new HashMap<>();
-        for (String path : filelist) {
+        cfgMap = new HashMap<>(0);
+        for (String path : files) {
             File file = new File(EXCEL_PATH + "\\" + path);
 
             String originalFileName = file.getName();
@@ -81,6 +80,6 @@ public class ConfigManager {
                 }
             }
         }
-        return null;
+        return ImmutableList.of();
     }
 }

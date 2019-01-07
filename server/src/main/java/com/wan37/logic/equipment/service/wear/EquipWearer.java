@@ -2,7 +2,7 @@ package com.wan37.logic.equipment.service.wear;
 
 import com.google.common.collect.ImmutableList;
 import com.wan37.event.entity.EquipWearEvent;
-import com.wan37.event.GenernalEventListenersManager;
+import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.event.entity.StrengthChangeEvent;
 import com.wan37.logic.backpack.BackpackFacade;
 import com.wan37.logic.backpack.database.ItemDb;
@@ -24,7 +24,7 @@ public class EquipWearer {
     private EquipUpdateNotifier equipUpdateNotifier;
 
     @Autowired
-    private GenernalEventListenersManager genernalEventListenersManager;
+    private GeneralEventListenersManager generalEventListenersManager;
 
     @Autowired
     private PropsCfgLoader propsCfgLoader;
@@ -59,8 +59,8 @@ public class EquipWearer {
 
         // 触发战力面板变化事件
         //FIXME: event写错了
-        genernalEventListenersManager.fireEvent(new StrengthChangeEvent(player.getUid()));
+        generalEventListenersManager.fireEvent(new StrengthChangeEvent(player.getUid()));
 
-        genernalEventListenersManager.fireEvent(new EquipWearEvent(player));
+        generalEventListenersManager.fireEvent(new EquipWearEvent(player));
     }
 }

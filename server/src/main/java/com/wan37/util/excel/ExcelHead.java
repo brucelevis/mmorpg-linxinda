@@ -1,5 +1,8 @@
 package com.wan37.util.excel;
 
+/**
+ * @author linda
+ */
 public class ExcelHead {
 
     /**
@@ -39,20 +42,5 @@ public class ExcelHead {
 
     public void setRequired(boolean required) {
         this.required = required;
-    }
-
-    public ExcelHead(String excelName, String entityName, boolean required) {
-        this.excelName = excelName;
-        this.entityName = entityName;
-        this.required = required;
-    }
-
-    public ExcelHead(String excelName, String entityName) {
-        this.excelName = excelName;
-        this.entityName = entityName;
-    }
-
-    public ExcelHead() {
-        // NOOP
     }
 }

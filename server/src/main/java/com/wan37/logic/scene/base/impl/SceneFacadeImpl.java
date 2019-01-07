@@ -1,6 +1,6 @@
 package com.wan37.logic.scene.base.impl;
 
-import com.wan37.event.GenernalEventListenersManager;
+import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.event.entity.SceneEnterEvent;
 import com.wan37.event.entity.SceneLeaveEvent;
 import com.wan37.logic.player.Player;
@@ -21,7 +21,7 @@ public class SceneFacadeImpl implements SceneFacade {
     private SceneGlobalManager sceneGlobalManager;
 
     @Autowired
-    private GenernalEventListenersManager genernalEventListenersManager;
+    private GeneralEventListenersManager generalEventListenersManager;
 
     @Override
     public void enterScene(Integer sceneId, Player player) {
@@ -31,7 +31,7 @@ public class SceneFacadeImpl implements SceneFacade {
         sceneGlobalManager.addPlayerInScene(player.getSceneId(), player);
 
         // 触发进入场景事件
-        genernalEventListenersManager.fireEvent(new SceneEnterEvent(player));
+        generalEventListenersManager.fireEvent(new SceneEnterEvent(player));
     }
 
     @Override
@@ -57,6 +57,6 @@ public class SceneFacadeImpl implements SceneFacade {
     @Override
     public void leaveScene(Player player) {
         // 离开场景推送
-        genernalEventListenersManager.fireEvent(new SceneLeaveEvent(player));
+        generalEventListenersManager.fireEvent(new SceneLeaveEvent(player));
     }
 }

@@ -1,6 +1,6 @@
 package com.wan37.logic.team.service;
 
-import com.wan37.exception.GeneralErrorExecption;
+import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.faction.config.FactionCfgLoader;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
@@ -27,7 +27,7 @@ public class TeamInfoExec {
 
     public void exec(Player player) {
         if (player.getTeamUid() == null) {
-            throw new GeneralErrorExecption("未加入组队");
+            throw new GeneralErrorException("未加入组队");
         }
 
         ITeam team = teamGlobalManager.getTeam(player.getTeamUid());

@@ -5,7 +5,7 @@ import com.wan37.logic.dungeon.scene.DungeonScene;
 import com.wan37.logic.dungeon.schedule.DungeonSceneScheduler;
 import com.wan37.logic.scene.config.SceneCfg;
 import com.wan37.util.DateTimeUtils;
-import com.wan37.util.IdTool;
+import com.wan37.util.IdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,9 +23,6 @@ import java.util.stream.Collectors;
 public class DungeonSceneCreator {
 
     @Autowired
-    private IdTool idTool;
-
-    @Autowired
     private DungeonMonsterCreator dungeonMonsterCreator;
 
     @Autowired
@@ -34,7 +31,7 @@ public class DungeonSceneCreator {
     public DungeonScene create(DungeonCfg dungeonCfg, SceneCfg sceneCfg) {
         DungeonScene scene = new DungeonScene();
 
-        scene.setUid(idTool.generate());
+        scene.setUid(IdUtil.generate());
         scene.setSceneCfg(sceneCfg);
         scene.setPlayers(new ArrayList<>());
         scene.setSummonings(new ArrayList<>());

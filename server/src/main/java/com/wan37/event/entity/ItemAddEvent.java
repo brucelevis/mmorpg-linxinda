@@ -5,6 +5,8 @@ import com.wan37.logic.props.config.PropsCfg;
 
 /**
  * 添加实物事件
+ *
+ * @author linda
  */
 public class ItemAddEvent {
 

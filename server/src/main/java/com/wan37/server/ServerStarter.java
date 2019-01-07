@@ -4,6 +4,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * Netty4 服务端代码
+ *
+ * @author linda
  */
 public class ServerStarter {
 

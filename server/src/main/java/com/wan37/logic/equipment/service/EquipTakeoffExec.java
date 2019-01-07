@@ -1,7 +1,7 @@
 package com.wan37.logic.equipment.service;
 
 import com.google.common.collect.ImmutableList;
-import com.wan37.event.GenernalEventListenersManager;
+import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.event.entity.StrengthChangeEvent;
 import com.wan37.logic.backpack.BackpackFacade;
 import com.wan37.logic.backpack.database.ItemDb;
@@ -26,7 +26,7 @@ public class EquipTakeoffExec {
     private EquipUpdateNotifier equipUpdateNotifier;
 
     @Autowired
-    private GenernalEventListenersManager genernalEventListenersManager;
+    private GeneralEventListenersManager generalEventListenersManager;
 
     @Autowired
     private PropsCfgLoader propsCfgLoader;
@@ -66,6 +66,6 @@ public class EquipTakeoffExec {
         equipUpdateNotifier.notify(player);
 
         // 触发战力面板变化事件
-        genernalEventListenersManager.fireEvent(new StrengthChangeEvent(player.getUid()));
+        generalEventListenersManager.fireEvent(new StrengthChangeEvent(player.getUid()));
     }
 }

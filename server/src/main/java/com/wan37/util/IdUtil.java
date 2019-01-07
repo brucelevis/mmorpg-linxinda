@@ -1,16 +1,15 @@
 package com.wan37.util;
 
-import org.springframework.stereotype.Service;
-
 import java.util.UUID;
 
 /**
  * id生成类
+ *
+ * @author linda
  */
-@Service
-public class IdTool {
+public class IdUtil {
 
-    public Long generate() {
+    public static Long generate() {
         return Math.abs(UUID.randomUUID().getMostSignificantBits());
     }
 }

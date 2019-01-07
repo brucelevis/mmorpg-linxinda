@@ -6,7 +6,7 @@ import com.wan37.logic.mission.database.PlayerMissionDb;
 import com.wan37.logic.mission.entity.IPlayerMission;
 import com.wan37.logic.player.Player;
 import com.wan37.util.DateTimeUtils;
-import com.wan37.util.IdTool;
+import com.wan37.util.IdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +17,6 @@ public class MissionAccepter {
 
     @Autowired
     private IPlayerMission.Factory playerMissionFactory;
-
-    @Autowired
-    private IdTool idTool;
 
     @Autowired
     private MissionCompleteChecker missionCompleteChecker;
@@ -42,7 +39,7 @@ public class MissionAccepter {
 
     private PlayerMissionDb createPlayerMissionDb(Long playerUid, Integer missionId) {
         PlayerMissionDb db = new PlayerMissionDb();
-        db.setId(idTool.generate());
+        db.setId(IdUtil.generate());
         db.setMissionId(missionId);
         db.setPlayerUid(playerUid);
         db.setCanComplete(false);

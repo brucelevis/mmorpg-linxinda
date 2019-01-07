@@ -1,6 +1,6 @@
 package com.wan37.logic.skill.cast.check;
 
-import com.wan37.exception.GeneralErrorExecption;
+import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.backpack.database.ItemDb;
 import com.wan37.logic.equipment.EquipPartEnum;
 import com.wan37.logic.equipment.database.EquipDb;
@@ -26,19 +26,19 @@ public class PlayerSkillBeforeCastChecker {
         EquipDb equipDb = playerDb.getEquipDb();
         ItemDb equipItem = equipDb.getItems().get(EquipPartEnum.PART_1.getId());
         if (equipItem == null) {
-            throw new GeneralErrorExecption("未佩戴武器，无法施放技能");
+            throw new GeneralErrorException("未佩戴武器，无法施放技能");
         }
 
         EquipExtraDb equipExtraDb = equipExtraDbGetter.get(equipItem.getExtraDb());
         if (equipExtraDb.getDurabilityv() < 20) {
             //FIXME: 写死攻击时武器耐久度要求
-            throw new GeneralErrorExecption("武器耐久度过低，请及时修理");
+            throw new GeneralErrorException("武器耐久度过低，请及时修理");
         }
 
         // 检查蓝量
         int costMp = skill.getCostMp();
         if (player.getMp() < costMp) {
-            throw new GeneralErrorExecption("蓝量不足，无法施放技能");
+            throw new GeneralErrorException("蓝量不足，无法施放技能");
         }
     }
 }

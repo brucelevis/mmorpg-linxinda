@@ -1,7 +1,7 @@
 package com.wan37.logic.monster.die;
 
 import com.google.common.collect.ImmutableList;
-import com.wan37.event.GenernalEventListenersManager;
+import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.event.entity.MonsterDieEvent;
 import com.wan37.logic.monster.Monster;
 import com.wan37.logic.player.Player;
@@ -45,7 +45,7 @@ public class MonsterDieHandler {
     private TeamGlobalManager teamGlobalManager;
 
     @Autowired
-    private GenernalEventListenersManager genernalEventListenersManager;
+    private GeneralEventListenersManager generalEventListenersManager;
 
     public void handle(Monster monster, long now) {
         synchronized (monster) {
@@ -66,7 +66,7 @@ public class MonsterDieHandler {
             playerList.forEach(p -> playerExpAdder.add(p, perExp));
 
             // 抛出击杀怪物事件
-            playerList.forEach(p -> genernalEventListenersManager.fireEvent(new MonsterDieEvent(p, monster)));
+            playerList.forEach(p -> generalEventListenersManager.fireEvent(new MonsterDieEvent(p, monster)));
 
             // 怪物数据重置
             monster.setHp(0);

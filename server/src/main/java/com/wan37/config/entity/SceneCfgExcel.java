@@ -2,6 +2,8 @@ package com.wan37.config.entity;
 
 /**
  * 场景配置表实体类
+ *
+ * @author linda
  */
 public class SceneCfgExcel {
 
@@ -16,7 +18,6 @@ public class SceneCfgExcel {
      * 分隔符|
      */
     private String neighbor;
-
     private Integer type;
 
     public Integer getId() {

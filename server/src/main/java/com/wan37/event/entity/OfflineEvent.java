@@ -4,6 +4,8 @@ import com.wan37.logic.player.Player;
 
 /**
  * 离线事件
+ *
+ * @author linda
  */
 public class OfflineEvent {
 

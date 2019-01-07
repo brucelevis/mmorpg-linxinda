@@ -11,7 +11,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * FIXME: Junit的测试根路径是server，而main运行时根路径却是整个工程mmorpg
+ * FIXME: Junit的测试根路径是server，而main运行时根路径却是整个工程
  */
 @Ignore
 public class ConfigManagerTest extends BaseTest {

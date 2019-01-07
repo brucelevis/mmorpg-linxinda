@@ -1,6 +1,6 @@
 package com.wan37.logic.pk.schedule;
 
-import com.wan37.event.GenernalEventListenersManager;
+import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.event.entity.PkWinEvent;
 import com.wan37.logic.pk.scene.ArenaScene;
 import com.wan37.logic.player.Player;
@@ -19,7 +19,7 @@ public class ArenaPlayerCheckerScheduler {
     private SceneFacade sceneFacade;
 
     @Autowired
-    private GenernalEventListenersManager genernalEventListenersManager;
+    private GeneralEventListenersManager generalEventListenersManager;
 
     public void schedule(ArenaScene scene) {
         // 检查死亡玩家并传送出场景
@@ -32,7 +32,7 @@ public class ArenaPlayerCheckerScheduler {
             resetPkAndLeave(player);
 
             // 抛出决斗胜利事件
-            genernalEventListenersManager.fireEvent(new PkWinEvent(player));
+            generalEventListenersManager.fireEvent(new PkWinEvent(player));
         }
     }
 

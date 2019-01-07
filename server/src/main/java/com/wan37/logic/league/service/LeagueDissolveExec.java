@@ -1,6 +1,6 @@
 package com.wan37.logic.league.service;
 
-import com.wan37.exception.GeneralErrorExecption;
+import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.chat.ChatFacade;
 import com.wan37.logic.league.LeagueGlobalManager;
 import com.wan37.logic.league.dao.LeagueDao;
@@ -29,16 +29,16 @@ public class LeagueDissolveExec {
 
     public void exec(Player player) {
         if (player.getLeagueUid() == null) {
-            throw new GeneralErrorExecption("你未加入公会");
+            throw new GeneralErrorException("你未加入公会");
         }
 
         ILeague league = leagueGlobalManager.get(player.getLeagueUid());
         if (league == null) {
-            throw new GeneralErrorExecption("公会不存在");
+            throw new GeneralErrorException("公会不存在");
         }
 
         if (!Objects.equals(league.getLeaderUid(), player.getUid())) {
-            throw new GeneralErrorExecption("你不是会长，无法解散公会");
+            throw new GeneralErrorException("你不是会长，无法解散公会");
         }
 
         leagueDao.removeByUid(league.getUid());

@@ -4,6 +4,8 @@ import com.wan37.logic.player.Player;
 
 /**
  * 任务完成事件
+ *
+ * @author linda
  */
 public class MissionCompleteEvent {
 

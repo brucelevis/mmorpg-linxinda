@@ -1,7 +1,7 @@
 package com.wan37.logic.buff.effect.behavior.behaviors;
 
 import com.wan37.event.entity.DieEvent;
-import com.wan37.event.GenernalEventListenersManager;
+import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.buff.entity.IBuff;
 import com.wan37.logic.buff.effect.behavior.BuffEffectBehavior;
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 class BuffEffectBehav2 implements BuffEffectBehavior {
 
     @Autowired
-    private GenernalEventListenersManager genernalEventListenersManager;
+    private GeneralEventListenersManager generalEventListenersManager;
 
     @Autowired
     private SceneActorEncoder sceneActorEncoder;
@@ -49,7 +49,7 @@ class BuffEffectBehav2 implements BuffEffectBehavior {
             }
         } else {
             // 死了
-            genernalEventListenersManager.fireEvent(new DieEvent(unit, now));
+            generalEventListenersManager.fireEvent(new DieEvent(unit, now));
         }
 
         String buffTip = String.format("由于[%s]的效果，[%s]减少了%shp", buff.getName(), unit.getName(), oldHp - unit.getHp());

@@ -1,6 +1,6 @@
 package com.wan37.logic.trade.service.add.money;
 
-import com.wan37.exception.GeneralErrorExecption;
+import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.currency.encode.CurrencyUpdateNotifier;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.props.ResourceFacade;
@@ -31,21 +31,21 @@ public class TradeAddMoneyExec {
 
     public void exec(Player player, Integer cfgId, long amount) {
         if (amount <= 0) {
-            throw new GeneralErrorExecption("要交易的钱必须为正数");
+            throw new GeneralErrorException("要交易的钱必须为正数");
         }
 
         if (resourceFacade.queryCurrency(cfgId, player) < amount) {
-            throw new GeneralErrorExecption("要交易的钱不足");
+            throw new GeneralErrorException("要交易的钱不足");
         }
 
         ITrade iTrade = player.getTrade();
         if (iTrade.getUid() == null) {
-            throw new GeneralErrorExecption("未在交易");
+            throw new GeneralErrorException("未在交易");
         }
 
         GTrade trade = tradeGlobalManager.getTrade(iTrade.getUid());
         if (trade == null) {
-            throw new GeneralErrorExecption("交易不存在");
+            throw new GeneralErrorException("交易不存在");
         }
 
         try {

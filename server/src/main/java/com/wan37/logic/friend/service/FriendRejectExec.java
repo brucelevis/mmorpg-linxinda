@@ -1,6 +1,6 @@
 package com.wan37.logic.friend.service;
 
-import com.wan37.exception.GeneralErrorExecption;
+import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.friend.database.FriendRequestDb;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
@@ -26,7 +26,7 @@ public class FriendRejectExec {
         FriendRequestDb requestDb = playerDb.getRequestList().stream()
                 .filter(r -> Objects.equals(r.getId(), id))
                 .findAny()
-                .orElseThrow(() -> new GeneralErrorExecption("找不到好友请求id"));
+                .orElseThrow(() -> new GeneralErrorException("找不到好友请求id"));
 
         Long fromUid = requestDb.getFromPlayerUid();
         rmRequest(playerDb, fromUid);

@@ -1,6 +1,6 @@
 package com.wan37.logic.team.service;
 
-import com.wan37.exception.GeneralErrorExecption;
+import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.team.TeamGlobalManager;
 import com.wan37.logic.team.entity.ITeam;
@@ -17,12 +17,12 @@ public class TeamKickExec {
 
     public void exec(Player player, Player target) {
         if (player.getTeamUid() == null) {
-            throw new GeneralErrorExecption("你未创建组队");
+            throw new GeneralErrorException("你未创建组队");
         }
 
         ITeam team = teamGlobalManager.getTeam(player.getTeamUid());
         if (!Objects.equals(team.getLeaderUid(), player.getUid())) {
-            throw new GeneralErrorExecption("你不是队长，无法踢除成员");
+            throw new GeneralErrorException("你不是队长，无法踢除成员");
         }
 
         try {

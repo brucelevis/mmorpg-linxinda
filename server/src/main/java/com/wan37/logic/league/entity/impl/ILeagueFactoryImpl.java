@@ -5,7 +5,7 @@ import com.wan37.logic.league.database.LeagueGlobalDb;
 import com.wan37.logic.league.entity.ILWarehouse;
 import com.wan37.logic.league.entity.ILeague;
 import com.wan37.logic.league.entity.ILeagueMember;
-import com.wan37.util.NetTool;
+import com.wan37.util.NetUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +20,7 @@ class ILeagueFactoryImpl implements ILeague.Factory {
     private LeagueDao leagueDao;
 
     @Autowired
-    private NetTool netTool;
+    private NetUtil netUtil;
 
     @Autowired
     private ILeagueMember.Factory leagueMemberFactory;
@@ -39,6 +39,6 @@ class ILeagueFactoryImpl implements ILeague.Factory {
                 .collect(Collectors.toMap(ILeagueMember::getPlayerUid, Function.identity()));
 
         ILWarehouse warehouse = warehouseFactory.create(leagueGlobalDb);
-        return new ILeagueImpl(memberMap, leagueGlobalDb, warehouse, leagueDao, netTool);
+        return new ILeagueImpl(memberMap, leagueGlobalDb, warehouse, leagueDao, netUtil);
     }
 }

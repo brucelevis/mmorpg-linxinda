@@ -7,7 +7,7 @@ import com.wan37.logic.league.database.LeagueMemberDb;
 import com.wan37.logic.league.entity.ILWarehouse;
 import com.wan37.logic.league.entity.ILeague;
 import com.wan37.logic.league.entity.ILeagueMember;
-import com.wan37.util.NetTool;
+import com.wan37.util.NetUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +17,12 @@ import java.util.stream.Collectors;
 
 class ILeagueImpl implements ILeague {
 
-    public ILeagueImpl(Map<Long, ILeagueMember> memberMap, LeagueGlobalDb leagueGlobalDb, ILWarehouse warehouse, LeagueDao leagueDao, NetTool netTool) {
+    public ILeagueImpl(Map<Long, ILeagueMember> memberMap, LeagueGlobalDb leagueGlobalDb, ILWarehouse warehouse, LeagueDao leagueDao, NetUtil netUtil) {
         this.memberMap = memberMap;
         this.leagueGlobalDb = leagueGlobalDb;
         this.warehouse = warehouse;
         this.leagueDao = leagueDao;
-        this.netTool = netTool;
+        this.netUtil = netUtil;
     }
 
     @Override
@@ -80,7 +80,7 @@ class ILeagueImpl implements ILeague {
 
     @Override
     public void notifyAll(String msg) {
-        netTool.send(msg, leagueGlobalDb.getMembers().stream()
+        netUtil.send(msg, leagueGlobalDb.getMembers().stream()
                 .map(LeagueMemberDb::getPlayerUid)
                 .collect(Collectors.toSet()));
     }
@@ -109,5 +109,5 @@ class ILeagueImpl implements ILeague {
     private final ILWarehouse warehouse;
 
     private final LeagueDao leagueDao;
-    private final NetTool netTool;
+    private final NetUtil netUtil;
 }
