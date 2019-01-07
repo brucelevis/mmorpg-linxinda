@@ -9,6 +9,9 @@ import io.netty.channel.Channel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * 人物属性面板信息
+ */
 @Service
 class Attr_Info implements GeneralHandler {
 

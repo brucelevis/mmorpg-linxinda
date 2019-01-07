@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ * 副本怪物生成类
+ */
 @Service
 public class DungeonMonsterCreator {
 

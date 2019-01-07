@@ -1,5 +1,8 @@
 package com.wan37.logic.buff;
 
+/**
+ * Buff目标
+ */
 public enum BuffTargetEnum {
 
     BUFF_TARGET_1(1, "自己"),

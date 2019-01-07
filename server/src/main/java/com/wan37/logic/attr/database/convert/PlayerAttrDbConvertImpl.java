@@ -1,10 +1,13 @@
 package com.wan37.logic.attr.database.convert;
 
-import com.wan37.Utils.JsonUtil;
+import com.wan37.util.JsonUtil;
 import com.wan37.logic.attr.database.PlayerAttrDb;
 
 import javax.persistence.AttributeConverter;
 
+/**
+ * 玩家基础属性持久化成json数据到数据库
+ */
 public class PlayerAttrDbConvertImpl implements AttributeConverter<PlayerAttrDb, String> {
 
     @Override

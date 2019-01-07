@@ -3,6 +3,9 @@ package com.wan37.event.entity;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.props.config.PropsCfg;
 
+/**
+ * 添加实物事件
+ */
 public class ItemAddEvent {
 
     public ItemAddEvent(PropsCfg propsCfg, int amount, Player player) {

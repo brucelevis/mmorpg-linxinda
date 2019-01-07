@@ -1,5 +1,8 @@
 package com.wan37.config.entity;
 
+/**
+ * 装备配置表实体类
+ */
 public class EquipCfgExcel {
 
     private Integer id;

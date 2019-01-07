@@ -2,6 +2,9 @@ package com.wan37.logic.backpack.database;
 
 import com.wan37.logic.props.config.PropsCfg;
 
+/**
+ * 背包格子数据库实体类
+ */
 public class ItemDb {
 
     private Long uid;

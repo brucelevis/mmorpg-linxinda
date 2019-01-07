@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 /**
  * 缓慢回蓝
+ *
+ * @see com.wan37.logic.buff.BuffEffectEnum#BUFF_EFFECT_1
  */
 @Service
 class BuffEffectBehav1 implements BuffEffectBehavior {

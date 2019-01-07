@@ -11,6 +11,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * 玩家虚物变化推送
+ */
 @Service
 public class CurrencyUpdateNotifier {
 

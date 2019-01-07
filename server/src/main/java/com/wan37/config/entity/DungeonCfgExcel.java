@@ -1,5 +1,8 @@
 package com.wan37.config.entity;
 
+/**
+ * 副本配置表实体类
+ */
 public class DungeonCfgExcel {
 
     private Integer id;

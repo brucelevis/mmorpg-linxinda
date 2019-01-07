@@ -20,9 +20,6 @@ import java.util.List;
 
 public class ExcelUtils {
 
-    private static final String FULL_DATA_FORMAT = "yyyy/MM/dd  HH:mm:ss";
-    private static final String SHORT_DATA_FORMAT = "yyyy/MM/dd";
-
     /**
      * Excel表头对应Entity属性 解析封装javabean
      *

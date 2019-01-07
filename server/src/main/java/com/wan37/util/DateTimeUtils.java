@@ -4,6 +4,9 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.Temporal;
 
+/**
+ * 日期事件工具类
+ */
 public class DateTimeUtils {
 
     public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HHmmss");

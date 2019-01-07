@@ -6,13 +6,19 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * 人物背包数据库实体类
+ */
 public class BackpackDb {
 
     /**
-     * key: index
+     * key: index格子索引
      */
     private Map<Integer, ItemDb> itemMap;
 
+    /**
+     * 背包容量
+     */
     private int capacity;
 
     /**

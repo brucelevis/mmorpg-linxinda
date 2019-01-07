@@ -2,6 +2,9 @@ package com.wan37.event.entity;
 
 import com.wan37.logic.player.Player;
 
+/**
+ * 副本完成事件
+ */
 public class DungeonCompleteEvent {
 
     public DungeonCompleteEvent(Player player, Integer dungeonCfgId) {

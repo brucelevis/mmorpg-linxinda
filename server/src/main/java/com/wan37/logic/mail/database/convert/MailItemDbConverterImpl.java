@@ -1,6 +1,6 @@
 package com.wan37.logic.mail.database.convert;
 
-import com.wan37.Utils.JsonUtil;
+import com.wan37.util.JsonUtil;
 import com.wan37.logic.mail.database.MailItemDb;
 
 import javax.persistence.AttributeConverter;

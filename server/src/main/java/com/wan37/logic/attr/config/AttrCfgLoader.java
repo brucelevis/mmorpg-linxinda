@@ -12,6 +12,9 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * 属性配置表加载类
+ */
 @Service
 public class AttrCfgLoader implements GeneralCfgLoader<AttrCfg> {
 

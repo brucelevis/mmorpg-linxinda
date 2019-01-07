@@ -2,6 +2,9 @@ package com.wan37.event.entity;
 
 import com.wan37.logic.player.Player;
 
+/**
+ * 离开场景事件
+ */
 public class SceneLeaveEvent {
 
     public SceneLeaveEvent(Player player) {

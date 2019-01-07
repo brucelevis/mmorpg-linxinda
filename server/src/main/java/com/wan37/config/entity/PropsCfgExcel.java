@@ -1,21 +1,17 @@
 package com.wan37.config.entity;
 
+/**
+ * 实物（可进背包）配置表实体类
+ */
 public class PropsCfgExcel {
 
     private Integer id;
-
     private String name;
-
     private String desc;
-
     private int maxOverlay;
-
     private boolean canUse;
-
     private Integer useLogicId;
-
     private String useLogicArgs;
-
     private Integer type;
 
     public Integer getId() {

@@ -2,6 +2,9 @@ package com.wan37.event.entity;
 
 import com.wan37.logic.scene.base.FightingUnit;
 
+/**
+ * 死亡事件
+ */
 public class DieEvent {
 
     public DieEvent(FightingUnit unit, long now) {

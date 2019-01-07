@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+/**
+ * 初始化人物属性数据库实体类
+ */
 @Service
 public class PlayerAttrDbInitializer {
 

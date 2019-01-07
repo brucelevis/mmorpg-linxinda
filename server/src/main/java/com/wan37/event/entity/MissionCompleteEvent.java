@@ -2,6 +2,9 @@ package com.wan37.event.entity;
 
 import com.wan37.logic.player.Player;
 
+/**
+ * 任务完成事件
+ */
 public class MissionCompleteEvent {
 
     public MissionCompleteEvent(Player player) {

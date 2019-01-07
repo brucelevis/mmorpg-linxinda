@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
+/**
+ * 门面模式：聊天操作统一入口
+ */
 @Service
 public class ChatFacade {
 

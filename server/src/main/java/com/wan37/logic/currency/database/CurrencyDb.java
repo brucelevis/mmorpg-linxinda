@@ -6,6 +6,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * 玩家虚物数据库实体类
+ */
 public class CurrencyDb {
 
     /**

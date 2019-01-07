@@ -2,6 +2,9 @@ package com.wan37.event.entity;
 
 import com.wan37.logic.player.Player;
 
+/**
+ * npc对话事件
+ */
 public class NpcTalkEvent {
 
     public NpcTalkEvent(Integer npcId, Player player) {

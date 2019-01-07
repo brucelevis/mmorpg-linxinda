@@ -1,5 +1,8 @@
 package com.wan37.logic.chat;
 
+/**
+ * 聊天类型
+ */
 public enum ChatTypeEnum {
 
     CHAT_TYPE_SCENE(1, "当前"),

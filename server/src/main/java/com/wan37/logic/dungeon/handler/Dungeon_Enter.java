@@ -9,6 +9,9 @@ import io.netty.channel.Channel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * 副本进入
+ */
 @Service
 class Dungeon_Enter implements GeneralHandler {
 

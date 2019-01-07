@@ -1,13 +1,13 @@
 package com.wan37.config.entity;
 
+/**
+ * 测试配置表实体类
+ */
 public class TestCfgExcel {
 
     private Integer id;
-
     private String name;
-
     private double value;
-
     private boolean sex;
 
     public Integer getId() {

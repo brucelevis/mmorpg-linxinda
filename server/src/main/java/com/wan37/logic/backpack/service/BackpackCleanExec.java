@@ -15,6 +15,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * 背包整理
+ */
 @Service
 public class BackpackCleanExec {
 

@@ -13,6 +13,9 @@ import io.netty.handler.codec.string.StringEncoder;
 
 import java.net.InetSocketAddress;
 
+/**
+ * @author linda
+ */
 public class Client {
 
     public static Channel channel = null;

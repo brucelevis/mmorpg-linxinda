@@ -1,17 +1,15 @@
 package com.wan37.config.entity;
 
+/**
+ * 场景配置表实体类
+ */
 public class SceneCfgExcel {
 
     private Integer id;
-
     private String name;
-
     private boolean defaultScene;
-
     private String monsters;
-
     private String npcs;
-
     private boolean canAttack;
 
     /**

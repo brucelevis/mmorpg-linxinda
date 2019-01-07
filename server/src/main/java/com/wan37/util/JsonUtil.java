@@ -1,7 +1,10 @@
-package com.wan37.Utils;
+package com.wan37.util;
 
 import com.alibaba.fastjson.JSON;
 
+/**
+ * @author linda
+ */
 public class JsonUtil {
 
     public static <T> String parseJson(T t) {

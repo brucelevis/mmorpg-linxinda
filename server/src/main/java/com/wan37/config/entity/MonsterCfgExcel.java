@@ -1,5 +1,8 @@
 package com.wan37.config.entity;
 
+/**
+ * 怪物配置表实体类
+ */
 public class MonsterCfgExcel {
 
     private Integer id;

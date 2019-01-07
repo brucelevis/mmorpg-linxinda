@@ -1,8 +1,11 @@
 package com.wan37.util;
 
-import com.wan37.Utils.JsonUtil;
 import io.netty.channel.Channel;
 
+/**
+ * 消息推送工具类
+ */
+@Deprecated
 public class GeneralNotifySenderUtil {
 
     private static final String SUFFIX = "\n";

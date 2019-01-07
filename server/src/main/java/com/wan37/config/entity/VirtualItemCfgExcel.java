@@ -1,11 +1,12 @@
 package com.wan37.config.entity;
 
+/**
+ * 虚物（如钱，积分等）配置表实体类
+ */
 public class VirtualItemCfgExcel {
 
     private Integer id;
-
     private String name;
-
     private long maxOverlay;
 
     public Integer getId() {

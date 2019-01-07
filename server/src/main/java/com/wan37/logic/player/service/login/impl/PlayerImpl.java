@@ -1,7 +1,5 @@
 package com.wan37.logic.player.service.login.impl;
 
-import com.wan37.Utils.MessageSenderFormatter;
-import com.wan37.common.GeneralResponseDto;
 import com.wan37.logic.player.service.login.PLoginPlayer;
 import io.netty.channel.Channel;
 
@@ -20,11 +18,6 @@ class PlayerImpl implements PLoginPlayer {
     @Override
     public Channel getChannel() {
         return channel;
-    }
-
-    @Override
-    public void response(GeneralResponseDto dto) {
-        channel.writeAndFlush(MessageSenderFormatter.format(dto));
     }
 
     private final Long playerUid;

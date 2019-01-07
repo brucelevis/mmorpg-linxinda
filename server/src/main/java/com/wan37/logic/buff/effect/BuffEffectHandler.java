@@ -8,6 +8,9 @@ import com.wan37.logic.buff.effect.behavior.BuffEffectContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * Buff效果处理类
+ */
 @Service
 public class BuffEffectHandler {
 

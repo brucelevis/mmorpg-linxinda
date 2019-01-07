@@ -1,5 +1,8 @@
 package com.wan37.config.entity;
 
+/**
+ * 属性配置表实体类
+ */
 public class AttrCfgExcel {
 
     private Integer id;

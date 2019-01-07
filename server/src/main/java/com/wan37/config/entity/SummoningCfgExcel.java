@@ -1,5 +1,8 @@
 package com.wan37.config.entity;
 
+/**
+ * 召唤兽配置表实体类
+ */
 public class SummoningCfgExcel {
 
     private Integer id;

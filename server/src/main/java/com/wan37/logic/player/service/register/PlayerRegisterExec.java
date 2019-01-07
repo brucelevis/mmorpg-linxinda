@@ -3,7 +3,6 @@ package com.wan37.logic.player.service.register;
 import com.wan37.logic.faction.config.FactionCfgLoader;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.player.encode.PlayerRegisterResponseEncoder;
-import com.wan37.logic.player.encode.RespRegisterPlayerDtoEncoder;
 import com.wan37.logic.player.init.PlayerDbInitializer;
 import com.wan37.logic.scene.config.SceneCfg;
 import com.wan37.logic.scene.config.SceneCfgLoader;
@@ -13,9 +12,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PlayerRegisterExec {
-
-    @Autowired
-    private RespRegisterPlayerDtoEncoder respRegisterPlayerDtoEncoder;
 
     @Autowired
     private SceneCfgLoader sceneCfgLoader;

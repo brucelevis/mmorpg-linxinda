@@ -2,9 +2,20 @@ package com.wan37.util.excel;
 
 public class ExcelHead {
 
-    private String excelName;             //Excel名
-    private String entityName;            //实体类属性名
-    private boolean required = false;      //值必填
+    /**
+     * Excel名
+     */
+    private String excelName;
+
+    /**
+     * 实体类属性名
+     */
+    private String entityName;
+
+    /**
+     * 值必填
+     */
+    private boolean required = false;
 
     public String getExcelName() {
         return excelName;

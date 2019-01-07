@@ -6,6 +6,9 @@ import com.wan37.server.GeneralReqMsg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * 背包信息
+ */
 @Service
 class Backpack_Info implements GeneralHandler {
 

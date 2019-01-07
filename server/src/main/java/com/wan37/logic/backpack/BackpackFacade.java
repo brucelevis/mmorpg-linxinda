@@ -17,6 +17,9 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * 门面模式：背包操作统一入口
+ */
 @Service
 public class BackpackFacade {
 

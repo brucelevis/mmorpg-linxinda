@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
+/**
+ * Buff触发逻辑类
+ */
 @Service
 public class SkillBuffRandomer {
 

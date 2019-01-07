@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
+/**
+ * 消息推送类
+ */
 @Service
 public class NetTool {
 

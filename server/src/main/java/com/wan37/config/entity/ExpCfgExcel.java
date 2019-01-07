@@ -1,5 +1,8 @@
 package com.wan37.config.entity;
 
+/**
+ * 玩家经验配置表实体类
+ */
 public class ExpCfgExcel {
 
     private Integer id;

@@ -1,5 +1,8 @@
 package com.wan37.logic.buff;
 
+/**
+ * Buff效果
+ */
 public enum BuffEffectEnum {
 
     BUFF_EFFECT_1(1, "持续回蓝"),

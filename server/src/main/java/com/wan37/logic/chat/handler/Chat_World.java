@@ -9,6 +9,9 @@ import io.netty.channel.Channel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * 世界聊天
+ */
 @Service
 class Chat_World implements GeneralHandler {
 

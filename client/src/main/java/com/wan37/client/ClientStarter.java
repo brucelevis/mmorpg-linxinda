@@ -5,12 +5,13 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * 客户端
+ *
+ * @author linda
  */
 public class ClientStarter {
 
-    public static final MainView mainView = new MainView();
-
-    public static void main(String args[]) {
+    public static void main(String[] args) {
+        new MainView();
         new ClassPathXmlApplicationContext("applicationContext.xml");
         Client.start();
     }

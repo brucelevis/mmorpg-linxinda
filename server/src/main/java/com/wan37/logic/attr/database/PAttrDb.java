@@ -2,6 +2,9 @@ package com.wan37.logic.attr.database;
 
 import com.wan37.logic.attr.config.AttrCfg;
 
+/**
+ * 人物一条属性
+ */
 public class PAttrDb {
 
     /**

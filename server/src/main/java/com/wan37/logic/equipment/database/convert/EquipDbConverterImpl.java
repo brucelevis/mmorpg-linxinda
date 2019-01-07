@@ -1,6 +1,6 @@
 package com.wan37.logic.equipment.database.convert;
 
-import com.wan37.Utils.JsonUtil;
+import com.wan37.util.JsonUtil;
 import com.wan37.logic.equipment.database.EquipDb;
 
 import javax.persistence.AttributeConverter;

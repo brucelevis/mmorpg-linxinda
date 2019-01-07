@@ -11,6 +11,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 数据配置导表管理器
+ */
 @Service
 public class ConfigManager {
 

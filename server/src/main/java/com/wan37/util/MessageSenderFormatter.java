@@ -1,5 +1,8 @@
-package com.wan37.Utils;
+package com.wan37.util;
 
+/**
+ * @author linda
+ */
 public class MessageSenderFormatter {
 
     private static final String SUFFIX = "\n";

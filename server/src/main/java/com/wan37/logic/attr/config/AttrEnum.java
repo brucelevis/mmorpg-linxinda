@@ -1,5 +1,8 @@
 package com.wan37.logic.attr.config;
 
+/**
+ * 特殊属性值（血，蓝）
+ */
 public enum AttrEnum {
 
     ATTR_HP(1, "血量"),

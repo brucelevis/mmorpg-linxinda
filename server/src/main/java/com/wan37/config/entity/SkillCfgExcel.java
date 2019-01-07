@@ -1,5 +1,8 @@
 package com.wan37.config.entity;
 
+/**
+ * 技能配置表实体类
+ */
 public class SkillCfgExcel {
 
     private Integer id;

@@ -1,5 +1,8 @@
 package com.wan37.config.entity;
 
+/**
+ * 商店配置表实体类
+ */
 public class ShopCfgExcel {
 
     private Integer id;

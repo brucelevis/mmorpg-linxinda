@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 /**
  * 缓慢扣血
+ *
+ * @see com.wan37.logic.buff.BuffEffectEnum#BUFF_EFFECT_2
  */
 @Service
 class BuffEffectBehav2 implements BuffEffectBehavior {

@@ -9,6 +9,9 @@ import io.netty.channel.Channel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * 背包某一物品详细信息
+ */
 @Service
 public class Backpack_ItemInfo implements GeneralHandler {
 

@@ -5,6 +5,9 @@ import com.wan37.logic.scene.schedule.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * 副本场景定时器
+ */
 @Service
 public class DungeonSceneScheduler extends GeneralSceneScheduler {
 

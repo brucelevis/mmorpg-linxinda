@@ -6,6 +6,9 @@ import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import java.util.Map;
 
+/**
+ * 公式计算工具类
+ */
 public class ScriptEngineUtil {
 
     private static ScriptEngine jse = new ScriptEngineManager().getEngineByName("JavaScript");

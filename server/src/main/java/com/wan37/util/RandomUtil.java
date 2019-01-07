@@ -2,6 +2,9 @@ package com.wan37.util;
 
 import java.util.Random;
 
+/**
+ * 随机工具类
+ */
 public class RandomUtil {
 
     public static boolean isHit(double pro) {

@@ -1,5 +1,8 @@
 package com.wan37.config.entity;
 
+/**
+ * 门派职业配置表实体类
+ */
 public class FactionCfgExcel {
 
     private Integer id;

@@ -16,6 +16,9 @@ import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+/**
+ * 副本场景生成类
+ */
 @Service
 public class DungeonSceneCreator {
 

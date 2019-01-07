@@ -1,5 +1,8 @@
 package com.wan37.config.entity;
 
+/**
+ * Buff配置表实体类
+ */
 public class BuffCfgExcel {
 
     private Integer id;
