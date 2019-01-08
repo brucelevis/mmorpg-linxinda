@@ -178,7 +178,7 @@
 
 **-> 提交任务：** missionCommitCmd missionId
 
-**-> Npc对话：** NpcTalkCmd npcId
+**-> Npc对话：** npcTalkCmd npcId
 
 **########################  pk  ##################################**
 
