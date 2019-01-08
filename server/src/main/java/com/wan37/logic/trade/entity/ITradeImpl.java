@@ -2,6 +2,9 @@ package com.wan37.logic.trade.entity;
 
 import java.util.concurrent.locks.Lock;
 
+/**
+ * @author linda
+ */
 public class ITradeImpl implements ITrade {
 
     public ITradeImpl(Long tradeUid, Lock lock) {

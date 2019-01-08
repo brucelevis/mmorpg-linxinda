@@ -7,7 +7,6 @@ import com.wan37.logic.player.encode.PlayerInfoEncoder;
 import com.wan37.logic.scene.SceneActorSceneGetter;
 import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.scene.encode.SceneEncoder;
-import com.wan37.logic.scene.SceneGlobalManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +17,6 @@ import java.util.Objects;
  */
 @Service
 class SceneOnPlayerEnter implements GeneralEventListener<SceneEnterEvent> {
-
-    @Autowired
-    private SceneGlobalManager sceneGlobalManager;
 
     @Autowired
     private PlayerInfoEncoder playerInfoEncoder;

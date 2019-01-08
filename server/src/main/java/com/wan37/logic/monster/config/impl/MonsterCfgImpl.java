@@ -11,6 +11,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * @author linda
+ */
 public class MonsterCfgImpl implements MonsterCfg {
 
     public MonsterCfgImpl(MonsterCfgExcel cfgExcel) {

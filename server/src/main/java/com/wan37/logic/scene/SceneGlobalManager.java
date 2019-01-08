@@ -13,6 +13,11 @@ import java.util.Objects;
 import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
+/**
+ * 普通场景全局管理器
+ *
+ * @author linda
+ */
 @Service
 public class SceneGlobalManager {
 
@@ -24,9 +29,8 @@ public class SceneGlobalManager {
 
     private static Map<Integer, ScheduledFuture> sceneScheduleMap = new HashMap<>();
 
-    //FIXME:
     /**
-     * 场景线程池
+     * //FIXME: 阿里Java开发手册
      * <p>
      * 线程池不允许使用 Executors 去创建，而是通过 ThreadPoolExecutor 的方式，这样
      * 的处理方式让写的同学更加明确线程池的运行规则，规避资源耗尽的风险。

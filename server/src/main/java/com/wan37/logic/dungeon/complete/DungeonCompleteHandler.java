@@ -6,7 +6,7 @@ import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.chat.ChatFacade;
 import com.wan37.logic.dungeon.config.DungeonCfg;
 import com.wan37.logic.dungeon.config.DungeonRewardCfg;
-import com.wan37.logic.dungeon.scene.DungeonScene;
+import com.wan37.logic.dungeon.scene.DungeonSceneAbstract;
 import com.wan37.logic.mail.gm.GmMail;
 import com.wan37.logic.mail.gm.MailGmSender;
 import com.wan37.logic.mail.init.GmMailCreator;
@@ -62,14 +62,14 @@ public class DungeonCompleteHandler {
     @Autowired
     private GeneralEventListenersManager generalEventListenersManager;
 
-    public void handle(DungeonScene scene) {
+    public void handle(DungeonSceneAbstract scene) {
         DungeonCfg dungeonCfg = scene.getDungeonCfg();
         ResourceCollection reward = randRewards(dungeonCfg);
         String msg = String.format("获得奖励：%s\n", encodeRewards(reward));
 
         scene.getPlayers().forEach(p -> completeImpl(p, reward, dungeonCfg, msg));
 
-        temporarySceneGlobalManager.destoryScene(scene.getUid());
+        temporarySceneGlobalManager.destroyScene(scene.getUid());
     }
 
     private String encodeRewards(ResourceCollection reward) {

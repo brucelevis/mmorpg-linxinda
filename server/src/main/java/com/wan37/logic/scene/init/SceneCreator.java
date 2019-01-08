@@ -21,6 +21,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ * 创建场景
+ *
+ * @author linda
+ */
 @Service
 public class SceneCreator {
 

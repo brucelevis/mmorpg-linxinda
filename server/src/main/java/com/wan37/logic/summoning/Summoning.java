@@ -3,7 +3,7 @@ package com.wan37.logic.summoning;
 import com.wan37.logic.attr.config.AttrEnum;
 import com.wan37.logic.buff.entity.Buff;
 import com.wan37.logic.scene.base.FightingUnit;
-import com.wan37.logic.skill.entity.ISkill;
+import com.wan37.logic.skill.entity.Skill;
 import com.wan37.logic.summoning.config.SummoningCfg;
 
 import java.util.List;
@@ -30,7 +30,7 @@ public class Summoning implements FightingUnit {
     private int baseDefenseVal;
 
     private Map<Integer, Double> attrs;
-    private Map<Integer, ISkill> skills;
+    private Map<Integer, Skill> skills;
     private List<Buff> buffs = new CopyOnWriteArrayList<>();
 
     @Override
@@ -44,7 +44,7 @@ public class Summoning implements FightingUnit {
     }
 
     @Override
-    public Map<Integer, ISkill> getSkills() {
+    public Map<Integer, Skill> getSkills() {
         return skills;
     }
 
@@ -168,7 +168,7 @@ public class Summoning implements FightingUnit {
         this.attrs = attrs;
     }
 
-    public void setSkills(Map<Integer, ISkill> skills) {
+    public void setSkills(Map<Integer, Skill> skills) {
         this.skills = skills;
     }
 

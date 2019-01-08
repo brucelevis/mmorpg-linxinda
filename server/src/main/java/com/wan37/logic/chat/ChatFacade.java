@@ -1,6 +1,6 @@
 package com.wan37.logic.chat;
 
-import com.wan37.logic.scene.base.TemporaryScene;
+import com.wan37.logic.scene.base.AbstractTemporaryScene;
 import com.wan37.logic.scene.base.Scene;
 import com.wan37.logic.scene.SceneGlobalManager;
 import com.wan37.logic.scene.TemporarySceneGlobalManager;
@@ -30,7 +30,7 @@ public class ChatFacade {
                 .forEach(p -> p.syncClient(content));
 
         temporarySceneGlobalManager.getAllScenes().stream()
-                .map(TemporaryScene::getPlayers)
+                .map(AbstractTemporaryScene::getPlayers)
                 .flatMap(Collection::stream)
                 .forEach(p -> p.syncClient(content));
     }

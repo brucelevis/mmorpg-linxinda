@@ -3,7 +3,7 @@ package com.wan37.logic.trade.encode;
 import com.wan37.logic.backpack.encode.BackpackItemSimpleInfoEncoder;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.props.config.VirtualItemCfgLoader;
-import com.wan37.logic.trade.entity.GTrade;
+import com.wan37.logic.trade.entity.Trade;
 import com.wan37.logic.trade.entity.TradePlayer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ public class TradeEncoder {
     @Autowired
     private VirtualItemCfgLoader virtualItemCfgLoader;
 
-    public String encode(GTrade trade) {
+    public String encode(Trade trade) {
         String head = "交易信息更新：\n";
         String msg = trade.getTradePlayerMap().values().stream()
                 .map(this::encodeTradePlayer)

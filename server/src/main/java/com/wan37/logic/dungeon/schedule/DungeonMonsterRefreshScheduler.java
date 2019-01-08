@@ -3,7 +3,7 @@ package com.wan37.logic.dungeon.schedule;
 import com.wan37.logic.dungeon.complete.DungeonCompleteHandler;
 import com.wan37.logic.dungeon.config.DungeonCfg;
 import com.wan37.logic.dungeon.init.DungeonMonsterCreator;
-import com.wan37.logic.dungeon.scene.DungeonScene;
+import com.wan37.logic.dungeon.scene.DungeonSceneAbstract;
 import com.wan37.logic.monster.Monster;
 import com.wan37.logic.monster.encode.MonsterEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class DungeonMonsterRefreshScheduler {
     @Autowired
     private DungeonCompleteHandler dungeonCompleteHandler;
 
-    public void schedule(DungeonScene scene) {
+    public void schedule(DungeonSceneAbstract scene) {
         if (!allMonstersDead(scene)) {
             return;
         }
@@ -59,7 +59,7 @@ public class DungeonMonsterRefreshScheduler {
         scene.getPlayers().forEach(p -> p.syncClient(msg));
     }
 
-    private boolean allMonstersDead(DungeonScene scene) {
+    private boolean allMonstersDead(DungeonSceneAbstract scene) {
         return scene.getMonsters().stream()
                 .noneMatch(Monster::isAlive);
     }

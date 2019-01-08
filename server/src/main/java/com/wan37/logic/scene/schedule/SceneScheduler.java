@@ -4,8 +4,13 @@ import com.wan37.logic.scene.base.Scene;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * 普通场景定时器逻辑
+ *
+ * @author linda
+ */
 @Service
-public class SceneScheduler extends GeneralSceneScheduler {
+public class SceneScheduler extends AbstractGeneralSceneScheduler {
 
     @Autowired
     private SceneMonsterScheduler sceneMonsterScheduler;

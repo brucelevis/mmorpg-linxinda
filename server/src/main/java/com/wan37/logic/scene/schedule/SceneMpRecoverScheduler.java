@@ -10,10 +10,17 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 场景自动恢复mp定时器逻辑
+ *
+ * @author linda
+ */
 @Service
 public class SceneMpRecoverScheduler {
 
-    // FIXME: 写死场景每30秒恢复1mp
+    /**
+     * FIXME: 写死场景每30秒恢复1mp
+     */
     private static final int MP = 1;
 
     private static final long INTERVAL = TimeUnit.SECONDS.toMillis(30);

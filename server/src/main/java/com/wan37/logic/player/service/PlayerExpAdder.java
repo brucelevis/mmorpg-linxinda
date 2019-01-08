@@ -14,6 +14,11 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * 增加经验
+ *
+ * @author linda
+ */
 @Service
 public class PlayerExpAdder {
 
@@ -43,7 +48,7 @@ public class PlayerExpAdder {
                 return;
             }
 
-            player.setlevel(player.getLevel() + 1);
+            player.setLevel(player.getLevel() + 1);
             player.setExp(0);
             exp -= expCfg.getExp() - curExp;
 

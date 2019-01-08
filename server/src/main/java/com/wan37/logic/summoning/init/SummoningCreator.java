@@ -5,7 +5,7 @@ import com.wan37.logic.attr.config.AttrCfgLoader;
 import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.skill.config.SkillCfg;
 import com.wan37.logic.skill.config.SkillCfgLoader;
-import com.wan37.logic.skill.entity.ISkill;
+import com.wan37.logic.skill.entity.Skill;
 import com.wan37.logic.summoning.config.SummoningCfg;
 import com.wan37.logic.summoning.config.SummoningInitAttrCfg;
 import com.wan37.logic.summoning.config.SummoningInitSkillCfg;
@@ -32,7 +32,7 @@ public class SummoningCreator {
     private AttrCfgLoader attrCfgLoader;
 
     @Autowired
-    private ISkill.Factory iSkillFactory;
+    private Skill.Factory iSkillFactory;
 
     @Autowired
     private SkillCfgLoader skillCfgLoader;
@@ -48,7 +48,7 @@ public class SummoningCreator {
         summoning.setSkills(cfg.getInitSkills().stream()
                 .map(this::createSkill)
                 .filter(Objects::nonNull)
-                .collect(Collectors.toMap(ISkill::getId, Function.identity())));
+                .collect(Collectors.toMap(Skill::getId, Function.identity())));
 
         summoning.setAttrs(cfg.getInitAttrs().stream()
                 .collect(Collectors.toMap(SummoningInitAttrCfg::getId, SummoningInitAttrCfg::getValue)));
@@ -60,7 +60,7 @@ public class SummoningCreator {
         return summoning;
     }
 
-    private ISkill createSkill(SummoningInitSkillCfg cfg) {
+    private Skill createSkill(SummoningInitSkillCfg cfg) {
         SkillCfg skillCfg = skillCfgLoader.load(cfg.getId()).orElse(null);
         if (skillCfg == null) {
             return null;

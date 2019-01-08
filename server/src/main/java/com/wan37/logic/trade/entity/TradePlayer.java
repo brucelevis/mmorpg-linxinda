@@ -5,6 +5,11 @@ import com.wan37.logic.player.Player;
 
 import java.util.Map;
 
+/**
+ * 交易中的玩家信息
+ *
+ * @author linda
+ */
 public class TradePlayer {
 
     private Player player;

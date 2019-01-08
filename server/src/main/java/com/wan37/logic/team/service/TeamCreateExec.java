@@ -3,15 +3,18 @@ package com.wan37.logic.team.service;
 import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.team.TeamGlobalManager;
-import com.wan37.logic.team.entity.ITeam;
+import com.wan37.logic.team.entity.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author linda
+ */
 @Service
 public class TeamCreateExec {
 
     @Autowired
-    private ITeam.Factory teamFactory;
+    private Team.Factory teamFactory;
 
     @Autowired
     private TeamGlobalManager teamGlobalManager;
@@ -21,7 +24,7 @@ public class TeamCreateExec {
             throw new GeneralErrorException("已经有组队");
         }
 
-        ITeam team = teamFactory.create(player.getUid());
+        Team team = teamFactory.create(player.getUid());
         player.setTeamUid(team.getUid());
 
         teamGlobalManager.addTeam(team);

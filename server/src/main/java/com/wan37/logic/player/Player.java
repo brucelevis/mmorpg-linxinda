@@ -6,9 +6,9 @@ import com.wan37.logic.attr.config.AttrEnum;
 import com.wan37.logic.attr.database.PlayerEachAttrDb;
 import com.wan37.logic.buff.entity.Buff;
 import com.wan37.logic.mission.entity.Mission;
-import com.wan37.logic.pk.entity.IPk;
+import com.wan37.logic.pk.entity.Pk;
 import com.wan37.logic.player.database.PlayerDb;
-import com.wan37.logic.skill.entity.ISkill;
+import com.wan37.logic.skill.entity.Skill;
 import com.wan37.logic.trade.entity.ITrade;
 import com.wan37.util.GeneralNotifySenderUtil;
 import io.netty.channel.Channel;
@@ -18,16 +18,21 @@ import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 
-public class Player implements FightingUnit, IPlayer {
+/**
+ * 玩家实例
+ *
+ * @author linda
+ */
+public class Player implements FightingUnit {
 
     private Channel channel;
     private PlayerDb playerDb;
 
-    private Map<Integer, ISkill> skills;
+    private Map<Integer, Skill> skills;
     private List<Buff> buffs = new CopyOnWriteArrayList<>();
     private ITrade trade;
     private Mission mission;
-    private IPk pk;
+    private Pk pk;
 
     public Channel getChannel() {
         return channel;
@@ -45,12 +50,8 @@ public class Player implements FightingUnit, IPlayer {
         this.playerDb = playerDb;
     }
 
-    public void setSkills(Map<Integer, ISkill> skills) {
+    public void setSkills(Map<Integer, Skill> skills) {
         this.skills = skills;
-    }
-
-    public void setBuffs(List<Buff> buffs) {
-        this.buffs = buffs;
     }
 
     @Override
@@ -58,7 +59,6 @@ public class Player implements FightingUnit, IPlayer {
         return playerDb.getName();
     }
 
-    @Override
     public Integer getFactionId() {
         return playerDb.getFactionId();
     }
@@ -68,37 +68,30 @@ public class Player implements FightingUnit, IPlayer {
         return playerDb.getLevel();
     }
 
-    @Override
     public void syncClient(String content) {
         GeneralNotifySenderUtil.send(channel, content);
     }
 
-    @Override
     public void setExp(long exp) {
         playerDb.setExp(exp);
     }
 
-    @Override
     public long getExp() {
         return playerDb.getExp();
     }
 
-    @Override
-    public void setlevel(int level) {
+    public void setLevel(int level) {
         playerDb.setLevel(level);
     }
 
-    @Override
     public void setLeagueUid(Long uid) {
         playerDb.setLeagueUid(uid);
     }
 
-    @Override
     public Long getLeagueUid() {
         return playerDb.getLeagueUid();
     }
 
-    @Override
     public ITrade getTrade() {
         return trade;
     }
@@ -107,17 +100,15 @@ public class Player implements FightingUnit, IPlayer {
         this.trade = trade;
     }
 
-    @Override
     public Mission getMission() {
         return mission;
     }
 
-    @Override
-    public IPk getPk() {
+    public Pk getPk() {
         return pk;
     }
 
-    public void setPk(IPk pk) {
+    public void setPk(Pk pk) {
         this.pk = pk;
     }
 
@@ -125,12 +116,10 @@ public class Player implements FightingUnit, IPlayer {
         this.mission = mission;
     }
 
-    @Override
     public void setTeamUid(Long uid) {
         playerDb.setTeamUid(uid);
     }
 
-    @Override
     public Long getTeamUid() {
         return playerDb.getTeamUid();
     }
@@ -141,7 +130,7 @@ public class Player implements FightingUnit, IPlayer {
     }
 
     @Override
-    public Map<Integer, ISkill> getSkills() {
+    public Map<Integer, Skill> getSkills() {
         return skills;
     }
 

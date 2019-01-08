@@ -7,12 +7,14 @@ import com.wan37.logic.equipment.database.EquipExtraDb;
 import com.wan37.logic.equipment.service.EquipExtraDbGetter;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.database.PlayerDb;
-import com.wan37.logic.skill.entity.ISkill;
+import com.wan37.logic.skill.entity.Skill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
  * 人施放技能前独有的逻辑处理
+ *
+ * @author linda
  */
 @Service
 public class PlayerSkillBeforeCastHandler {
@@ -20,7 +22,7 @@ public class PlayerSkillBeforeCastHandler {
     @Autowired
     private EquipExtraDbGetter equipExtraDbGetter;
 
-    public void handler(Player player, ISkill skill) {
+    public void handler(Player player, Skill skill) {
         // 扣蓝
         long mp = player.getMp() - skill.getCostMp();
         player.setMp(mp < 0 ? 0 : mp);

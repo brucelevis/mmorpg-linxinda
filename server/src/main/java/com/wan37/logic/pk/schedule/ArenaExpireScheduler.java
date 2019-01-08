@@ -1,6 +1,6 @@
 package com.wan37.logic.pk.schedule;
 
-import com.wan37.logic.pk.scene.ArenaScene;
+import com.wan37.logic.pk.scene.ArenaSceneAbstract;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.scene.SceneFacade;
 import com.wan37.logic.scene.TemporarySceneGlobalManager;
@@ -10,6 +10,11 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+/**
+ * 竞技场过期定时器检查
+ *
+ * @author linda
+ */
 @Service
 public class ArenaExpireScheduler {
 
@@ -19,10 +24,10 @@ public class ArenaExpireScheduler {
     @Autowired
     private TemporarySceneGlobalManager temporarySceneGlobalManager;
 
-    public void schedule(ArenaScene scene) {
+    public void schedule(ArenaSceneAbstract scene) {
         if (scene.getPlayers().size() == 0) {
             // 没人了
-            temporarySceneGlobalManager.destoryScene(scene.getUid());
+            temporarySceneGlobalManager.destroyScene(scene.getUid());
             return;
         }
 
@@ -33,7 +38,7 @@ public class ArenaExpireScheduler {
 
         // 竞技场决斗时间结束
         scene.getPlayers().forEach(this::syncTipAndLeave);
-        temporarySceneGlobalManager.destoryScene(scene.getUid());
+        temporarySceneGlobalManager.destroyScene(scene.getUid());
     }
 
     private void syncTipAndLeave(Player player) {

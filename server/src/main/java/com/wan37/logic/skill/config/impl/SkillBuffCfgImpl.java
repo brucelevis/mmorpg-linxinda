@@ -2,6 +2,9 @@ package com.wan37.logic.skill.config.impl;
 
 import com.wan37.logic.skill.config.SkillBuffCfg;
 
+/**
+ * @author linda
+ */
 public class SkillBuffCfgImpl implements SkillBuffCfg {
 
     public SkillBuffCfgImpl(Integer id, double pro) {

@@ -8,7 +8,7 @@ import com.wan37.logic.backpack.encode.BackpackUpdateNotifier;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.trade.TradeGlobalManager;
 import com.wan37.logic.trade.encode.TradeEncoder;
-import com.wan37.logic.trade.entity.GTrade;
+import com.wan37.logic.trade.entity.Trade;
 import com.wan37.logic.trade.entity.ITrade;
 import com.wan37.logic.trade.entity.TradePlayer;
 import org.springframework.beans.BeanUtils;
@@ -17,10 +17,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
+/**
+ * @author linda
+ */
 @Service
 public class TradeAddItemExec {
 
-    //FIXME: 写死交易格子
+    /**
+     * FIXME: 写死交易格子
+     */
     private static final int MAX_CAPACITY = 9;
 
     @Autowired
@@ -49,7 +54,7 @@ public class TradeAddItemExec {
             throw new GeneralErrorException("未在交易");
         }
 
-        GTrade trade = tradeGlobalManager.getTrade(iTrade.getUid());
+        Trade trade = tradeGlobalManager.getTrade(iTrade.getUid());
         if (trade == null) {
             throw new GeneralErrorException("交易不存在");
         }

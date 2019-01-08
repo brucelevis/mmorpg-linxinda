@@ -4,12 +4,17 @@ import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.attr.config.AttrEnum;
 import com.wan37.logic.buff.entity.Buff;
 import com.wan37.logic.monster.config.MonsterCfg;
-import com.wan37.logic.skill.entity.ISkill;
+import com.wan37.logic.skill.entity.Skill;
 
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+/**
+ * 怪物实例
+ *
+ * @author linda
+ */
 public class Monster implements FightingUnit {
 
     private Long uid;
@@ -28,7 +33,7 @@ public class Monster implements FightingUnit {
     private int baseDefenseVal;
 
     private Map<Integer, Double> attrs;
-    private Map<Integer, ISkill> skills;
+    private Map<Integer, Skill> skills;
     private List<Buff> buffs = new CopyOnWriteArrayList<>();
 
     public void setUid(Long uid) {
@@ -63,12 +68,8 @@ public class Monster implements FightingUnit {
         this.attrs = attrs;
     }
 
-    public void setSkills(Map<Integer, ISkill> skills) {
+    public void setSkills(Map<Integer, Skill> skills) {
         this.skills = skills;
-    }
-
-    public void setBuffs(List<Buff> buffs) {
-        this.buffs = buffs;
     }
 
     @Override
@@ -82,7 +83,7 @@ public class Monster implements FightingUnit {
     }
 
     @Override
-    public Map<Integer, ISkill> getSkills() {
+    public Map<Integer, Skill> getSkills() {
         return skills;
     }
 

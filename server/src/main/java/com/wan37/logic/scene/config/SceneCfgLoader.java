@@ -2,7 +2,6 @@ package com.wan37.logic.scene.config;
 
 import com.wan37.config.ConfigManager;
 import com.wan37.config.entity.SceneCfgExcel;
-import com.wan37.logic.npc.config.NpcCfg;
 import com.wan37.logic.scene.config.impl.SceneCfgImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +11,11 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * 场景配置表加载器
+ *
+ * @author linda
+ */
 @Service
 public class SceneCfgLoader {
 

@@ -4,6 +4,8 @@ import com.wan37.logic.scene.schedule.SceneScheduler;
 
 /**
  * 普通场景
+ *
+ * @author linda
  */
 public class Scene extends AbstractScene {
 
@@ -20,10 +22,6 @@ public class Scene extends AbstractScene {
 
     public void setLastRecoverMpTime(long lastRecoverMpTime) {
         this.lastRecoverMpTime = lastRecoverMpTime;
-    }
-
-    public SceneScheduler getSceneScheduler() {
-        return sceneScheduler;
     }
 
     public void setSceneScheduler(SceneScheduler sceneScheduler) {

@@ -3,12 +3,15 @@ package com.wan37.logic.team.service;
 import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.team.TeamGlobalManager;
-import com.wan37.logic.team.entity.ITeam;
+import com.wan37.logic.team.entity.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
+/**
+ * @author linda
+ */
 @Service
 public class TeamKickExec {
 
@@ -20,7 +23,7 @@ public class TeamKickExec {
             throw new GeneralErrorException("你未创建组队");
         }
 
-        ITeam team = teamGlobalManager.getTeam(player.getTeamUid());
+        Team team = teamGlobalManager.getTeam(player.getTeamUid());
         if (!Objects.equals(team.getLeaderUid(), player.getUid())) {
             throw new GeneralErrorException("你不是队长，无法踢除成员");
         }

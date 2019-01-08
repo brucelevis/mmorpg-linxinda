@@ -5,7 +5,7 @@ import com.wan37.event.entity.LoginEvent;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.init.PlayerReviveInitializer;
 import com.wan37.logic.scene.SceneTypeEnum;
-import com.wan37.logic.scene.base.TemporaryScene;
+import com.wan37.logic.scene.base.AbstractTemporaryScene;
 import com.wan37.logic.scene.config.SceneCfg;
 import com.wan37.logic.scene.config.SceneCfgLoader;
 import com.wan37.logic.scene.SceneFacade;
@@ -15,6 +15,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
+/**
+ * 玩家监听登录事件
+ */
 @Service
 class PlayerOnLogin implements GeneralEventListener<LoginEvent> {
 
@@ -50,7 +53,7 @@ class PlayerOnLogin implements GeneralEventListener<LoginEvent> {
         }
 
         // 离线前在临时场景
-        TemporaryScene scene = temporarySceneGlobalManager.querySceneByUid(player.getSceneUid());
+        AbstractTemporaryScene scene = temporarySceneGlobalManager.querySceneByUid(player.getSceneUid());
         if (scene == null) {
             // 临时场景过期消失，传送到安全村落
             sceneFacade.enterScene(1000, player);

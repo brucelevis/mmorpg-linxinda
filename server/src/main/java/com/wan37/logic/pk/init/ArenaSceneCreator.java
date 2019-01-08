@@ -1,7 +1,7 @@
 package com.wan37.logic.pk.init;
 
-import com.wan37.logic.pk.scene.ArenaScene;
-import com.wan37.logic.pk.schedule.ArenaSceneScheduler;
+import com.wan37.logic.pk.scene.ArenaSceneAbstract;
+import com.wan37.logic.pk.schedule.ArenaSceneSchedulerAbstract;
 import com.wan37.logic.scene.config.SceneCfg;
 import com.wan37.util.DateTimeUtils;
 import com.wan37.util.IdUtil;
@@ -12,14 +12,19 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 初始化竞技场场景
+ *
+ * @author linda
+ */
 @Service
 public class ArenaSceneCreator {
 
     @Autowired
-    private ArenaSceneScheduler arenaSceneScheduler;
+    private ArenaSceneSchedulerAbstract arenaSceneScheduler;
 
-    public ArenaScene create(SceneCfg sceneCfg) {
-        ArenaScene scene = new ArenaScene();
+    public ArenaSceneAbstract create(SceneCfg sceneCfg) {
+        ArenaSceneAbstract scene = new ArenaSceneAbstract();
 
         scene.setUid(IdUtil.generate());
         scene.setSceneCfg(sceneCfg);

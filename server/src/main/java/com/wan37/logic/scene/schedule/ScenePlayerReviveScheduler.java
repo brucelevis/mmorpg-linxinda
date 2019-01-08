@@ -11,6 +11,11 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 场景玩家复活检查定时器逻辑
+ *
+ * @author linda
+ */
 @Service
 public class ScenePlayerReviveScheduler {
 

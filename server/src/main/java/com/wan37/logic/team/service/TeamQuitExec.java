@@ -3,10 +3,13 @@ package com.wan37.logic.team.service;
 import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.team.TeamGlobalManager;
-import com.wan37.logic.team.entity.ITeam;
+import com.wan37.logic.team.entity.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author linda
+ */
 @Service
 public class TeamQuitExec {
 
@@ -18,7 +21,7 @@ public class TeamQuitExec {
             throw new GeneralErrorException("你未加入组队");
         }
 
-        ITeam team = teamGlobalManager.getTeam(player.getTeamUid());
+        Team team = teamGlobalManager.getTeam(player.getTeamUid());
         try {
             team.lock();
 

@@ -3,7 +3,7 @@ package com.wan37.logic.trade.service;
 import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.trade.TradeGlobalManager;
-import com.wan37.logic.trade.entity.GTrade;
+import com.wan37.logic.trade.entity.Trade;
 import com.wan37.logic.trade.entity.ITrade;
 import com.wan37.logic.trade.init.TradePlayerCreator;
 import com.wan37.util.IdUtil;
@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * @author linda
+ */
 @Service
 public class TradeRequestExec {
 
@@ -37,7 +40,7 @@ public class TradeRequestExec {
             }
 
             // 创建交易
-            GTrade trade = createTrade(from, to);
+            Trade trade = createTrade(from, to);
             tradeGlobalManager.addTrade(trade);
 
             fromTrade.setUid(trade.getUid());
@@ -51,8 +54,8 @@ public class TradeRequestExec {
         }
     }
 
-    private GTrade createTrade(Player from, Player to) {
-        GTrade trade = new GTrade();
+    private Trade createTrade(Player from, Player to) {
+        Trade trade = new Trade();
         trade.setUid(IdUtil.generate());
         trade.setLock(new ReentrantLock());
         trade.setTradePlayerMap(new HashMap<>());

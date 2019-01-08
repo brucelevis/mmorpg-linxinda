@@ -1,9 +1,9 @@
 package com.wan37.logic.pk.service;
 
 import com.wan37.exception.GeneralErrorException;
-import com.wan37.logic.pk.entity.IPk;
+import com.wan37.logic.pk.entity.Pk;
 import com.wan37.logic.pk.init.ArenaSceneCreator;
-import com.wan37.logic.pk.scene.ArenaScene;
+import com.wan37.logic.pk.scene.ArenaSceneAbstract;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.scene.SceneTypeEnum;
@@ -16,6 +16,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
+/**
+ * @author linda
+ */
 @Service
 public class PkAcceptExec {
 
@@ -35,7 +38,7 @@ public class PkAcceptExec {
     private SceneFacade sceneFacade;
 
     public void exec(Player player, Long inviterUid) {
-        IPk myPk = player.getPk();
+        Pk myPk = player.getPk();
         if (!myPk.hadInvited(inviterUid)) {
             throw new GeneralErrorException("对方并没邀请你决斗");
         }
@@ -47,7 +50,7 @@ public class PkAcceptExec {
         }
 
         Player inviter = playerGlobalManager.getPlayerByUid(inviterUid);
-        IPk inviterPk = inviter.getPk();
+        Pk inviterPk = inviter.getPk();
         try {
             if (myPk.tryLock() && inviterPk.tryLock()) {
                 myPk.rmInviter(inviterUid);
@@ -76,7 +79,7 @@ public class PkAcceptExec {
 
                 //FIXME: 这里先暂时写死竞技场场景配置表id
                 SceneCfg arenaSceneCfg = sceneCfgLoader.load(3001).orElse(null);
-                ArenaScene arenaScene = arenaSceneCreator.create(arenaSceneCfg);
+                ArenaSceneAbstract arenaScene = arenaSceneCreator.create(arenaSceneCfg);
                 temporarySceneGlobalManager.addScene(arenaScene);
 
                 // 进入竞技场开始决斗
@@ -94,7 +97,7 @@ public class PkAcceptExec {
         }
     }
 
-    private void enterArena(Player player, ArenaScene arenaScene) {
+    private void enterArena(Player player, ArenaSceneAbstract arenaScene) {
         // 离开普通场景
         sceneFacade.leaveScene(player);
         player.syncClient("竞技场决斗开始");

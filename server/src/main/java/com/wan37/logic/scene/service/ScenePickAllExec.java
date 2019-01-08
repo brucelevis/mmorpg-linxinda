@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
+/**
+ * @author linda
+ */
 @Service
 public class ScenePickAllExec {
 

@@ -12,6 +12,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * 场景物品刷新检查定时器逻辑
+ *
+ * @author linda
+ */
 @Service
 public class SceneItemScheduler {
 

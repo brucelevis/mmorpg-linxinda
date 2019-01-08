@@ -24,169 +24,169 @@
 ### *命令手册：*
 **###################################################**
 
-**-> 门派显示：** faction_Info
+**-> 门派显示：** factionInfoCmd
 
-**-> 注册：** player_Register factionId playerName
+**-> 注册：** playerRegisterCmd factionId playerName
 
-**-> 登录：** player_Login playerUid
+**-> 登录：** playerLoginCmd playerUid
 
-**-> 下线：** player_Logout
+**-> 下线：** playerLogoutCmd
 
 **####################  场景  ###########################**
 
-**-> 打印当前场景实体：** scene_Aoi
+**-> 打印当前场景实体：** sceneAoiCmd
 
-**-> 场景跳转：** scene_Switch sceneId
+**-> 场景跳转：** sceneSwitchCmd sceneId
 
-**-> 查看可达场景：** scene_Neighbor
+**-> 查看可达场景：** sceneNeighborCmd
 
-**-> 物品一键拾取：** scene_PickAll
+**-> 物品一键拾取：** scenePickAllCmd
 
 **################### 背包系统 #########################**
 
-**-> 加物品：** item_Add itemCfgId amount
+**-> 加物品：** itemAddCmd itemCfgId amount
 
-**-> 查看背包物品：** backpack_Info
+**-> 查看背包物品：** backpackInfoCmd
 
-**-> 背包整理：** backpack_Clean
+**-> 背包整理：** backpackCleanCmd
 
-**-> 查看物品具体信息：** backpack_ItemInfo uid
+**-> 查看物品具体信息：** backpackItemInfoCmd uid
 
-**-> 物品使用：** item_Use index
+**-> 物品使用：** itemUseCmd index
 
 **#################### 装备系统 ##########################**
 
-**-> 装备栏信息：** equip_Info
+**-> 装备栏信息：** equipInfoCmd
 
-**-> 装备脱：** equip_Takeoff partId
+**-> 装备脱：** equipTakeoffCmd partId
 
 **################### 属性系统  ###########################**
 
-**-> 人物属性：** attr_Info
+**-> 人物属性：** attrInfoCmd
 
 **################### 技能系统  ############################**
 
-**-> 人物技能：** skill_Info
+**-> 人物技能：** skillInfoCmd
 
-**-> 技能施放：** skill_Cast skillId targetUid
+**-> 技能施放：** skillCastCmd skillId targetUid
 
 **################### 商店系统 #############################**
 
-**-> 显示商店菜单：** shop_Info
+**-> 显示商店菜单：** shopInfoCmd
 
-**-> 购买某种物品：** shop_Buy id amount  
+**-> 购买某种物品：** shopBuyCmd id amount  
 
 **################### 聊天系统 #############################**
 
-**-> 当前场景聊天：** chat_Scene msg
+**-> 当前场景聊天：** chatSceneCmd msg
 
-**-> 私聊：** chat_Private toUid msg
+**-> 私聊：** chatPrivate toUidCmd msg
 
-**-> 世界：** chat_World msg
+**-> 世界：** chatWorldCmd msg
 
 **#################### 邮件系统 ############################**
 
-**-> 邮件信息：** mail_Info
+**-> 邮件信息：** mailInfoCmd
 
-**-> 领取邮件附件：** mail_Receive id
+**-> 领取邮件附件：** mailReceiveCmd id
 
-**-> 发送邮件 (不发道具附件则在对应位置发送null)：** mail_Send uid title content index:amount,index:amount
+**-> 发送邮件 (不发道具附件则在对应位置发送null)：** mailSendCmd uid title content index:amount,index:amount
 
 **#################### 副本系统 #############################**
 
-**-> 挑战副本：** dungeon_Enter dungeonId
+**-> 挑战副本：** dungeonEnterCmd dungeonId
 
-**-> 副本信息：** dungeon_Info
+**-> 副本信息：** dungeonInfoCmd
 
-**-> 离开副本：** dungeon_Leave
+**-> 离开副本：** dungeonLeaveCmd
 
 **##################### 好友系统 ############################**
 
-**-> 添加好友：** friend_Add playerUid
+**-> 添加好友：** friendAddCmd playerUid
 
-**-> 好友列表：** friend_Info
+**-> 好友列表：** friendInfoCmd
 
-**-> 接受好友请求：** friend_Accept playerUid
+**-> 接受好友请求：** friendAcceptCmd playerUid
 
-**-> 拒绝好友请求：** friend_Reject playerUid
+**-> 拒绝好友请求：** friendRejectCmd playerUid
 
 **#################### 公会系统 ############################**
 
-**-> 创建公会：** league_Create name
+**-> 创建公会：** guildCreateCmd name
 
-**-> 查看公会：** league_Info 
+**-> 查看公会：** guildInfoCmd
 
-**-> 公会解散：** league_Dissolve
+**-> 公会解散：** guildDissolveCmd
 
-**-> 公会加人：** league_Add playerUid
+**-> 公会加人：** guildAddCmd playerUid
 
-**-> 公会踢人：** league_Kick playerUid
+**-> 公会踢人：** guildKickCmd playerUid
 
-**-> 公会修改权限：** league_Change playerUid
+**-> 公会修改权限：** guildChangeCmd playerUid
 
-**-> 退出公会：** league_Quit
+**-> 退出公会：** guildQuitCmd
 
-**-> 公会捐献物品：** league_DonateItem index:amount,index:amount...
+**-> 公会捐献物品：** guildDonateItemCmd index:amount,index:amount...
 
-**-> 公会捐献钱：** league_DonateMoney cfgId amount
+**-> 公会捐献钱：** guildDonateMoneyCmd cfgId amount
 
-**-> 公会仓库信息：** league_Warehouse
+**-> 公会仓库信息：** guildWarehouseCmd
 
-**-> 公会仓库领取物品：** league_GetItem index:amount,index:amount....
+**-> 公会仓库领取物品：** guildGetItemCmd index:amount,index:amount....
 
-**-> 公会仓库领钱：** league_GetMoney cfgId amount
+**-> 公会仓库领钱：** guildGetMoneyCmd cfgId amount
 
 **##################### 交易系统 ############################**
 
-**-> 发起交易请求：** trade_Request playerUid
+**-> 发起交易请求：** tradeRequestCmd playerUid
 
-**-> 接受交易请求：** trade_Accept tradeUid
+**-> 接受交易请求：** tradeAcceptCmd tradeUid
 
-**-> 拒绝交易请求：** trade_Reject tradeUid
+**-> 拒绝交易请求：** tradeRejectCmd tradeUid
 
-**-> 加入背包物品：** trade_AddItem  index amount
+**-> 加入背包物品：** tradeAddItemCmd  index amount
 
-**-> 加入钱：** trade_AddMoney cfgId amount
+**-> 加入钱：** tradeAddMoneyCmd cfgId amount
 
-**-> 交易取消：** trade_Close 
+**-> 交易取消：** tradeCloseCmd
 
-**-> 确认交易：** trade_Commit 
+**-> 确认交易：** tradeCommitCmd 
 
 **####################### 组队系统 #############################**
 
-**-> 创建组队：** team_Create 
+**-> 创建组队：** teamCreateCmd 
 
-**-> 显示队伍信息：** team_Info
+**-> 显示队伍信息：** teamInfoCmd
 
-**-> 解散组队：** team_Dissolve
+**-> 解散组队：** teamDissolveCmd
 
-**-> 退出组队：** team_Quit
+**-> 退出组队：** teamQuitCmd
 
-**-> 组队踢人：** team_Kick playerUid
+**-> 组队踢人：** teamKickCmd playerUid
 
-**-> 组队邀请：** team_Invite playerUid
+**-> 组队邀请：** teamInviteCmd playerUid
 
-**-> 同意加入组队：** team_Accept teamUid
+**-> 同意加入组队：** teamAcceptCmd teamUid
 
-**-> 拒绝加入组队：** team_Reject teamUid
+**-> 拒绝加入组队：** teamRejectCmd teamUid
 
 **######################## 任务系统 #############################**
 
-**-> 任务列表：** mission_Info 
+**-> 任务列表：** missionInfoCmd 
 
-**-> 接任务：** mission_Accept missionId
+**-> 接任务：** missionAcceptCmd missionId
 
-**-> 提交任务：** mission_Commit missionId
+**-> 提交任务：** missionCommitCmd missionId
 
-**-> Npc对话：** Npc_Talk npcId
+**-> Npc对话：** NpcTalkCmd npcId
 
 **########################  pk  ##################################**
 
-**-> 决斗邀请：** pk_Invite playerUid
+**-> 决斗邀请：** pkInviteCmd playerUid
 
-**-> 拒绝决斗：** pk_Reject playerUid 
+**-> 拒绝决斗：** pkRejectCmd playerUid 
 
-**-> 同意决斗：** pk_Accept playerUid
+**-> 同意决斗：** pkAcceptCmd playerUid
 
 ---
 ### 阶段4扩展问题回答：

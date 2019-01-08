@@ -7,7 +7,7 @@ import com.wan37.logic.props.ResourceFacade;
 import com.wan37.logic.props.resource.impl.ResourceCollectionImpl;
 import com.wan37.logic.props.resource.impl.ResourceElementImpl;
 import com.wan37.logic.trade.TradeGlobalManager;
-import com.wan37.logic.trade.entity.GTrade;
+import com.wan37.logic.trade.entity.Trade;
 import com.wan37.logic.trade.entity.TradePlayer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +15,11 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+/**
+ * 交易结束逻辑
+ *
+ * @author linda
+ */
 @Service
 public class TradeCloser {
 
@@ -30,7 +35,7 @@ public class TradeCloser {
     @Autowired
     private PlayerGlobalManager playerGlobalManager;
 
-    public void close(GTrade trade) {
+    public void close(Trade trade) {
         try {
             trade.getLock().lock();
 

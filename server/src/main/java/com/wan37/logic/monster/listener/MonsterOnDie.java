@@ -8,6 +8,9 @@ import com.wan37.logic.monster.die.MonsterDieHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * 怪物监听死亡事件
+ */
 @Service
 class MonsterOnDie implements GeneralEventListener<DieEvent> {
 

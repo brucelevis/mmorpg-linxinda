@@ -9,6 +9,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
+/**
+ * 场景生物获取当前场景
+ *
+ * @author linda
+ */
 @Service
 public class SceneActorSceneGetter {
 

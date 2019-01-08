@@ -6,7 +6,11 @@ import com.wan37.logic.player.database.PlayerDb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Deprecated
+/**
+ * 玩家注册信息返回编码
+ *
+ * @author linda
+ */
 @Service
 public class PlayerRegisterResponseEncoder {
 

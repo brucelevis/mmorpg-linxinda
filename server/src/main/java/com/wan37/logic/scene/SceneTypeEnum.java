@@ -1,9 +1,25 @@
 package com.wan37.logic.scene;
 
+/**
+ * 场景类型枚举
+ *
+ * @author linda
+ */
 public enum SceneTypeEnum {
 
+    /**
+     * 普通场景
+     */
     SCENE_TYPE_1(1, "普通场景"),
+
+    /**
+     * 副本场景
+     */
     SCENE_TYPE_2(2, "副本场景"),
+
+    /**
+     * 竞技场场景
+     */
     SCENE_TYPE_3(3, "竞技场场景");
 
     private Integer id;

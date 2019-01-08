@@ -20,6 +20,11 @@ import com.wan37.logic.strength.database.convert.PlayerStrengthDbConverterImpl;
 import javax.persistence.*;
 import java.util.Set;
 
+/**
+ * 玩家数据库实例
+ *
+ * @author linda
+ */
 @Entity
 @Table(name = "tb_player")
 public class PlayerDb {

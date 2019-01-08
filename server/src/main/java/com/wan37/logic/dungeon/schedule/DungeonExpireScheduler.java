@@ -1,6 +1,6 @@
 package com.wan37.logic.dungeon.schedule;
 
-import com.wan37.logic.dungeon.scene.DungeonScene;
+import com.wan37.logic.dungeon.scene.DungeonSceneAbstract;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.scene.SceneFacade;
 import com.wan37.logic.scene.TemporarySceneGlobalManager;
@@ -24,7 +24,7 @@ public class DungeonExpireScheduler {
     @Autowired
     private TemporarySceneGlobalManager temporarySceneGlobalManager;
 
-    public void schedule(DungeonScene scene) {
+    public void schedule(DungeonSceneAbstract scene) {
         long now = DateTimeUtils.toEpochMilli(LocalDateTime.now());
         if (now < scene.getExpireTime()) {
             return;
@@ -33,7 +33,7 @@ public class DungeonExpireScheduler {
         String msg = String.format("%s副本挑战失败", scene.getName());
         scene.getPlayers().forEach(p -> syncTipAndLeave(p, msg));
 
-        temporarySceneGlobalManager.destoryScene(scene.getUid());
+        temporarySceneGlobalManager.destroyScene(scene.getUid());
     }
 
     private void syncTipAndLeave(Player player, String tip) {

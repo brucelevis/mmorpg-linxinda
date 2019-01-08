@@ -5,12 +5,15 @@ import com.wan37.event.entity.OfflineEvent;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.dao.PlayerDao;
 import com.wan37.logic.trade.TradeGlobalManager;
-import com.wan37.logic.trade.entity.GTrade;
+import com.wan37.logic.trade.entity.Trade;
 import com.wan37.logic.trade.entity.ITrade;
 import com.wan37.logic.trade.service.close.TradeCloser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * 交易监听下线事件
+ */
 @Service
 class TradeOnOffline implements GeneralEventListener<OfflineEvent> {
 
@@ -31,7 +34,7 @@ class TradeOnOffline implements GeneralEventListener<OfflineEvent> {
             return;
         }
 
-        GTrade trade = tradeGlobalManager.getTrade(iTrade.getUid());
+        Trade trade = tradeGlobalManager.getTrade(iTrade.getUid());
         if (trade == null) {
             return;
         }

@@ -26,7 +26,7 @@ public class DungeonLeaveExec {
     public void exec(Player player) {
         // 离开副本场景
         generalEventListenersManager.fireEvent(new SceneLeaveEvent(player));
-        temporarySceneGlobalManager.destoryScene(player.getSceneUid());
+        temporarySceneGlobalManager.destroyScene(player.getSceneUid());
 
         // 回到安全村
         sceneFacade.enterScene(1000, player);

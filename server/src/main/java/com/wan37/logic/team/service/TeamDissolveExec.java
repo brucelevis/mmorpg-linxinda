@@ -4,12 +4,15 @@ import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.team.TeamGlobalManager;
-import com.wan37.logic.team.entity.ITeam;
+import com.wan37.logic.team.entity.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
+/**
+ * @author linda
+ */
 @Service
 public class TeamDissolveExec {
 
@@ -24,7 +27,7 @@ public class TeamDissolveExec {
             throw new GeneralErrorException("你未创建组队");
         }
 
-        ITeam team = teamGlobalManager.getTeam(player.getTeamUid());
+        Team team = teamGlobalManager.getTeam(player.getTeamUid());
         try {
             team.lock();
 

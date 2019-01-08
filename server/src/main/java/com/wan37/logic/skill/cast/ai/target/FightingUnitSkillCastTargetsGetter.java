@@ -12,6 +12,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * 获取技能施放目标
+ *
+ * @author linda
+ */
 @Service
 public class FightingUnitSkillCastTargetsGetter {
 

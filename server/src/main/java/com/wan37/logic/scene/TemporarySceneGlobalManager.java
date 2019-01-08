@@ -3,7 +3,7 @@ package com.wan37.logic.scene;
 import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.event.entity.SceneEnterEvent;
 import com.wan37.logic.player.Player;
-import com.wan37.logic.scene.base.TemporaryScene;
+import com.wan37.logic.scene.base.AbstractTemporaryScene;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +14,18 @@ import java.util.Objects;
 import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
+/**
+ * 临时场景全局管理器
+ *
+ * @author linda
+ */
 @Service
 public class TemporarySceneGlobalManager {
 
     /**
      * map<sceneUid，abstractScene>
      */
-    private static Map<Long, TemporaryScene> sceneMap = new ConcurrentHashMap<>();
+    private static Map<Long, AbstractTemporaryScene> sceneMap = new ConcurrentHashMap<>();
 
     /**
      * key：sceneUid
@@ -35,11 +40,11 @@ public class TemporarySceneGlobalManager {
     @Autowired
     private GeneralEventListenersManager generalEventListenersManager;
 
-    public Collection<TemporaryScene> getAllScenes() {
+    public Collection<AbstractTemporaryScene> getAllScenes() {
         return sceneMap.values();
     }
 
-    public void addScene(TemporaryScene scene) {
+    public void addScene(AbstractTemporaryScene scene) {
         sceneMap.put(scene.getUid(), scene);
 
         // 启动场景心跳
@@ -48,7 +53,7 @@ public class TemporarySceneGlobalManager {
     }
 
     public void addPlayerInScene(Long sceneUid, Player player) {
-        TemporaryScene scene = querySceneByUid(sceneUid);
+        AbstractTemporaryScene scene = querySceneByUid(sceneUid);
         if (scene == null) {
             return;
         }
@@ -62,7 +67,7 @@ public class TemporarySceneGlobalManager {
     }
 
     public void removePlayerFromScene(Long sceneUid, Player player) {
-        TemporaryScene scene = querySceneByUid(sceneUid);
+        AbstractTemporaryScene scene = querySceneByUid(sceneUid);
         if (scene == null) {
             return;
         }
@@ -72,11 +77,11 @@ public class TemporarySceneGlobalManager {
                 .collect(Collectors.toList()));
     }
 
-    public TemporaryScene querySceneByUid(Long sceneUid) {
+    public AbstractTemporaryScene querySceneByUid(Long sceneUid) {
         return sceneMap.get(sceneUid);
     }
 
-    public void destoryScene(Long sceneUid) {
+    public void destroyScene(Long sceneUid) {
         ScheduledFuture scheduledFuture = sceneScheduleMap.get(sceneUid);
         if (scheduledFuture != null) {
             scheduledFuture.cancel(true);

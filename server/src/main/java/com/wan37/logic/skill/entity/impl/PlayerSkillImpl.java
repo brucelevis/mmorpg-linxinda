@@ -1,12 +1,12 @@
 package com.wan37.logic.skill.entity.impl;
 
-import com.wan37.logic.skill.entity.ISkill;
+import com.wan37.logic.skill.entity.Skill;
 import com.wan37.logic.skill.config.SkillCfg;
-import com.wan37.logic.skill.database.PSkillDb;
+import com.wan37.logic.skill.database.PlayerEachSkillDb;
 
-class PlayerSkillImpl implements ISkill {
+class PlayerSkillImpl implements Skill {
 
-    public PlayerSkillImpl(SkillCfg skillCfg, PSkillDb skillDb) {
+    public PlayerSkillImpl(SkillCfg skillCfg, PlayerEachSkillDb skillDb) {
         this.skillCfg = skillCfg;
         this.skillDb = skillDb;
     }
@@ -57,5 +57,5 @@ class PlayerSkillImpl implements ISkill {
     }
 
     private final SkillCfg skillCfg;
-    private final PSkillDb skillDb;
+    private final PlayerEachSkillDb skillDb;
 }

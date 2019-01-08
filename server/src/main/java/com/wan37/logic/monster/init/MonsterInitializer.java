@@ -3,6 +3,11 @@ package com.wan37.logic.monster.init;
 import com.wan37.logic.monster.Monster;
 import org.springframework.stereotype.Service;
 
+/**
+ * 怪物初始化
+ *
+ * @author linda
+ */
 @Service
 public class MonsterInitializer {
 

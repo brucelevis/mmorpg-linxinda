@@ -6,7 +6,7 @@ import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.buff.BuffEffectEnum;
 import com.wan37.logic.buff.entity.Buff;
 import com.wan37.logic.scene.base.AbstractScene;
-import com.wan37.logic.skill.entity.ISkill;
+import com.wan37.logic.skill.entity.Skill;
 import com.wan37.util.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,21 +16,26 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * 技能攻击处理
+ *
+ * @author linda
+ */
 @Service
 public class FightingAttackHandler {
 
     @Autowired
     private GeneralEventListenersManager generalEventListenersManager;
 
-    public void handle(FightingUnit attacker, FightingUnit target, ISkill skill, AbstractScene scene) {
+    public void handle(FightingUnit attacker, FightingUnit target, Skill skill, AbstractScene scene) {
         double baseAttackVal = attacker.getBaseAttackVal();
-        double skillDemageAddition = skill.getEffectValue();
-        long demage = Math.round(baseAttackVal * skillDemageAddition);
+        double skillDamageAddition = skill.getEffectValue();
+        long damage = Math.round(baseAttackVal * skillDamageAddition);
 
         long defense = target.getBaseDefenseVal();
-        demage -= defense;
+        damage -= defense;
 
-        if (demage <= 0) {
+        if (damage <= 0) {
             String notify = String.format("[%s]用[%s]攻击[%s]，造成伤害%s", attacker.getName(), skill.getName(), target.getName(), 0);
             scene.getPlayers().forEach(p -> p.syncClient(notify));
             return;
@@ -42,38 +47,38 @@ public class FightingAttackHandler {
                 .collect(Collectors.toList());
         for (Buff buff : shieldBuffs) {
             long shield = Long.parseLong(buff.getArg());
-            if (demage >= shield) {
+            if (damage >= shield) {
                 // 护盾打破
                 String notify = String.format("[%s]用[%s]抵挡了来自%s的%s点伤害", target.getName(), buff.getName(), attacker.getName(), shield);
                 scene.getPlayers().forEach(p -> p.syncClient(notify));
 
-                demage -= shield;
+                damage -= shield;
                 target.getBuffs().remove(buff);
             } else {
-                String notify = String.format("[%s]用[%s]抵挡了来自%s的%s点伤害", target.getName(), buff.getName(), attacker.getName(), demage);
+                String notify = String.format("[%s]用[%s]抵挡了来自%s的%s点伤害", target.getName(), buff.getName(), attacker.getName(), damage);
                 scene.getPlayers().forEach(p -> p.syncClient(notify));
 
-                demage = 0;
+                damage = 0;
                 target.getBuffs().remove(buff);
             }
 
-            if (demage <= 0) {
+            if (damage <= 0) {
                 break;
             }
         }
 
         long curHp = target.getHp();
-        if (curHp > demage) {
+        if (curHp > damage) {
             // 没死
-            target.setHp(curHp - demage);
+            target.setHp(curHp - damage);
 
-            String notify = String.format("[%s]用[%s]攻击[%s]，造成伤害%s", attacker.getName(), skill.getName(), target.getName(), demage);
+            String notify = String.format("[%s]用[%s]攻击[%s]，造成伤害%s", attacker.getName(), skill.getName(), target.getName(), damage);
             scene.getPlayers().forEach(p -> p.syncClient(notify));
         } else {
             // 死了
             target.setHp(0);
 
-            String notify = String.format("[%s]用[%s]击杀了[%s]，造成伤害%s", attacker.getName(), skill.getName(), target.getName(), demage);
+            String notify = String.format("[%s]用[%s]击杀了[%s]，造成伤害%s", attacker.getName(), skill.getName(), target.getName(), damage);
             scene.getPlayers().forEach(p -> p.syncClient(notify));
 
             long now = DateTimeUtils.toEpochMilli(LocalDateTime.now());

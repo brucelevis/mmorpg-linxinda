@@ -4,7 +4,7 @@ import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.trade.TradeGlobalManager;
-import com.wan37.logic.trade.entity.GTrade;
+import com.wan37.logic.trade.entity.Trade;
 import com.wan37.logic.trade.entity.ITrade;
 import com.wan37.logic.trade.entity.TradePlayer;
 import com.wan37.logic.trade.init.TradePlayerCreator;
@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
+/**
+ * @author linda
+ */
 @Service
 public class TradeAcceptExec {
 
@@ -26,7 +29,7 @@ public class TradeAcceptExec {
     private TradePlayerCreator tradePlayerCreator;
 
     public void exec(Player to, Long tradeUid) {
-        GTrade trade = tradeGlobalManager.getTrade(tradeUid);
+        Trade trade = tradeGlobalManager.getTrade(tradeUid);
         if (trade == null) {
             throw new GeneralErrorException("交易已关闭");
         }

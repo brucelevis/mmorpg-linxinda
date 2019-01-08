@@ -2,6 +2,9 @@ package com.wan37.logic.scene.config.impl;
 
 import com.wan37.logic.scene.config.SceneMonsterCfg;
 
+/**
+ * @author linda
+ */
 public class SceneMonsterCfgImpl implements SceneMonsterCfg {
 
     public SceneMonsterCfgImpl(Integer cfgId, int amount) {

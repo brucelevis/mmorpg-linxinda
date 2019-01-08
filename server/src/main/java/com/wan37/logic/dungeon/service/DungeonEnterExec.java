@@ -4,7 +4,7 @@ import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.dungeon.config.DungeonCfg;
 import com.wan37.logic.dungeon.config.DungeonCfgLoader;
 import com.wan37.logic.dungeon.init.DungeonSceneCreator;
-import com.wan37.logic.dungeon.scene.DungeonScene;
+import com.wan37.logic.dungeon.scene.DungeonSceneAbstract;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.scene.SceneTypeEnum;
@@ -13,8 +13,8 @@ import com.wan37.logic.scene.config.SceneCfgLoader;
 import com.wan37.logic.scene.SceneFacade;
 import com.wan37.logic.scene.TemporarySceneGlobalManager;
 import com.wan37.logic.team.TeamGlobalManager;
-import com.wan37.logic.team.entity.ITeam;
-import com.wan37.logic.team.entity.ITeamMember;
+import com.wan37.logic.team.entity.Team;
+import com.wan37.logic.team.entity.TeamMember;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -67,7 +67,7 @@ public class DungeonEnterExec {
             throw new GeneralErrorException("挑战副本需要创建队伍");
         }
 
-        ITeam team = teamGlobalManager.getTeam(player.getTeamUid());
+        Team team = teamGlobalManager.getTeam(player.getTeamUid());
         if (!Objects.equals(team.getLeaderUid(), player.getUid())) {
             throw new GeneralErrorException("只有队长才能发起副本挑战");
         }
@@ -82,13 +82,13 @@ public class DungeonEnterExec {
         }
 
         // 创建副本场景
-        DungeonScene dungeonScene = dungeonSceneCreator.create(dungeonCfg, dungeonSceneCfg);
+        DungeonSceneAbstract dungeonScene = dungeonSceneCreator.create(dungeonCfg, dungeonSceneCfg);
         temporarySceneGlobalManager.addScene(dungeonScene);
 
         teamMembers.forEach(p -> enterDungeon(p, dungeonScene));
     }
 
-    private void enterDungeon(Player player, DungeonScene dungeonScene) {
+    private void enterDungeon(Player player, DungeonSceneAbstract dungeonScene) {
         // 离开普通场景
         sceneFacade.leaveScene(player);
 
@@ -99,12 +99,12 @@ public class DungeonEnterExec {
         temporarySceneGlobalManager.addPlayerInScene(dungeonScene.getUid(), player);
     }
 
-    private boolean isAllOnline(ITeam team) {
+    private boolean isAllOnline(Team team) {
         return team.getMembers().stream()
-                .allMatch(ITeamMember::isOnline);
+                .allMatch(TeamMember::isOnline);
     }
 
-    private List<Player> getTeamMembers(ITeam team) {
+    private List<Player> getTeamMembers(Team team) {
         return team.getMembers().stream()
                 .map(m -> playerGlobalManager.getPlayerByUid(m.getPlayerUid()))
                 .collect(Collectors.toList());

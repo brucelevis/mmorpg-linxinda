@@ -6,6 +6,9 @@ import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.player.Player;
 import org.springframework.stereotype.Service;
 
+/**
+ * 玩家监听死亡事件
+ */
 @Service
 class PlayerOnDie implements GeneralEventListener<DieEvent> {
 

@@ -9,7 +9,7 @@ import com.wan37.logic.skill.cast.ai.target.FightingUnitSkillCastTargetsGetter;
 import com.wan37.logic.skill.cast.behavior.SkillEffectLogicBehavior;
 import com.wan37.logic.skill.cast.behavior.SkillEffectLogicContext;
 import com.wan37.logic.skill.cast.check.FightingUnitSkillBeforeCastChecker;
-import com.wan37.logic.skill.entity.ISkill;
+import com.wan37.logic.skill.entity.Skill;
 import com.wan37.util.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +17,11 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 场景攻击单位（怪物，召唤兽）Ai定时器逻辑
+ *
+ * @author linda
+ */
 @Service
 public class SceneFightingUnitAiScheduler {
 
@@ -41,7 +46,7 @@ public class SceneFightingUnitAiScheduler {
     }
 
     private void autoCastSkill(FightingUnit unit) {
-        ISkill skill = randSkill(unit);
+        Skill skill = randSkill(unit);
         if (skill == null) {
             return;
         }
@@ -61,8 +66,8 @@ public class SceneFightingUnitAiScheduler {
         behavior.behave(new SkillEffectLogicContext(unit, skill, targetList));
     }
 
-    private ISkill randSkill(FightingUnit unit) {
-        List<ISkill> skills = new ArrayList<>(unit.getSkills().values());
+    private Skill randSkill(FightingUnit unit) {
+        List<Skill> skills = new ArrayList<>(unit.getSkills().values());
         int size = skills.size();
         if (size == 0) {
             return null;

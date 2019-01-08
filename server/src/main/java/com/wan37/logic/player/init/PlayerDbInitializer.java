@@ -22,6 +22,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
+/**
+ * 初始化玩家数据
+ *
+ * @author linda
+ */
 @Service
 public class PlayerDbInitializer {
 

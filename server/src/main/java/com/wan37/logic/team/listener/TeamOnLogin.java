@@ -4,10 +4,13 @@ import com.wan37.event.GeneralEventListener;
 import com.wan37.event.entity.LoginEvent;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.team.TeamGlobalManager;
-import com.wan37.logic.team.entity.ITeam;
+import com.wan37.logic.team.entity.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * 组队监听登陆事件
+ */
 @Service
 class TeamOnLogin implements GeneralEventListener<LoginEvent> {
 
@@ -21,7 +24,7 @@ class TeamOnLogin implements GeneralEventListener<LoginEvent> {
             return;
         }
 
-        ITeam team = teamGlobalManager.getTeam(player.getTeamUid());
+        Team team = teamGlobalManager.getTeam(player.getTeamUid());
         if (team != null && team.getMember(player.getUid()) != null) {
             // 组队存在且还在队伍里
             return;

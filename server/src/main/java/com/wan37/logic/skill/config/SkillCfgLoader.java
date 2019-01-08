@@ -12,6 +12,11 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * 技能配置表加载器
+ *
+ * @author linda
+ */
 @Service
 public class SkillCfgLoader implements GeneralCfgLoader<SkillCfg> {
 

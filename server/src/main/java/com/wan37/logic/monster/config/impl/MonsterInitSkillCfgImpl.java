@@ -2,7 +2,7 @@ package com.wan37.logic.monster.config.impl;
 
 import com.wan37.logic.monster.config.MonsterInitSkillCfg;
 
-public class MonsterInitSkillCfgImpl implements MonsterInitSkillCfg {
+class MonsterInitSkillCfgImpl implements MonsterInitSkillCfg {
 
     public MonsterInitSkillCfgImpl(Integer id, int level) {
         this.id = id;

@@ -1,13 +1,16 @@
 package com.wan37.logic.skill.cast.behavior;
 
 import com.wan37.logic.scene.base.FightingUnit;
-import com.wan37.logic.skill.entity.ISkill;
+import com.wan37.logic.skill.entity.Skill;
 
 import java.util.List;
 
+/**
+ * @author linda
+ */
 public class SkillEffectLogicContext {
 
-    public SkillEffectLogicContext(FightingUnit caster, ISkill skill, List<FightingUnit> targets) {
+    public SkillEffectLogicContext(FightingUnit caster, Skill skill, List<FightingUnit> targets) {
         this.caster = caster;
         this.skill = skill;
         this.targets = targets;
@@ -17,7 +20,7 @@ public class SkillEffectLogicContext {
         return caster;
     }
 
-    public ISkill getSkill() {
+    public Skill getSkill() {
         return skill;
     }
 
@@ -26,6 +29,6 @@ public class SkillEffectLogicContext {
     }
 
     private final FightingUnit caster;
-    private final ISkill skill;
+    private final Skill skill;
     private final List<FightingUnit> targets;
 }

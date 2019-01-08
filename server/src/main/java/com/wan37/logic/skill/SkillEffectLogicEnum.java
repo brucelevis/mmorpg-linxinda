@@ -1,10 +1,30 @@
 package com.wan37.logic.skill;
 
+/**
+ * 技能生效逻辑枚举
+ *
+ * @author linda
+ */
 public enum SkillEffectLogicEnum {
 
+    /**
+     * 攻击
+     */
     SKILL_EFFECT_LOGIC_1(1, "攻击"),
+
+    /**
+     * 加Buff
+     */
     SKILL_EFFECT_LOGIC_2(2, "加Buff"),
+
+    /**
+     * 治疗
+     */
     SKILL_EFFECT_LOGIC_3(3, "治疗"),
+
+    /**
+     * 召唤兽
+     */
     SKILL_EFFECT_LOGIC_4(4, "召唤兽");
 
     private Integer id;

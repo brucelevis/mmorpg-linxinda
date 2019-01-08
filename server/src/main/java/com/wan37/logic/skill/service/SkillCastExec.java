@@ -8,12 +8,15 @@ import com.wan37.logic.skill.cast.ai.target.PlayerSkillCastTargetsGetter;
 import com.wan37.logic.skill.cast.behavior.SkillEffectLogicBehavior;
 import com.wan37.logic.skill.cast.behavior.SkillEffectLogicContext;
 import com.wan37.logic.skill.cast.check.FightingUnitSkillBeforeCastChecker;
-import com.wan37.logic.skill.entity.ISkill;
+import com.wan37.logic.skill.entity.Skill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * @author linda
+ */
 @Service
 public class SkillCastExec {
 
@@ -27,7 +30,7 @@ public class SkillCastExec {
     private PlayerSkillCastTargetsGetter playerSkillCastTargetsGetter;
 
     public void exec(Player caster, Integer skillId, Long targetUid) {
-        ISkill skill = caster.getSkills().get(skillId);
+        Skill skill = caster.getSkills().get(skillId);
         if (skill == null) {
             throw new GeneralErrorException("找不到目标技能");
         }

@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * @author linda
+ */
 public class SceneCfgImpl implements SceneCfg {
 
     public SceneCfgImpl(SceneCfgExcel cfgExcel) {

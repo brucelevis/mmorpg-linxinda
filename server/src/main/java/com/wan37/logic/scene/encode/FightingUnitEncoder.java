@@ -10,6 +10,11 @@ import com.wan37.logic.summoning.Summoning;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * 攻击单位信息编码
+ *
+ * @author linda
+ */
 @Service
 public class FightingUnitEncoder {
 

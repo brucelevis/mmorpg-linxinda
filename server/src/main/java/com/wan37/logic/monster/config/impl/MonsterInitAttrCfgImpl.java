@@ -2,7 +2,7 @@ package com.wan37.logic.monster.config.impl;
 
 import com.wan37.logic.monster.config.MonsterInitAttrCfg;
 
-public class MonsterInitAttrCfgImpl implements MonsterInitAttrCfg {
+class MonsterInitAttrCfgImpl implements MonsterInitAttrCfg {
 
     public MonsterInitAttrCfgImpl(Integer id, double value) {
         this.id = id;

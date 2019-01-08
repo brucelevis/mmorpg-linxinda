@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * @author linda
+ */
 public class SkillCfgImpl implements SkillCfg {
 
     public SkillCfgImpl(SkillCfgExcel cfgExcel) {
@@ -35,26 +38,21 @@ public class SkillCfgImpl implements SkillCfg {
 
     @Override
     public int getCd(int lv) {
-        Map<String, Object> bindgings = createCdBindging(lv);
-        double result = ScriptEngineUtil.eval(cfgExcel.getCd(), bindgings);
+        Map<String, Object> binding = createCdBinding(lv);
+        double result = ScriptEngineUtil.eval(cfgExcel.getCd(), binding);
         return (int) Math.round(result);
     }
 
     @Override
-    public int getMaxLevel() {
-        return cfgExcel.getMaxLevel();
-    }
-
-    @Override
     public double getEffectValue(int lv) {
-        Map<String, Object> bindgings = createDemageBindging(lv);
-        return ScriptEngineUtil.eval(cfgExcel.getEffectValue(), bindgings);
+        Map<String, Object> binding = createDamageBinding(lv);
+        return ScriptEngineUtil.eval(cfgExcel.getEffectValue(), binding);
     }
 
     @Override
     public int getCostMp(int lv) {
-        Map<String, Object> bindgings = createCostMpBindging(lv);
-        double result = ScriptEngineUtil.eval(cfgExcel.getCostMp(), bindgings);
+        Map<String, Object> binding = createCostMpBinding(lv);
+        double result = ScriptEngineUtil.eval(cfgExcel.getCostMp(), binding);
         return (int) Math.round(result);
     }
 
@@ -92,15 +90,15 @@ public class SkillCfgImpl implements SkillCfg {
         return new SkillBuffCfgImpl(id, val);
     }
 
-    private Map<String, Object> createCdBindging(int lv) {
+    private Map<String, Object> createCdBinding(int lv) {
         return ImmutableMap.of("lv", lv);
     }
 
-    private Map<String, Object> createDemageBindging(int lv) {
+    private Map<String, Object> createDamageBinding(int lv) {
         return ImmutableMap.of("lv", lv);
     }
 
-    private Map<String, Object> createCostMpBindging(int lv) {
+    private Map<String, Object> createCostMpBinding(int lv) {
         return ImmutableMap.of("lv", lv);
     }
 

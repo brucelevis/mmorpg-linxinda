@@ -12,6 +12,11 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * 场景攻击单位Buff（生效，过期检查等）定时器逻辑
+ *
+ * @author linda
+ */
 @Service
 public class SceneFightingUnitBuffsScheduler {
 

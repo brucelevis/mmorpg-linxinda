@@ -15,6 +15,11 @@ import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 玩家全局管理器
+ *
+ * @author linda
+ */
 @Service
 public class PlayerGlobalManager {
 
@@ -28,12 +33,18 @@ public class PlayerGlobalManager {
      * key: playerUid
      */
     private final LoadingCache<Long, Player> playerCache = CacheBuilder.newBuilder()
-            .initialCapacity(10) // 设置缓存容器的初始容量大小为10 
-            .maximumSize(100)  // 设置缓存容器的最大容量大小为100
-            .recordStats() // 设置记录缓存命中率
-            .concurrencyLevel(8) // 设置并发级别为8，智并发基本值可以同事些缓存的线程数
-            .expireAfterWrite(30, TimeUnit.MINUTES)  // 设置过期时间
-            .removalListener(notification -> beforeRemovePlayerCache((Player) notification.getValue()))  // 过期通知
+            // 设置缓存容器的初始容量大小为10 
+            .initialCapacity(10)
+            // 设置缓存容器的最大容量大小为100
+            .maximumSize(100)
+            // 设置记录缓存命中率
+            .recordStats()
+            // 设置并发级别为8，智并发基本值可以同事些缓存的线程数
+            .concurrencyLevel(8)
+            // 设置过期时间
+            .expireAfterWrite(30, TimeUnit.MINUTES)
+            // 过期通知
+            .removalListener(notification -> beforeRemovePlayerCache((Player) notification.getValue()))
             .build(new CacheLoader<Long, Player>() {
                 @Override
                 public Player load(Long uid) {
@@ -42,7 +53,7 @@ public class PlayerGlobalManager {
                         return null;
                     }
 
-                    Channel channel = channelMap.entrySet().stream()
+                    Channel channel = CHANNEL_MAP.entrySet().stream()
                             .filter(e -> Objects.equals(uid, e.getValue()))
                             .findAny()
                             .map(Map.Entry::getKey)
@@ -58,23 +69,23 @@ public class PlayerGlobalManager {
      * key: Channel#id
      * value: Player#getUid
      */
-    private static final Map<Channel, Long> channelMap = new ConcurrentHashMap<>();
+    private static final Map<Channel, Long> CHANNEL_MAP = new ConcurrentHashMap<>();
 
     public boolean isOnline(Long uid) {
-        return channelMap.values().stream()
+        return CHANNEL_MAP.values().stream()
                 .anyMatch(i -> Objects.equals(i, uid));
     }
 
     public void addInOnlineList(Player player) {
-        channelMap.put(player.getChannel(), player.getUid());
+        CHANNEL_MAP.put(player.getChannel(), player.getUid());
     }
 
     public void removeFromOnlineList(Channel channel) {
-        channelMap.remove(channel);
+        CHANNEL_MAP.remove(channel);
     }
 
     public Player getPlayerByChannel(Channel channel) {
-        Long playerUid = channelMap.get(channel);
+        Long playerUid = CHANNEL_MAP.get(channel);
         if (playerUid == null) {
             return null;
         }

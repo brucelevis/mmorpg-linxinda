@@ -5,14 +5,17 @@ import com.wan37.logic.faction.config.FactionCfgLoader;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.team.TeamGlobalManager;
-import com.wan37.logic.team.entity.ITeam;
-import com.wan37.logic.team.entity.ITeamMember;
+import com.wan37.logic.team.entity.Team;
+import com.wan37.logic.team.entity.TeamMember;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * @author linda
+ */
 @Service
 public class TeamInfoExec {
 
@@ -30,12 +33,12 @@ public class TeamInfoExec {
             throw new GeneralErrorException("未加入组队");
         }
 
-        ITeam team = teamGlobalManager.getTeam(player.getTeamUid());
+        Team team = teamGlobalManager.getTeam(player.getTeamUid());
         String msg = encodeTeam(team);
         player.syncClient(msg);
     }
 
-    private String encodeTeam(ITeam team) {
+    private String encodeTeam(Team team) {
         String head = "组队信息如下：\n";
         String msg = team.getMembers().stream()
                 .map(m -> encodeTeamMember(m, team.getLeaderUid()))
@@ -44,7 +47,7 @@ public class TeamInfoExec {
         return head + msg;
     }
 
-    private String encodeTeamMember(ITeamMember member, Long leaderUid) {
+    private String encodeTeamMember(TeamMember member, Long leaderUid) {
         Long playerUid = member.getPlayerUid();
         Player player = playerGlobalManager.getPlayerByUid(playerUid);
         boolean isOnline = playerGlobalManager.isOnline(playerUid);

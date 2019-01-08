@@ -5,22 +5,27 @@ import com.wan37.event.entity.TeamJoinEvent;
 import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.team.TeamGlobalManager;
-import com.wan37.logic.team.entity.ITeam;
-import com.wan37.logic.team.entity.ITeamMember;
+import com.wan37.logic.team.entity.Team;
+import com.wan37.logic.team.entity.TeamMember;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author linda
+ */
 @Service
 public class TeamAcceptExec {
 
-    //FIXME: 写死组队上限人数
+    /**
+     * FIXME:写死组队上限人数
+     */
     private static final int TEAM_MAX_NUM = 6;
 
     @Autowired
     private TeamGlobalManager teamGlobalManager;
 
     @Autowired
-    private ITeamMember.Factory teamMemberFactory;
+    private TeamMember.Factory teamMemberFactory;
 
     @Autowired
     private GeneralEventListenersManager generalEventListenersManager;
@@ -30,7 +35,7 @@ public class TeamAcceptExec {
             throw new GeneralErrorException("你已有组队");
         }
 
-        ITeam team = teamGlobalManager.getTeam(teamUid);
+        Team team = teamGlobalManager.getTeam(teamUid);
         if (team == null) {
             throw new GeneralErrorException("组队不存在");
         }
@@ -46,7 +51,7 @@ public class TeamAcceptExec {
             String msg = String.format("[%s]加入了队伍", player.getName());
             team.broadcast(msg);
 
-            ITeamMember member = teamMemberFactory.create(player.getUid());
+            TeamMember member = teamMemberFactory.create(player.getUid());
             team.addMember(member);
 
             player.setTeamUid(teamUid);

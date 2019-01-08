@@ -1,9 +1,9 @@
 package com.wan37.logic.skill.entity.impl;
 
-import com.wan37.logic.skill.entity.ISkill;
+import com.wan37.logic.skill.entity.Skill;
 import com.wan37.logic.skill.config.SkillCfg;
 
-class MonsterSkillImpl implements ISkill {
+class MonsterSkillImpl implements Skill {
 
     public MonsterSkillImpl(SkillCfg skillCfg, int level) {
         this.skillCfg = skillCfg;

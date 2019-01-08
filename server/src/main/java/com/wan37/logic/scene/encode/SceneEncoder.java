@@ -11,7 +11,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
 
-@Deprecated
+/**
+ * 场景信息编码
+ *
+ * @author linda
+ */
 @Service
 public class SceneEncoder {
 
@@ -44,7 +48,7 @@ public class SceneEncoder {
                 .collect(Collectors.joining("\n"));
 
         String npcHead = "当前场景npc：\n";
-        String npcs = scene.getNpcs().stream()
+        String npc = scene.getNpcs().stream()
                 .map(this::encodeNpc)
                 .collect(Collectors.joining("\n"));
 
@@ -57,7 +61,7 @@ public class SceneEncoder {
                 + playerHead + players + "\n"
                 + monsterHead + monsters + "\n"
                 + summoningHead + summonings + "\n"
-                + npcHead + npcs + "\n"
+                + npcHead + npc + "\n"
                 + itemHead + items;
     }
 

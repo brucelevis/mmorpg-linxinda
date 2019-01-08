@@ -7,7 +7,7 @@ import com.wan37.logic.monster.config.MonsterCfg;
 import com.wan37.logic.monster.config.MonsterInitAttrCfg;
 import com.wan37.logic.monster.config.MonsterInitSkillCfg;
 import com.wan37.logic.scene.base.AbstractScene;
-import com.wan37.logic.skill.entity.ISkill;
+import com.wan37.logic.skill.entity.Skill;
 import com.wan37.logic.skill.config.SkillCfg;
 import com.wan37.logic.skill.config.SkillCfgLoader;
 import com.wan37.util.IdUtil;
@@ -20,6 +20,11 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+/**
+ * 生成怪物逻辑
+ *
+ * @author linda
+ */
 @Service
 public class MonsterCreator {
 
@@ -30,7 +35,7 @@ public class MonsterCreator {
     private AttrCfgLoader attrCfgLoader;
 
     @Autowired
-    private ISkill.Factory iSkillFactory;
+    private Skill.Factory iSkillFactory;
 
     @Autowired
     private SkillCfgLoader skillCfgLoader;
@@ -45,7 +50,7 @@ public class MonsterCreator {
         monster.setSkills(cfg.getSkills().stream()
                 .map(this::createSkill)
                 .filter(Objects::nonNull)
-                .collect(Collectors.toMap(ISkill::getId, Function.identity())));
+                .collect(Collectors.toMap(Skill::getId, Function.identity())));
 
         monster.setAttrs(cfg.getAttrs().stream()
                 .collect(Collectors.toMap(MonsterInitAttrCfg::getId, MonsterInitAttrCfg::getValue)));
@@ -56,7 +61,7 @@ public class MonsterCreator {
         return monster;
     }
 
-    private ISkill createSkill(MonsterInitSkillCfg cfg) {
+    private Skill createSkill(MonsterInitSkillCfg cfg) {
         SkillCfg skillCfg = skillCfgLoader.load(cfg.getId()).orElse(null);
         if (skillCfg == null) {
             return null;
@@ -81,6 +86,7 @@ public class MonsterCreator {
     }
 
     private Pair toPair(Map.Entry<Integer, Double> entry) {
+        //FIXME: 重复代码
         AttrCfg attrCfg = attrCfgLoader.load(entry.getKey()).orElse(null);
         if (attrCfg == null) {
             return null;

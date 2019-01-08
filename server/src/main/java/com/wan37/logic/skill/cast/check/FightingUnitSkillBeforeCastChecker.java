@@ -7,7 +7,7 @@ import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.buff.BuffEffectEnum;
 import com.wan37.logic.buff.entity.Buff;
 import com.wan37.logic.player.Player;
-import com.wan37.logic.skill.entity.ISkill;
+import com.wan37.logic.skill.entity.Skill;
 import com.wan37.util.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +17,8 @@ import java.util.Objects;
 
 /**
  * 技能出手前判断条件
+ *
+ * @author linda
  */
 @Service
 public class FightingUnitSkillBeforeCastChecker {
@@ -27,7 +29,7 @@ public class FightingUnitSkillBeforeCastChecker {
     @Autowired
     private SceneActorSceneGetter sceneActorSceneGetter;
 
-    public boolean check(FightingUnit caster, ISkill skill) {
+    public boolean check(FightingUnit caster, Skill skill) {
         if (isPlayer(caster)) {
             // 攻击者是玩家需要特殊处理
             Player player = (Player) caster;
@@ -56,7 +58,7 @@ public class FightingUnitSkillBeforeCastChecker {
                 .findAny()
                 .orElse(null);
         if (abnormality != null) {
-            return throwIfIsPlayer(caster, String.format("受%sbuff影响，无法攻击", abnormality.getName()));
+            return throwIfIsPlayer(caster, String.format("受[%s]buff影响，无法攻击", abnormality.getName()));
         }
 
         return true;

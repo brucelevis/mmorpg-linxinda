@@ -3,7 +3,7 @@ package com.wan37.logic.skill.init;
 import com.wan37.logic.faction.config.FactionCfg;
 import com.wan37.logic.faction.config.FactionCfgLoader;
 import com.wan37.logic.faction.config.FactionInitSkillCfg;
-import com.wan37.logic.skill.database.PSkillDb;
+import com.wan37.logic.skill.database.PlayerEachSkillDb;
 import com.wan37.logic.skill.database.PlayerSkillDb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +11,11 @@ import org.springframework.stereotype.Service;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+/**
+ * 初始化玩家技能系统数据
+ *
+ * @author linda
+ */
 @Service
 public class PlayerSkillDbInitializer {
 
@@ -25,11 +30,11 @@ public class PlayerSkillDbInitializer {
     private void initImpl(FactionCfg factionCfg, PlayerSkillDb playerSkillDb) {
         playerSkillDb.setSkills(factionCfg.getInitSkills().stream()
                 .map(this::createSkillDb)
-                .collect(Collectors.toMap(PSkillDb::getCfgId, Function.identity())));
+                .collect(Collectors.toMap(PlayerEachSkillDb::getCfgId, Function.identity())));
     }
 
-    private PSkillDb createSkillDb(FactionInitSkillCfg cfg) {
-        PSkillDb db = new PSkillDb();
+    private PlayerEachSkillDb createSkillDb(FactionInitSkillCfg cfg) {
+        PlayerEachSkillDb db = new PlayerEachSkillDb();
         db.setCfgId(cfg.getSkillCfgId());
         db.setLevel(cfg.getLevel());
         return db;

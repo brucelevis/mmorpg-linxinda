@@ -5,12 +5,14 @@ import com.wan37.logic.monster.Monster;
 import org.springframework.stereotype.Service;
 
 /**
- * 被作为技能目标施放前处理
+ * 被作为技能目标的对象施放前处理
+ *
+ * @author linda
  */
 @Service
 public class FightingUnitBeCastBeforeHandler {
 
-    public void handler(FightingUnit caster, FightingUnit target) {
+    public void handle(FightingUnit caster, FightingUnit target) {
         if (target instanceof Monster) {
             Monster monster = (Monster) target;
             // 怪物标记打人的人

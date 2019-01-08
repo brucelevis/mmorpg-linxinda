@@ -2,7 +2,7 @@ package com.wan37.logic.monster.config.impl;
 
 import com.wan37.logic.monster.config.MonsterItemCfg;
 
-public class MonsterItemCfgImpl implements MonsterItemCfg {
+class MonsterItemCfgImpl implements MonsterItemCfg {
 
     public MonsterItemCfgImpl(Integer cfgId, int amount, double probability) {
         this.cfgId = cfgId;

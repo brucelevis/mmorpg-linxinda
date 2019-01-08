@@ -1,13 +1,13 @@
 package com.wan37.logic.player.init;
 
 import com.wan37.logic.mission.entity.Mission;
-import com.wan37.logic.pk.entity.impl.IPkImpl;
+import com.wan37.logic.pk.entity.impl.PkImpl;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.database.PlayerDb;
-import com.wan37.logic.skill.entity.ISkill;
+import com.wan37.logic.skill.entity.Skill;
 import com.wan37.logic.skill.config.SkillCfg;
 import com.wan37.logic.skill.config.SkillCfgLoader;
-import com.wan37.logic.skill.database.PSkillDb;
+import com.wan37.logic.skill.database.PlayerEachSkillDb;
 import com.wan37.logic.trade.entity.ITradeImpl;
 import io.netty.channel.Channel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +19,16 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+/**
+ * 玩家创建逻辑
+ *
+ * @author linda
+ */
 @Service
 public class PlayerCreator {
 
     @Autowired
-    private ISkill.Factory iSkillFactory;
+    private Skill.Factory iSkillFactory;
 
     @Autowired
     private SkillCfgLoader skillCfgLoader;
@@ -39,17 +44,17 @@ public class PlayerCreator {
         player.setSkills(playerDb.getPlayerSkillDb().getSkills().values().stream()
                 .map(this::createSkill)
                 .filter(Objects::nonNull)
-                .collect(Collectors.toMap(ISkill::getId, Function.identity())));
+                .collect(Collectors.toMap(Skill::getId, Function.identity())));
 
         // FIXME: 缓存过期会清掉
         player.setTrade(new ITradeImpl(null, new ReentrantLock()));
 
         player.setMission(missionFactory.create(playerDb.getMissionDb()));
-        player.setPk(new IPkImpl(new ReentrantLock(), new HashMap<>()));
+        player.setPk(new PkImpl(new ReentrantLock(), new HashMap<>(0)));
         return player;
     }
 
-    private ISkill createSkill(PSkillDb skillDb) {
+    private Skill createSkill(PlayerEachSkillDb skillDb) {
         SkillCfg skillCfg = skillCfgLoader.load(skillDb.getCfgId()).orElse(null);
         if (skillCfg == null) {
             return null;

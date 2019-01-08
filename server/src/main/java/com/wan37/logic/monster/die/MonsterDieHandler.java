@@ -14,8 +14,8 @@ import com.wan37.logic.scene.base.SceneItem;
 import com.wan37.logic.scene.encode.SceneItemEncoder;
 import com.wan37.logic.summoning.Summoning;
 import com.wan37.logic.team.TeamGlobalManager;
-import com.wan37.logic.team.entity.ITeam;
-import com.wan37.logic.team.entity.ITeamMember;
+import com.wan37.logic.team.entity.Team;
+import com.wan37.logic.team.entity.TeamMember;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +23,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * 怪物死亡处理
+ *
+ * @author linda
+ */
 @Service
 public class MonsterDieHandler {
 
@@ -106,9 +111,9 @@ public class MonsterDieHandler {
             return ImmutableList.of(player);
         }
 
-        ITeam team = teamGlobalManager.getTeam(player.getTeamUid());
+        Team team = teamGlobalManager.getTeam(player.getTeamUid());
         return team.getMembers().stream()
-                .filter(ITeamMember::isOnline)
+                .filter(TeamMember::isOnline)
                 .map(m -> playerGlobalManager.getPlayerByUid(m.getPlayerUid()))
                 .filter(p -> Objects.equals(p.getSceneId(), sceneId))
                 .collect(Collectors.toList());

@@ -9,7 +9,12 @@ import com.wan37.logic.summoning.Summoning;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-public abstract class AbstractScene implements IScene {
+/**
+ * 场景抽象父类
+ *
+ * @author linda
+ */
+public abstract class AbstractScene implements Runnable {
 
     protected Long uid;
 
@@ -28,7 +33,6 @@ public abstract class AbstractScene implements IScene {
      */
     protected Map<Long, SceneItem> items = new ConcurrentHashMap<>();
 
-    @Override
     public Long getUid() {
         return uid;
     }
@@ -85,34 +89,24 @@ public abstract class AbstractScene implements IScene {
         this.items = items;
     }
 
-    @Override
     public Integer getId() {
         return sceneCfg.getId();
     }
 
-    @Override
     public String getName() {
         return sceneCfg.getName();
     }
 
-    @Override
-    public boolean canAttack() {
-        return sceneCfg.canAttack();
-    }
-
-    @Override
     public Integer getType() {
         return sceneCfg.getType();
     }
 
-    @Override
     public void notify(String msg) {
         if (msg != null) {
             players.forEach(p -> p.syncClient(msg));
         }
     }
 
-    @Override
     public FightingUnit getTargetUnit(Long uid) {
         Optional<Player> player = findPlayer(uid);
         if (player.isPresent()) {
@@ -146,7 +140,6 @@ public abstract class AbstractScene implements IScene {
                 .findAny();
     }
 
-    @Override
     public List<FightingUnit> getAllUnit() {
         List<FightingUnit> unitList = new ArrayList<>();
         unitList.addAll(players);

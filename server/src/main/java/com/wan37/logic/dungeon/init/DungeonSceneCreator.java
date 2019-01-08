@@ -1,8 +1,8 @@
 package com.wan37.logic.dungeon.init;
 
 import com.wan37.logic.dungeon.config.DungeonCfg;
-import com.wan37.logic.dungeon.scene.DungeonScene;
-import com.wan37.logic.dungeon.schedule.DungeonSceneScheduler;
+import com.wan37.logic.dungeon.scene.DungeonSceneAbstract;
+import com.wan37.logic.dungeon.schedule.DungeonSceneSchedulerAbstract;
 import com.wan37.logic.scene.config.SceneCfg;
 import com.wan37.util.DateTimeUtils;
 import com.wan37.util.IdUtil;
@@ -28,10 +28,10 @@ public class DungeonSceneCreator {
     private DungeonMonsterCreator dungeonMonsterCreator;
 
     @Autowired
-    private DungeonSceneScheduler dungeonSceneScheduler;
+    private DungeonSceneSchedulerAbstract dungeonSceneScheduler;
 
-    public DungeonScene create(DungeonCfg dungeonCfg, SceneCfg sceneCfg) {
-        DungeonScene scene = new DungeonScene();
+    public DungeonSceneAbstract create(DungeonCfg dungeonCfg, SceneCfg sceneCfg) {
+        DungeonSceneAbstract scene = new DungeonSceneAbstract();
 
         scene.setUid(IdUtil.generate());
         scene.setSceneCfg(sceneCfg);

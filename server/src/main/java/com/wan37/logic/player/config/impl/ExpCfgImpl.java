@@ -3,6 +3,9 @@ package com.wan37.logic.player.config.impl;
 import com.wan37.config.entity.ExpCfgExcel;
 import com.wan37.logic.player.config.ExpCfg;
 
+/**
+ * @author linda
+ */
 public class ExpCfgImpl implements ExpCfg {
 
     public ExpCfgImpl(ExpCfgExcel cfgExcel) {

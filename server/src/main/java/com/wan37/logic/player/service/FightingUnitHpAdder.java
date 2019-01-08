@@ -3,6 +3,11 @@ package com.wan37.logic.player.service;
 import com.wan37.logic.scene.base.FightingUnit;
 import org.springframework.stereotype.Service;
 
+/**
+ * 加hp
+ *
+ * @author linda
+ */
 @Service
 public class FightingUnitHpAdder {
 

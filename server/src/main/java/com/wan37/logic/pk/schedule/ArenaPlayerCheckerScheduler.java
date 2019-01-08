@@ -2,13 +2,18 @@ package com.wan37.logic.pk.schedule;
 
 import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.event.entity.PkWinEvent;
-import com.wan37.logic.pk.scene.ArenaScene;
+import com.wan37.logic.pk.scene.ArenaSceneAbstract;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.init.PlayerReviveInitializer;
 import com.wan37.logic.scene.SceneFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * 竞技场玩家状态检查定时器
+ *
+ * @author linda
+ */
 @Service
 public class ArenaPlayerCheckerScheduler {
 
@@ -21,7 +26,7 @@ public class ArenaPlayerCheckerScheduler {
     @Autowired
     private GeneralEventListenersManager generalEventListenersManager;
 
-    public void schedule(ArenaScene scene) {
+    public void schedule(ArenaSceneAbstract scene) {
         // 检查死亡玩家并传送出场景
         scene.getPlayers().forEach(this::checkAndRevive);
 

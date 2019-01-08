@@ -11,8 +11,8 @@ import com.wan37.logic.scene.SceneTypeEnum;
 import com.wan37.logic.skill.SkillTargetTypeEnum;
 import com.wan37.logic.skill.config.SkillCfg;
 import com.wan37.logic.team.TeamGlobalManager;
-import com.wan37.logic.team.entity.ITeam;
-import com.wan37.logic.team.entity.ITeamMember;
+import com.wan37.logic.team.entity.Team;
+import com.wan37.logic.team.entity.TeamMember;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +23,8 @@ import java.util.stream.Collectors;
 
 /**
  * 获取人物释放技能目标对象
+ *
+ * @author linda
  */
 @Service
 public class PlayerSkillCastTargetsGetter {
@@ -50,11 +52,11 @@ public class PlayerSkillCastTargetsGetter {
                 return ImmutableList.of(caster);
             }
 
-            ITeam team = teamGlobalManager.getTeam(caster.getTeamUid());
+            Team team = teamGlobalManager.getTeam(caster.getTeamUid());
             if (skillCfg.isEffectAll()) {
                 // 群体技能
                 return team.getMembers().stream()
-                        .filter(ITeamMember::isOnline)
+                        .filter(TeamMember::isOnline)
                         .map(m -> playerGlobalManager.getPlayerByUid(m.getPlayerUid()))
                         .collect(Collectors.toList());
             }
@@ -63,7 +65,7 @@ public class PlayerSkillCastTargetsGetter {
                 throw new GeneralErrorException("目标不能为空");
             }
 
-            ITeamMember teamMember = team.getMember(targetUid);
+            TeamMember teamMember = team.getMember(targetUid);
             if (teamMember == null) {
                 throw new GeneralErrorException("找不到目标队友");
             }

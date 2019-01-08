@@ -2,13 +2,16 @@ package com.wan37.logic.skill.service;
 
 import com.wan37.logic.player.Player;
 import com.wan37.logic.skill.config.SkillCfgLoader;
-import com.wan37.logic.skill.database.PSkillDb;
+import com.wan37.logic.skill.database.PlayerEachSkillDb;
 import com.wan37.logic.skill.database.PlayerSkillDb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
 
+/**
+ * @author linda
+ */
 @Service
 public class SkillInfoExec {
 
@@ -28,8 +31,8 @@ public class SkillInfoExec {
                 .collect(Collectors.joining("\n"));
     }
 
-    public String encodeSkill(PSkillDb pSkillDb) {
-        Integer id = pSkillDb.getCfgId();
-        return String.format("%s（id：%s）：Lv%s", skillCfgLoader.getName(id), id, pSkillDb.getLevel());
+    public String encodeSkill(PlayerEachSkillDb playerEachSkillDb) {
+        Integer id = playerEachSkillDb.getCfgId();
+        return String.format("%s（id：%s）：Lv%s", skillCfgLoader.getName(id), id, playerEachSkillDb.getLevel());
     }
 }

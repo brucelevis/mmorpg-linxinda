@@ -12,6 +12,11 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * 玩家等级经验配置表加载器
+ *
+ * @author linda
+ */
 @Service
 public class ExpCfgLoader implements GeneralCfgLoader<ExpCfg> {
 

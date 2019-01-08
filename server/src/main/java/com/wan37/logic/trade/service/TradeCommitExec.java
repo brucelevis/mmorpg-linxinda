@@ -9,7 +9,7 @@ import com.wan37.logic.props.ResourceFacade;
 import com.wan37.logic.props.resource.impl.ResourceCollectionImpl;
 import com.wan37.logic.props.resource.impl.ResourceElementImpl;
 import com.wan37.logic.trade.TradeGlobalManager;
-import com.wan37.logic.trade.entity.GTrade;
+import com.wan37.logic.trade.entity.Trade;
 import com.wan37.logic.trade.entity.ITrade;
 import com.wan37.logic.trade.entity.TradePlayer;
 import com.wan37.logic.trade.service.close.TradeCloser;
@@ -19,6 +19,9 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+/**
+ * @author linda
+ */
 @Service
 public class TradeCommitExec {
 
@@ -43,7 +46,7 @@ public class TradeCommitExec {
             throw new GeneralErrorException("未在交易");
         }
 
-        GTrade trade = tradeGlobalManager.getTrade(iTrade.getUid());
+        Trade trade = tradeGlobalManager.getTrade(iTrade.getUid());
         if (trade == null) {
             throw new GeneralErrorException("交易不存在");
         }
@@ -99,7 +102,7 @@ public class TradeCommitExec {
         }
     }
 
-    private boolean isAllCommit(GTrade trade) {
+    private boolean isAllCommit(Trade trade) {
         return trade.getTradePlayerMap().values().stream()
                 .allMatch(TradePlayer::isCommit);
     }
@@ -131,7 +134,7 @@ public class TradeCommitExec {
         }
     }
 
-    private void finishTrade(GTrade trade) {
+    private void finishTrade(Trade trade) {
         trade.getTradePlayerMap().values()
                 .forEach(p -> p.getPlayer().getTrade().setUid(null));
 

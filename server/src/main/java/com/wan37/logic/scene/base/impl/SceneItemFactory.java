@@ -19,8 +19,16 @@ import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+/**
+ * @author linda
+ */
 @Service
 public class SceneItemFactory implements SceneItem.Factory {
+
+    /**
+     * FIXME: 写死虚物id小于200
+     */
+    private static final int MAX_VIRTUAL_ITEM_ID = 200;
 
     @Autowired
     private VirtualItemCfgLoader virtualItemCfgLoader;
@@ -40,12 +48,12 @@ public class SceneItemFactory implements SceneItem.Factory {
     }
 
     private SceneItem createItem(MonsterItemCfg cfg, long expireTime) {
-        if (!RandomUtil.isHit(cfg.getProbability())) {
+        if (RandomUtil.isNotHit(cfg.getProbability())) {
             return null;
         }
 
         Long uid = IdUtil.generate();
-        if (cfg.getCfgId() < 200) {
+        if (cfg.getCfgId() < MAX_VIRTUAL_ITEM_ID) {
             return createVirtualItem(uid, cfg.getCfgId(), cfg.getAmount(), expireTime);
         }
 

@@ -14,6 +14,8 @@ import java.util.Objects;
 
 /**
  * 获取怪物施放技能目标对象
+ *
+ * @author linda
  */
 @Service
 public class MonsterSkillCastTargetsGetter {

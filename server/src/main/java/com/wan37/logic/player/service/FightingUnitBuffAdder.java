@@ -6,6 +6,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * 加buff
+ *
+ * @author linda
+ */
 @Service
 public class FightingUnitBuffAdder {
 
