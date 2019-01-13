@@ -1,7 +1,6 @@
 package com.wan37.logic.team.service;
 
 import com.wan37.exception.GeneralErrorException;
-import com.wan37.logic.faction.config.FactionCfgLoader;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.team.TeamGlobalManager;

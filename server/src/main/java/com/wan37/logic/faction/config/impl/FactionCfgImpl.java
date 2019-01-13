@@ -1,6 +1,6 @@
 package com.wan37.logic.faction.config.impl;
 
-import com.wan37.config.entity.FactionCfgExcel;
+import com.wan37.config.excel.FactionCfgExcel;
 import com.wan37.logic.faction.config.FactionCfg;
 import com.wan37.logic.faction.config.FactionInitAttrCfg;
 import com.wan37.logic.faction.config.FactionInitSkillCfg;

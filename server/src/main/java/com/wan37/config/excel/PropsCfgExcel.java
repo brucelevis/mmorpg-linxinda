@@ -1,11 +1,15 @@
-package com.wan37.config.entity;
+package com.wan37.config.excel;
+
+import com.wan37.config.ConfigFactory;
+import com.wan37.logic.props.config.PropsCfg;
+import com.wan37.logic.props.config.impl.PropsCfgImpl;
 
 /**
  * 实物（可进背包）配置表实体类
  *
  * @author linda
  */
-public class PropsCfgExcel {
+public class PropsCfgExcel implements ConfigFactory<PropsCfg> {
 
     private Integer id;
     private String name;
@@ -78,5 +82,10 @@ public class PropsCfgExcel {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    @Override
+    public PropsCfg create() {
+        return new PropsCfgImpl(this);
     }
 }

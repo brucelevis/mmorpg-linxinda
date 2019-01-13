@@ -1,7 +1,7 @@
 package com.wan37.logic.summoning.config.impl;
 
 import com.google.common.collect.ImmutableList;
-import com.wan37.config.entity.SummoningCfgExcel;
+import com.wan37.config.excel.SummoningCfgExcel;
 import com.wan37.logic.summoning.config.SummoningCfg;
 import com.wan37.logic.summoning.config.SummoningInitAttrCfg;
 import com.wan37.logic.summoning.config.SummoningInitSkillCfg;

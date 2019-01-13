@@ -1,11 +1,15 @@
-package com.wan37.config.entity;
+package com.wan37.config.excel;
+
+import com.wan37.config.ConfigFactory;
+import com.wan37.logic.test.config.TestCfg;
+import com.wan37.logic.test.config.impl.TestCfgImpl;
 
 /**
  * 测试配置表实体类
  *
  * @author linda
  */
-public class TestCfgExcel {
+public class TestCfgExcel implements ConfigFactory<TestCfg> {
 
     private Integer id;
     private String name;
@@ -42,5 +46,10 @@ public class TestCfgExcel {
 
     public void setSex(boolean sex) {
         this.sex = sex;
+    }
+
+    @Override
+    public TestCfg create() {
+        return new TestCfgImpl();
     }
 }

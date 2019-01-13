@@ -4,22 +4,26 @@ import java.util.List;
 import java.util.Optional;
 
 /**
+ * 配置加载器
+ *
  * @author linda
  */
-public interface GeneralCfgLoader<T> {
+public interface ConfigLoader {
 
     /**
      * 读取该配置全部数据
      *
+     * @param clazz 配置表接口类
      * @return List<T>
      */
-    List<T> loads();
+    <T> List<T> loads(Class<T> clazz);
 
     /**
      * 读取特定id的配置数据
      *
-     * @param id 配置id
+     * @param clazz 配置表接口类
+     * @param id    配置id
      * @return Optional<T>
      */
-    Optional<T> load(Integer id);
+    <T> Optional<T> load(Class<T> clazz, Integer id);
 }

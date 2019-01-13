@@ -1,7 +1,6 @@
 package com.wan37.logic.monster.init;
 
 import com.wan37.logic.attr.config.AttrCfg;
-import com.wan37.logic.attr.config.AttrCfgLoader;
 import com.wan37.logic.monster.Monster;
 import com.wan37.logic.monster.config.MonsterCfg;
 import com.wan37.logic.monster.config.MonsterInitAttrCfg;
@@ -9,7 +8,6 @@ import com.wan37.logic.monster.config.MonsterInitSkillCfg;
 import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.skill.entity.Skill;
 import com.wan37.logic.skill.config.SkillCfg;
-import com.wan37.logic.skill.config.SkillCfgLoader;
 import com.wan37.util.IdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

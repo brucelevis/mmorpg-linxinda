@@ -1,11 +1,15 @@
-package com.wan37.config.entity;
+package com.wan37.config.excel;
+
+import com.wan37.config.ConfigFactory;
+import com.wan37.logic.buff.config.BuffCfg;
+import com.wan37.logic.buff.config.impl.BuffCfgImpl;
 
 /**
  * Buff配置表实体类
  *
  * @author linda
  */
-public class BuffCfgExcel {
+public class BuffCfgExcel implements ConfigFactory<BuffCfg> {
 
     private Integer id;
     private String name;
@@ -87,5 +91,10 @@ public class BuffCfgExcel {
 
     public void setTarget(Integer target) {
         this.target = target;
+    }
+
+    @Override
+    public BuffCfg create() {
+        return new BuffCfgImpl(this);
     }
 }

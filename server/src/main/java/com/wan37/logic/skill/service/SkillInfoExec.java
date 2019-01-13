@@ -1,7 +1,6 @@
 package com.wan37.logic.skill.service;
 
 import com.wan37.logic.player.Player;
-import com.wan37.logic.skill.config.SkillCfgLoader;
 import com.wan37.logic.skill.database.PlayerEachSkillDb;
 import com.wan37.logic.skill.database.PlayerSkillDb;
 import org.springframework.beans.factory.annotation.Autowired;

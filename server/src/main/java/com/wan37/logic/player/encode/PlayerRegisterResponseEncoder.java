@@ -1,7 +1,6 @@
 package com.wan37.logic.player.encode;
 
 import com.wan37.logic.faction.config.FactionCfg;
-import com.wan37.logic.faction.config.FactionCfgLoader;
 import com.wan37.logic.player.database.PlayerDb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

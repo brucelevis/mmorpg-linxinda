@@ -7,7 +7,6 @@ import com.wan37.logic.backpack.service.find.BackpackEmptyIndexFinder;
 import com.wan37.logic.backpack.service.find.BackpackExistItemFinder;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.props.config.PropsCfg;
-import com.wan37.logic.props.config.PropsCfgLoader;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

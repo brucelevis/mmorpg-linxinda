@@ -1,6 +1,5 @@
 package com.wan37.logic.attr.encode;
 
-import com.wan37.logic.attr.config.AttrCfgLoader;
 import com.wan37.logic.attr.database.PlayerEachAttrDb;
 import com.wan37.logic.attr.database.PlayerAttrDb;
 import org.springframework.beans.factory.annotation.Autowired;

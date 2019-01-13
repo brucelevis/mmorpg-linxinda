@@ -1,7 +1,7 @@
 package com.wan37.logic.guild.config.impl;
 
 import com.google.common.collect.ImmutableSet;
-import com.wan37.config.entity.GuildPositionCfgExcel;
+import com.wan37.config.excel.GuildPositionCfgExcel;
 import com.wan37.logic.guild.config.GuildPositionCfg;
 
 import java.util.Arrays;

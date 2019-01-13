@@ -1,16 +1,13 @@
 package com.wan37.logic.backpack.service.item.behavior.behaviors;
 
 import com.wan37.logic.attr.config.AttrCfg;
-import com.wan37.logic.attr.config.AttrCfgLoader;
 import com.wan37.logic.backpack.service.item.behavior.ItemExtraEncodeBehavior;
 import com.wan37.logic.backpack.service.item.behavior.ItemExtraEncodeBehaviorContext;
 import com.wan37.logic.equipment.config.EquipCfg;
-import com.wan37.logic.equipment.config.EquipCfgLoader;
 import com.wan37.logic.equipment.config.EquipQualityCfg;
 import com.wan37.logic.equipment.database.EquipAttrDb;
 import com.wan37.logic.equipment.database.EquipExtraDb;
 import com.wan37.logic.equipment.service.EquipExtraDbGetter;
-import com.wan37.logic.props.config.PropsCfgLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

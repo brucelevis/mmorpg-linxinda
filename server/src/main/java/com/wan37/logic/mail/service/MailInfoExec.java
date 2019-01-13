@@ -10,8 +10,6 @@ import com.wan37.logic.mail.database.MailRewardDb;
 import com.wan37.logic.mail.database.MailRewardItemDb;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.props.config.PropsCfg;
-import com.wan37.logic.props.config.PropsCfgLoader;
-import com.wan37.logic.props.config.VirtualItemCfgLoader;
 import com.wan37.util.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

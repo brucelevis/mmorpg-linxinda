@@ -1,6 +1,6 @@
 package com.wan37.logic.player.config.impl;
 
-import com.wan37.config.entity.ExpCfgExcel;
+import com.wan37.config.excel.ExpCfgExcel;
 import com.wan37.logic.player.config.ExpCfg;
 
 /**

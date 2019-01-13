@@ -1,11 +1,15 @@
-package com.wan37.config.entity;
+package com.wan37.config.excel;
+
+import com.wan37.config.ConfigFactory;
+import com.wan37.logic.shop.config.ShopCfg;
+import com.wan37.logic.shop.config.impl.ShopCfgImpl;
 
 /**
  * 商店配置表实体类
  *
  * @author linda
  */
-public class ShopCfgExcel {
+public class ShopCfgExcel implements ConfigFactory<ShopCfg> {
 
     private Integer id;
     private Integer itemId;
@@ -33,5 +37,10 @@ public class ShopCfgExcel {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    @Override
+    public ShopCfg create() {
+        return new ShopCfgImpl(this);
     }
 }

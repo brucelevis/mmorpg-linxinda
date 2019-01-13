@@ -2,7 +2,7 @@ package com.wan37.logic.skill.config.impl;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.wan37.config.entity.SkillCfgExcel;
+import com.wan37.config.excel.SkillCfgExcel;
 import com.wan37.logic.skill.config.SkillBuffCfg;
 import com.wan37.logic.skill.config.SkillCfg;
 import com.wan37.util.ScriptEngineUtil;

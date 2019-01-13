@@ -1,6 +1,5 @@
 package com.wan37.logic.scene.encode;
 
-import com.wan37.logic.faction.config.FactionCfgLoader;
 import com.wan37.logic.monster.Monster;
 import com.wan37.logic.npc.Npc;
 import com.wan37.logic.player.Player;

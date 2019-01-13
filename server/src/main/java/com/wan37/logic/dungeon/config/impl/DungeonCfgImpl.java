@@ -2,7 +2,7 @@ package com.wan37.logic.dungeon.config.impl;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.wan37.config.entity.DungeonCfgExcel;
+import com.wan37.config.excel.DungeonCfgExcel;
 import com.wan37.logic.dungeon.config.DungeonCfg;
 import com.wan37.logic.dungeon.config.DungeonMonsterCfg;
 import com.wan37.logic.dungeon.config.DungeonMonsterGroupCfg;

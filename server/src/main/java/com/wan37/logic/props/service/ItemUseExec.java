@@ -6,13 +6,11 @@ import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.backpack.database.ItemDb;
 import com.wan37.logic.backpack.encode.BackpackUpdateNotifier;
 import com.wan37.logic.equipment.config.EquipCfg;
-import com.wan37.logic.equipment.config.EquipCfgLoader;
 import com.wan37.logic.equipment.service.wear.EquipWearer;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.props.use.PropsUseBehavior;
 import com.wan37.logic.props.use.PropsUseContext;
 import com.wan37.logic.props.config.PropsCfg;
-import com.wan37.logic.props.config.PropsCfgLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

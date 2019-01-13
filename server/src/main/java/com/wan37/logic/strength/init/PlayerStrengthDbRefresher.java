@@ -1,7 +1,6 @@
 package com.wan37.logic.strength.init;
 
 import com.wan37.logic.attr.config.AttrCfg;
-import com.wan37.logic.attr.config.AttrCfgLoader;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.strength.database.PlayerStrengthDb;
 import com.wan37.logic.strength.calculate.StrengthAttrsCalculator;

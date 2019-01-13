@@ -1,6 +1,6 @@
 package com.wan37.logic.attr.config.impl;
 
-import com.wan37.config.entity.AttrCfgExcel;
+import com.wan37.config.excel.AttrCfgExcel;
 import com.wan37.logic.attr.config.AttrCfg;
 
 /**

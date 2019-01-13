@@ -1,11 +1,15 @@
-package com.wan37.config.entity;
+package com.wan37.config.excel;
+
+import com.wan37.config.ConfigFactory;
+import com.wan37.logic.attr.config.AttrCfg;
+import com.wan37.logic.attr.config.impl.AttrCfgImpl;
 
 /**
  * 属性配置表实体类
  *
  * @author linda
  */
-public class AttrCfgExcel {
+public class AttrCfgExcel implements ConfigFactory<AttrCfg> {
 
     private Integer id;
     private String name;
@@ -60,5 +64,10 @@ public class AttrCfgExcel {
 
     public void setEquipBaseScore(int equipBaseScore) {
         this.equipBaseScore = equipBaseScore;
+    }
+
+    @Override
+    public AttrCfg create() {
+        return new AttrCfgImpl(this);
     }
 }

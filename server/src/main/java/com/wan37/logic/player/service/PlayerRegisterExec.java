@@ -1,7 +1,6 @@
 package com.wan37.logic.player.service;
 
 import com.wan37.exception.GeneralErrorException;
-import com.wan37.logic.faction.config.FactionCfgLoader;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.player.encode.PlayerRegisterResponseEncoder;
 import com.wan37.logic.player.init.PlayerDbInitializer;

@@ -1,6 +1,6 @@
 package com.wan37.logic.buff.config.impl;
 
-import com.wan37.config.entity.BuffCfgExcel;
+import com.wan37.config.excel.BuffCfgExcel;
 import com.wan37.logic.buff.config.BuffCfg;
 
 /**

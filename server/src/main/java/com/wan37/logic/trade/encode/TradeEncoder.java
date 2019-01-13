@@ -2,7 +2,6 @@ package com.wan37.logic.trade.encode;
 
 import com.wan37.logic.backpack.encode.BackpackItemSimpleInfoEncoder;
 import com.wan37.logic.player.Player;
-import com.wan37.logic.props.config.VirtualItemCfgLoader;
 import com.wan37.logic.trade.entity.Trade;
 import com.wan37.logic.trade.entity.TradePlayer;
 import org.springframework.beans.factory.annotation.Autowired;

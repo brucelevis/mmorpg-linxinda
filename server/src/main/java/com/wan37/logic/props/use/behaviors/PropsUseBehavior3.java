@@ -3,7 +3,6 @@ package com.wan37.logic.props.use.behaviors;
 import com.google.common.base.Objects;
 import com.wan37.logic.buff.entity.Buff;
 import com.wan37.logic.buff.config.BuffCfg;
-import com.wan37.logic.buff.config.BuffCfgLoader;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.props.use.PropsUseBehavior;
 import com.wan37.logic.props.use.PropsUseContext;

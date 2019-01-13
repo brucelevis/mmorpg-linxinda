@@ -3,7 +3,6 @@ package com.wan37.logic.attr.init;
 import com.wan37.logic.attr.database.PlayerEachAttrDb;
 import com.wan37.logic.attr.database.PlayerAttrDb;
 import com.wan37.logic.faction.config.FactionCfg;
-import com.wan37.logic.faction.config.FactionCfgLoader;
 import com.wan37.logic.faction.config.FactionInitAttrCfg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

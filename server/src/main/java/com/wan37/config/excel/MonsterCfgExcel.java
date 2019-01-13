@@ -1,11 +1,15 @@
-package com.wan37.config.entity;
+package com.wan37.config.excel;
+
+import com.wan37.config.ConfigFactory;
+import com.wan37.logic.monster.config.MonsterCfg;
+import com.wan37.logic.monster.config.impl.MonsterCfgImpl;
 
 /**
  * 怪物配置表实体类
  *
  * @author linda
  */
-public class MonsterCfgExcel {
+public class MonsterCfgExcel implements ConfigFactory<MonsterCfg> {
 
     private Integer id;
     private String name;
@@ -69,5 +73,10 @@ public class MonsterCfgExcel {
 
     public void setSkills(String skills) {
         this.skills = skills;
+    }
+
+    @Override
+    public MonsterCfg create() {
+        return new MonsterCfgImpl(this);
     }
 }

@@ -1,12 +1,13 @@
 package com.wan37.config;
 
 import base.BaseTest;
-import com.wan37.config.entity.TestCfgExcel;
+import com.wan37.logic.test.config.TestCfg;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -20,13 +21,24 @@ public class ConfigManagerTest extends BaseTest {
     ConfigManager _sut;
 
     @Test
-    public void loads_() {
+    public void loads() {
         // Arrange
 
         // Act
-        List<TestCfgExcel> result = _sut.loads(TestCfgExcel.class);
+        List<TestCfg> result = _sut.loads(TestCfg.class);
 
         // Assert
         assertThat(result).isNotEmpty();
+    }
+
+    @Test
+    public void load() {
+        // Arrange
+
+        // Act
+        Optional<TestCfg> result = _sut.load(TestCfg.class, 1);
+
+        // Assert
+        assertThat(result.isPresent()).isTrue();
     }
 }

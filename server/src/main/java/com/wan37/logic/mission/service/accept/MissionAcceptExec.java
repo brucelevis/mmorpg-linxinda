@@ -2,7 +2,6 @@ package com.wan37.logic.mission.service.accept;
 
 import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.mission.config.MissionCfg;
-import com.wan37.logic.mission.config.MissionCfgLoader;
 import com.wan37.logic.mission.entity.Mission;
 import com.wan37.logic.player.Player;
 import org.springframework.beans.factory.annotation.Autowired;

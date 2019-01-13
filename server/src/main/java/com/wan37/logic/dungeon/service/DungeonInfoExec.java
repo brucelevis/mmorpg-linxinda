@@ -3,8 +3,6 @@ package com.wan37.logic.dungeon.service;
 import com.wan37.logic.dungeon.config.*;
 import com.wan37.logic.monster.config.MonsterCfgLoader;
 import com.wan37.logic.player.Player;
-import com.wan37.logic.props.config.PropsCfgLoader;
-import com.wan37.logic.props.config.VirtualItemCfgLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
 package com.wan37.logic.monster.config.impl;
 
 import com.google.common.collect.ImmutableList;
-import com.wan37.config.entity.MonsterCfgExcel;
+import com.wan37.config.excel.MonsterCfgExcel;
 import com.wan37.logic.monster.config.MonsterCfg;
 import com.wan37.logic.monster.config.MonsterInitAttrCfg;
 import com.wan37.logic.monster.config.MonsterInitSkillCfg;

@@ -1,11 +1,15 @@
-package com.wan37.config.entity;
+package com.wan37.config.excel;
+
+import com.wan37.config.ConfigFactory;
+import com.wan37.logic.mission.config.MissionCfg;
+import com.wan37.logic.mission.config.impl.MissionCfgImpl;
 
 /**
  * 任务配置表实体类
  *
  * @author linda
  */
-public class MissionCfgExcel {
+public class MissionCfgExcel implements ConfigFactory<MissionCfg> {
 
     private Integer id;
     private int level;
@@ -168,5 +172,10 @@ public class MissionCfgExcel {
 
     public void setAutoCommit(boolean autoCommit) {
         this.autoCommit = autoCommit;
+    }
+
+    @Override
+    public MissionCfg create() {
+        return new MissionCfgImpl(this);
     }
 }

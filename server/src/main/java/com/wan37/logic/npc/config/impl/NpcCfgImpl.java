@@ -1,6 +1,6 @@
 package com.wan37.logic.npc.config.impl;
 
-import com.wan37.config.entity.NpcCfgExcel;
+import com.wan37.config.excel.NpcCfgExcel;
 import com.wan37.logic.npc.config.NpcCfg;
 
 /**

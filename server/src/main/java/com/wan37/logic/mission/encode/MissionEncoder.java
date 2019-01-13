@@ -3,8 +3,6 @@ package com.wan37.logic.mission.encode;
 import com.wan37.logic.mission.config.MissionCfg;
 import com.wan37.logic.mission.config.MissionRewardCfg;
 import com.wan37.logic.npc.config.NpcCfgLoader;
-import com.wan37.logic.props.config.PropsCfgLoader;
-import com.wan37.logic.props.config.VirtualItemCfgLoader;
 import com.wan37.logic.scene.config.SceneCfgLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

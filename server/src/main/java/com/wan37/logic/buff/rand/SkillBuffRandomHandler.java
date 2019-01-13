@@ -4,7 +4,6 @@ import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.buff.BuffTargetEnum;
 import com.wan37.logic.buff.entity.Buff;
 import com.wan37.logic.buff.config.BuffCfg;
-import com.wan37.logic.buff.config.BuffCfgLoader;
 import com.wan37.logic.player.service.FightingUnitBuffAdder;
 import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.skill.config.SkillBuffCfg;

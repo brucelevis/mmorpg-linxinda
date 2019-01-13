@@ -1,11 +1,15 @@
-package com.wan37.config.entity;
+package com.wan37.config.excel;
+
+import com.wan37.config.ConfigFactory;
+import com.wan37.logic.props.config.VirtualItemCfg;
+import com.wan37.logic.props.config.impl.VirtualItemCfgImpl;
 
 /**
  * 虚物（如钱，积分等）配置表实体类
  *
  * @author linda
  */
-public class VirtualItemCfgExcel {
+public class VirtualItemCfgExcel implements ConfigFactory<VirtualItemCfg> {
 
     private Integer id;
     private String name;
@@ -33,5 +37,10 @@ public class VirtualItemCfgExcel {
 
     public void setMaxOverlay(long maxOverlay) {
         this.maxOverlay = maxOverlay;
+    }
+
+    @Override
+    public VirtualItemCfg create() {
+        return new VirtualItemCfgImpl(this);
     }
 }

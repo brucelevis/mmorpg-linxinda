@@ -1,6 +1,6 @@
 package com.wan37.logic.shop.config.impl;
 
-import com.wan37.config.entity.ShopCfgExcel;
+import com.wan37.config.excel.ShopCfgExcel;
 import com.wan37.logic.shop.config.ShopCfg;
 import com.wan37.logic.shop.config.ShopPriceCfg;
 

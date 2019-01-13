@@ -1,7 +1,6 @@
 package com.wan37.logic.faction.service;
 
 import com.wan37.logic.faction.config.FactionCfg;
-import com.wan37.logic.faction.config.FactionCfgLoader;
 import com.wan37.util.GeneralNotifySenderUtil;
 import io.netty.channel.Channel;
 import org.springframework.beans.factory.annotation.Autowired;

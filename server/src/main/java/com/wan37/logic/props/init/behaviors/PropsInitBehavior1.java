@@ -1,7 +1,6 @@
 package com.wan37.logic.props.init.behaviors;
 
 import com.wan37.logic.equipment.config.EquipCfg;
-import com.wan37.logic.equipment.config.EquipCfgLoader;
 import com.wan37.logic.equipment.config.EquipInitAttrCfg;
 import com.wan37.logic.equipment.database.EquipAttrDb;
 import com.wan37.logic.equipment.database.EquipExtraDb;

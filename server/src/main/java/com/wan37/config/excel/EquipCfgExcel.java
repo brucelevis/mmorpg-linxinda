@@ -1,11 +1,15 @@
-package com.wan37.config.entity;
+package com.wan37.config.excel;
+
+import com.wan37.config.ConfigFactory;
+import com.wan37.logic.equipment.config.EquipCfg;
+import com.wan37.logic.equipment.config.impl.EquipCfgImpl;
 
 /**
  * 装备配置表实体类
  *
  * @author linda
  */
-public class EquipCfgExcel {
+public class EquipCfgExcel implements ConfigFactory<EquipCfg> {
 
     private Integer id;
     private String attr;
@@ -51,5 +55,10 @@ public class EquipCfgExcel {
 
     public void setQuality(String quality) {
         this.quality = quality;
+    }
+
+    @Override
+    public EquipCfg create() {
+        return new EquipCfgImpl(this);
     }
 }

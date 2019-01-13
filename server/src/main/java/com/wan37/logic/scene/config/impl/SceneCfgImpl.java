@@ -1,6 +1,6 @@
 package com.wan37.logic.scene.config.impl;
 
-import com.wan37.config.entity.SceneCfgExcel;
+import com.wan37.config.excel.SceneCfgExcel;
 import com.wan37.logic.scene.config.SceneCfg;
 import com.wan37.logic.scene.config.SceneMonsterCfg;
 

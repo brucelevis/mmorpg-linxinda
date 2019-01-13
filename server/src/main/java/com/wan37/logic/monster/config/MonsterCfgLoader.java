@@ -1,7 +1,7 @@
 package com.wan37.logic.monster.config;
 
 import com.wan37.config.ConfigManager;
-import com.wan37.config.entity.MonsterCfgExcel;
+import com.wan37.config.excel.MonsterCfgExcel;
 import com.wan37.logic.monster.config.impl.MonsterCfgImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

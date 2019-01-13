@@ -4,7 +4,6 @@ import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.guild.GuildGlobalManager;
 import com.wan37.logic.guild.GuildPermissionEnum;
 import com.wan37.logic.guild.config.GuildPositionCfg;
-import com.wan37.logic.guild.config.GuildPositionCfgLoader;
 import com.wan37.logic.guild.entity.Guild;
 import com.wan37.logic.guild.entity.GuildMember;
 import com.wan37.logic.player.Player;

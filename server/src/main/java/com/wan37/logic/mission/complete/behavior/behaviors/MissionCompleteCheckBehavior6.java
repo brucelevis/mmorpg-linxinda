@@ -1,7 +1,6 @@
 package com.wan37.logic.mission.complete.behavior.behaviors;
 
 import com.wan37.logic.equipment.config.EquipCfg;
-import com.wan37.logic.equipment.config.EquipCfgLoader;
 import com.wan37.logic.equipment.database.EquipDb;
 import com.wan37.logic.mission.complete.behavior.MissionCompleteCheckBehavior;
 import com.wan37.logic.mission.complete.behavior.MissionCompleteCheckContext;

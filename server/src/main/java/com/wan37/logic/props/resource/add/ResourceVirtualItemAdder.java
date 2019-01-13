@@ -6,7 +6,6 @@ import com.wan37.logic.currency.database.CurrencyDb;
 import com.wan37.logic.currency.database.CurrencyItemDb;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.props.config.VirtualItemCfg;
-import com.wan37.logic.props.config.VirtualItemCfgLoader;
 import com.wan37.logic.props.resource.ResourceElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -7,7 +7,6 @@ import com.wan37.logic.mail.gm.GmMail;
 import com.wan37.logic.mail.gm.MailGmSender;
 import com.wan37.logic.mail.init.GmMailCreator;
 import com.wan37.logic.mission.config.MissionCfg;
-import com.wan37.logic.mission.config.MissionCfgLoader;
 import com.wan37.logic.mission.config.MissionRewardCfg;
 import com.wan37.logic.mission.entity.PlayerMission;
 import com.wan37.logic.mission.service.accept.MissionAccepter;

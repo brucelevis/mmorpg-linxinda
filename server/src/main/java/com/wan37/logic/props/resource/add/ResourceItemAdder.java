@@ -8,7 +8,6 @@ import com.wan37.logic.backpack.service.find.BackpackEmptyIndexFinder;
 import com.wan37.logic.backpack.service.find.BackpackExistItemFinder;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.props.config.PropsCfg;
-import com.wan37.logic.props.config.PropsCfgLoader;
 import com.wan37.logic.props.init.PropsExtraInitializer;
 import com.wan37.logic.props.resource.ResourceElement;
 import com.wan37.util.IdUtil;

@@ -1,11 +1,15 @@
-package com.wan37.config.entity;
+package com.wan37.config.excel;
+
+import com.wan37.config.ConfigFactory;
+import com.wan37.logic.dungeon.config.DungeonCfg;
+import com.wan37.logic.dungeon.config.impl.DungeonCfgImpl;
 
 /**
  * 副本配置表实体类
  *
  * @author linda
  */
-public class DungeonCfgExcel {
+public class DungeonCfgExcel implements ConfigFactory<DungeonCfg> {
 
     private Integer id;
     private String name;
@@ -87,5 +91,10 @@ public class DungeonCfgExcel {
 
     public void setLimitNum(int limitNum) {
         this.limitNum = limitNum;
+    }
+
+    @Override
+    public DungeonCfg create() {
+        return new DungeonCfgImpl(this);
     }
 }

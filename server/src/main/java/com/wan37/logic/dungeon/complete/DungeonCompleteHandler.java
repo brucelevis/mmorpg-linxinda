@@ -12,8 +12,6 @@ import com.wan37.logic.mail.gm.MailGmSender;
 import com.wan37.logic.mail.init.GmMailCreator;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.props.ResourceFacade;
-import com.wan37.logic.props.config.PropsCfgLoader;
-import com.wan37.logic.props.config.VirtualItemCfgLoader;
 import com.wan37.logic.props.resource.ResourceCollection;
 import com.wan37.logic.props.resource.ResourceElement;
 import com.wan37.logic.props.resource.impl.ResourceCollectionImpl;

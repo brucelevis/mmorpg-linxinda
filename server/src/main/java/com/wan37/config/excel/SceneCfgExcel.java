@@ -1,11 +1,15 @@
-package com.wan37.config.entity;
+package com.wan37.config.excel;
+
+import com.wan37.config.ConfigFactory;
+import com.wan37.logic.scene.config.SceneCfg;
+import com.wan37.logic.scene.config.impl.SceneCfgImpl;
 
 /**
  * 场景配置表实体类
  *
  * @author linda
  */
-public class SceneCfgExcel {
+public class SceneCfgExcel implements ConfigFactory<SceneCfg> {
 
     private Integer id;
     private String name;
@@ -82,5 +86,10 @@ public class SceneCfgExcel {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    @Override
+    public SceneCfg create() {
+        return new SceneCfgImpl(this);
     }
 }

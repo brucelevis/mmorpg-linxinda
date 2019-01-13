@@ -1,6 +1,6 @@
 package com.wan37.logic.props.config.impl;
 
-import com.wan37.config.entity.VirtualItemCfgExcel;
+import com.wan37.config.excel.VirtualItemCfgExcel;
 import com.wan37.logic.props.config.VirtualItemCfg;
 
 /**

@@ -1,7 +1,7 @@
 package com.wan37.logic.mission.config.impl;
 
 import com.google.common.collect.ImmutableList;
-import com.wan37.config.entity.MissionCfgExcel;
+import com.wan37.config.excel.MissionCfgExcel;
 import com.wan37.logic.mission.config.MissionCfg;
 import com.wan37.logic.mission.config.MissionRewardCfg;
 

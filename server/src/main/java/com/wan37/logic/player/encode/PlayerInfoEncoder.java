@@ -1,7 +1,6 @@
 package com.wan37.logic.player.encode;
 
 import com.wan37.logic.faction.config.FactionCfg;
-import com.wan37.logic.faction.config.FactionCfgLoader;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.scene.config.SceneCfg;
 import com.wan37.logic.scene.config.SceneCfgLoader;

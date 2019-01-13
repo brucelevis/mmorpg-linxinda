@@ -1,6 +1,6 @@
 package com.wan37.logic.props.config.impl;
 
-import com.wan37.config.entity.PropsCfgExcel;
+import com.wan37.config.excel.PropsCfgExcel;
 import com.wan37.logic.props.config.PropsCfg;
 
 /**

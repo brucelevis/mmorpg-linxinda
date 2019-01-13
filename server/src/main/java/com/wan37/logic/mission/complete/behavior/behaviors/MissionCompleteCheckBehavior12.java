@@ -1,11 +1,9 @@
 package com.wan37.logic.mission.complete.behavior.behaviors;
 
 import com.wan37.logic.attr.config.AttrCfg;
-import com.wan37.logic.attr.config.AttrCfgLoader;
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.backpack.database.ItemDb;
 import com.wan37.logic.equipment.config.EquipCfg;
-import com.wan37.logic.equipment.config.EquipCfgLoader;
 import com.wan37.logic.equipment.config.EquipQualityCfg;
 import com.wan37.logic.equipment.database.EquipAttrDb;
 import com.wan37.logic.equipment.database.EquipExtraDb;

@@ -7,7 +7,6 @@ import com.wan37.logic.guild.GuildGlobalManager;
 import com.wan37.logic.guild.GuildPermissionEnum;
 import com.wan37.logic.guild.GuildPositionEnum;
 import com.wan37.logic.guild.config.GuildPositionCfg;
-import com.wan37.logic.guild.config.GuildPositionCfgLoader;
 import com.wan37.logic.guild.database.GuildMemberDb;
 import com.wan37.logic.guild.entity.Guild;
 import com.wan37.logic.guild.entity.GuildMember;

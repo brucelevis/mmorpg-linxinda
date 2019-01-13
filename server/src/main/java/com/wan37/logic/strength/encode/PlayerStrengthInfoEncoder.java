@@ -1,6 +1,5 @@
 package com.wan37.logic.strength.encode;
 
-import com.wan37.logic.attr.config.AttrCfgLoader;
 import com.wan37.logic.strength.database.PlayerStrengthDb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

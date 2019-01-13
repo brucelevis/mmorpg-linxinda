@@ -6,7 +6,6 @@ import com.wan37.logic.player.Player;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.skill.entity.Skill;
 import com.wan37.logic.skill.config.SkillCfg;
-import com.wan37.logic.skill.config.SkillCfgLoader;
 import com.wan37.logic.skill.database.PlayerEachSkillDb;
 import com.wan37.logic.trade.entity.ITradeImpl;
 import io.netty.channel.Channel;

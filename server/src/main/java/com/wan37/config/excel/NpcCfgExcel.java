@@ -1,11 +1,15 @@
-package com.wan37.config.entity;
+package com.wan37.config.excel;
+
+import com.wan37.config.ConfigFactory;
+import com.wan37.logic.npc.config.NpcCfg;
+import com.wan37.logic.npc.config.impl.NpcCfgImpl;
 
 /**
  * Npc配置表实体类
  *
  * @author linda
  */
-public class NpcCfgExcel {
+public class NpcCfgExcel implements ConfigFactory<NpcCfg> {
 
     private Integer id;
     private String name;
@@ -33,5 +37,10 @@ public class NpcCfgExcel {
 
     public void setTalk(String talk) {
         this.talk = talk;
+    }
+
+    @Override
+    public NpcCfg create() {
+        return new NpcCfgImpl(this);
     }
 }

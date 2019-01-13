@@ -1,7 +1,6 @@
 package com.wan37.logic.skill.init;
 
 import com.wan37.logic.faction.config.FactionCfg;
-import com.wan37.logic.faction.config.FactionCfgLoader;
 import com.wan37.logic.faction.config.FactionInitSkillCfg;
 import com.wan37.logic.skill.database.PlayerEachSkillDb;
 import com.wan37.logic.skill.database.PlayerSkillDb;

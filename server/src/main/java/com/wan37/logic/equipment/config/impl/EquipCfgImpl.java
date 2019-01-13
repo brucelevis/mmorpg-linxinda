@@ -1,6 +1,6 @@
 package com.wan37.logic.equipment.config.impl;
 
-import com.wan37.config.entity.EquipCfgExcel;
+import com.wan37.config.excel.EquipCfgExcel;
 import com.wan37.logic.equipment.config.EquipCfg;
 import com.wan37.logic.equipment.config.EquipInitAttrCfg;
 import com.wan37.logic.equipment.config.EquipQualityCfg;

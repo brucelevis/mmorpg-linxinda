@@ -3,14 +3,16 @@ package com.wan37.config;
 import com.google.common.collect.ImmutableList;
 import com.wan37.util.excel.ExcelUtils;
 import org.apache.log4j.Logger;
-import org.apache.poi.ss.formula.functions.T;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * 数据配置导表管理器
@@ -18,29 +20,53 @@ import java.util.Map;
  * @author linda
  */
 @Service
-public class ConfigManager {
+class ConfigManager implements ConfigLoader {
 
     private static final Logger LOG = Logger.getLogger(ConfigManager.class);
+
+    /**
+     * 导表相对路径
+     */
     private static final String EXCEL_PATH = "./server/docs";
 
     /**
-     * key: class name
+     * Map<XXXCfg.class，Map<cfgId，XXXCfg>>
      */
-    private static Map<String, List<T>> cfgMap;
+    private static final Map<Class, Map<Integer, ?>> CONFIG_MAP = new HashMap<>();
 
-    @SuppressWarnings("unchecked")
-    public <V> List<V> loads(Class<V> clazz) {
-        // FIXME: 这里要改成起服就读取配置表
-        if (cfgMap == null) {
-            LOG.info("开始初始化导表...");
-            init();
-            LOG.info("初始化导表完成");
-        }
-
-        return (List<V>) cfgMap.get(clazz.getName());
+    private ConfigManager() {
+        LOG.info("开始初始化导表...");
+        init();
+        LOG.info("初始化导表完成");
     }
 
     @SuppressWarnings("unchecked")
+    @Override
+    public <T> Optional<T> load(Class<T> clazz, Integer id) {
+        if (!CONFIG_MAP.containsKey(clazz)) {
+            return Optional.empty();
+        }
+
+        Map<Integer, ?> cfgMap = CONFIG_MAP.get(clazz);
+        if (!cfgMap.containsKey(id)) {
+            return Optional.empty();
+        }
+
+        return Optional.of((T) cfgMap.get(id));
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T> List<T> loads(Class<T> clazz) {
+        if (!CONFIG_MAP.containsKey(clazz)) {
+            return ImmutableList.of();
+        }
+
+        return CONFIG_MAP.get(clazz).values().stream()
+                .map(c -> (T) c)
+                .collect(Collectors.toList());
+    }
+
     private void init() {
         File directory = new File(EXCEL_PATH);
         if (!directory.isDirectory()) {
@@ -50,19 +76,62 @@ public class ConfigManager {
         String[] files = directory.list();
         assert files != null;
 
-        cfgMap = new HashMap<>(0);
-        for (String path : files) {
-            File file = new File(EXCEL_PATH + "\\" + path);
+        for (String fullFileName : files) {
+            File file = new File(EXCEL_PATH + "\\" + fullFileName);
+            String className = getClassName(fullFileName);
 
-            String originalFileName = file.getName();
-            String fileName = originalFileName.substring(0, originalFileName.lastIndexOf("."));
-            String className = fileName.substring(fileName.indexOf("_") + 1);
+            List<?> cfgList = readCfgFile(file, className);
+            if (cfgList.isEmpty()) {
+                continue;
+            }
 
-            cfgMap.put(className, (List) readFile(file, className));
+            Map<Integer, ?> cfgMap = createCfgMap(cfgList);
+            CONFIG_MAP.put(getCfgType(cfgMap), cfgMap);
         }
     }
 
-    private List<?> readFile(File file, String className) {
+    private String getClassName(String fullFileName) {
+        String simpleFileName = fullFileName.substring(0, fullFileName.lastIndexOf("."));
+        return simpleFileName.substring(simpleFileName.indexOf("_") + 1);
+    }
+
+    /**
+     * 获得该类型配置表的接口类
+     */
+    private Class<?> getCfgType(Map<Integer, ?> cfgMap) {
+        return cfgMap.values().stream()
+                .findAny()
+                .map(c -> c.getClass().getInterfaces()[0])
+                .orElseThrow(() -> new RuntimeException("找不到配置表类"));
+    }
+
+    @SuppressWarnings("unchecked")
+    private Map<Integer, ?> createCfgMap(List<?> cfgList) {
+        return cfgList.stream()
+                .collect(Collectors.toMap(this::getCfgId, this::createCfg));
+    }
+
+    private Integer getCfgId(Object object) {
+        return (Integer) invokeMethod(object, "getId");
+    }
+
+    @SuppressWarnings("unchecked")
+    private <T> T createCfg(Object object) {
+        return (T) invokeMethod(object, "create");
+    }
+
+    private Object invokeMethod(Object object, String methodName) {
+        try {
+            Method method = object.getClass().getMethod(methodName);
+            return method.invoke(object);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    private List<?> readCfgFile(File file, String className) {
         FileInputStream in = null;
         try {
             in = new FileInputStream(file);

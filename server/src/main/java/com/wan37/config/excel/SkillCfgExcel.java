@@ -1,11 +1,15 @@
-package com.wan37.config.entity;
+package com.wan37.config.excel;
+
+import com.wan37.config.ConfigFactory;
+import com.wan37.logic.skill.config.SkillCfg;
+import com.wan37.logic.skill.config.impl.SkillCfgImpl;
 
 /**
  * 技能配置表实体类
  *
  * @author linda
  */
-public class SkillCfgExcel {
+public class SkillCfgExcel implements ConfigFactory<SkillCfg> {
 
     private Integer id;
     private String name;
@@ -105,5 +109,10 @@ public class SkillCfgExcel {
 
     public void setTargetType(Integer targetType) {
         this.targetType = targetType;
+    }
+
+    @Override
+    public SkillCfg create() {
+        return new SkillCfgImpl(this);
     }
 }

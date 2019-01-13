@@ -1,11 +1,15 @@
-package com.wan37.config.entity;
+package com.wan37.config.excel;
+
+import com.wan37.config.ConfigFactory;
+import com.wan37.logic.faction.config.FactionCfg;
+import com.wan37.logic.faction.config.impl.FactionCfgImpl;
 
 /**
  * 门派职业配置表实体类
  *
  * @author linda
  */
-public class FactionCfgExcel {
+public class FactionCfgExcel implements ConfigFactory<FactionCfg> {
 
     private Integer id;
     private String name;
@@ -42,5 +46,10 @@ public class FactionCfgExcel {
 
     public void setInitSkill(String initSkill) {
         this.initSkill = initSkill;
+    }
+
+    @Override
+    public FactionCfg create() {
+        return new FactionCfgImpl(this);
     }
 }

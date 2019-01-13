@@ -8,7 +8,6 @@ import com.wan37.logic.equipment.EquipPartEnum;
 import com.wan37.logic.equipment.database.EquipDb;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.props.config.PropsCfg;
-import com.wan37.logic.props.config.PropsCfgLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

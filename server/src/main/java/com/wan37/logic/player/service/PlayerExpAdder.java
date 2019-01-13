@@ -4,7 +4,6 @@ import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.event.entity.LevelUpEvent;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.config.ExpCfg;
-import com.wan37.logic.player.config.ExpCfgLoader;
 import com.wan37.logic.scene.SceneActorSceneGetter;
 import com.wan37.logic.scene.base.AbstractScene;
 import org.springframework.beans.factory.annotation.Autowired;

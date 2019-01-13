@@ -1,7 +1,6 @@
 package com.wan37.logic.mission.entity.impl;
 
 import com.wan37.logic.mission.config.MissionCfg;
-import com.wan37.logic.mission.config.MissionCfgLoader;
 import com.wan37.logic.mission.database.PlayerMissionDb;
 import com.wan37.logic.mission.entity.PlayerMission;
 import org.springframework.beans.factory.annotation.Autowired;

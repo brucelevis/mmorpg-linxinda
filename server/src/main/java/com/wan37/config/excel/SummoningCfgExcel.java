@@ -1,11 +1,15 @@
-package com.wan37.config.entity;
+package com.wan37.config.excel;
+
+import com.wan37.config.ConfigFactory;
+import com.wan37.logic.summoning.config.SummoningCfg;
+import com.wan37.logic.summoning.config.impl.SummoningCfgImpl;
 
 /**
  * 召唤兽配置表实体类
  *
  * @author linda
  */
-public class SummoningCfgExcel {
+public class SummoningCfgExcel implements ConfigFactory<SummoningCfg> {
 
     private Integer id;
     private String name;
@@ -42,5 +46,10 @@ public class SummoningCfgExcel {
 
     public void setSkills(String skills) {
         this.skills = skills;
+    }
+
+    @Override
+    public SummoningCfg create() {
+        return new SummoningCfgImpl(this);
     }
 }
