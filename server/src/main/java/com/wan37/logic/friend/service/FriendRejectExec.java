@@ -1,6 +1,5 @@
 package com.wan37.logic.friend.service;
 
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.friend.database.FriendRequestDb;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
@@ -26,10 +25,11 @@ public class FriendRejectExec {
 
     public void exec(Player player, Long id) {
         PlayerDb playerDb = player.getPlayerDb();
-        FriendRequestDb requestDb = playerDb.getRequestList().stream()
-                .filter(r -> Objects.equals(r.getId(), id))
-                .findAny()
-                .orElseThrow(() -> new GeneralErrorException("找不到好友请求id"));
+        FriendRequestDb requestDb = findRequest(playerDb, id);
+        if (requestDb == null) {
+            player.syncClient("找不到好友请求id");
+            return;
+        }
 
         Long fromUid = requestDb.getFromPlayerUid();
         rmRequest(playerDb, fromUid);
@@ -42,7 +42,14 @@ public class FriendRejectExec {
         }
     }
 
-    public void rmRequest(PlayerDb playerDb, Long fromUid) {
+    private FriendRequestDb findRequest(PlayerDb playerDb, Long id) {
+        return playerDb.getRequestList().stream()
+                .filter(r -> Objects.equals(r.getId(), id))
+                .findAny()
+                .orElse(null);
+    }
+
+    private void rmRequest(PlayerDb playerDb, Long fromUid) {
         playerDb.setRequestList(playerDb.getRequestList().stream()
                 .filter(r -> !Objects.equals(r.getFromPlayerUid(), fromUid))
                 .collect(Collectors.toSet()));

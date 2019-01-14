@@ -1,16 +1,15 @@
 package com.wan37.logic.pk.service;
 
 import com.wan37.config.ConfigLoader;
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.pk.entity.Pk;
 import com.wan37.logic.pk.init.ArenaSceneCreator;
 import com.wan37.logic.pk.scene.ArenaSceneAbstract;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
-import com.wan37.logic.scene.SceneTypeEnum;
-import com.wan37.logic.scene.config.SceneCfg;
 import com.wan37.logic.scene.SceneFacade;
+import com.wan37.logic.scene.SceneTypeEnum;
 import com.wan37.logic.scene.TemporarySceneGlobalManager;
+import com.wan37.logic.scene.config.SceneCfg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +39,8 @@ public class PkAcceptExec {
     public void exec(Player player, Long inviterUid) {
         Pk myPk = player.getPk();
         if (!myPk.hadInvited(inviterUid)) {
-            throw new GeneralErrorException("对方并没邀请你决斗");
+            player.syncClient("对方并没邀请你决斗");
+            return;
         }
 
         if (!playerGlobalManager.isOnline(inviterUid)) {

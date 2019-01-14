@@ -1,7 +1,6 @@
 package com.wan37.logic.guild.service;
 
 import com.wan37.config.ConfigLoader;
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.guild.GuildGlobalManager;
 import com.wan37.logic.guild.GuildPermissionEnum;
 import com.wan37.logic.guild.config.GuildPositionCfg;
@@ -25,29 +24,37 @@ public class GuildKickExec {
 
     public void exec(Player player, Player target) {
         if (player.getLeagueUid() == null) {
-            throw new GeneralErrorException("你未加入公会");
+            player.syncClient("你未加入公会");
+            return;
         }
 
         Guild league = guildGlobalManager.get(player.getLeagueUid());
         if (league == null) {
-            throw new GeneralErrorException("公会不存在");
+            player.syncClient("公会不存在");
+            return;
         }
 
         GuildMember me = league.getMember(player.getUid());
-        GuildPositionCfg positionCfg = configLoader.load(GuildPositionCfg.class, me.getPosition())
-                .orElseThrow(() -> new GeneralErrorException("找不到公会权限表"));
+        GuildPositionCfg positionCfg = configLoader.load(GuildPositionCfg.class, me.getPosition()).orElse(null);
+        if (positionCfg == null) {
+            player.syncClient("找不到公会权限表");
+            return;
+        }
 
         if (!positionCfg.getPermission().contains(GuildPermissionEnum.GUILD_PERMISSION_2.getId())) {
-            throw new GeneralErrorException("没有踢除公会成员的权限");
+            player.syncClient("没有踢除公会成员的权限");
+            return;
         }
 
         GuildMember targetMember = league.getMember(target.getUid());
         if (targetMember == null) {
-            throw new GeneralErrorException("目标不是该公会成员");
+            player.syncClient("目标不是该公会成员");
+            return;
         }
 
         if (me.getPosition() >= targetMember.getPosition()) {
-            throw new GeneralErrorException("不能踢除同职级或更高职级的人");
+            player.syncClient("不能踢除同职级或更高职级的人");
+            return;
         }
 
         // 广播

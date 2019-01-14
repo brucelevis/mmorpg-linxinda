@@ -2,7 +2,6 @@ package com.wan37.server;
 
 import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.event.entity.OfflineEvent;
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.handler.GeneralDispatchHandlerManager;
 import com.wan37.handler.GeneralHandler;
 import com.wan37.logic.player.Player;
@@ -60,12 +59,6 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-        if (cause instanceof GeneralErrorException) {
-            // 自定义抛出的异常
-            ctx.writeAndFlush(cause.getMessage() + "\n");
-            return;
-        }
-
         cause.printStackTrace();
     }
 }

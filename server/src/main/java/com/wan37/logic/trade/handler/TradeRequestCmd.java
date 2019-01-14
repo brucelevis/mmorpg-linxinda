@@ -1,6 +1,5 @@
 package com.wan37.logic.trade.handler;
 
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.handler.GeneralHandler;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
@@ -30,7 +29,8 @@ class TradeRequestCmd implements GeneralHandler {
 
         Long uid = msg.getParamAsLong(1);
         if (!playerGlobalManager.isOnline(uid)) {
-            throw new GeneralErrorException("对方不在线");
+            player.syncClient("对方不在线");
+            return;
         }
 
         Player target = playerGlobalManager.getPlayerByUid(uid);

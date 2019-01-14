@@ -1,6 +1,5 @@
 package com.wan37.logic.pk.handler;
 
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.handler.GeneralHandler;
 import com.wan37.logic.pk.service.PkInviteExec;
 import com.wan37.logic.player.Player;
@@ -32,11 +31,13 @@ class PkInviteCmd implements GeneralHandler {
 
         Long uid = msg.getParamAsLong(1);
         if (Objects.equals(player.getUid(), uid)) {
-            throw new GeneralErrorException("不能决斗自己");
+            player.syncClient("不能决斗自己");
+            return;
         }
 
         if (!playerGlobalManager.isOnline(uid)) {
-            throw new GeneralErrorException("对方没在线，不可决斗");
+            player.syncClient("对方没在线，不可决斗");
+            return;
         }
 
         Player target = playerGlobalManager.getPlayerByUid(uid);

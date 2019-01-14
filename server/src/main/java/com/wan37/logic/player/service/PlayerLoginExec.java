@@ -2,7 +2,6 @@ package com.wan37.logic.player.service;
 
 import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.event.entity.LoginEvent;
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.player.encode.PlayerInfoEncoder;
@@ -28,12 +27,14 @@ public class PlayerLoginExec {
     public void exec(Long playerUid, Channel channel) {
         // 登录检查
         if (playerGlobalManager.isOnline(playerUid)) {
-            throw new GeneralErrorException("已经登录的角色");
+            channel.writeAndFlush("已经登录的角色" + "\n");
+            return;
         }
 
         Player player = playerGlobalManager.getPlayerByUid(playerUid);
         if (player == null) {
-            throw new GeneralErrorException("找不到角色");
+            channel.writeAndFlush("找不到角色" + "\n");
+            return;
         }
 
         player.setChannel(channel);

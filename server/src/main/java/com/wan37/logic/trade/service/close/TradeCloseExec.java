@@ -1,10 +1,9 @@
 package com.wan37.logic.trade.service.close;
 
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.trade.TradeGlobalManager;
-import com.wan37.logic.trade.entity.Trade;
 import com.wan37.logic.trade.entity.ITrade;
+import com.wan37.logic.trade.entity.Trade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,12 +22,14 @@ public class TradeCloseExec {
     public void exec(Player player) {
         ITrade iTrade = player.getTrade();
         if (iTrade.getUid() == null) {
-            throw new GeneralErrorException("你未在交易");
+            player.syncClient("你未在交易");
+            return;
         }
 
         Trade trade = tradeGlobalManager.getTrade(iTrade.getUid());
         if (trade == null) {
-            throw new GeneralErrorException("交易不存在");
+            player.syncClient("交易不存在");
+            return;
         }
 
         tradeCloser.close(trade);

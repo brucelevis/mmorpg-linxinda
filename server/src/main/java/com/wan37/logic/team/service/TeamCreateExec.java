@@ -1,6 +1,5 @@
 package com.wan37.logic.team.service;
 
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.team.TeamGlobalManager;
 import com.wan37.logic.team.entity.Team;
@@ -21,7 +20,8 @@ public class TeamCreateExec {
 
     public void exec(Player player) {
         if (player.getTeamUid() != null) {
-            throw new GeneralErrorException("已经有组队");
+            player.syncClient("已经有组队");
+            return;
         }
 
         Team team = teamFactory.create(player.getUid());

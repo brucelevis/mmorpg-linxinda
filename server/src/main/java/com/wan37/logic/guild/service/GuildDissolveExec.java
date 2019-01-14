@@ -1,6 +1,5 @@
 package com.wan37.logic.guild.service;
 
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.chat.ChatFacade;
 import com.wan37.logic.guild.GuildGlobalManager;
 import com.wan37.logic.guild.dao.GuildDao;
@@ -32,16 +31,19 @@ public class GuildDissolveExec {
 
     public void exec(Player player) {
         if (player.getLeagueUid() == null) {
-            throw new GeneralErrorException("你未加入公会");
+            player.syncClient("你未加入公会");
+            return;
         }
 
         Guild league = guildGlobalManager.get(player.getLeagueUid());
         if (league == null) {
-            throw new GeneralErrorException("公会不存在");
+            player.syncClient("公会不存在");
+            return;
         }
 
         if (!Objects.equals(league.getLeaderUid(), player.getUid())) {
-            throw new GeneralErrorException("你不是会长，无法解散公会");
+            player.syncClient("你不是会长，无法解散公会");
+            return;
         }
 
         guildDao.removeByUid(league.getUid());

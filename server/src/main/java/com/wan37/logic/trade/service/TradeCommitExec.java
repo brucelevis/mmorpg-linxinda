@@ -2,15 +2,14 @@ package com.wan37.logic.trade.service;
 
 import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.event.entity.TradeSuccessEvent;
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.backpack.BackpackFacade;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.props.ResourceFacade;
 import com.wan37.logic.props.resource.impl.ResourceCollectionImpl;
 import com.wan37.logic.props.resource.impl.ResourceElementImpl;
 import com.wan37.logic.trade.TradeGlobalManager;
-import com.wan37.logic.trade.entity.Trade;
 import com.wan37.logic.trade.entity.ITrade;
+import com.wan37.logic.trade.entity.Trade;
 import com.wan37.logic.trade.entity.TradePlayer;
 import com.wan37.logic.trade.service.close.TradeCloser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,12 +42,14 @@ public class TradeCommitExec {
     public void exec(Player player) {
         ITrade iTrade = player.getTrade();
         if (iTrade.getUid() == null) {
-            throw new GeneralErrorException("未在交易");
+            player.syncClient("未在交易");
+            return;
         }
 
         Trade trade = tradeGlobalManager.getTrade(iTrade.getUid());
         if (trade == null) {
-            throw new GeneralErrorException("交易不存在");
+            player.syncClient("交易不存在");
+            return;
         }
 
         try {

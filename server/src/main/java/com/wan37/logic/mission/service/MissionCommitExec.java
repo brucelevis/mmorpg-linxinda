@@ -1,7 +1,6 @@
 package com.wan37.logic.mission.service;
 
 import com.wan37.config.ConfigLoader;
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.mission.complete.MissionCompleteHandler;
 import com.wan37.logic.mission.config.MissionCfg;
 import com.wan37.logic.mission.entity.Mission;
@@ -26,7 +25,8 @@ public class MissionCommitExec {
     public void exec(Player player, Integer missionId) {
         Mission mission = player.getMission();
         if (!mission.isProceeding(missionId)) {
-            throw new GeneralErrorException("没在进行中的任务");
+            player.syncClient("没在进行中的任务");
+            return;
         }
 
         PlayerMission playerMission = mission.getPlayerMission(missionId);

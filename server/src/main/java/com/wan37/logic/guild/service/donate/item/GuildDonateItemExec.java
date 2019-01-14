@@ -1,15 +1,14 @@
 package com.wan37.logic.guild.service.donate.item;
 
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.backpack.BackpackFacade;
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.backpack.database.ItemDb;
 import com.wan37.logic.backpack.encode.BackpackUpdateNotifier;
 import com.wan37.logic.guild.GuildGlobalManager;
 import com.wan37.logic.guild.database.GuildItemDb;
+import com.wan37.logic.guild.entity.Guild;
 import com.wan37.logic.guild.entity.GuildItem;
 import com.wan37.logic.guild.entity.GuildWarehouse;
-import com.wan37.logic.guild.entity.Guild;
 import com.wan37.logic.player.Player;
 import com.wan37.util.IdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +34,24 @@ public class GuildDonateItemExec {
 
     public void exec(Player player, ReqGuildDonateItem reqGuildDonateItem) {
         BackpackDb backpackDb = player.getPlayerDb().getBackpackDb();
-        reqGuildDonateItem.getDonateItems().forEach(i -> checkBackpackItem(backpackDb, i.getIndex(), i.getAmount()));
+
+        // 检查背包物品
+        for (GuildDonateItem item : reqGuildDonateItem.getDonateItems()) {
+            ItemDb itemDb = backpackFacade.find(backpackDb, item.getIndex()).orElse(null);
+            if (itemDb == null) {
+                player.syncClient("找不到对应背包格子");
+                return;
+            }
+
+            if (itemDb.getAmount() < item.getAmount()) {
+                player.syncClient("要捐献的背包物品数量不足");
+                return;
+            }
+        }
 
         if (player.getLeagueUid() == null) {
-            throw new GeneralErrorException("未加入公会");
+            player.syncClient("未加入公会");
+            return;
         }
 
         Guild league = guildGlobalManager.get(player.getLeagueUid());
@@ -62,25 +75,13 @@ public class GuildDonateItemExec {
     }
 
     private void donate(BackpackDb backpackDb, GuildWarehouse warehouse, GuildDonateItem donateItem) {
-        ItemDb itemDb = getItem(backpackDb, donateItem.getIndex());
+        ItemDb itemDb = backpackFacade.find(backpackDb, donateItem.getIndex()).get();
         backpackFacade.remove(backpackDb, donateItem.getIndex(), donateItem.getAmount());
 
         GuildItemDb guildItemDb = createLItem(itemDb, donateItem.getAmount());
         GuildItem guildItem = leagueItemFactory.create(guildItemDb);
 
         warehouse.addItem(guildItem);
-    }
-
-    private void checkBackpackItem(BackpackDb backpackDb, Integer index, int amount) {
-        ItemDb itemDb = getItem(backpackDb, index);
-        if (itemDb.getAmount() < amount) {
-            throw new GeneralErrorException("要捐献的背包物品数量不足");
-        }
-    }
-
-    private ItemDb getItem(BackpackDb backpackDb, Integer index) {
-        return backpackFacade.find(backpackDb, index)
-                .orElseThrow(() -> new GeneralErrorException("找不到对应背包格子"));
     }
 
     private GuildItemDb createLItem(ItemDb itemDb, int amount) {

@@ -1,6 +1,5 @@
 package com.wan37.logic.pk.service;
 
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.pk.entity.Pk;
 import com.wan37.logic.player.Player;
 import org.springframework.stereotype.Service;
@@ -14,11 +13,13 @@ public class PkInviteExec {
     public void exec(Player player, Player target) {
         Pk targetPk = target.getPk();
         if (targetPk.isPking()) {
-            throw new GeneralErrorException("对方正在决斗");
+            player.syncClient("对方正在决斗");
+            return;
         }
 
         if (targetPk.hadInvited(player.getUid())) {
-            throw new GeneralErrorException("你已经邀请过了，不可重复邀请");
+            player.syncClient("你已经邀请过了，不可重复邀请");
+            return;
         }
 
         targetPk.addInviter(player.getUid());

@@ -1,11 +1,10 @@
 package com.wan37.logic.trade.service;
 
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.trade.TradeGlobalManager;
-import com.wan37.logic.trade.entity.Trade;
 import com.wan37.logic.trade.entity.ITrade;
+import com.wan37.logic.trade.entity.Trade;
 import com.wan37.logic.trade.entity.TradePlayer;
 import com.wan37.logic.trade.init.TradePlayerCreator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,28 +27,30 @@ public class TradeAcceptExec {
     @Autowired
     private TradePlayerCreator tradePlayerCreator;
 
-    public void exec(Player to, Long tradeUid) {
+    public void exec(Player player, Long tradeUid) {
         Trade trade = tradeGlobalManager.getTrade(tradeUid);
         if (trade == null) {
-            throw new GeneralErrorException("交易已关闭");
+            player.syncClient("交易已关闭");
+            return;
         }
 
-        if (!Objects.equals(trade.getToUid(), to.getUid())) {
-            throw new GeneralErrorException("错误的交易uid");
+        if (!Objects.equals(trade.getToUid(), player.getUid())) {
+            player.syncClient("错误的交易uid");
+            return;
         }
 
         // 接受交易
-        ITrade toTrade = to.getTrade();
+        ITrade toTrade = player.getTrade();
         try {
             toTrade.lock();
 
             if (toTrade.getUid() != null) {
-                to.syncClient("你正在交易中，不能接受交易请求");
+                player.syncClient("你正在交易中，不能接受交易请求");
                 return;
             }
 
             toTrade.setUid(trade.getUid());
-            trade.getTradePlayerMap().put(to.getUid(), tradePlayerCreator.create(to));
+            trade.getTradePlayerMap().put(player.getUid(), tradePlayerCreator.create(player));
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -65,19 +66,19 @@ public class TradeAcceptExec {
             TradePlayer fromTradePlayer = trade.getTradePlayerMap().get(fromUid);
             if (fromTradePlayer == null) {
                 // 请求者取消交易
-                to.syncClient("对方关闭了交易");
+                player.syncClient("对方关闭了交易");
                 return;
             }
 
             if (!playerGlobalManager.isOnline(fromUid)) {
                 // 没在线
-                to.syncClient("对方离线");
+                player.syncClient("对方离线");
                 return;
             }
 
             Player from = fromTradePlayer.getPlayer();
-            from.syncClient(String.format("[%s]接受了你的交易请求", to.getName()));
-            to.syncClient(String.format("你接受了[%s]的交易请求", from.getName()));
+            from.syncClient(String.format("[%s]接受了你的交易请求", player.getName()));
+            player.syncClient(String.format("你接受了[%s]的交易请求", from.getName()));
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

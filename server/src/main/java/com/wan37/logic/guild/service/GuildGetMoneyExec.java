@@ -1,14 +1,13 @@
 package com.wan37.logic.guild.service;
 
 import com.wan37.config.ConfigLoader;
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.currency.encode.CurrencyUpdateNotifier;
 import com.wan37.logic.guild.GuildGlobalManager;
 import com.wan37.logic.guild.GuildPermissionEnum;
 import com.wan37.logic.guild.config.GuildPositionCfg;
-import com.wan37.logic.guild.entity.GuildWarehouse;
 import com.wan37.logic.guild.entity.Guild;
 import com.wan37.logic.guild.entity.GuildMember;
+import com.wan37.logic.guild.entity.GuildWarehouse;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.props.ResourceFacade;
 import com.wan37.logic.props.resource.ResourceElement;
@@ -36,16 +35,21 @@ public class GuildGetMoneyExec {
 
     public void exec(Player player, Integer cfgId, long amount) {
         if (player.getLeagueUid() == null) {
-            throw new GeneralErrorException("未加入公会");
+            player.syncClient("未加入公会");
+            return;
         }
 
         Guild league = guildGlobalManager.get(player.getLeagueUid());
         GuildMember me = league.getMember(player.getUid());
-        GuildPositionCfg positionCfg = configLoader.load(GuildPositionCfg.class, me.getPosition())
-                .orElseThrow(() -> new GeneralErrorException("找不到公会权限表"));
+        GuildPositionCfg positionCfg = configLoader.load(GuildPositionCfg.class, me.getPosition()).orElse(null);
+        if (positionCfg == null) {
+            player.syncClient("找不到公会权限表");
+            return;
+        }
 
         if (!positionCfg.getPermission().contains(GuildPermissionEnum.GUILD_PERMISSION_4.getId())) {
-            throw new GeneralErrorException("没有取帮会物品的权限");
+            player.syncClient("没有取帮会物品的权限");
+            return;
         }
 
         GuildWarehouse warehouse = league.getWarehouse();

@@ -1,6 +1,5 @@
 package com.wan37.server;
 
-import com.wan37.exception.GeneralErrorException;
 import io.netty.channel.Channel;
 
 /**
@@ -46,7 +45,7 @@ public class GeneralReqMsg implements ParameterTransformable {
 
     private void checkParam(int index) {
         if (index >= params.length) {
-            throw new GeneralErrorException("参数下标越界");
+            channel.writeAndFlush("参数下标越界" + "\n");
         }
     }
 }

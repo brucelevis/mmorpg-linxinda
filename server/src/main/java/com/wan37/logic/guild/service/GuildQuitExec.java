@@ -1,6 +1,5 @@
 package com.wan37.logic.guild.service;
 
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.guild.GuildGlobalManager;
 import com.wan37.logic.guild.entity.Guild;
 import com.wan37.logic.player.Player;
@@ -20,16 +19,19 @@ public class GuildQuitExec {
 
     public void exec(Player player) {
         if (player.getLeagueUid() == null) {
-            throw new GeneralErrorException("你未加入公会");
+            player.syncClient("你未加入公会");
+            return;
         }
 
         Guild league = guildGlobalManager.get(player.getLeagueUid());
         if (league == null) {
-            throw new GeneralErrorException("公会不存在");
+            player.syncClient("公会不存在");
+            return;
         }
 
         if (Objects.equals(league.getLeaderUid(), player.getUid())) {
-            throw new GeneralErrorException("不允许创建者退出公会");
+            player.syncClient("不允许创建者退出公会");
+            return;
         }
 
         String msg = String.format("【公会】 [%s]退出了公会", player.getName());

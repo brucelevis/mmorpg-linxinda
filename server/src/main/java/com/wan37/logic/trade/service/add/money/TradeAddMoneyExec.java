@@ -1,16 +1,15 @@
 package com.wan37.logic.trade.service.add.money;
 
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.currency.encode.CurrencyUpdateNotifier;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.props.ResourceFacade;
 import com.wan37.logic.props.resource.ResourceElement;
 import com.wan37.logic.props.resource.impl.ResourceElementImpl;
 import com.wan37.logic.trade.TradeGlobalManager;
-import com.wan37.logic.trade.entity.Trade;
-import com.wan37.logic.trade.entity.ITrade;
-import com.wan37.logic.trade.entity.TradePlayer;
 import com.wan37.logic.trade.encode.TradeEncoder;
+import com.wan37.logic.trade.entity.ITrade;
+import com.wan37.logic.trade.entity.Trade;
+import com.wan37.logic.trade.entity.TradePlayer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,21 +33,25 @@ public class TradeAddMoneyExec {
 
     public void exec(Player player, Integer cfgId, long amount) {
         if (amount <= 0) {
-            throw new GeneralErrorException("要交易的钱必须为正数");
+            player.syncClient("要交易的钱必须为正数");
+            return;
         }
 
         if (resourceFacade.queryCurrency(cfgId, player) < amount) {
-            throw new GeneralErrorException("要交易的钱不足");
+            player.syncClient("要交易的钱不足");
+            return;
         }
 
         ITrade iTrade = player.getTrade();
         if (iTrade.getUid() == null) {
-            throw new GeneralErrorException("未在交易");
+            player.syncClient("未在交易");
+            return;
         }
 
         Trade trade = tradeGlobalManager.getTrade(iTrade.getUid());
         if (trade == null) {
-            throw new GeneralErrorException("交易不存在");
+            player.syncClient("交易不存在");
+            return;
         }
 
         try {

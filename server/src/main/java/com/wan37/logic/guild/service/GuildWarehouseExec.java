@@ -1,7 +1,6 @@
 package com.wan37.logic.guild.service;
 
 import com.wan37.config.ConfigLoader;
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.guild.GuildGlobalManager;
 import com.wan37.logic.guild.entity.Guild;
 import com.wan37.logic.guild.entity.GuildCurrency;
@@ -29,7 +28,8 @@ public class GuildWarehouseExec {
 
     public void exec(Player player) {
         if (player.getLeagueUid() == null) {
-            throw new GeneralErrorException("未加入公会");
+            player.syncClient("未加入公会");
+            return;
         }
 
         Guild guild = guildGlobalManager.get(player.getLeagueUid());

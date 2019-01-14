@@ -1,6 +1,5 @@
 package com.wan37.logic.skill.cast.check;
 
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.backpack.database.ItemDb;
 import com.wan37.logic.equipment.EquipPartEnum;
 import com.wan37.logic.equipment.database.EquipDb;
@@ -33,18 +32,20 @@ public class PlayerSkillBeforeCastChecker {
         EquipDb equipDb = playerDb.getEquipDb();
         ItemDb equipItem = equipDb.getItems().get(EquipPartEnum.PART_1.getId());
         if (equipItem == null) {
-            throw new GeneralErrorException("未佩戴武器，无法施放技能");
+            player.syncClient("未佩戴武器，无法施放技能");
+            return;
         }
 
         EquipExtraDb equipExtraDb = equipExtraDbGetter.get(equipItem.getExtraDb());
         if (equipExtraDb.getDurability() < DURABILITY) {
-            throw new GeneralErrorException("武器耐久度过低，请及时修理");
+            player.syncClient("武器耐久度过低，请及时修理");
+            return;
         }
 
         // 检查蓝量
         int costMp = skill.getCostMp();
         if (player.getMp() < costMp) {
-            throw new GeneralErrorException("蓝量不足，无法施放技能");
+            player.syncClient("蓝量不足，无法施放技能");
         }
     }
 }

@@ -1,12 +1,11 @@
 package com.wan37.logic.guild.service.donate.money;
 
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.currency.encode.CurrencyUpdateNotifier;
 import com.wan37.logic.guild.GuildGlobalManager;
 import com.wan37.logic.guild.database.GuildCurrencyDb;
-import com.wan37.logic.guild.entity.GuildWarehouse;
 import com.wan37.logic.guild.entity.Guild;
 import com.wan37.logic.guild.entity.GuildCurrency;
+import com.wan37.logic.guild.entity.GuildWarehouse;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.props.ResourceFacade;
 import com.wan37.logic.props.resource.ResourceElement;
@@ -35,11 +34,13 @@ public class LeagueDonateMoneyExec {
 
     public void exec(Player player, Integer id, long amount) {
         if (player.getLeagueUid() == null) {
-            throw new GeneralErrorException("未加入公会");
+            player.syncClient("未加入公会");
+            return;
         }
 
         if (resourceFacade.queryCurrency(id, player) < amount) {
-            throw new GeneralErrorException("没有足够的钱捐献");
+            player.syncClient("没有足够的钱捐献");
+            return;
         }
 
         Guild league = guildGlobalManager.get(player.getLeagueUid());

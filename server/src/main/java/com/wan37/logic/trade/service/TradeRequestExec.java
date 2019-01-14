@@ -1,10 +1,9 @@
 package com.wan37.logic.trade.service;
 
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.trade.TradeGlobalManager;
-import com.wan37.logic.trade.entity.Trade;
 import com.wan37.logic.trade.entity.ITrade;
+import com.wan37.logic.trade.entity.Trade;
 import com.wan37.logic.trade.init.TradePlayerCreator;
 import com.wan37.util.IdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,8 @@ public class TradeRequestExec {
 
     public void exec(Player from, Player to) {
         if (to.getTrade().getUid() != null) {
-            throw new GeneralErrorException("对方正在交易中，不能发起交易请求");
+            from.syncClient("对方正在交易中，不能发起交易请求");
+            return;
         }
 
         ITrade fromTrade = from.getTrade();
@@ -58,7 +58,7 @@ public class TradeRequestExec {
         Trade trade = new Trade();
         trade.setUid(IdUtil.generate());
         trade.setLock(new ReentrantLock());
-        trade.setTradePlayerMap(new HashMap<>());
+        trade.setTradePlayerMap(new HashMap<>(0));
 
         trade.setFromUid(from.getUid());
         trade.getTradePlayerMap().put(from.getUid(), tradePlayerCreator.create(from));

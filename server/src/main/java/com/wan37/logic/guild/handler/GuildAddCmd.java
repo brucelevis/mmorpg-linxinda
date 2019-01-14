@@ -1,6 +1,5 @@
 package com.wan37.logic.guild.handler;
 
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.handler.GeneralHandler;
 import com.wan37.logic.guild.service.GuildAddExec;
 import com.wan37.logic.player.Player;
@@ -32,11 +31,13 @@ class GuildAddCmd implements GeneralHandler {
 
         Long uid = msg.getParamAsLong(1);
         if (!playerGlobalManager.isOnline(uid)) {
-            throw new GeneralErrorException("对方不在线，公会邀请只能在线才能添加");
+            player.syncClient("对方不在线，公会邀请只能在线才能添加");
+            return;
         }
 
         if (Objects.equals(player.getUid(), uid)) {
-            throw new GeneralErrorException("不能加自己");
+            player.syncClient("不能加自己");
+            return;
         }
 
         Player target = playerGlobalManager.getPlayerByUid(uid);

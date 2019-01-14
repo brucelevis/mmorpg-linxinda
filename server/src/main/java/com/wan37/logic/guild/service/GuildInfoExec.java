@@ -1,6 +1,5 @@
 package com.wan37.logic.guild.service;
 
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.guild.GuildGlobalManager;
 import com.wan37.logic.guild.GuildPositionEnum;
 import com.wan37.logic.guild.entity.Guild;
@@ -26,12 +25,14 @@ public class GuildInfoExec {
 
     public void exec(Player player) {
         if (player.getLeagueUid() == null) {
-            throw new GeneralErrorException("你当前没有公会信息");
+            player.syncClient("你当前没有公会信息");
+            return;
         }
 
         Guild league = guildGlobalManager.get(player.getLeagueUid());
         if (league == null) {
-            throw new GeneralErrorException("公会不存在");
+            player.syncClient("公会不存在");
+            return;
         }
 
         String msg = String.format("公会名：%s  人数：%s/%s\n", league.getName(), league.getCurNum(), league.getMaxNum());

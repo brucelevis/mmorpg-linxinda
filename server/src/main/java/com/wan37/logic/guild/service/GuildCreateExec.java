@@ -1,12 +1,11 @@
 package com.wan37.logic.guild.service;
 
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.chat.ChatFacade;
 import com.wan37.logic.guild.GuildGlobalManager;
 import com.wan37.logic.guild.GuildPositionEnum;
 import com.wan37.logic.guild.dao.GuildDao;
-import com.wan37.logic.guild.database.GuildMemberDb;
 import com.wan37.logic.guild.database.GuildGlobalDb;
+import com.wan37.logic.guild.database.GuildMemberDb;
 import com.wan37.logic.guild.entity.Guild;
 import com.wan37.logic.guild.entity.GuildMember;
 import com.wan37.logic.player.Player;
@@ -40,13 +39,15 @@ public class GuildCreateExec {
 
     public void exec(Player player, String name) {
         if (guildDao.existsByName(name)) {
-            throw new GeneralErrorException("已经存在的公会名");
+            player.syncClient("已经存在的公会名");
+            return;
         }
 
         //TODO: 检查创建公会的条件如钱啊啥的
 
         if (player.getLeagueUid() != null) {
-            throw new GeneralErrorException("已有公会，要创建公会需要退出或解散当前公会");
+            player.syncClient("已有公会，要创建公会需要退出或解散当前公会");
+            return;
         }
 
         // 创建公会

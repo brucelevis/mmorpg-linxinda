@@ -2,7 +2,6 @@ package com.wan37.logic.team.service;
 
 import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.event.entity.TeamJoinEvent;
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.team.TeamGlobalManager;
 import com.wan37.logic.team.entity.Team;
@@ -32,12 +31,14 @@ public class TeamAcceptExec {
 
     public void exec(Player player, Long teamUid) {
         if (player.getTeamUid() != null) {
-            throw new GeneralErrorException("你已有组队");
+            player.syncClient("你已有组队");
+            return;
         }
 
         Team team = teamGlobalManager.getTeam(teamUid);
         if (team == null) {
-            throw new GeneralErrorException("组队不存在");
+            player.syncClient("组队不存在");
+            return;
         }
 
         try {

@@ -1,7 +1,6 @@
 package com.wan37.logic.player.service;
 
 import com.wan37.config.ConfigLoader;
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.faction.config.FactionCfg;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.player.encode.PlayerRegisterResponseEncoder;
@@ -41,7 +40,7 @@ public class PlayerRegisterExec {
         db.setLevel(1);
 
         configLoader.load(FactionCfg.class, factionId)
-                .orElseThrow(() -> new GeneralErrorException("找不到职业导表，错误的职业id"));
+                .orElseThrow(() -> new RuntimeException("找不到职业导表，错误的职业id"));
         db.setFactionId(factionId);
 
         //FIXME: 写死默认安全村地图id 1000

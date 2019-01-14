@@ -1,7 +1,6 @@
 package com.wan37.logic.mission.service.accept;
 
 import com.wan37.config.ConfigLoader;
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.mission.config.MissionCfg;
 import com.wan37.logic.mission.entity.Mission;
 import com.wan37.logic.player.Player;
@@ -21,25 +20,32 @@ public class MissionAcceptExec {
     private MissionAccepter missionAccepter;
 
     public void exec(Player player, Integer missionId) {
-        MissionCfg missionCfg = configLoader.load(MissionCfg.class, missionId)
-                .orElseThrow(() -> new GeneralErrorException("找不到对应的任务配置表"));
+        MissionCfg missionCfg = configLoader.load(MissionCfg.class, missionId).orElse(null);
+        if (missionCfg == null) {
+            player.syncClient("找不到对应的任务配置表");
+            return;
+        }
 
         if (player.getLevel() < missionCfg.getLevel()) {
-            throw new GeneralErrorException("等级不足");
+            player.syncClient("等级不足");
+            return;
         }
 
         Mission mission = player.getMission();
         if (mission.hadCompleted(missionId)) {
-            throw new GeneralErrorException("任务已经完成");
+            player.syncClient("任务已经完成");
+            return;
         }
 
         if (mission.isProceeding((missionId))) {
-            throw new GeneralErrorException("正在进行的任务");
+            player.syncClient("正在进行的任务");
+            return;
         }
 
         Integer preId = missionCfg.getPreId();
         if (preId != null && !mission.hadCompleted(preId)) {
-            throw new GeneralErrorException("前置任务未完成");
+            player.syncClient("前置任务未完成");
+            return;
         }
 
         missionAccepter.accept(player, missionCfg);

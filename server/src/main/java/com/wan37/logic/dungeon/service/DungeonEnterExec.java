@@ -1,16 +1,15 @@
 package com.wan37.logic.dungeon.service;
 
 import com.wan37.config.ConfigLoader;
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.dungeon.config.DungeonCfg;
 import com.wan37.logic.dungeon.init.DungeonSceneCreator;
 import com.wan37.logic.dungeon.scene.DungeonSceneAbstract;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
-import com.wan37.logic.scene.SceneTypeEnum;
-import com.wan37.logic.scene.config.SceneCfg;
 import com.wan37.logic.scene.SceneFacade;
+import com.wan37.logic.scene.SceneTypeEnum;
 import com.wan37.logic.scene.TemporarySceneGlobalManager;
+import com.wan37.logic.scene.config.SceneCfg;
 import com.wan37.logic.team.TeamGlobalManager;
 import com.wan37.logic.team.entity.Team;
 import com.wan37.logic.team.entity.TeamMember;
@@ -46,35 +45,49 @@ public class DungeonEnterExec {
     private PlayerGlobalManager playerGlobalManager;
 
     public void exec(Player player, Integer dungeonId) {
-        SceneCfg sceneCfg = configLoader.load(SceneCfg.class, player.getSceneId())
-                .orElseThrow(() -> new GeneralErrorException("找不到当前场景配置"));
-
-        if (!Objects.equals(sceneCfg.getType(), SceneTypeEnum.SCENE_TYPE_1.getId())) {
-            throw new GeneralErrorException("请切换到普通场景再尝试进入副本");
+        SceneCfg sceneCfg = configLoader.load(SceneCfg.class, player.getSceneId()).orElse(null);
+        if (sceneCfg == null) {
+            player.syncClient("找不到当前场景配置");
+            return;
         }
 
-        DungeonCfg dungeonCfg = configLoader.load(DungeonCfg.class, dungeonId)
-                .orElseThrow(() -> new GeneralErrorException("找不到相应的副本"));
+        if (!Objects.equals(sceneCfg.getType(), SceneTypeEnum.SCENE_TYPE_1.getId())) {
+            player.syncClient("请切换到普通场景再尝试进入副本");
+            return;
+        }
 
-        SceneCfg dungeonSceneCfg = configLoader.load(SceneCfg.class, dungeonCfg.getSceneId())
-                .orElseThrow(() -> new GeneralErrorException("找不到副本场景配置"));
+        DungeonCfg dungeonCfg = configLoader.load(DungeonCfg.class, dungeonId).orElse(null);
+        if (dungeonCfg == null) {
+            player.syncClient("找不到相应的副本");
+            return;
+        }
+
+        SceneCfg dungeonSceneCfg = configLoader.load(SceneCfg.class, dungeonCfg.getSceneId()).orElse(null);
+        if (dungeonSceneCfg == null) {
+            player.syncClient("找不到副本场景配置");
+            return;
+        }
 
         if (player.getTeamUid() == null) {
-            throw new GeneralErrorException("挑战副本需要创建队伍");
+            player.syncClient("挑战副本需要创建队伍");
+            return;
         }
 
         Team team = teamGlobalManager.getTeam(player.getTeamUid());
         if (!Objects.equals(team.getLeaderUid(), player.getUid())) {
-            throw new GeneralErrorException("只有队长才能发起副本挑战");
+            player.syncClient("只有队长才能发起副本挑战");
+            return;
         }
 
         if (!isAllOnline(team)) {
-            throw new GeneralErrorException("有队员不在线");
+            player.syncClient("有队员不在线");
+            return;
         }
 
         List<Player> teamMembers = getTeamMembers(team);
         if (!isInSameScene(teamMembers)) {
-            throw new GeneralErrorException("队员不在同一场景");
+            player.syncClient("队员不在同一场景");
+            return;
         }
 
         // 创建副本场景

@@ -1,6 +1,5 @@
 package com.wan37.logic.team.service;
 
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.team.TeamGlobalManager;
@@ -24,7 +23,8 @@ public class TeamDissolveExec {
 
     public void exec(Player player) {
         if (player.getTeamUid() == null) {
-            throw new GeneralErrorException("你未创建组队");
+            player.syncClient("你未创建组队");
+            return;
         }
 
         Team team = teamGlobalManager.getTeam(player.getTeamUid());

@@ -3,7 +3,6 @@ package com.wan37.logic.guild.service;
 import com.wan37.config.ConfigLoader;
 import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.event.entity.LeagueJoinEvent;
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.guild.GuildGlobalManager;
 import com.wan37.logic.guild.GuildPermissionEnum;
 import com.wan37.logic.guild.GuildPositionEnum;
@@ -35,37 +34,44 @@ public class GuildAddExec {
 
     public void exec(Player player, Player target) {
         if (player.getLeagueUid() == null) {
-            throw new GeneralErrorException("你未加入公会");
+            player.syncClient("你未加入公会");
+            return;
         }
 
-        Guild league = guildGlobalManager.get(player.getLeagueUid());
-        if (league == null) {
-            throw new GeneralErrorException("公会不存在");
+        Guild guild = guildGlobalManager.get(player.getLeagueUid());
+        if (guild == null) {
+            player.syncClient("公会不存在");
+            return;
         }
 
-        GuildMember me = league.getMember(player.getUid());
-        GuildPositionCfg positionCfg = configLoader.load(GuildPositionCfg.class, me.getPosition())
-                .orElseThrow(() -> new GeneralErrorException("找不到公会权限表"));
+        GuildMember me = guild.getMember(player.getUid());
+        GuildPositionCfg positionCfg = configLoader.load(GuildPositionCfg.class, me.getPosition()).orElse(null);
+        if (positionCfg == null) {
+            player.syncClient("找不到公会权限表");
+            return;
+        }
 
         if (!positionCfg.getPermission().contains(GuildPermissionEnum.GUILD_PERMISSION_1.getId())) {
-            throw new GeneralErrorException("没有添加公会成员的权限");
+            player.syncClient("没有添加公会成员的权限");
+            return;
         }
 
         if (target.getLeagueUid() != null) {
-            throw new GeneralErrorException("目标已有公会");
+            player.syncClient("目标已有公会");
+            return;
         }
 
         // 添加进公会
         GuildMemberDb memberDb = createMember(target.getUid());
         GuildMember leagueMember = leagueMemberFactory.create(memberDb);
 
-        target.setLeagueUid(league.getUid());
-        league.addMember(leagueMember);
-        league.save();
+        target.setLeagueUid(guild.getUid());
+        guild.addMember(leagueMember);
+        guild.save();
 
         // 公会广播
-        String msg = String.format("【公会】 恭喜[%s]加入[%s]", target.getName(), league.getName());
-        league.notifyAll(msg);
+        String msg = String.format("【公会】 恭喜[%s]加入[%s]", target.getName(), guild.getName());
+        guild.notifyAll(msg);
 
         // 抛出加入公会事件
         generalEventListenersManager.fireEvent(new LeagueJoinEvent(target));

@@ -1,6 +1,5 @@
 package com.wan37.logic.team.service;
 
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.team.TeamGlobalManager;
@@ -23,7 +22,8 @@ public class TeamRejectExec {
     public void exec(Player player, Long teamUid) {
         Team team = teamGlobalManager.getTeam(teamUid);
         if (team == null) {
-            throw new GeneralErrorException("组队不存在");
+            player.syncClient("组队不存在");
+            return;
         }
 
         Player inviter = playerGlobalManager.getPlayerByUid(team.getLeaderUid());

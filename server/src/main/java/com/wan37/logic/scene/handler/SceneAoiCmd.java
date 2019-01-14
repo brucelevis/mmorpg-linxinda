@@ -1,6 +1,5 @@
 package com.wan37.logic.scene.handler;
 
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.handler.GeneralHandler;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
@@ -25,7 +24,7 @@ class SceneAoiCmd implements GeneralHandler {
     public void handle(GeneralReqMsg msg) {
         Player player = playerGlobalManager.getPlayerByChannel(msg.getChannel());
         if (player == null) {
-            throw new GeneralErrorException("角色未登录，不允许发送该命令");
+            return;
         }
 
         sceneAoiExec.exec(player);

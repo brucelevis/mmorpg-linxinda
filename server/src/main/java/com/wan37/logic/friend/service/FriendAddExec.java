@@ -1,6 +1,5 @@
 package com.wan37.logic.friend.service;
 
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.friend.dao.FriendRequestDao;
 import com.wan37.logic.friend.database.FriendRequestDb;
 import com.wan37.logic.player.Player;
@@ -31,7 +30,8 @@ public class FriendAddExec {
 
     public void exec(Player player, Long uid) {
         if (player.getPlayerDb().getFriendDb().getFriendUid().contains(uid)) {
-            throw new GeneralErrorException("已经是好友");
+            player.syncClient("已经是好友");
+            return;
         }
 
         //TODO: 不可重复发送好友请求的检查
@@ -53,7 +53,8 @@ public class FriendAddExec {
         }
 
         if (!playerDao.existsByUid(uid)) {
-            throw new GeneralErrorException("不存在的玩家uid");
+            player.syncClient("不存在的玩家uid");
+            return;
         }
 
         friendRequestDao.save(requestDb);

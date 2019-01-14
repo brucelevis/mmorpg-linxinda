@@ -1,13 +1,12 @@
 package com.wan37.logic.skill.cast.ai.target;
 
 import com.google.common.collect.ImmutableList;
-import com.wan37.exception.GeneralErrorException;
-import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.scene.SceneActorSceneGetter;
-import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.scene.SceneTypeEnum;
+import com.wan37.logic.scene.base.AbstractScene;
+import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.skill.SkillTargetTypeEnum;
 import com.wan37.logic.skill.config.SkillCfg;
 import com.wan37.logic.team.TeamGlobalManager;
@@ -62,16 +61,16 @@ public class PlayerSkillCastTargetsGetter {
             }
 
             if (targetUid == null) {
-                throw new GeneralErrorException("目标不能为空");
+                return ImmutableList.of();
             }
 
             TeamMember teamMember = team.getMember(targetUid);
             if (teamMember == null) {
-                throw new GeneralErrorException("找不到目标队友");
+                return ImmutableList.of();
             }
 
             if (!teamMember.isOnline()) {
-                throw new GeneralErrorException("目标队友离线");
+                return ImmutableList.of();
             }
 
             Player target = playerGlobalManager.getPlayerByUid(teamMember.getPlayerUid());
@@ -97,7 +96,7 @@ public class PlayerSkillCastTargetsGetter {
             }
 
             if (targetUid == null) {
-                throw new GeneralErrorException("目标不能为空");
+                return ImmutableList.of();
             }
 
             // 单一目标

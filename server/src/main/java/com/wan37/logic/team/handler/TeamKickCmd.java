@@ -1,6 +1,5 @@
 package com.wan37.logic.team.handler;
 
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.handler.GeneralHandler;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
@@ -32,7 +31,8 @@ class TeamKickCmd implements GeneralHandler {
         Long uid = msg.getParamAsLong(1);
         Player target = playerGlobalManager.getPlayerByUid(uid);
         if (target == null) {
-            throw new GeneralErrorException("目标不存在");
+            player.syncClient("目标不存在");
+            return;
         }
 
         teamKickExec.exec(player, target);

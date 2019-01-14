@@ -1,7 +1,6 @@
 package com.wan37.logic.guild.service.get.item;
 
 import com.wan37.config.ConfigLoader;
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.backpack.BackpackFacade;
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.backpack.database.ItemDb;
@@ -40,20 +39,26 @@ public class GuildGetItemExec {
 
     public void exec(Player player, ReqGuildGetItem reqGuildGetItem) {
         if (player.getLeagueUid() == null) {
-            throw new GeneralErrorException("未加入公会");
+            player.syncClient("未加入公会");
+            return;
         }
 
         Guild league = guildGlobalManager.get(player.getLeagueUid());
         GuildMember me = league.getMember(player.getUid());
-        GuildPositionCfg positionCfg = configLoader.load(GuildPositionCfg.class, me.getPosition())
-                .orElseThrow(() -> new GeneralErrorException("找不到公会权限表"));
+        GuildPositionCfg positionCfg = configLoader.load(GuildPositionCfg.class, me.getPosition()).orElse(null);
+        if (positionCfg == null) {
+            player.syncClient("找不到公会权限表");
+            return;
+        }
 
         if (!positionCfg.getPermission().contains(GuildPermissionEnum.GUILD_PERMISSION_4.getId())) {
-            throw new GeneralErrorException("没有取帮会物品的权限");
+            player.syncClient("没有取帮会物品的权限");
+            return;
         }
 
         if (backpackFacade.getSpareCapacity(player) < reqGuildGetItem.getItems().size()) {
-            throw new GeneralErrorException("背包剩余空间不足");
+            player.syncClient("背包剩余空间不足");
+            return;
         }
 
         GuildWarehouse warehouse = league.getWarehouse();

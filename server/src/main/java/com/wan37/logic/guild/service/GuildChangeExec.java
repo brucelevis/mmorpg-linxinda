@@ -1,7 +1,6 @@
 package com.wan37.logic.guild.service;
 
 import com.wan37.config.ConfigLoader;
-import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.guild.GuildGlobalManager;
 import com.wan37.logic.guild.GuildPermissionEnum;
 import com.wan37.logic.guild.config.GuildPositionCfg;
@@ -27,30 +26,37 @@ public class GuildChangeExec {
 
     public void exec(Player player, Player target) {
         if (player.getLeagueUid() == null) {
-            throw new GeneralErrorException("你未加入公会");
+            player.syncClient("你未加入公会");
+            return;
         }
 
         Guild league = guildGlobalManager.get(player.getLeagueUid());
         if (league == null) {
-            throw new GeneralErrorException("公会不存在");
+            player.syncClient("公会不存在");
+            return;
         }
 
         GuildMember me = league.getMember(player.getUid());
-        GuildPositionCfg myPositionCfg = configLoader.load(GuildPositionCfg.class, me.getPosition())
-                .orElseThrow(() -> new GeneralErrorException("找不到公会权限表"));
+        GuildPositionCfg myPositionCfg = configLoader.load(GuildPositionCfg.class, me.getPosition()).orElse(null);
+        if (myPositionCfg == null) {
+            player.syncClient("找不到公会权限表");
+            return;
+        }
 
         if (!myPositionCfg.getPermission().contains(GuildPermissionEnum.GUILD_PERMISSION_3.getId())) {
-            throw new GeneralErrorException("你的职位不能改变公会成员的权限");
+            player.syncClient("你的职位不能改变公会成员的权限");
+            return;
         }
 
         GuildMember targetMember = league.getMember(target.getUid());
         if (targetMember == null) {
-            throw new GeneralErrorException("目标不是该公会成员");
-
+            player.syncClient("目标不是该公会成员");
+            return;
         }
 
         if (me.getPosition() >= targetMember.getPosition()) {
-            throw new GeneralErrorException("不能修改同职级或更高职级的人");
+            player.syncClient("不能修改同职级或更高职级的人");
+            return;
         }
 
         GuildPositionCfg newPositionCfg = getNewPositionCfg(me.getPosition(), targetMember.getPosition());
@@ -66,10 +72,10 @@ public class GuildChangeExec {
         if (myPosition == targetPosition - 1) {
             return configLoader.loads(GuildPositionCfg.class).stream()
                     .max(Comparator.comparingInt(GuildPositionCfg::getId))
-                    .orElseThrow(() -> new GeneralErrorException("公会职位配置表出错"));
+                    .orElseThrow(() -> new RuntimeException("公会职位配置表出错"));
         }
 
         return configLoader.load(GuildPositionCfg.class, targetPosition - 1)
-                .orElseThrow(() -> new GeneralErrorException("公会职位配置表出错"));
+                .orElseThrow(() -> new RuntimeException("公会职位配置表出错"));
     }
 }
