@@ -1,5 +1,6 @@
 package com.wan37.logic.summoning.init;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.logic.attr.config.AttrCfg;
 import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.skill.config.SkillCfg;
@@ -27,13 +28,10 @@ import java.util.stream.Collectors;
 public class SummoningCreator {
 
     @Autowired
-    private AttrCfgLoader attrCfgLoader;
+    private ConfigLoader configLoader;
 
     @Autowired
     private Skill.Factory iSkillFactory;
-
-    @Autowired
-    private SkillCfgLoader skillCfgLoader;
 
     public Summoning create(Long masterUid, SummoningCfg cfg, AbstractScene scene) {
         Summoning summoning = new Summoning();
@@ -59,7 +57,7 @@ public class SummoningCreator {
     }
 
     private Skill createSkill(SummoningInitSkillCfg cfg) {
-        SkillCfg skillCfg = skillCfgLoader.load(cfg.getId()).orElse(null);
+        SkillCfg skillCfg = configLoader.load(SkillCfg.class, cfg.getId()).orElse(null);
         if (skillCfg == null) {
             return null;
         }
@@ -82,9 +80,11 @@ public class SummoningCreator {
                 .sum()));
     }
 
-    //FIXME：代码重复
+    /**
+     * FIXME：代码重复
+     */
     private Pair toPair(Map.Entry<Integer, Double> entry) {
-        AttrCfg attrCfg = attrCfgLoader.load(entry.getKey()).orElse(null);
+        AttrCfg attrCfg = configLoader.load(AttrCfg.class, entry.getKey()).orElse(null);
         if (attrCfg == null) {
             return null;
         }

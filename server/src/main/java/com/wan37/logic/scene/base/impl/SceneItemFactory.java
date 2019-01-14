@@ -1,5 +1,6 @@
 package com.wan37.logic.scene.base.impl;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.logic.monster.config.MonsterCfg;
 import com.wan37.logic.monster.config.MonsterItemCfg;
 import com.wan37.logic.props.config.PropsCfg;
@@ -29,10 +30,7 @@ public class SceneItemFactory implements SceneItem.Factory {
     private static final int MAX_VIRTUAL_ITEM_ID = 200;
 
     @Autowired
-    private VirtualItemCfgLoader virtualItemCfgLoader;
-
-    @Autowired
-    private PropsCfgLoader propsCfgLoader;
+    private ConfigLoader configLoader;
 
     @Override
     public List<SceneItem> create(MonsterCfg monsterCfg) {
@@ -59,7 +57,7 @@ public class SceneItemFactory implements SceneItem.Factory {
     }
 
     private SceneItem createVirtualItem(Long uid, Integer id, int amount, long expireTime) {
-        VirtualItemCfg cfg = virtualItemCfgLoader.load(id).orElse(null);
+        VirtualItemCfg cfg = configLoader.load(VirtualItemCfg.class, id).orElse(null);
         if (cfg == null) {
             return null;
         }
@@ -68,7 +66,7 @@ public class SceneItemFactory implements SceneItem.Factory {
     }
 
     private SceneItem createProps(Long uid, Integer id, int amount, long expireTime) {
-        PropsCfg cfg = propsCfgLoader.load(id).orElse(null);
+        PropsCfg cfg = configLoader.load(PropsCfg.class, id).orElse(null);
         if (cfg == null) {
             return null;
         }

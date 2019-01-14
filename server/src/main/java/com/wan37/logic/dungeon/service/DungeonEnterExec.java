@@ -1,5 +1,6 @@
 package com.wan37.logic.dungeon.service;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.dungeon.config.DungeonCfg;
 import com.wan37.logic.dungeon.init.DungeonSceneCreator;
@@ -8,7 +9,6 @@ import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.scene.SceneTypeEnum;
 import com.wan37.logic.scene.config.SceneCfg;
-import com.wan37.logic.scene.config.SceneCfgLoader;
 import com.wan37.logic.scene.SceneFacade;
 import com.wan37.logic.scene.TemporarySceneGlobalManager;
 import com.wan37.logic.team.TeamGlobalManager;
@@ -28,10 +28,7 @@ import java.util.stream.Collectors;
 public class DungeonEnterExec {
 
     @Autowired
-    private DungeonCfgLoader dungeonCfgLoader;
-
-    @Autowired
-    private SceneCfgLoader sceneCfgLoader;
+    private ConfigLoader configLoader;
 
     @Autowired
     private SceneFacade sceneFacade;
@@ -49,17 +46,17 @@ public class DungeonEnterExec {
     private PlayerGlobalManager playerGlobalManager;
 
     public void exec(Player player, Integer dungeonId) {
-        SceneCfg sceneCfg = sceneCfgLoader.load(player.getSceneId())
+        SceneCfg sceneCfg = configLoader.load(SceneCfg.class, player.getSceneId())
                 .orElseThrow(() -> new GeneralErrorException("找不到当前场景配置"));
 
         if (!Objects.equals(sceneCfg.getType(), SceneTypeEnum.SCENE_TYPE_1.getId())) {
             throw new GeneralErrorException("请切换到普通场景再尝试进入副本");
         }
 
-        DungeonCfg dungeonCfg = dungeonCfgLoader.load(dungeonId)
+        DungeonCfg dungeonCfg = configLoader.load(DungeonCfg.class, dungeonId)
                 .orElseThrow(() -> new GeneralErrorException("找不到相应的副本"));
 
-        SceneCfg dungeonSceneCfg = sceneCfgLoader.load(dungeonCfg.getSceneId())
+        SceneCfg dungeonSceneCfg = configLoader.load(SceneCfg.class, dungeonCfg.getSceneId())
                 .orElseThrow(() -> new GeneralErrorException("找不到副本场景配置"));
 
         if (player.getTeamUid() == null) {

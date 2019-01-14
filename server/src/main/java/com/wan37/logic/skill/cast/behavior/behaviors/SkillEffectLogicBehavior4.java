@@ -1,5 +1,6 @@
 package com.wan37.logic.skill.cast.behavior.behaviors;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.logic.scene.SceneActorSceneGetter;
 import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.scene.base.FightingUnit;
@@ -34,7 +35,7 @@ class SkillEffectLogicBehavior4 implements SkillEffectLogicBehavior {
     private SceneActorSceneGetter sceneActorSceneGetter;
 
     @Autowired
-    private SummoningCfgLoader summoningCfgLoader;
+    private ConfigLoader configLoader;
 
     @Autowired
     private SummoningCreator summoningCreator;
@@ -56,7 +57,7 @@ class SkillEffectLogicBehavior4 implements SkillEffectLogicBehavior {
 
         AbstractScene scene = sceneActorSceneGetter.get(caster);
         Integer cfgId = (int) skill.getEffectValue();
-        SummoningCfg summoningCfg = summoningCfgLoader.load(cfgId)
+        SummoningCfg summoningCfg = configLoader.load(SummoningCfg.class, cfgId)
                 .orElseThrow(() -> new RuntimeException("找不到召唤兽配置表"));
 
         // 创建召唤兽

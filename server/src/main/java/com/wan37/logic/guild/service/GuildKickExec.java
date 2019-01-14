@@ -1,5 +1,6 @@
 package com.wan37.logic.guild.service;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.guild.GuildGlobalManager;
 import com.wan37.logic.guild.GuildPermissionEnum;
@@ -20,7 +21,7 @@ public class GuildKickExec {
     private GuildGlobalManager guildGlobalManager;
 
     @Autowired
-    private GuildPositionCfgLoader guildPositionCfgLoader;
+    private ConfigLoader configLoader;
 
     public void exec(Player player, Player target) {
         if (player.getLeagueUid() == null) {
@@ -33,7 +34,7 @@ public class GuildKickExec {
         }
 
         GuildMember me = league.getMember(player.getUid());
-        GuildPositionCfg positionCfg = guildPositionCfgLoader.load(me.getPosition())
+        GuildPositionCfg positionCfg = configLoader.load(GuildPositionCfg.class, me.getPosition())
                 .orElseThrow(() -> new GeneralErrorException("找不到公会权限表"));
 
         if (!positionCfg.getPermission().contains(GuildPermissionEnum.GUILD_PERMISSION_2.getId())) {

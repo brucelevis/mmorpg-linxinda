@@ -1,5 +1,6 @@
 package com.wan37.logic.player.listeners;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.event.GeneralEventListener;
 import com.wan37.event.entity.LoginEvent;
 import com.wan37.logic.player.Player;
@@ -7,7 +8,6 @@ import com.wan37.logic.player.init.PlayerReviveInitializer;
 import com.wan37.logic.scene.SceneTypeEnum;
 import com.wan37.logic.scene.base.AbstractTemporaryScene;
 import com.wan37.logic.scene.config.SceneCfg;
-import com.wan37.logic.scene.config.SceneCfgLoader;
 import com.wan37.logic.scene.SceneFacade;
 import com.wan37.logic.scene.TemporarySceneGlobalManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ class PlayerOnLogin implements GeneralEventListener<LoginEvent> {
     private PlayerReviveInitializer playerReviver;
 
     @Autowired
-    private SceneCfgLoader sceneCfgLoader;
+    private ConfigLoader configLoader;
 
     @Autowired
     private SceneFacade sceneFacade;
@@ -41,7 +41,7 @@ class PlayerOnLogin implements GeneralEventListener<LoginEvent> {
             playerReviver.init(player);
         }
 
-        SceneCfg sceneCfg = sceneCfgLoader.load(player.getSceneId()).orElse(null);
+        SceneCfg sceneCfg = configLoader.load(SceneCfg.class, player.getSceneId()).orElse(null);
         if (sceneCfg == null) {
             return;
         }

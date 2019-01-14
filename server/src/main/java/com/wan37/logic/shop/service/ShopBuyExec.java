@@ -1,5 +1,6 @@
 package com.wan37.logic.shop.service;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.logic.backpack.encode.BackpackUpdateNotifier;
 import com.wan37.logic.currency.encode.CurrencyUpdateNotifier;
 import com.wan37.logic.player.Player;
@@ -19,10 +20,7 @@ import org.springframework.stereotype.Service;
 public class ShopBuyExec {
 
     @Autowired
-    private ShopCfgLoader shopCfgLoader;
-
-    @Autowired
-    private PropsCfgLoader propsCfgLoader;
+    private ConfigLoader configLoader;
 
     @Autowired
     private ResourceFacade resourceFacade;
@@ -34,13 +32,13 @@ public class ShopBuyExec {
     private CurrencyUpdateNotifier currencyUpdateNotifier;
 
     public void exec(Player player, Integer id, int amount) {
-        ShopCfg shopCfg = shopCfgLoader.load(id).orElse(null);
+        ShopCfg shopCfg = configLoader.load(ShopCfg.class, id).orElse(null);
         if (shopCfg == null) {
             player.syncClient("不存在的商品");
             return;
         }
 
-        PropsCfg propsCfg = propsCfgLoader.load(shopCfg.getItemId()).orElse(null);
+        PropsCfg propsCfg = configLoader.load(PropsCfg.class, shopCfg.getItemId()).orElse(null);
         if (propsCfg == null) {
             return;
         }

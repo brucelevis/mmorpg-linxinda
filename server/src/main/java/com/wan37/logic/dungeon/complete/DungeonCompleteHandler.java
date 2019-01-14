@@ -1,5 +1,6 @@
 package com.wan37.logic.dungeon.complete;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.event.entity.DungeonCompleteEvent;
 import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.logic.backpack.database.BackpackDb;
@@ -12,6 +13,8 @@ import com.wan37.logic.mail.gm.MailGmSender;
 import com.wan37.logic.mail.init.GmMailCreator;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.props.ResourceFacade;
+import com.wan37.logic.props.config.PropsCfg;
+import com.wan37.logic.props.config.VirtualItemCfg;
 import com.wan37.logic.props.resource.ResourceCollection;
 import com.wan37.logic.props.resource.ResourceElement;
 import com.wan37.logic.props.resource.impl.ResourceCollectionImpl;
@@ -43,10 +46,7 @@ public class DungeonCompleteHandler {
     private ResourceFacade resourceFacade;
 
     @Autowired
-    private PropsCfgLoader propsCfgLoader;
-
-    @Autowired
-    private VirtualItemCfgLoader virtualItemCfgLoader;
+    private ConfigLoader configLoader;
 
     @Autowired
     private ChatFacade chatFacade;
@@ -77,7 +77,8 @@ public class DungeonCompleteHandler {
     }
 
     private String encodeReward(ResourceElement e) {
-        String name = e.getCfgId() < 200 ? virtualItemCfgLoader.getName(e.getCfgId()) : propsCfgLoader.getName(e.getCfgId());
+        String name = e.getCfgId() < 200 ? configLoader.loadName(VirtualItemCfg.class, e.getCfgId()) :
+                configLoader.loadName(PropsCfg.class, e.getCfgId());
         return String.format("%s × %s", name, e.getAmount());
     }
 

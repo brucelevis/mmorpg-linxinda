@@ -1,5 +1,6 @@
 package com.wan37.logic.backpack.service;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.backpack.database.ItemDb;
 import com.wan37.logic.backpack.encode.BackpackInfoEncoder;
@@ -26,7 +27,7 @@ public class BackpackCleanExec {
     private BackpackInfoEncoder backpackInfoEncoder;
 
     @Autowired
-    private PropsCfgLoader propsCfgLoader;
+    private ConfigLoader configLoader;
 
     public void exec(Player player) {
         BackpackDb backpackDb = player.getPlayerDb().getBackpackDb();
@@ -38,7 +39,7 @@ public class BackpackCleanExec {
         int index = 1;
         Map<Integer, ItemDb> backpack = new HashMap<>(0);
         for (Map.Entry<Integer, List<ItemDb>> entry : entries) {
-            PropsCfg propsCfg = propsCfgLoader.load(entry.getKey())
+            PropsCfg propsCfg = configLoader.load(PropsCfg.class, entry.getKey())
                     .orElseThrow(() -> new RuntimeException("物品导表找不到对应物品"));
 
             List<ItemDb> items = entry.getValue();

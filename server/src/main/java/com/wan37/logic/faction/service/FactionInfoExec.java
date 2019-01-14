@@ -1,5 +1,6 @@
 package com.wan37.logic.faction.service;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.logic.faction.config.FactionCfg;
 import com.wan37.util.GeneralNotifySenderUtil;
 import io.netty.channel.Channel;
@@ -15,11 +16,11 @@ import java.util.stream.Collectors;
 public class FactionInfoExec {
 
     @Autowired
-    private FactionCfgLoader factionCfgLoader;
+    private ConfigLoader configLoader;
 
     public void exec(Channel channel) {
         String head = "门派信息如下：\n";
-        String msg = factionCfgLoader.loads().stream()
+        String msg = configLoader.loads(FactionCfg.class).stream()
                 .map(this::encode)
                 .collect(Collectors.joining("\n"));
 

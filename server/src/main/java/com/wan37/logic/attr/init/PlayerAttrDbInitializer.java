@@ -1,5 +1,6 @@
 package com.wan37.logic.attr.init;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.logic.attr.database.PlayerEachAttrDb;
 import com.wan37.logic.attr.database.PlayerAttrDb;
 import com.wan37.logic.faction.config.FactionCfg;
@@ -19,10 +20,10 @@ import java.util.stream.Collectors;
 public class PlayerAttrDbInitializer {
 
     @Autowired
-    private FactionCfgLoader factionCfgLoader;
+    private ConfigLoader configLoader;
 
     public void init(PlayerAttrDb attrDb, Integer factionId) {
-        factionCfgLoader.load(factionId)
+        configLoader.load(FactionCfg.class, factionId)
                 .ifPresent(c -> initImpl(attrDb, c));
     }
 

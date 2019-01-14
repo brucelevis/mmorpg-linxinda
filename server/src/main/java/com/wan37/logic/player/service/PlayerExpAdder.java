@@ -1,5 +1,6 @@
 package com.wan37.logic.player.service;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.event.entity.LevelUpEvent;
 import com.wan37.logic.player.Player;
@@ -22,7 +23,7 @@ import java.util.stream.Collectors;
 public class PlayerExpAdder {
 
     @Autowired
-    private ExpCfgLoader expCfgLoader;
+    private ConfigLoader configLoader;
 
     @Autowired
     private SceneActorSceneGetter sceneActorSceneGetter;
@@ -33,7 +34,7 @@ public class PlayerExpAdder {
     public void add(Player player, long exp) {
         player.syncClient(String.format("获得%s经验", exp));
 
-        List<ExpCfg> cfgList = expCfgLoader.loads().stream()
+        List<ExpCfg> cfgList = configLoader.loads(ExpCfg.class).stream()
                 .filter(c -> player.getLevel() <= c.getId())
                 .sorted(Comparator.comparingInt(ExpCfg::getId))
                 .collect(Collectors.toList());

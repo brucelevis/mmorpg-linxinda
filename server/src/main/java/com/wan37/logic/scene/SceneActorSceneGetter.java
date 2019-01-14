@@ -1,9 +1,9 @@
 package com.wan37.logic.scene;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.scene.base.SceneActor;
 import com.wan37.logic.scene.config.SceneCfg;
-import com.wan37.logic.scene.config.SceneCfgLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,7 @@ import java.util.Objects;
 public class SceneActorSceneGetter {
 
     @Autowired
-    private SceneCfgLoader sceneCfgLoader;
+    private ConfigLoader configLoader;
 
     @Autowired
     private SceneGlobalManager sceneGlobalManager;
@@ -27,7 +27,7 @@ public class SceneActorSceneGetter {
     private TemporarySceneGlobalManager temporarySceneGlobalManager;
 
     public AbstractScene get(SceneActor sceneActor) {
-        SceneCfg sceneCfg = sceneCfgLoader.load(sceneActor.getSceneId())
+        SceneCfg sceneCfg = configLoader.load(SceneCfg.class, sceneActor.getSceneId())
                 .orElseThrow(() -> new RuntimeException("找不到场景配置表"));
 
         if (Objects.equals(sceneCfg.getType(), SceneTypeEnum.SCENE_TYPE_1.getId())) {

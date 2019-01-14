@@ -1,6 +1,8 @@
 package com.wan37.logic.skill.service;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.logic.player.Player;
+import com.wan37.logic.skill.config.SkillCfg;
 import com.wan37.logic.skill.database.PlayerEachSkillDb;
 import com.wan37.logic.skill.database.PlayerSkillDb;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,7 @@ import java.util.stream.Collectors;
 public class SkillInfoExec {
 
     @Autowired
-    private SkillCfgLoader skillCfgLoader;
+    private ConfigLoader configLoader;
 
     public void exec(Player player) {
         PlayerSkillDb playerSkillDb = player.getPlayerDb().getPlayerSkillDb();
@@ -23,7 +25,6 @@ public class SkillInfoExec {
         player.syncClient(msg);
     }
 
-    @Deprecated
     private String encode(PlayerSkillDb playerSkillDb) {
         return playerSkillDb.getSkills().values().stream()
                 .map(this::encodeSkill)
@@ -32,6 +33,6 @@ public class SkillInfoExec {
 
     public String encodeSkill(PlayerEachSkillDb playerEachSkillDb) {
         Integer id = playerEachSkillDb.getCfgId();
-        return String.format("%s（id：%s）：Lv%s", skillCfgLoader.getName(id), id, playerEachSkillDb.getLevel());
+        return String.format("%s（id：%s）：Lv%s", configLoader.loadName(SkillCfg.class, id), id, playerEachSkillDb.getLevel());
     }
 }

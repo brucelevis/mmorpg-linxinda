@@ -1,7 +1,9 @@
 package com.wan37.logic.mission.listener;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.event.GeneralEventListener;
 import com.wan37.event.entity.ItemAddEvent;
+import com.wan37.logic.equipment.config.EquipCfg;
 import com.wan37.logic.mission.MissionTypeEnum;
 import com.wan37.logic.mission.complete.MissionCompleteChecker;
 import com.wan37.logic.player.Player;
@@ -18,7 +20,7 @@ import java.util.Objects;
 class MissionOnItemAdd implements GeneralEventListener<ItemAddEvent> {
 
     @Autowired
-    private EquipCfgLoader equipCfgLoader;
+    private ConfigLoader configLoader;
 
     @Autowired
     private MissionCompleteChecker missionCompleteChecker;
@@ -38,6 +40,6 @@ class MissionOnItemAdd implements GeneralEventListener<ItemAddEvent> {
     }
 
     private boolean isEquip(Integer cfgId) {
-        return equipCfgLoader.load(cfgId).isPresent();
+        return configLoader.load(EquipCfg.class, cfgId).isPresent();
     }
 }

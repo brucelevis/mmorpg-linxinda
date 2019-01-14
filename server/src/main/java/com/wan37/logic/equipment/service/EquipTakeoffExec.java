@@ -1,6 +1,7 @@
 package com.wan37.logic.equipment.service;
 
 import com.google.common.collect.ImmutableList;
+import com.wan37.config.ConfigLoader;
 import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.event.entity.StrengthChangeEvent;
 import com.wan37.logic.backpack.BackpackFacade;
@@ -10,6 +11,7 @@ import com.wan37.logic.equipment.database.EquipDb;
 import com.wan37.logic.equipment.encode.EquipUpdateNotifier;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.database.PlayerDb;
+import com.wan37.logic.props.config.PropsCfg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +33,7 @@ public class EquipTakeoffExec {
     private GeneralEventListenersManager generalEventListenersManager;
 
     @Autowired
-    private PropsCfgLoader propsCfgLoader;
+    private ConfigLoader configLoader;
 
     @Autowired
     private BackpackEmptyIndexFinder backpackEmptyIndexFinder;
@@ -61,7 +63,7 @@ public class EquipTakeoffExec {
         backpackFacade.add(player, ImmutableList.of(equipItem));
 
         // 打印提示
-        String msg = String.format("你脱掉了%s", propsCfgLoader.getName(equipItem.getCfgId()));
+        String msg = String.format("你脱掉了%s", configLoader.loadName(PropsCfg.class, equipItem.getCfgId()));
         player.syncClient(msg);
 
         // 推送装备栏更新

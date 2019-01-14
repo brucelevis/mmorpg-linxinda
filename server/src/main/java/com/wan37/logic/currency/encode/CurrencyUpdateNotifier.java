@@ -1,8 +1,10 @@
 package com.wan37.logic.currency.encode;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.logic.currency.database.CurrencyDb;
 import com.wan37.logic.currency.database.CurrencyItemDb;
 import com.wan37.logic.player.Player;
+import com.wan37.logic.props.config.VirtualItemCfg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +21,7 @@ import java.util.stream.Collectors;
 public class CurrencyUpdateNotifier {
 
     @Autowired
-    private VirtualItemCfgLoader virtualItemCfgLoader;
+    private ConfigLoader configLoader;
 
     @Autowired
     private CurrencyItemEncoder currencyItemEncoder;
@@ -52,7 +54,7 @@ public class CurrencyUpdateNotifier {
     private String encodeItem(Integer id, CurrencyItemDb itemDb) {
         if (itemDb == null) {
             // 虚物用完了
-            return String.format("%s：%s", virtualItemCfgLoader.getName(id), 0);
+            return String.format("%s：%s", configLoader.loadName(VirtualItemCfg.class, id), 0);
         }
 
         return currencyItemEncoder.encode(itemDb);

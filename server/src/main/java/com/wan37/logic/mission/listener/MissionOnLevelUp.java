@@ -1,5 +1,6 @@
 package com.wan37.logic.mission.listener;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.event.GeneralEventListener;
 import com.wan37.event.entity.LevelUpEvent;
 import com.wan37.logic.mission.MissionTypeEnum;
@@ -22,7 +23,7 @@ class MissionOnLevelUp implements GeneralEventListener<LevelUpEvent> {
     private MissionCompleteChecker missionCompleteChecker;
 
     @Autowired
-    private MissionCfgLoader missionCfgLoader;
+    private ConfigLoader configLoader;
 
     @Autowired
     private MissionAccepter missionAccepter;
@@ -37,7 +38,7 @@ class MissionOnLevelUp implements GeneralEventListener<LevelUpEvent> {
                 .forEach(m -> missionCompleteChecker.check(player, m));
 
         // 自动接取任务
-        missionCfgLoader.loads().stream()
+        configLoader.loads(MissionCfg.class).stream()
                 .filter(m -> m.getLevel() == player.getLevel())
                 .filter(MissionCfg::isAutoAccept)
                 .forEach(c -> acceptImpl(player, c));

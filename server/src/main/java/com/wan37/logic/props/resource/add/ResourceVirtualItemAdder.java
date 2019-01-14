@@ -1,5 +1,6 @@
 package com.wan37.logic.props.resource.add;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.event.entity.VirtualItemAddEvent;
 import com.wan37.logic.currency.database.CurrencyDb;
@@ -19,14 +20,14 @@ import org.springframework.stereotype.Service;
 public class ResourceVirtualItemAdder {
 
     @Autowired
-    private VirtualItemCfgLoader virtualItemCfgLoader;
+    private ConfigLoader configLoader;
 
     @Autowired
     private GeneralEventListenersManager generalEventListenersManager;
 
     public boolean add(ResourceElement element, Player player) {
         Integer cfgId = element.getCfgId();
-        VirtualItemCfg cfg = virtualItemCfgLoader.load(cfgId).orElse(null);
+        VirtualItemCfg cfg = configLoader.load(VirtualItemCfg.class, cfgId).orElse(null);
         if (cfg == null) {
             return false;
         }

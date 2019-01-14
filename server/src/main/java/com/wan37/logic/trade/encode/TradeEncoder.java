@@ -1,7 +1,9 @@
 package com.wan37.logic.trade.encode;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.logic.backpack.encode.BackpackItemSimpleInfoEncoder;
 import com.wan37.logic.player.Player;
+import com.wan37.logic.props.config.VirtualItemCfg;
 import com.wan37.logic.trade.entity.Trade;
 import com.wan37.logic.trade.entity.TradePlayer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,7 @@ public class TradeEncoder {
     private BackpackItemSimpleInfoEncoder backpackItemSimpleInfoEncoder;
 
     @Autowired
-    private VirtualItemCfgLoader virtualItemCfgLoader;
+    private ConfigLoader configLoader;
 
     public String encode(Trade trade) {
         String head = "交易信息更新：\n";
@@ -47,6 +49,6 @@ public class TradeEncoder {
     }
 
     private String encodeCurrency(Integer cfgId, long amount) {
-        return String.format("%s：%s", virtualItemCfgLoader.getName(cfgId), amount);
+        return String.format("%s：%s", configLoader.loadName(VirtualItemCfg.class, cfgId), amount);
     }
 }

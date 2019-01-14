@@ -14,7 +14,7 @@ public class GeneralDispatchHandlerManagerTest extends BaseTest {
     @Test
     public void test_() {
         // Arrange
-        String req = "player_Login";
+        String req = "playerLoginCmd";
 
         // Act
         Optional<GeneralHandler> result = GeneralDispatchHandlerManager.get(req);

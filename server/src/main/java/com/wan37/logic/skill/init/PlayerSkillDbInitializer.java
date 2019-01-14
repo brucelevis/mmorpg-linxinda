@@ -1,5 +1,6 @@
 package com.wan37.logic.skill.init;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.logic.faction.config.FactionCfg;
 import com.wan37.logic.faction.config.FactionInitSkillCfg;
 import com.wan37.logic.skill.database.PlayerEachSkillDb;
@@ -19,10 +20,10 @@ import java.util.stream.Collectors;
 public class PlayerSkillDbInitializer {
 
     @Autowired
-    private FactionCfgLoader factionCfgLoader;
+    private ConfigLoader configLoader;
 
     public void init(PlayerSkillDb playerSkillDb, Integer factionId) {
-        factionCfgLoader.load(factionId)
+        configLoader.load(FactionCfg.class, factionId)
                 .ifPresent(c -> initImpl(c, playerSkillDb));
     }
 

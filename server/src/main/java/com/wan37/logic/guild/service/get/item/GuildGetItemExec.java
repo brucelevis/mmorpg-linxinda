@@ -1,5 +1,6 @@
 package com.wan37.logic.guild.service.get.item;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.backpack.BackpackFacade;
 import com.wan37.logic.backpack.database.BackpackDb;
@@ -9,10 +10,10 @@ import com.wan37.logic.guild.GuildGlobalManager;
 import com.wan37.logic.guild.GuildPermissionEnum;
 import com.wan37.logic.guild.config.GuildPositionCfg;
 import com.wan37.logic.guild.database.GuildItemDb;
-import com.wan37.logic.guild.entity.GuildWarehouse;
 import com.wan37.logic.guild.entity.Guild;
 import com.wan37.logic.guild.entity.GuildItem;
 import com.wan37.logic.guild.entity.GuildMember;
+import com.wan37.logic.guild.entity.GuildWarehouse;
 import com.wan37.logic.player.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,7 @@ public class GuildGetItemExec {
     private GuildGlobalManager guildGlobalManager;
 
     @Autowired
-    private GuildPositionCfgLoader guildPositionCfgLoader;
+    private ConfigLoader configLoader;
 
     @Autowired
     private BackpackFacade backpackFacade;
@@ -44,7 +45,7 @@ public class GuildGetItemExec {
 
         Guild league = guildGlobalManager.get(player.getLeagueUid());
         GuildMember me = league.getMember(player.getUid());
-        GuildPositionCfg positionCfg = guildPositionCfgLoader.load(me.getPosition())
+        GuildPositionCfg positionCfg = configLoader.load(GuildPositionCfg.class, me.getPosition())
                 .orElseThrow(() -> new GeneralErrorException("找不到公会权限表"));
 
         if (!positionCfg.getPermission().contains(GuildPermissionEnum.GUILD_PERMISSION_4.getId())) {

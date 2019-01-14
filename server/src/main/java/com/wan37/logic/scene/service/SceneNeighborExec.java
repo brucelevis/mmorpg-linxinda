@@ -1,8 +1,8 @@
 package com.wan37.logic.scene.service;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.scene.config.SceneCfg;
-import com.wan37.logic.scene.config.SceneCfgLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +16,10 @@ import java.util.stream.Collectors;
 public class SceneNeighborExec {
 
     @Autowired
-    private SceneCfgLoader sceneCfgLoader;
+    private ConfigLoader configLoader;
 
     public void exec(Player player) {
-        SceneCfg sceneCfg = sceneCfgLoader.load(player.getSceneId()).orElse(null);
+        SceneCfg sceneCfg = configLoader.load(SceneCfg.class, player.getSceneId()).orElse(null);
         if (sceneCfg == null) {
             return;
         }
@@ -32,7 +32,7 @@ public class SceneNeighborExec {
         String sceneHead = String.format("当前场景：%s (sceneCfgId：%s)，可达场景：\n", sceneCfg.getName(), sceneCfg.getId());
 
         String sceneNeighbor = sceneCfg.getNeighbor().stream()
-                .map(i -> sceneCfgLoader.load(i).orElse(null))
+                .map(i -> configLoader.load(SceneCfg.class, i).orElse(null))
                 .filter(Objects::nonNull)
                 .map(this::encodeScene)
                 .collect(Collectors.joining("\n"));

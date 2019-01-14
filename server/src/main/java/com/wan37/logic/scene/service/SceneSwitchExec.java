@@ -1,9 +1,9 @@
 package com.wan37.logic.scene.service;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.scene.SceneFacade;
 import com.wan37.logic.scene.config.SceneCfg;
-import com.wan37.logic.scene.config.SceneCfgLoader;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ public class SceneSwitchExec {
     private static final Logger LOG = Logger.getLogger(SceneSwitchExec.class);
 
     @Autowired
-    private SceneCfgLoader sceneCfgLoader;
+    private ConfigLoader configLoader;
 
     @Autowired
     private SceneFacade sceneFacade;
@@ -38,7 +38,7 @@ public class SceneSwitchExec {
     }
 
     private boolean checkScene(Integer sceneId) {
-        SceneCfg sceneCfg = sceneCfgLoader.load(sceneId).orElse(null);
+        SceneCfg sceneCfg = configLoader.load(SceneCfg.class, sceneId).orElse(null);
         if (sceneCfg == null) {
             LOG.info("找不到目标场景的配置表");
             return false;

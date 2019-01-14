@@ -1,5 +1,6 @@
 package com.wan37.logic.monster.init;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.logic.attr.config.AttrCfg;
 import com.wan37.logic.monster.Monster;
 import com.wan37.logic.monster.config.MonsterCfg;
@@ -30,13 +31,10 @@ public class MonsterCreator {
     private MonsterInitializer monsterInitializer;
 
     @Autowired
-    private AttrCfgLoader attrCfgLoader;
+    private ConfigLoader configLoader;
 
     @Autowired
     private Skill.Factory iSkillFactory;
-
-    @Autowired
-    private SkillCfgLoader skillCfgLoader;
 
     public Monster create(MonsterCfg cfg, AbstractScene scene) {
         Monster monster = new Monster();
@@ -60,7 +58,7 @@ public class MonsterCreator {
     }
 
     private Skill createSkill(MonsterInitSkillCfg cfg) {
-        SkillCfg skillCfg = skillCfgLoader.load(cfg.getId()).orElse(null);
+        SkillCfg skillCfg = configLoader.load(SkillCfg.class, cfg.getId()).orElse(null);
         if (skillCfg == null) {
             return null;
         }
@@ -85,7 +83,7 @@ public class MonsterCreator {
 
     private Pair toPair(Map.Entry<Integer, Double> entry) {
         //FIXME: 重复代码
-        AttrCfg attrCfg = attrCfgLoader.load(entry.getKey()).orElse(null);
+        AttrCfg attrCfg = configLoader.load(AttrCfg.class, entry.getKey()).orElse(null);
         if (attrCfg == null) {
             return null;
         }

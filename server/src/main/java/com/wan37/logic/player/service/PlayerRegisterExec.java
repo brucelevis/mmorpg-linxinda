@@ -1,11 +1,11 @@
 package com.wan37.logic.player.service;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.exception.GeneralErrorException;
+import com.wan37.logic.faction.config.FactionCfg;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.player.encode.PlayerRegisterResponseEncoder;
 import com.wan37.logic.player.init.PlayerDbInitializer;
-import com.wan37.logic.scene.config.SceneCfg;
-import com.wan37.logic.scene.config.SceneCfgLoader;
 import com.wan37.util.IdUtil;
 import io.netty.channel.Channel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +18,10 @@ import org.springframework.stereotype.Service;
 public class PlayerRegisterExec {
 
     @Autowired
-    private SceneCfgLoader sceneCfgLoader;
+    private ConfigLoader configLoader;
 
     @Autowired
     private PlayerDbInitializer playerDbInitializer;
-
-    @Autowired
-    private FactionCfgLoader factionCfgLoader;
 
     @Autowired
     private PlayerRegisterResponseEncoder playerRegisterResponseEncoder;
@@ -43,14 +40,12 @@ public class PlayerRegisterExec {
         db.setName(name);
         db.setLevel(1);
 
-        factionCfgLoader.load(factionId)
+        configLoader.load(FactionCfg.class, factionId)
                 .orElseThrow(() -> new GeneralErrorException("找不到职业导表，错误的职业id"));
         db.setFactionId(factionId);
 
-        db.setSceneId(sceneCfgLoader.loadDefault()
-                .map(SceneCfg::getId)
-                .orElse(0));
-
+        //FIXME: 写死默认安全村地图id 1000
+        db.setSceneId(1000);
         return db;
     }
 }

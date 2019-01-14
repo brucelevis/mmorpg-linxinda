@@ -1,5 +1,6 @@
 package com.wan37.logic.props.init.behaviors;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.logic.equipment.config.EquipCfg;
 import com.wan37.logic.equipment.config.EquipInitAttrCfg;
 import com.wan37.logic.equipment.database.EquipAttrDb;
@@ -22,12 +23,12 @@ class PropsInitBehavior1 implements PropsInitBehavior {
     private static final Logger LOG = Logger.getLogger(PropsInitBehavior1.class);
 
     @Autowired
-    private EquipCfgLoader equipCfgLoader;
+    private ConfigLoader configLoader;
 
     @Override
     public void behave(PropsInitContext context) {
         Integer cfgId = context.getPropsCfg().getId();
-        EquipCfg equipCfg = equipCfgLoader.load(cfgId).orElse(null);
+        EquipCfg equipCfg = configLoader.load(EquipCfg.class, cfgId).orElse(null);
         if (equipCfg == null) {
             LOG.info("找不到装备配置表，初始化失败");
             return;

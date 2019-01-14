@@ -1,5 +1,6 @@
 package com.wan37.logic.props.resource.add;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.backpack.database.ItemDb;
@@ -36,7 +37,7 @@ public class ResourceItemAdderTest {
     ResourceItemAdder _sut;
 
     @Mock
-    PropsCfgLoader _loader;
+    ConfigLoader _loader;
 
     @Spy
     BackpackEmptyIndexFinder _finder;
@@ -71,7 +72,7 @@ public class ResourceItemAdderTest {
         when(playerDb.getBackpackDb()).thenReturn(_db);
 
         _cfg = mock(PropsCfg.class);
-        when(_loader.load(anyInt())).thenReturn(Optional.of(_cfg));
+        when(_loader.load(any(), anyInt())).thenReturn(Optional.of(_cfg));
     }
 
     @Test

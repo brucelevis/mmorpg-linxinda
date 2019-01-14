@@ -55,6 +55,16 @@ class ConfigManager implements ConfigLoader {
         return Optional.of((T) cfgMap.get(id));
     }
 
+    @Override
+    public <T> String loadName(Class<T> clazz, Integer id) {
+        T t = load(clazz, id).orElse(null);
+        if (t == null) {
+            return "NULL";
+        }
+
+        return (String) invokeMethod(t, "getName");
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     public <T> List<T> loads(Class<T> clazz) {

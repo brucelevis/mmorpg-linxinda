@@ -1,6 +1,7 @@
 package com.wan37.logic.equipment.service;
 
 import com.wan37.behavior.BehaviorManager;
+import com.wan37.config.ConfigLoader;
 import com.wan37.logic.backpack.database.ItemDb;
 import com.wan37.logic.backpack.service.item.behavior.ItemExtraEncodeBehaviorContext;
 import com.wan37.logic.backpack.service.item.behavior.ItemExtraEncodeBehavior;
@@ -21,7 +22,7 @@ import java.util.stream.Collectors;
 public class EquipInfoExec {
 
     @Autowired
-    private PropsCfgLoader propsCfgLoader;
+    private ConfigLoader configLoader;
 
     @Autowired
     private BehaviorManager behaviorManager;
@@ -40,7 +41,7 @@ public class EquipInfoExec {
 
     private String encodeEquip(Map.Entry<Integer, ItemDb> entry) {
         ItemDb itemDb = entry.getValue();
-        PropsCfg propsCfg = propsCfgLoader.load(itemDb.getCfgId())
+        PropsCfg propsCfg = configLoader.load(PropsCfg.class, itemDb.getCfgId())
                 .orElseThrow(() -> new RuntimeException("找不到对应导表"));
         String equipName = propsCfg.getName();
 

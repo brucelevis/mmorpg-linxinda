@@ -1,5 +1,6 @@
 package com.wan37.logic.mission.complete;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.event.entity.MissionCompleteEvent;
 import com.wan37.logic.backpack.BackpackFacade;
@@ -10,7 +11,7 @@ import com.wan37.logic.mission.config.MissionCfg;
 import com.wan37.logic.mission.config.MissionRewardCfg;
 import com.wan37.logic.mission.entity.PlayerMission;
 import com.wan37.logic.mission.service.accept.MissionAccepter;
-import com.wan37.logic.npc.config.NpcCfgLoader;
+import com.wan37.logic.npc.config.NpcCfg;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.service.PlayerExpAdder;
 import com.wan37.logic.props.ResourceFacade;
@@ -49,13 +50,10 @@ public class MissionCompleteHandler {
     private PlayerExpAdder playerExpAdder;
 
     @Autowired
-    private NpcCfgLoader npcCfgLoader;
-
-    @Autowired
     private MissionAccepter missionAccepter;
 
     @Autowired
-    private MissionCfgLoader missionCfgLoader;
+    private ConfigLoader configLoader;
 
     @Autowired
     private GeneralEventListenersManager generalEventListenersManager;
@@ -65,7 +63,7 @@ public class MissionCompleteHandler {
         playerMission.setCompleteTime(DateTimeUtils.toEpochMilli(LocalDateTime.now()));
 
         MissionCfg missionCfg = playerMission.getMissionCfg();
-        String npcName = npcCfgLoader.loadName(missionCfg.getNpcId());
+        String npcName = configLoader.loadName(NpcCfg.class, missionCfg.getNpcId());
         String msg = String.format("【%s】 %s", npcName, missionCfg.getCompleteTip());
         player.syncClient(msg);
 
@@ -87,7 +85,7 @@ public class MissionCompleteHandler {
 
         if (missionCfg.getNextId() != null) {
             // 有下一个任务
-            MissionCfg nextMissionCfg = missionCfgLoader.load(missionCfg.getNextId())
+            MissionCfg nextMissionCfg = configLoader.load(MissionCfg.class, missionCfg.getNextId())
                     .orElseThrow(() -> new RuntimeException("策划任务导表配置出错"));
             missionAccepter.accept(player, nextMissionCfg);
         }

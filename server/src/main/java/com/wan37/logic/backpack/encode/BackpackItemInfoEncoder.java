@@ -1,6 +1,7 @@
 package com.wan37.logic.backpack.encode;
 
 import com.wan37.behavior.BehaviorManager;
+import com.wan37.config.ConfigLoader;
 import com.wan37.logic.backpack.database.ItemDb;
 import com.wan37.logic.backpack.service.item.behavior.ItemExtraEncodeBehaviorContext;
 import com.wan37.logic.backpack.service.item.behavior.ItemExtraEncodeBehavior;
@@ -17,13 +18,13 @@ import org.springframework.stereotype.Service;
 public class BackpackItemInfoEncoder {
 
     @Autowired
-    private PropsCfgLoader propsCfgLoader;
+    private ConfigLoader configLoader;
 
     @Autowired
     private BehaviorManager behaviorManager;
 
     public String encode(ItemDb itemDb) {
-        PropsCfg propsCfg = propsCfgLoader.load(itemDb.getCfgId()).orElse(null);
+        PropsCfg propsCfg = configLoader.load(PropsCfg.class, itemDb.getCfgId()).orElse(null);
         if (propsCfg == null) {
             return "";
         }

@@ -1,14 +1,13 @@
 package com.wan37.logic.scene.init;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.logic.monster.Monster;
 import com.wan37.logic.monster.config.MonsterCfg;
-import com.wan37.logic.monster.config.MonsterCfgLoader;
 import com.wan37.logic.monster.init.MonsterCreator;
-import com.wan37.logic.npc.config.NpcCfgLoader;
+import com.wan37.logic.npc.config.NpcCfg;
 import com.wan37.logic.npc.init.NpcCreator;
 import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.scene.config.SceneCfg;
-import com.wan37.logic.scene.config.SceneCfgLoader;
 import com.wan37.logic.scene.config.SceneMonsterCfg;
 import com.wan37.logic.scene.base.Scene;
 import com.wan37.logic.scene.schedule.SceneScheduler;
@@ -30,25 +29,19 @@ import java.util.stream.IntStream;
 public class SceneCreator {
 
     @Autowired
-    private SceneCfgLoader sceneCfgLoader;
+    private ConfigLoader configLoader;
 
     @Autowired
     private MonsterCreator monsterCreator;
 
     @Autowired
-    private MonsterCfgLoader monsterCfgLoader;
-
-    @Autowired
     private NpcCreator npcCreator;
-
-    @Autowired
-    private NpcCfgLoader npcCfgLoader;
 
     @Autowired
     private SceneScheduler sceneScheduler;
 
     public Scene create(Integer sceneId) {
-        SceneCfg sceneCfg = sceneCfgLoader.load(sceneId)
+        SceneCfg sceneCfg = configLoader.load(SceneCfg.class, sceneId)
                 .orElseThrow(() -> new RuntimeException("找不到SceneCfg"));
 
         Scene scene = new Scene();
@@ -63,7 +56,7 @@ public class SceneCreator {
                 .collect(Collectors.toList()));
 
         scene.setNpcs(sceneCfg.getNpcs().stream()
-                .map(i -> npcCfgLoader.load(i))
+                .map(i -> configLoader.load(NpcCfg.class, i))
                 .filter(Optional::isPresent)
                 .map(c -> npcCreator.create(c.get()))
                 .collect(Collectors.toList()));
@@ -75,7 +68,7 @@ public class SceneCreator {
     }
 
     private List<Monster> createMonsters(SceneMonsterCfg cfg, AbstractScene scene) {
-        MonsterCfg monsterCfg = monsterCfgLoader.load(cfg.getCfgId()).orElse(null);
+        MonsterCfg monsterCfg = configLoader.load(MonsterCfg.class, cfg.getCfgId()).orElse(null);
         if (monsterCfg == null) {
             return null;
         }

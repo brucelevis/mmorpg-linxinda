@@ -1,5 +1,6 @@
 package com.wan37.logic.strength.init;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.logic.attr.config.AttrCfg;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.strength.database.PlayerStrengthDb;
@@ -22,7 +23,7 @@ public class PlayerStrengthDbRefresher {
     private StrengthAttrsCalculator strengthAttrsCalculator;
 
     @Autowired
-    private AttrCfgLoader attrCfgLoader;
+    private ConfigLoader configLoader;
 
     public void refresh(PlayerDb playerDb) {
         Map<Integer, Double> result = strengthAttrsCalculator.calc(playerDb);
@@ -45,7 +46,7 @@ public class PlayerStrengthDbRefresher {
     }
 
     private double calcAttack(Map.Entry<Integer, Double> entry) {
-        double base = attrCfgLoader.load(entry.getKey())
+        double base = configLoader.load(AttrCfg.class, entry.getKey())
                 .map(AttrCfg::getBaseAttackValue)
                 .orElse(0.0);
 
@@ -53,7 +54,7 @@ public class PlayerStrengthDbRefresher {
     }
 
     private double calcDefense(Map.Entry<Integer, Double> entry) {
-        double base = attrCfgLoader.load(entry.getKey())
+        double base = configLoader.load(AttrCfg.class, entry.getKey())
                 .map(AttrCfg::getBaseDefenseValue)
                 .orElse(0.0);
 

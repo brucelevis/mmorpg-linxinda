@@ -1,5 +1,6 @@
 package com.wan37.logic.npc.service;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.event.entity.NpcTalkEvent;
 import com.wan37.exception.GeneralErrorException;
@@ -8,7 +9,6 @@ import com.wan37.logic.mission.config.MissionCfg;
 import com.wan37.logic.mission.encode.MissionEncoder;
 import com.wan37.logic.mission.entity.PlayerMission;
 import com.wan37.logic.npc.config.NpcCfg;
-import com.wan37.logic.npc.config.NpcCfgLoader;
 import com.wan37.logic.player.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 public class NpcTalkExec {
 
     @Autowired
-    private NpcCfgLoader npcCfgLoader;
+    private ConfigLoader configLoader;
 
     @Autowired
     private MissionCanAcceptListGetter missionCanAcceptListGetter;
@@ -36,7 +36,7 @@ public class NpcTalkExec {
     private GeneralEventListenersManager generalEventListenersManager;
 
     public void exec(Player player, Integer npcId) {
-        NpcCfg npcCfg = npcCfgLoader.load(npcId)
+        NpcCfg npcCfg = configLoader.load(NpcCfg.class, npcId)
                 .orElseThrow(() -> new GeneralErrorException("找不到对应Npc配置表"));
 
         // 抛出NPC对话事件

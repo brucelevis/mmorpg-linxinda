@@ -1,5 +1,6 @@
 package com.wan37.logic.player.init;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.logic.mission.entity.Mission;
 import com.wan37.logic.pk.entity.impl.PkImpl;
 import com.wan37.logic.player.Player;
@@ -30,7 +31,7 @@ public class PlayerCreator {
     private Skill.Factory iSkillFactory;
 
     @Autowired
-    private SkillCfgLoader skillCfgLoader;
+    private ConfigLoader configLoader;
 
     @Autowired
     private Mission.Factory missionFactory;
@@ -54,7 +55,7 @@ public class PlayerCreator {
     }
 
     private Skill createSkill(PlayerEachSkillDb skillDb) {
-        SkillCfg skillCfg = skillCfgLoader.load(skillDb.getCfgId()).orElse(null);
+        SkillCfg skillCfg = configLoader.load(SkillCfg.class, skillDb.getCfgId()).orElse(null);
         if (skillCfg == null) {
             return null;
         }

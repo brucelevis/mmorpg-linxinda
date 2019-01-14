@@ -1,5 +1,6 @@
 package com.wan37.logic.mission.service;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.logic.mission.MissionCanAcceptListGetter;
 import com.wan37.logic.mission.config.MissionCfg;
 import com.wan37.logic.mission.encode.MissionEncoder;
@@ -20,7 +21,7 @@ public class MissionInfoExec {
     private static final String SEPARATOR = "\n-----------------------------------------------\n";
 
     @Autowired
-    private MissionCfgLoader missionCfgLoader;
+    private ConfigLoader configLoader;
 
     @Autowired
     private MissionEncoder missionEncoder;
@@ -72,7 +73,7 @@ public class MissionInfoExec {
     }
 
     private String encodePlayerMission(PlayerMission playerMission) {
-        MissionCfg missionCfg = missionCfgLoader.load(playerMission.getMissionId())
+        MissionCfg missionCfg = configLoader.load(MissionCfg.class, playerMission.getMissionId())
                 .orElseThrow(() -> new RuntimeException("任务配置表错误"));
 
         return missionEncoder.encode(missionCfg, playerMission.canComplete());

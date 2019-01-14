@@ -1,5 +1,6 @@
 package com.wan37.logic.backpack.service.item.behavior.behaviors;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.logic.attr.config.AttrCfg;
 import com.wan37.logic.backpack.service.item.behavior.ItemExtraEncodeBehavior;
 import com.wan37.logic.backpack.service.item.behavior.ItemExtraEncodeBehaviorContext;
@@ -24,13 +25,7 @@ class ItemExtraEncodeBehavior1 implements ItemExtraEncodeBehavior {
     private EquipExtraDbGetter equipExtraDbGetter;
 
     @Autowired
-    private AttrCfgLoader attrCfgLoader;
-
-    @Autowired
-    private EquipCfgLoader equipCfgLoader;
-
-    @Autowired
-    private PropsCfgLoader propsCfgLoader;
+    private ConfigLoader configLoader;
 
     @Override
     public void behave(ItemExtraEncodeBehaviorContext context) {
@@ -50,13 +45,13 @@ class ItemExtraEncodeBehavior1 implements ItemExtraEncodeBehavior {
     private String encodeQuality(Integer cfgId, EquipExtraDb db) {
         int totalScore = 0;
         for (EquipAttrDb attrDb : db.getBaseAttrs()) {
-            AttrCfg attrCfg = attrCfgLoader.load(attrDb.getCfgId())
+            AttrCfg attrCfg = configLoader.load(AttrCfg.class, attrDb.getCfgId())
                     .orElseThrow(() -> new RuntimeException("找不到对应的属性配置表"));
 
             totalScore += attrCfg.getEquipBaseScore() * attrDb.getValue();
         }
 
-        EquipCfg equipCfg = equipCfgLoader.load(cfgId)
+        EquipCfg equipCfg = configLoader.load(EquipCfg.class, cfgId)
                 .orElseThrow(() -> new RuntimeException("找不到对应的装备配置表"));
 
         int finalTotalScore = totalScore;
@@ -69,6 +64,6 @@ class ItemExtraEncodeBehavior1 implements ItemExtraEncodeBehavior {
 
     private String encodeAttr(EquipAttrDb db) {
         String msg = "%s：%s";
-        return String.format(msg, propsCfgLoader.getName(db.getCfgId()), db.getValue());
+        return String.format(msg, configLoader.loadName(AttrCfg.class, db.getCfgId()), db.getValue());
     }
 }

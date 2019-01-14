@@ -1,6 +1,8 @@
 package com.wan37.logic.team.service;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.exception.GeneralErrorException;
+import com.wan37.logic.faction.config.FactionCfg;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.team.TeamGlobalManager;
@@ -25,7 +27,7 @@ public class TeamInfoExec {
     private PlayerGlobalManager playerGlobalManager;
 
     @Autowired
-    private FactionCfgLoader factionCfgLoader;
+    private ConfigLoader configLoader;
 
     public void exec(Player player) {
         if (player.getTeamUid() == null) {
@@ -52,7 +54,7 @@ public class TeamInfoExec {
         boolean isOnline = playerGlobalManager.isOnline(playerUid);
 
         return String.format("%s（playerUid：%s） %s lv%s %s（%s）", player.getName(), player.getUid(),
-                factionCfgLoader.getFactionName(player.getFactionId()), player.getLevel(),
+                configLoader.loadName(FactionCfg.class, player.getFactionId()), player.getLevel(),
                 Objects.equals(leaderUid, playerUid) ? "队长" : "成员", isOnline ? "在线" : "离线");
     }
 }

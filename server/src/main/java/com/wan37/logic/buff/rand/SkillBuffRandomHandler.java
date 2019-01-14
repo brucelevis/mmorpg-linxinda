@@ -1,5 +1,6 @@
 package com.wan37.logic.buff.rand;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.buff.BuffTargetEnum;
 import com.wan37.logic.buff.entity.Buff;
@@ -22,7 +23,7 @@ import java.util.Objects;
 public class SkillBuffRandomHandler {
 
     @Autowired
-    private BuffCfgLoader buffCfgLoader;
+    private ConfigLoader configLoader;
 
     @Autowired
     private Buff.Factory buffFactory;
@@ -36,7 +37,7 @@ public class SkillBuffRandomHandler {
             return;
         }
 
-        BuffCfg buffCfg = buffCfgLoader.load(cfg.getId()).orElse(null);
+        BuffCfg buffCfg = configLoader.load(BuffCfg.class, cfg.getId()).orElse(null);
         if (buffCfg == null) {
             return;
         }

@@ -1,5 +1,6 @@
 package com.wan37.logic.props.resource.sub;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.backpack.database.ItemDb;
 import com.wan37.logic.backpack.service.find.BackpackExistItemFinder;
@@ -20,13 +21,13 @@ import java.util.List;
 public class ResourceItemSuber {
 
     @Autowired
-    private PropsCfgLoader propsCfgLoader;
+    private ConfigLoader configLoader;
 
     @Autowired
     private BackpackExistItemFinder backpackExistItemFinder;
 
     public boolean sub(ResourceElement element, Player player) {
-        PropsCfg propsCfg = propsCfgLoader.load(element.getCfgId()).orElse(null);
+        PropsCfg propsCfg = configLoader.load(PropsCfg.class, element.getCfgId()).orElse(null);
         if (propsCfg == null) {
             return false;
         }

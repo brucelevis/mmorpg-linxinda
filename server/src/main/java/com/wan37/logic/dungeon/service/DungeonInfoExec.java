@@ -1,8 +1,11 @@
 package com.wan37.logic.dungeon.service;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.logic.dungeon.config.*;
-import com.wan37.logic.monster.config.MonsterCfgLoader;
+import com.wan37.logic.monster.config.MonsterCfg;
 import com.wan37.logic.player.Player;
+import com.wan37.logic.props.config.PropsCfg;
+import com.wan37.logic.props.config.VirtualItemCfg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,20 +19,11 @@ import java.util.stream.Collectors;
 public class DungeonInfoExec {
 
     @Autowired
-    private DungeonCfgLoader dungeonCfgLoader;
-
-    @Autowired
-    private PropsCfgLoader propsCfgLoader;
-
-    @Autowired
-    private MonsterCfgLoader monsterCfgLoader;
-
-    @Autowired
-    private VirtualItemCfgLoader virtualItemCfgLoader;
+    private ConfigLoader configLoader;
 
     public void exec(Player player) {
         String head = "副本信息如下：\n";
-        String content = dungeonCfgLoader.loads().stream()
+        String content = configLoader.loads(DungeonCfg.class).stream()
                 .map(this::encodeDungeon)
                 .collect(Collectors.joining("\n------------------------------------------------------------------------\n"));
 
@@ -56,11 +50,12 @@ public class DungeonInfoExec {
     }
 
     private String encodeMonster(DungeonMonsterCfg cfg) {
-        return monsterCfgLoader.getName(cfg.getMonsterId());
+        return configLoader.loadName(MonsterCfg.class, cfg.getMonsterId());
     }
 
     private String encodeReward(DungeonRewardCfg cfg) {
-        String name = cfg.getId() < 200 ? virtualItemCfgLoader.getName(cfg.getId()) : propsCfgLoader.getName(cfg.getId());
+        String name = cfg.getId() < 200 ? configLoader.loadName(VirtualItemCfg.class, cfg.getId()) :
+                configLoader.loadName(PropsCfg.class, cfg.getId());
         return String.format("%s×%s", name, cfg.getAmount());
     }
 }

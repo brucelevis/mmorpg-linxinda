@@ -1,5 +1,7 @@
 package com.wan37.logic.scene.encode;
 
+import com.wan37.config.ConfigLoader;
+import com.wan37.logic.faction.config.FactionCfg;
 import com.wan37.logic.monster.Monster;
 import com.wan37.logic.npc.Npc;
 import com.wan37.logic.player.Player;
@@ -19,7 +21,7 @@ import java.util.stream.Collectors;
 public class SceneEncoder {
 
     @Autowired
-    private FactionCfgLoader factionCfgLoader;
+    private ConfigLoader configLoader;
 
     @Autowired
     private SceneItemEncoder sceneItemEncoder;
@@ -66,7 +68,7 @@ public class SceneEncoder {
 
     private String encodePlayer(Player player) {
         PlayerDb db = player.getPlayerDb();
-        String factionName = factionCfgLoader.getFactionName(db.getFactionId());
+        String factionName = configLoader.loadName(FactionCfg.class, db.getFactionId());
 
         String msg = "名字：%s，职业：%s, 等级：%s, Hp：%s，Mp：%s，Exp: %s （playerUid：%s）";
         return String.format(msg, db.getName(), factionName, db.getLevel(), db.getHp(), db.getMp(), db.getExp(), db.getUid());

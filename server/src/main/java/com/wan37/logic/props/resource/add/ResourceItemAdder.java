@@ -1,5 +1,6 @@
 package com.wan37.logic.props.resource.add;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.event.entity.ItemAddEvent;
 import com.wan37.logic.backpack.database.BackpackDb;
@@ -27,7 +28,7 @@ import java.util.stream.Collectors;
 public class ResourceItemAdder {
 
     @Autowired
-    private PropsCfgLoader propsCfgLoader;
+    private ConfigLoader configLoader;
 
     @Autowired
     private BackpackEmptyIndexFinder backpackEmptyIndexFinder;
@@ -42,7 +43,7 @@ public class ResourceItemAdder {
     private GeneralEventListenersManager generalEventListenersManager;
 
     public boolean add(ResourceElement element, Player player) {
-        PropsCfg propsCfg = propsCfgLoader.load(element.getCfgId()).orElse(null);
+        PropsCfg propsCfg = configLoader.load(PropsCfg.class, element.getCfgId()).orElse(null);
         if (propsCfg == null) {
             return false;
         }

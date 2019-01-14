@@ -1,6 +1,7 @@
 package com.wan37.logic.props.service;
 
 import com.wan37.behavior.BehaviorManager;
+import com.wan37.config.ConfigLoader;
 import com.wan37.logic.backpack.BackpackFacade;
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.backpack.database.ItemDb;
@@ -24,13 +25,10 @@ public class ItemUseExec {
     private BackpackFacade backpackFacade;
 
     @Autowired
-    private PropsCfgLoader propsCfgLoader;
+    private ConfigLoader configLoader;
 
     @Autowired
     private BehaviorManager behaviorManager;
-
-    @Autowired
-    private EquipCfgLoader equipCfgLoader;
 
     @Autowired
     private EquipWearer equipWearer;
@@ -47,14 +45,15 @@ public class ItemUseExec {
         }
 
         Integer cfgId = itemDb.getCfgId();
-        PropsCfg propsCfg = propsCfgLoader.load(cfgId).orElseThrow(() -> new RuntimeException("找不到对应物品表"));
+        PropsCfg propsCfg = configLoader.load(PropsCfg.class, cfgId)
+                .orElseThrow(() -> new RuntimeException("找不到对应物品表"));
         if (!propsCfg.isCanUse()) {
             player.syncClient("不可用的物品");
             return;
         }
 
         //FIXME: 如果是装备
-        EquipCfg equipCfg = equipCfgLoader.load(cfgId).orElse(null);
+        EquipCfg equipCfg = configLoader.load(EquipCfg.class, cfgId).orElse(null);
         if (equipCfg != null) {
             equipWearer.wear(player, itemDb, equipCfg);
             return;

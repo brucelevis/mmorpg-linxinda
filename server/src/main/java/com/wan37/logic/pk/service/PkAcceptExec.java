@@ -1,5 +1,6 @@
 package com.wan37.logic.pk.service;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.pk.entity.Pk;
 import com.wan37.logic.pk.init.ArenaSceneCreator;
@@ -8,7 +9,6 @@ import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.scene.SceneTypeEnum;
 import com.wan37.logic.scene.config.SceneCfg;
-import com.wan37.logic.scene.config.SceneCfgLoader;
 import com.wan37.logic.scene.SceneFacade;
 import com.wan37.logic.scene.TemporarySceneGlobalManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class PkAcceptExec {
     private ArenaSceneCreator arenaSceneCreator;
 
     @Autowired
-    private SceneCfgLoader sceneCfgLoader;
+    private ConfigLoader configLoader;
 
     @Autowired
     private TemporarySceneGlobalManager temporarySceneGlobalManager;
@@ -66,7 +66,7 @@ public class PkAcceptExec {
                     return;
                 }
 
-                SceneCfg sceneCfg = sceneCfgLoader.load(player.getSceneId())
+                SceneCfg sceneCfg = configLoader.load(SceneCfg.class, player.getSceneId())
                         .orElseThrow(() -> new RuntimeException("找不到当前场景配置"));
                 if (!Objects.equals(sceneCfg.getType(), SceneTypeEnum.SCENE_TYPE_1.getId())) {
                     player.syncClient("请切换到普通场景再尝试进入竞技场");
@@ -78,7 +78,7 @@ public class PkAcceptExec {
                 inviterPk.setPking(true);
 
                 //FIXME: 这里先暂时写死竞技场场景配置表id
-                SceneCfg arenaSceneCfg = sceneCfgLoader.load(3001).orElse(null);
+                SceneCfg arenaSceneCfg = configLoader.load(SceneCfg.class, 3001).orElse(null);
                 ArenaSceneAbstract arenaScene = arenaSceneCreator.create(arenaSceneCfg);
                 temporarySceneGlobalManager.addScene(arenaScene);
 

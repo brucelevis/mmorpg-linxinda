@@ -1,5 +1,6 @@
 package com.wan37.logic.mission.complete.behavior.behaviors;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.logic.equipment.config.EquipCfg;
 import com.wan37.logic.equipment.database.EquipDb;
 import com.wan37.logic.mission.complete.behavior.MissionCompleteCheckBehavior;
@@ -19,7 +20,7 @@ import java.util.Optional;
 class MissionCompleteCheckBehavior6 implements MissionCompleteCheckBehavior {
 
     @Autowired
-    private EquipCfgLoader equipCfgLoader;
+    private ConfigLoader configLoader;
 
     @Override
     public void behave(MissionCompleteCheckContext context) {
@@ -28,7 +29,7 @@ class MissionCompleteCheckBehavior6 implements MissionCompleteCheckBehavior {
 
         // 身上穿戴的所有装备等级和
         int totalEquipLv = equipDb.getItems().values().stream()
-                .map(i -> equipCfgLoader.load(i.getCfgId()))
+                .map(i -> configLoader.load(EquipCfg.class, i.getCfgId()))
                 .map(Optional::get)
                 .mapToInt(EquipCfg::getLevel)
                 .sum();

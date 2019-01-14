@@ -1,5 +1,6 @@
 package com.wan37.logic.guild.service;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.guild.GuildGlobalManager;
 import com.wan37.logic.guild.GuildPermissionEnum;
@@ -22,7 +23,7 @@ public class GuildChangeExec {
     private GuildGlobalManager guildGlobalManager;
 
     @Autowired
-    private GuildPositionCfgLoader guildPositionCfgLoader;
+    private ConfigLoader configLoader;
 
     public void exec(Player player, Player target) {
         if (player.getLeagueUid() == null) {
@@ -35,7 +36,7 @@ public class GuildChangeExec {
         }
 
         GuildMember me = league.getMember(player.getUid());
-        GuildPositionCfg myPositionCfg = guildPositionCfgLoader.load(me.getPosition())
+        GuildPositionCfg myPositionCfg = configLoader.load(GuildPositionCfg.class, me.getPosition())
                 .orElseThrow(() -> new GeneralErrorException("找不到公会权限表"));
 
         if (!myPositionCfg.getPermission().contains(GuildPermissionEnum.GUILD_PERMISSION_3.getId())) {
@@ -63,12 +64,12 @@ public class GuildChangeExec {
 
     private GuildPositionCfg getNewPositionCfg(Integer myPosition, Integer targetPosition) {
         if (myPosition == targetPosition - 1) {
-            return guildPositionCfgLoader.loads().stream()
+            return configLoader.loads(GuildPositionCfg.class).stream()
                     .max(Comparator.comparingInt(GuildPositionCfg::getId))
                     .orElseThrow(() -> new GeneralErrorException("公会职位配置表出错"));
         }
 
-        return guildPositionCfgLoader.load(targetPosition - 1)
+        return configLoader.load(GuildPositionCfg.class, targetPosition - 1)
                 .orElseThrow(() -> new GeneralErrorException("公会职位配置表出错"));
     }
 }

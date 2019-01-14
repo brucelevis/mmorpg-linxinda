@@ -1,6 +1,7 @@
 package com.wan37.logic.mail.service;
 
 import com.wan37.behavior.BehaviorManager;
+import com.wan37.config.ConfigLoader;
 import com.wan37.logic.backpack.database.ItemDb;
 import com.wan37.logic.backpack.service.item.behavior.ItemExtraEncodeBehaviorContext;
 import com.wan37.logic.backpack.service.item.behavior.ItemExtraEncodeBehavior;
@@ -10,6 +11,7 @@ import com.wan37.logic.mail.database.MailRewardDb;
 import com.wan37.logic.mail.database.MailRewardItemDb;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.props.config.PropsCfg;
+import com.wan37.logic.props.config.VirtualItemCfg;
 import com.wan37.util.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,13 +26,10 @@ import java.util.stream.Collectors;
 public class MailInfoExec {
 
     @Autowired
-    private PropsCfgLoader propsCfgLoader;
+    private ConfigLoader configLoader;
 
     @Autowired
     private BehaviorManager behaviorManager;
-
-    @Autowired
-    private VirtualItemCfgLoader virtualItemCfgLoader;
 
     public void exec(Player player) {
         String head = "邮件列表如下：\n";
@@ -70,7 +69,7 @@ public class MailInfoExec {
     }
 
     private String encodeItem(ItemDb itemDb) {
-        PropsCfg propsCfg = propsCfgLoader.load(itemDb.getCfgId()).orElse(null);
+        PropsCfg propsCfg = configLoader.load(PropsCfg.class, itemDb.getCfgId()).orElse(null);
         if (propsCfg == null) {
             return "";
         }
@@ -99,7 +98,7 @@ public class MailInfoExec {
 
     private String encodeReward(MailRewardItemDb itemDb) {
         Integer cfgId = itemDb.getCfgId();
-        String name = cfgId < 200 ? virtualItemCfgLoader.getName(cfgId) : propsCfgLoader.getName(cfgId);
+        String name = cfgId < 200 ? configLoader.loadName(VirtualItemCfg.class, cfgId) : configLoader.loadName(PropsCfg.class, cfgId);
 
         return String.format("%s × %s", name, itemDb.getAmount());
     }

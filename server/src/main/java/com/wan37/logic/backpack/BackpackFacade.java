@@ -1,5 +1,6 @@
 package com.wan37.logic.backpack;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.backpack.database.ItemDb;
 import com.wan37.logic.backpack.encode.BackpackUpdateNotifier;
@@ -36,7 +37,7 @@ public class BackpackFacade {
     private BackpackExistItemFinder backpackExistItemFinder;
 
     @Autowired
-    private PropsCfgLoader propsCfgLoader;
+    private ConfigLoader configLoader;
 
     public Optional<ItemDb> find(BackpackDb backpackDb, Long uid) {
         return backpackDb.getItemMap().values().stream()
@@ -95,7 +96,7 @@ public class BackpackFacade {
     }
 
     public void add(BackpackDb backpackDb, ItemDb itemDb) {
-        PropsCfg propsCfg = propsCfgLoader.load(itemDb.getCfgId()).orElse(null);
+        PropsCfg propsCfg = configLoader.load(PropsCfg.class, itemDb.getCfgId()).orElse(null);
         if (propsCfg == null) {
             return;
         }

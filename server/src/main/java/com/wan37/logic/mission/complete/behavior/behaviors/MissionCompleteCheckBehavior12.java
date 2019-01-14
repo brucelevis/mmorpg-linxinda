@@ -1,5 +1,6 @@
 package com.wan37.logic.mission.complete.behavior.behaviors;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.logic.attr.config.AttrCfg;
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.backpack.database.ItemDb;
@@ -24,10 +25,7 @@ import java.util.Comparator;
 class MissionCompleteCheckBehavior12 implements MissionCompleteCheckBehavior {
 
     @Autowired
-    private EquipCfgLoader equipCfgLoader;
-
-    @Autowired
-    private AttrCfgLoader attrCfgLoader;
+    private ConfigLoader configLoader;
 
     @Autowired
     private EquipExtraDbGetter equipExtraDbGetter;
@@ -52,20 +50,20 @@ class MissionCompleteCheckBehavior12 implements MissionCompleteCheckBehavior {
     }
 
     private boolean isEquip(Integer cfgId) {
-        return equipCfgLoader.load(cfgId).isPresent();
+        return configLoader.load(EquipCfg.class, cfgId).isPresent();
     }
 
     private boolean isMaxQuality(ItemDb itemDb) {
         int totalScore = 0;
         EquipExtraDb equipExtraDb = equipExtraDbGetter.get(itemDb.getExtraDb());
         for (EquipAttrDb attrDb : equipExtraDb.getBaseAttrs()) {
-            AttrCfg attrCfg = attrCfgLoader.load(attrDb.getCfgId())
+            AttrCfg attrCfg = configLoader.load(AttrCfg.class, attrDb.getCfgId())
                     .orElseThrow(() -> new RuntimeException("找不到对应的属性配置表"));
 
             totalScore += attrCfg.getEquipBaseScore() * attrDb.getValue();
         }
 
-        EquipCfg equipCfg = equipCfgLoader.load(itemDb.getCfgId()).orElse(null);
+        EquipCfg equipCfg = configLoader.load(EquipCfg.class, itemDb.getCfgId()).orElse(null);
         assert equipCfg != null;
 
         // 装备配置最大品质的基准分

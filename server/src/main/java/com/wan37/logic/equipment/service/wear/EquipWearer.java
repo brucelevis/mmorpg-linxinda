@@ -1,6 +1,7 @@
 package com.wan37.logic.equipment.service.wear;
 
 import com.google.common.collect.ImmutableList;
+import com.wan37.config.ConfigLoader;
 import com.wan37.event.entity.EquipWearEvent;
 import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.event.entity.StrengthChangeEvent;
@@ -10,6 +11,7 @@ import com.wan37.logic.equipment.config.EquipCfg;
 import com.wan37.logic.equipment.database.EquipDb;
 import com.wan37.logic.equipment.encode.EquipUpdateNotifier;
 import com.wan37.logic.player.Player;
+import com.wan37.logic.props.config.PropsCfg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +33,7 @@ public class EquipWearer {
     private GeneralEventListenersManager generalEventListenersManager;
 
     @Autowired
-    private PropsCfgLoader propsCfgLoader;
+    private ConfigLoader configLoader;
 
     public void wear(Player player, ItemDb itemDb, EquipCfg equipCfg) {
         //TODO: 检查穿戴条件
@@ -55,7 +57,7 @@ public class EquipWearer {
         }
 
         // 打印提示
-        String msg = String.format("你穿上了%s", propsCfgLoader.getName(equipCfg.getId()));
+        String msg = String.format("你穿上了%s", configLoader.loadName(PropsCfg.class, equipCfg.getId()));
         player.syncClient(msg);
 
         // 推送装备栏更新

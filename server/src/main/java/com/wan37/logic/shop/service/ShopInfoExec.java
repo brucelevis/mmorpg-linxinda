@@ -1,5 +1,6 @@
 package com.wan37.logic.shop.service;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.props.config.PropsCfg;
 import com.wan37.logic.props.config.VirtualItemCfg;
@@ -17,17 +18,11 @@ import java.util.stream.Collectors;
 public class ShopInfoExec {
 
     @Autowired
-    private ShopCfgLoader shopCfgLoader;
-
-    @Autowired
-    private PropsCfgLoader propsCfgLoader;
-
-    @Autowired
-    private VirtualItemCfgLoader virtualItemCfgLoader;
+    private ConfigLoader configLoader;
 
     public void exec(Player player) {
         String head = "商店商店列表如下: \n";
-        String content = shopCfgLoader.loads().stream()
+        String content = configLoader.loads(ShopCfg.class).stream()
                 .map(this::toTuple)
                 .filter(Objects::nonNull)
                 .map(this::encodeItem)
@@ -37,12 +32,12 @@ public class ShopInfoExec {
     }
 
     private Tuple toTuple(ShopCfg shopCfg) {
-        PropsCfg propsCfg = propsCfgLoader.load(shopCfg.getItemId()).orElse(null);
+        PropsCfg propsCfg = configLoader.load(PropsCfg.class, shopCfg.getItemId()).orElse(null);
         if (propsCfg == null) {
             return null;
         }
 
-        VirtualItemCfg virtualItemCfg = virtualItemCfgLoader.load(shopCfg.getPriceCfg().getId()).orElse(null);
+        VirtualItemCfg virtualItemCfg = configLoader.load(VirtualItemCfg.class, shopCfg.getPriceCfg().getId()).orElse(null);
         if (virtualItemCfg == null) {
             return null;
         }

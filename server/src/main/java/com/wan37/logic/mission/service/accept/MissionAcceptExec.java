@@ -1,5 +1,6 @@
 package com.wan37.logic.mission.service.accept;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.exception.GeneralErrorException;
 import com.wan37.logic.mission.config.MissionCfg;
 import com.wan37.logic.mission.entity.Mission;
@@ -14,13 +15,13 @@ import org.springframework.stereotype.Service;
 public class MissionAcceptExec {
 
     @Autowired
-    private MissionCfgLoader missionCfgLoader;
+    private ConfigLoader configLoader;
 
     @Autowired
     private MissionAccepter missionAccepter;
 
     public void exec(Player player, Integer missionId) {
-        MissionCfg missionCfg = missionCfgLoader.load(missionId)
+        MissionCfg missionCfg = configLoader.load(MissionCfg.class, missionId)
                 .orElseThrow(() -> new GeneralErrorException("找不到对应的任务配置表"));
 
         if (player.getLevel() < missionCfg.getLevel()) {

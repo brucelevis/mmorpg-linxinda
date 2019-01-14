@@ -1,5 +1,6 @@
 package com.wan37.logic.mission;
 
+import com.wan37.config.ConfigLoader;
 import com.wan37.logic.mission.config.MissionCfg;
 import com.wan37.logic.mission.entity.Mission;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,10 @@ import java.util.stream.Collectors;
 public class MissionCanAcceptListGetter {
 
     @Autowired
-    private MissionCfgLoader missionCfgLoader;
+    private ConfigLoader configLoader;
 
     public List<MissionCfg> get(int playerLv, Mission mission) {
-        return missionCfgLoader.loads().stream()
+        return configLoader.loads(MissionCfg.class).stream()
                 .filter(cfg -> playerLv >= cfg.getLevel())
                 .filter(cfg -> checkPreMission(cfg, mission))
                 .filter(cfg -> !mission.isProceeding(cfg.getId()))

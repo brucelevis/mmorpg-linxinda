@@ -1,6 +1,7 @@
 package com.wan37.logic.props.use.behaviors;
 
 import com.google.common.base.Objects;
+import com.wan37.config.ConfigLoader;
 import com.wan37.logic.buff.entity.Buff;
 import com.wan37.logic.buff.config.BuffCfg;
 import com.wan37.logic.player.Player;
@@ -19,23 +20,23 @@ import java.util.List;
 class PropsUseBehavior3 implements PropsUseBehavior {
 
     @Autowired
-    private BuffCfgLoader buffCfgLoader;
+    private ConfigLoader configLoader;
 
     @Autowired
-    private Buff.Factory IBuffFactory;
+    private Buff.Factory buffFactory;
 
     @Override
     public void behave(PropsUseContext context) {
         PropsCfg propsCfg = context.getPropsCfg();
         Integer buffId = Integer.parseInt(propsCfg.getUseLogicArgs());
 
-        BuffCfg buffCfg = buffCfgLoader.load(buffId).orElse(null);
+        BuffCfg buffCfg = configLoader.load(BuffCfg.class, buffId).orElse(null);
         if (buffCfg == null) {
             return;
         }
 
         Player player = context.getPlayer();
-        Buff buff = IBuffFactory.create(buffCfg);
+        Buff buff = buffFactory.create(buffCfg);
 
         // 去重
         List<Buff> buffs = player.getBuffs();
