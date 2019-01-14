@@ -17,6 +17,8 @@ public class MissionCfgImpl implements MissionCfg {
 
     public MissionCfgImpl(MissionCfgExcel cfgExcel) {
         this.cfgExcel = cfgExcel;
+
+        rewards = initRewards();
     }
 
     @Override
@@ -71,14 +73,7 @@ public class MissionCfgImpl implements MissionCfg {
 
     @Override
     public List<MissionRewardCfg> getReward() {
-        String reward = cfgExcel.getReward();
-        if (reward == null) {
-            return ImmutableList.of();
-        }
-
-        return Arrays.stream(reward.split(","))
-                .map(this::createReward)
-                .collect(Collectors.toList());
+        return rewards;
     }
 
     @Override
@@ -123,6 +118,17 @@ public class MissionCfgImpl implements MissionCfg {
         return cfgExcel.isAutoAccept();
     }
 
+    private List<MissionRewardCfg> initRewards() {
+        String reward = cfgExcel.getReward();
+        if (reward == null) {
+            return ImmutableList.of();
+        }
+
+        return Arrays.stream(reward.split(","))
+                .map(this::createReward)
+                .collect(Collectors.toList());
+    }
+
     private MissionRewardCfg createReward(String s) {
         String[] reward = s.split(":");
         Integer id = Integer.parseInt(reward[0]);
@@ -131,4 +137,5 @@ public class MissionCfgImpl implements MissionCfg {
     }
 
     private final MissionCfgExcel cfgExcel;
+    private List<MissionRewardCfg> rewards;
 }

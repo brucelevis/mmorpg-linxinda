@@ -11,6 +11,8 @@ public class ShopCfgImpl implements ShopCfg {
 
     public ShopCfgImpl(ShopCfgExcel cfgExcel) {
         this.cfgExcel = cfgExcel;
+
+        shopPriceCfg = initShopPrice();
     }
 
     @Override
@@ -25,6 +27,10 @@ public class ShopCfgImpl implements ShopCfg {
 
     @Override
     public ShopPriceCfg getPriceCfg() {
+        return shopPriceCfg;
+    }
+
+    private ShopPriceCfg initShopPrice() {
         String[] s = cfgExcel.getPrice().split(":");
         Integer id = Integer.parseInt(s[0]);
         int value = Integer.parseInt(s[1]);
@@ -33,4 +39,5 @@ public class ShopCfgImpl implements ShopCfg {
     }
 
     private final ShopCfgExcel cfgExcel;
+    private ShopPriceCfg shopPriceCfg;
 }

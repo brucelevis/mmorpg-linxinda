@@ -1,5 +1,6 @@
 package com.wan37.logic.scene.config.impl;
 
+import com.google.common.collect.ImmutableSet;
 import com.wan37.config.excel.SceneCfgExcel;
 import com.wan37.logic.scene.config.SceneCfg;
 import com.wan37.logic.scene.config.SceneMonsterCfg;
@@ -17,6 +18,10 @@ public class SceneCfgImpl implements SceneCfg {
 
     public SceneCfgImpl(SceneCfgExcel cfgExcel) {
         this.cfgExcel = cfgExcel;
+
+        npcs = initNpcs();
+        monsters = initMonsters();
+        neighbors = initNeighbors();
     }
 
     @Override
@@ -36,35 +41,17 @@ public class SceneCfgImpl implements SceneCfg {
 
     @Override
     public Set<Integer> getNeighbor() {
-        return Arrays.stream(cfgExcel.getNeighbor().split("\\|"))
-                .map(Integer::parseInt)
-                .collect(Collectors.toSet());
+        return neighbors;
     }
 
     @Override
     public List<Integer> getNpcs() {
-        String npcs = cfgExcel.getNpcs();
-        if (npcs == null) {
-            return new ArrayList<>();
-        }
-
-        return Arrays.stream(npcs.split("\\|"))
-                .map(Integer::parseInt)
-                .collect(Collectors.toList());
+        return npcs;
     }
 
     @Override
     public List<SceneMonsterCfg> getMonsters() {
-        String monsters = cfgExcel.getMonsters();
-        if (monsters == null) {
-            return new ArrayList<>();
-        }
-
-        return Arrays.stream(monsters.split(","))
-                .map(s -> s.split(":"))
-                .map(this::toMonster)
-                .map(m -> new SceneMonsterCfgImpl(m.cfgId, m.amount))
-                .collect(Collectors.toList());
+        return monsters;
     }
 
     @Override
@@ -77,11 +64,46 @@ public class SceneCfgImpl implements SceneCfg {
         return cfgExcel.getType();
     }
 
+    private List<Integer> initNpcs() {
+        String npcs = cfgExcel.getNpcs();
+        if (npcs == null) {
+            return new ArrayList<>();
+        }
+
+        return Arrays.stream(npcs.split("\\|"))
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
+    }
+
+    private List<SceneMonsterCfg> initMonsters() {
+        String monsters = cfgExcel.getMonsters();
+        if (monsters == null) {
+            return new ArrayList<>();
+        }
+
+        return Arrays.stream(monsters.split(","))
+                .map(s -> s.split(":"))
+                .map(this::toMonster)
+                .map(m -> new SceneMonsterCfgImpl(m.cfgId, m.amount))
+                .collect(Collectors.toList());
+    }
+
     private Monster toMonster(String[] s) {
         Monster monster = new Monster();
         monster.cfgId = Integer.parseInt(s[0]);
         monster.amount = Integer.parseInt(s[1]);
         return monster;
+    }
+
+    private Set<Integer> initNeighbors() {
+        String neighborStr = cfgExcel.getNeighbor();
+        if (neighborStr == null) {
+            return ImmutableSet.of();
+        }
+
+        return Arrays.stream(neighborStr.split("\\|"))
+                .map(Integer::parseInt)
+                .collect(Collectors.toSet());
     }
 
     private static class Monster {
@@ -92,4 +114,8 @@ public class SceneCfgImpl implements SceneCfg {
     }
 
     private final SceneCfgExcel cfgExcel;
+
+    private Set<Integer> neighbors;
+    private List<SceneMonsterCfg> monsters;
+    private List<Integer> npcs;
 }

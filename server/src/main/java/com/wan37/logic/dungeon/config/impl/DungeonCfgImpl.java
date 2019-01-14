@@ -22,6 +22,9 @@ public class DungeonCfgImpl implements DungeonCfg {
 
     public DungeonCfgImpl(DungeonCfgExcel cfgExcel) {
         this.cfgExcel = cfgExcel;
+
+        monsterGroupCfgMap = initMonsterGroupCfgToMap();
+        rewards = initRewards();
     }
 
     @Override
@@ -51,27 +54,12 @@ public class DungeonCfgImpl implements DungeonCfg {
 
     @Override
     public List<DungeonRewardCfg> getReward() {
-        String reward = cfgExcel.getReward();
-        if (reward == null) {
-            return ImmutableList.of();
-        }
-
-        return Arrays.stream(reward.split(","))
-                .map(this::createReward)
-                .collect(Collectors.toList());
+        return rewards;
     }
 
     @Override
     public Map<Integer, DungeonMonsterGroupCfg> getMonsters() {
-        String monsters = cfgExcel.getMonsters();
-        if (monsters == null) {
-            return ImmutableMap.of();
-        }
-
-        String[] group = monsters.split("\\|");
-        return IntStream.range(0, group.length)
-                .mapToObj(i -> createMonsterGroup(i + 1, group[i]))
-                .collect(Collectors.toMap(DungeonMonsterGroupCfg::getGroupId, Function.identity()));
+        return monsterGroupCfgMap;
     }
 
     @Override
@@ -84,6 +72,17 @@ public class DungeonCfgImpl implements DungeonCfg {
         return cfgExcel.getLimitNum();
     }
 
+    private List<DungeonRewardCfg> initRewards() {
+        String reward = cfgExcel.getReward();
+        if (reward == null) {
+            return ImmutableList.of();
+        }
+
+        return Arrays.stream(reward.split(","))
+                .map(this::createReward)
+                .collect(Collectors.toList());
+    }
+
     private DungeonRewardCfg createReward(String s) {
         String[] reward = s.split(":");
 
@@ -92,6 +91,18 @@ public class DungeonCfgImpl implements DungeonCfg {
         double pro = Double.parseDouble(reward[2]);
 
         return new RewardCfgImpl(id, amount, pro);
+    }
+
+    private Map<Integer, DungeonMonsterGroupCfg> initMonsterGroupCfgToMap() {
+        String monsters = cfgExcel.getMonsters();
+        if (monsters == null) {
+            return ImmutableMap.of();
+        }
+
+        String[] group = monsters.split("\\|");
+        return IntStream.range(0, group.length)
+                .mapToObj(i -> createMonsterGroup(i + 1, group[i]))
+                .collect(Collectors.toMap(DungeonMonsterGroupCfg::getGroupId, Function.identity()));
     }
 
     private DungeonMonsterGroupCfg createMonsterGroup(Integer groupId, String s) {
@@ -112,4 +123,7 @@ public class DungeonCfgImpl implements DungeonCfg {
     }
 
     private final DungeonCfgExcel cfgExcel;
+
+    private Map<Integer, DungeonMonsterGroupCfg> monsterGroupCfgMap;
+    private List<DungeonRewardCfg> rewards;
 }

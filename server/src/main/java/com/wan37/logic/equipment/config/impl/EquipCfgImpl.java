@@ -16,6 +16,9 @@ public class EquipCfgImpl implements EquipCfg {
 
     public EquipCfgImpl(EquipCfgExcel cfgExcel) {
         this.cfgExcel = cfgExcel;
+
+        qualities = initQualities();
+        attrs = initAttrs();
     }
 
     @Override
@@ -30,9 +33,7 @@ public class EquipCfgImpl implements EquipCfg {
 
     @Override
     public List<EquipInitAttrCfg> getAttrs() {
-        return Arrays.stream(cfgExcel.getAttr().split(","))
-                .map(this::createAttr)
-                .collect(Collectors.toList());
+        return attrs;
     }
 
     @Override
@@ -42,6 +43,16 @@ public class EquipCfgImpl implements EquipCfg {
 
     @Override
     public List<EquipQualityCfg> getQuality() {
+        return qualities;
+    }
+
+    private List<EquipInitAttrCfg> initAttrs() {
+        return Arrays.stream(cfgExcel.getAttr().split(","))
+                .map(this::createAttr)
+                .collect(Collectors.toList());
+    }
+
+    private List<EquipQualityCfg> initQualities() {
         return Arrays.stream(cfgExcel.getQuality().split(","))
                 .map(this::createQuality)
                 .collect(Collectors.toList());
@@ -68,4 +79,7 @@ public class EquipCfgImpl implements EquipCfg {
     }
 
     private final EquipCfgExcel cfgExcel;
+
+    private List<EquipQualityCfg> qualities;
+    private List<EquipInitAttrCfg> attrs;
 }

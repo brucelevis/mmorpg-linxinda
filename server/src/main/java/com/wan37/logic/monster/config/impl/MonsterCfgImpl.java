@@ -18,6 +18,10 @@ public class MonsterCfgImpl implements MonsterCfg {
 
     public MonsterCfgImpl(MonsterCfgExcel cfgExcel) {
         this.cfgExcel = cfgExcel;
+
+        attrs = initAttrs();
+        skills = initSkills();
+        items = initItems();
     }
 
     @Override
@@ -37,6 +41,20 @@ public class MonsterCfgImpl implements MonsterCfg {
 
     @Override
     public List<MonsterInitAttrCfg> getAttrs() {
+        return attrs;
+    }
+
+    @Override
+    public List<MonsterInitSkillCfg> getSkills() {
+        return skills;
+    }
+
+    @Override
+    public List<MonsterItemCfg> getItems() {
+        return items;
+    }
+
+    private List<MonsterInitAttrCfg> initAttrs() {
         String attrs = cfgExcel.getInitAttr();
         if (attrs == null) {
             return ImmutableList.of();
@@ -47,8 +65,7 @@ public class MonsterCfgImpl implements MonsterCfg {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<MonsterInitSkillCfg> getSkills() {
+    private List<MonsterInitSkillCfg> initSkills() {
         String skills = cfgExcel.getSkills();
         if (skills == null) {
             return ImmutableList.of();
@@ -59,8 +76,7 @@ public class MonsterCfgImpl implements MonsterCfg {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<MonsterItemCfg> getItems() {
+    private List<MonsterItemCfg> initItems() {
         String items = cfgExcel.getItems();
         if (items == null) {
             return ImmutableList.of();
@@ -102,4 +118,9 @@ public class MonsterCfgImpl implements MonsterCfg {
     }
 
     private final MonsterCfgExcel cfgExcel;
+
+    private List<MonsterInitAttrCfg> attrs;
+    private List<MonsterInitSkillCfg> skills;
+    private List<MonsterItemCfg> items;
+
 }

@@ -16,6 +16,9 @@ public class FactionCfgImpl implements FactionCfg {
 
     public FactionCfgImpl(FactionCfgExcel cfgExcel) {
         this.cfgExcel = cfgExcel;
+
+        attrs = initAttrs();
+        skills = initSkills();
     }
 
     @Override
@@ -30,13 +33,21 @@ public class FactionCfgImpl implements FactionCfg {
 
     @Override
     public List<FactionInitAttrCfg> getInitAttrs() {
+        return attrs;
+    }
+
+    @Override
+    public List<FactionInitSkillCfg> getInitSkills() {
+        return skills;
+    }
+
+    private List<FactionInitAttrCfg> initAttrs() {
         return Arrays.stream(cfgExcel.getInitAttr().split(","))
                 .map(this::toAttrCfg)
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<FactionInitSkillCfg> getInitSkills() {
+    private List<FactionInitSkillCfg> initSkills() {
         return Arrays.stream(cfgExcel.getInitSkill().split(","))
                 .map(this::toSkillCfg)
                 .collect(Collectors.toList());
@@ -61,4 +72,7 @@ public class FactionCfgImpl implements FactionCfg {
     }
 
     private final FactionCfgExcel cfgExcel;
+
+    private List<FactionInitAttrCfg> attrs;
+    private List<FactionInitSkillCfg> skills;
 }

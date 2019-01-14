@@ -15,6 +15,8 @@ public class GuildPositionCfgImpl implements GuildPositionCfg {
 
     public GuildPositionCfgImpl(GuildPositionCfgExcel cfgExcel) {
         this.cfgExcel = cfgExcel;
+
+        permissions = initPermissions();
     }
 
     @Override
@@ -29,6 +31,10 @@ public class GuildPositionCfgImpl implements GuildPositionCfg {
 
     @Override
     public Set<Integer> getPermission() {
+        return permissions;
+    }
+
+    private Set<Integer> initPermissions() {
         String permission = cfgExcel.getPermission();
         if (permission == null) {
             return ImmutableSet.of();
@@ -40,4 +46,5 @@ public class GuildPositionCfgImpl implements GuildPositionCfg {
     }
 
     private final GuildPositionCfgExcel cfgExcel;
+    private Set<Integer> permissions;
 }

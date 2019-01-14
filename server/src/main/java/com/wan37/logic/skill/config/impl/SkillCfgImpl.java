@@ -19,6 +19,8 @@ public class SkillCfgImpl implements SkillCfg {
 
     public SkillCfgImpl(SkillCfgExcel cfgExcel) {
         this.cfgExcel = cfgExcel;
+
+        buffs = initBuffs();
     }
 
     @Override
@@ -58,13 +60,7 @@ public class SkillCfgImpl implements SkillCfg {
 
     @Override
     public List<SkillBuffCfg> getBuffs() {
-        if (cfgExcel.getBuffs() == null || "".equals(cfgExcel.getBuffs())) {
-            return ImmutableList.of();
-        }
-
-        return Arrays.stream(cfgExcel.getBuffs().split(","))
-                .map(this::createBuff)
-                .collect(Collectors.toList());
+        return buffs;
     }
 
     @Override
@@ -102,5 +98,16 @@ public class SkillCfgImpl implements SkillCfg {
         return ImmutableMap.of("lv", lv);
     }
 
+    private List<SkillBuffCfg> initBuffs() {
+        if (cfgExcel.getBuffs() == null) {
+            return ImmutableList.of();
+        }
+
+        return Arrays.stream(cfgExcel.getBuffs().split(","))
+                .map(this::createBuff)
+                .collect(Collectors.toList());
+    }
+
     private final SkillCfgExcel cfgExcel;
+    private List<SkillBuffCfg> buffs;
 }

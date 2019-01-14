@@ -17,6 +17,9 @@ public class SummoningCfgImpl implements SummoningCfg {
 
     public SummoningCfgImpl(SummoningCfgExcel cfgExcel) {
         this.cfgExcel = cfgExcel;
+
+        attrs = initAttrs();
+        skills = initSkills();
     }
 
     @Override
@@ -31,18 +34,15 @@ public class SummoningCfgImpl implements SummoningCfg {
 
     @Override
     public List<SummoningInitAttrCfg> getInitAttrs() {
-        String attrs = cfgExcel.getInitAttr();
-        if (attrs == null) {
-            return ImmutableList.of();
-        }
-
-        return Arrays.stream(attrs.split(","))
-                .map(this::createAttr)
-                .collect(Collectors.toList());
+        return attrs;
     }
 
     @Override
     public List<SummoningInitSkillCfg> getInitSkills() {
+        return skills;
+    }
+
+    private List<SummoningInitSkillCfg> initSkills() {
         String skills = cfgExcel.getSkills();
         if (skills == null) {
             return ImmutableList.of();
@@ -50,6 +50,17 @@ public class SummoningCfgImpl implements SummoningCfg {
 
         return Arrays.stream(skills.split(","))
                 .map(this::createSkill)
+                .collect(Collectors.toList());
+    }
+
+    private List<SummoningInitAttrCfg> initAttrs() {
+        String attrs = cfgExcel.getInitAttr();
+        if (attrs == null) {
+            return ImmutableList.of();
+        }
+
+        return Arrays.stream(attrs.split(","))
+                .map(this::createAttr)
                 .collect(Collectors.toList());
     }
 
@@ -70,4 +81,7 @@ public class SummoningCfgImpl implements SummoningCfg {
     }
 
     private final SummoningCfgExcel cfgExcel;
+
+    private List<SummoningInitAttrCfg> attrs;
+    private List<SummoningInitSkillCfg> skills;
 }
