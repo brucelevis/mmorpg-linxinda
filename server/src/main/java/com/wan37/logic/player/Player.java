@@ -84,12 +84,12 @@ public class Player implements FightingUnit {
         playerDb.setLevel(level);
     }
 
-    public void setLeagueUid(Long uid) {
-        playerDb.setLeagueUid(uid);
+    public void setGuildUid(Long uid) {
+        playerDb.setGuildUid(uid);
     }
 
-    public Long getLeagueUid() {
-        return playerDb.getLeagueUid();
+    public Long getGuildUid() {
+        return playerDb.getGuildUid();
     }
 
     public ITrade getTrade() {

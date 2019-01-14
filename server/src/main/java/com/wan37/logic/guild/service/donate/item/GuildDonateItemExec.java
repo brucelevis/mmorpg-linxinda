@@ -49,15 +49,15 @@ public class GuildDonateItemExec {
             }
         }
 
-        if (player.getLeagueUid() == null) {
+        if (player.getGuildUid() == null) {
             player.syncClient("未加入公会");
             return;
         }
 
-        Guild league = guildGlobalManager.get(player.getLeagueUid());
-        GuildWarehouse warehouse = league.getWarehouse();
+        Guild guild = guildGlobalManager.get(player.getGuildUid());
+        GuildWarehouse warehouse = guild.getWarehouse();
         try {
-            warehouse.lock();
+            guild.lock();
             if (reqGuildDonateItem.getDonateItems().size() > warehouse.getCapacity() - warehouse.getCurSize()) {
                 player.syncClient("公会仓库容量不足");
                 return;
@@ -67,10 +67,10 @@ public class GuildDonateItemExec {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            warehouse.unlock();
+            guild.unlock();
         }
 
-        league.save();
+        guild.save();
         backpackUpdateNotifier.notify(player);
     }
 

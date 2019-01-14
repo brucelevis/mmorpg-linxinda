@@ -27,12 +27,12 @@ public class GuildWarehouseExec {
     private ConfigLoader configLoader;
 
     public void exec(Player player) {
-        if (player.getLeagueUid() == null) {
+        if (player.getGuildUid() == null) {
             player.syncClient("未加入公会");
             return;
         }
 
-        Guild guild = guildGlobalManager.get(player.getLeagueUid());
+        Guild guild = guildGlobalManager.get(player.getGuildUid());
         GuildWarehouse warehouse = guild.getWarehouse();
         String itemHead = String.format("公会仓库总容量：%s，当前容量：%s，物品信息如下：\n", warehouse.getCapacity(), warehouse.getCurSize());
         String items = warehouse.getItems().stream()

@@ -23,12 +23,12 @@ public class GuildKickExec {
     private ConfigLoader configLoader;
 
     public void exec(Player player, Player target) {
-        if (player.getLeagueUid() == null) {
+        if (player.getGuildUid() == null) {
             player.syncClient("你未加入公会");
             return;
         }
 
-        Guild league = guildGlobalManager.get(player.getLeagueUid());
+        Guild league = guildGlobalManager.get(player.getGuildUid());
         if (league == null) {
             player.syncClient("公会不存在");
             return;
@@ -61,7 +61,7 @@ public class GuildKickExec {
         String msg = String.format("【公会】 [%s]踢除了[%s]", player.getName(), target.getName());
         league.notifyAll(msg);
 
-        target.setLeagueUid(null);
+        target.setGuildUid(null);
         league.rmMember(target.getUid());
         league.save();
     }

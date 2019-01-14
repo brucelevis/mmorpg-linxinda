@@ -34,13 +34,13 @@ public class GuildGetMoneyExec {
     private ConfigLoader configLoader;
 
     public void exec(Player player, Integer cfgId, long amount) {
-        if (player.getLeagueUid() == null) {
+        if (player.getGuildUid() == null) {
             player.syncClient("未加入公会");
             return;
         }
 
-        Guild league = guildGlobalManager.get(player.getLeagueUid());
-        GuildMember me = league.getMember(player.getUid());
+        Guild guild = guildGlobalManager.get(player.getGuildUid());
+        GuildMember me = guild.getMember(player.getUid());
         GuildPositionCfg positionCfg = configLoader.load(GuildPositionCfg.class, me.getPosition()).orElse(null);
         if (positionCfg == null) {
             player.syncClient("找不到公会权限表");
@@ -52,16 +52,16 @@ public class GuildGetMoneyExec {
             return;
         }
 
-        GuildWarehouse warehouse = league.getWarehouse();
+        GuildWarehouse warehouse = guild.getWarehouse();
         try {
-            warehouse.lock();
+            guild.lock();
             if (warehouse.queryCurrency(cfgId) < amount) {
                 player.syncClient("公会仓库钱不足");
                 return;
             }
 
             warehouse.rmCurrency(cfgId, amount);
-            league.save();
+            guild.save();
 
             ResourceElement resourceElement = new ResourceElementImpl(cfgId, amount);
             resourceFacade.giveResource(resourceElement, player);
@@ -70,7 +70,7 @@ public class GuildGetMoneyExec {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            warehouse.unlock();
+            guild.unlock();
         }
     }
 }

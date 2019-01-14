@@ -91,16 +91,6 @@ public interface GuildWarehouse {
     int getCapacity();
 
     /**
-     * 仓库锁
-     */
-    void lock();
-
-    /**
-     * 仓库解锁
-     */
-    void unlock();
-
-    /**
      * 返回仓库所有格子
      *
      * @return List<GuildItem>

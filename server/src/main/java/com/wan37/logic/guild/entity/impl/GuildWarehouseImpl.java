@@ -1,24 +1,22 @@
 package com.wan37.logic.guild.entity.impl;
 
 import com.wan37.logic.guild.database.GuildGlobalDb;
-import com.wan37.logic.guild.entity.GuildWarehouse;
 import com.wan37.logic.guild.entity.GuildCurrency;
 import com.wan37.logic.guild.entity.GuildItem;
+import com.wan37.logic.guild.entity.GuildWarehouse;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.locks.Lock;
 import java.util.stream.Collectors;
 
 class GuildWarehouseImpl implements GuildWarehouse {
 
-    public GuildWarehouseImpl(GuildGlobalDb guildGlobalDb, Map<Integer, GuildItem> items, Map<Integer, GuildCurrency> currency, Lock lock) {
+    public GuildWarehouseImpl(GuildGlobalDb guildGlobalDb, Map<Integer, GuildItem> items, Map<Integer, GuildCurrency> currency) {
         this.guildGlobalDb = guildGlobalDb;
         this.items = items;
         this.currency = currency;
-        this.lock = lock;
     }
 
     @Override
@@ -111,16 +109,6 @@ class GuildWarehouseImpl implements GuildWarehouse {
     }
 
     @Override
-    public void lock() {
-        lock.lock();
-    }
-
-    @Override
-    public void unlock() {
-        lock.unlock();
-    }
-
-    @Override
     public List<GuildItem> getItems() {
         return new ArrayList<>(items.values());
     }
@@ -143,5 +131,4 @@ class GuildWarehouseImpl implements GuildWarehouse {
     private final GuildGlobalDb guildGlobalDb;
     private final Map<Integer, GuildItem> items;
     private final Map<Integer, GuildCurrency> currency;
-    private final Lock lock;
 }

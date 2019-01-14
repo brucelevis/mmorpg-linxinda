@@ -18,12 +18,12 @@ public class GuildQuitExec {
     private GuildGlobalManager guildGlobalManager;
 
     public void exec(Player player) {
-        if (player.getLeagueUid() == null) {
+        if (player.getGuildUid() == null) {
             player.syncClient("你未加入公会");
             return;
         }
 
-        Guild league = guildGlobalManager.get(player.getLeagueUid());
+        Guild league = guildGlobalManager.get(player.getGuildUid());
         if (league == null) {
             player.syncClient("公会不存在");
             return;
@@ -37,7 +37,7 @@ public class GuildQuitExec {
         String msg = String.format("【公会】 [%s]退出了公会", player.getName());
         league.notifyAll(msg);
 
-        player.setLeagueUid(null);
+        player.setGuildUid(null);
         league.rmMember(player.getUid());
         league.save();
     }

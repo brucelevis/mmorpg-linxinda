@@ -38,13 +38,13 @@ public class GuildGetItemExec {
     private BackpackUpdateNotifier backpackUpdateNotifier;
 
     public void exec(Player player, ReqGuildGetItem reqGuildGetItem) {
-        if (player.getLeagueUid() == null) {
+        if (player.getGuildUid() == null) {
             player.syncClient("未加入公会");
             return;
         }
 
-        Guild league = guildGlobalManager.get(player.getLeagueUid());
-        GuildMember me = league.getMember(player.getUid());
+        Guild guild = guildGlobalManager.get(player.getGuildUid());
+        GuildMember me = guild.getMember(player.getUid());
         GuildPositionCfg positionCfg = configLoader.load(GuildPositionCfg.class, me.getPosition()).orElse(null);
         if (positionCfg == null) {
             player.syncClient("找不到公会权限表");
@@ -61,9 +61,9 @@ public class GuildGetItemExec {
             return;
         }
 
-        GuildWarehouse warehouse = league.getWarehouse();
+        GuildWarehouse warehouse = guild.getWarehouse();
         try {
-            warehouse.lock();
+            guild.lock();
             if (!checkWarehouse(warehouse, reqGuildGetItem)) {
                 player.syncClient("公会物品不足");
                 return;
@@ -83,10 +83,10 @@ public class GuildGetItemExec {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            warehouse.unlock();
+            guild.unlock();
         }
 
-        league.save();
+        guild.save();
         backpackUpdateNotifier.notify(player);
     }
 

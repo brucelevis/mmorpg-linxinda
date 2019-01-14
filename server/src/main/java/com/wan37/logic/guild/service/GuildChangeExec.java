@@ -25,12 +25,12 @@ public class GuildChangeExec {
     private ConfigLoader configLoader;
 
     public void exec(Player player, Player target) {
-        if (player.getLeagueUid() == null) {
+        if (player.getGuildUid() == null) {
             player.syncClient("你未加入公会");
             return;
         }
 
-        Guild league = guildGlobalManager.get(player.getLeagueUid());
+        Guild league = guildGlobalManager.get(player.getGuildUid());
         if (league == null) {
             player.syncClient("公会不存在");
             return;

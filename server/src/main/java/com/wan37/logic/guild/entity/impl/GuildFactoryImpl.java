@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -39,6 +40,6 @@ class GuildFactoryImpl implements Guild.Factory {
                 .collect(Collectors.toMap(GuildMember::getPlayerUid, Function.identity()));
 
         GuildWarehouse warehouse = warehouseFactory.create(guildGlobalDb);
-        return new GuildImpl(memberMap, guildGlobalDb, warehouse, guildDao, netUtil);
+        return new GuildImpl(memberMap, guildGlobalDb, warehouse, guildDao, netUtil, new ReentrantLock());
     }
 }

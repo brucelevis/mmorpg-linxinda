@@ -33,19 +33,19 @@ public class GuildAddExec {
     private GeneralEventListenersManager generalEventListenersManager;
 
     public void exec(Player player, Player target) {
-        if (player.getLeagueUid() == null) {
+        if (player.getGuildUid() == null) {
             player.syncClient("你未加入公会");
             return;
         }
 
-        Guild guild = guildGlobalManager.get(player.getLeagueUid());
+        Guild guild = guildGlobalManager.get(player.getGuildUid());
         if (guild == null) {
             player.syncClient("公会不存在");
             return;
         }
 
-        GuildMember me = guild.getMember(player.getUid());
-        GuildPositionCfg positionCfg = configLoader.load(GuildPositionCfg.class, me.getPosition()).orElse(null);
+        GuildMember memberMyself = guild.getMember(player.getUid());
+        GuildPositionCfg positionCfg = configLoader.load(GuildPositionCfg.class, memberMyself.getPosition()).orElse(null);
         if (positionCfg == null) {
             player.syncClient("找不到公会权限表");
             return;
@@ -56,7 +56,7 @@ public class GuildAddExec {
             return;
         }
 
-        if (target.getLeagueUid() != null) {
+        if (target.getGuildUid() != null) {
             player.syncClient("目标已有公会");
             return;
         }
@@ -65,7 +65,7 @@ public class GuildAddExec {
         GuildMemberDb memberDb = createMember(target.getUid());
         GuildMember leagueMember = leagueMemberFactory.create(memberDb);
 
-        target.setLeagueUid(guild.getUid());
+        target.setGuildUid(guild.getUid());
         guild.addMember(leagueMember);
         guild.save();
 

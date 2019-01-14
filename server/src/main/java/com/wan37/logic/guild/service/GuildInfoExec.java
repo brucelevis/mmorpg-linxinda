@@ -24,12 +24,12 @@ public class GuildInfoExec {
     private PlayerGlobalManager playerGlobalManager;
 
     public void exec(Player player) {
-        if (player.getLeagueUid() == null) {
+        if (player.getGuildUid() == null) {
             player.syncClient("你当前没有公会信息");
             return;
         }
 
-        Guild league = guildGlobalManager.get(player.getLeagueUid());
+        Guild league = guildGlobalManager.get(player.getGuildUid());
         if (league == null) {
             player.syncClient("公会不存在");
             return;

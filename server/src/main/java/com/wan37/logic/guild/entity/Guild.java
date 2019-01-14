@@ -104,4 +104,14 @@ public interface Guild {
      * @return GuildWarehouse
      */
     GuildWarehouse getWarehouse();
+
+    /**
+     * 锁
+     */
+    void lock();
+
+    /**
+     * 解锁
+     */
+    void unlock();
 }

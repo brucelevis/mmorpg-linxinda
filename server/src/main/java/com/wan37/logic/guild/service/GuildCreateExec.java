@@ -45,7 +45,7 @@ public class GuildCreateExec {
 
         //TODO: 检查创建公会的条件如钱啊啥的
 
-        if (player.getLeagueUid() != null) {
+        if (player.getGuildUid() != null) {
             player.syncClient("已有公会，要创建公会需要退出或解散当前公会");
             return;
         }
@@ -62,7 +62,7 @@ public class GuildCreateExec {
         league.addMember(leagueMember);
         league.save();
 
-        player.setLeagueUid(league.getUid());
+        player.setGuildUid(league.getUid());
 
         chatFacade.chatToWorld(String.format("【公告】 祝贺[%s]创建了[%s]公会", player.getName(), name));
     }

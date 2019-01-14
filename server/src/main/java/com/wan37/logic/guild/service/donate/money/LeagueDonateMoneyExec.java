@@ -33,7 +33,7 @@ public class LeagueDonateMoneyExec {
     private GuildCurrency.Factory leagueCurrencyFactory;
 
     public void exec(Player player, Integer id, long amount) {
-        if (player.getLeagueUid() == null) {
+        if (player.getGuildUid() == null) {
             player.syncClient("未加入公会");
             return;
         }
@@ -43,10 +43,10 @@ public class LeagueDonateMoneyExec {
             return;
         }
 
-        Guild league = guildGlobalManager.get(player.getLeagueUid());
-        GuildWarehouse warehouse = league.getWarehouse();
+        Guild guild = guildGlobalManager.get(player.getGuildUid());
+        GuildWarehouse warehouse = guild.getWarehouse();
         try {
-            warehouse.lock();
+            guild.lock();
             ResourceElement resourceElement = new ResourceElementImpl(id, amount);
             resourceFacade.consumeResource(resourceElement, player);
 
@@ -56,10 +56,10 @@ public class LeagueDonateMoneyExec {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            warehouse.unlock();
+            guild.unlock();
         }
 
-        league.save();
+        guild.save();
         currencyUpdateNotifier.notify(player);
     }
 

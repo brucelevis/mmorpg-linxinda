@@ -30,12 +30,12 @@ public class GuildDissolveExec {
     private PlayerGlobalManager playerGlobalManager;
 
     public void exec(Player player) {
-        if (player.getLeagueUid() == null) {
+        if (player.getGuildUid() == null) {
             player.syncClient("你未加入公会");
             return;
         }
 
-        Guild league = guildGlobalManager.get(player.getLeagueUid());
+        Guild league = guildGlobalManager.get(player.getGuildUid());
         if (league == null) {
             player.syncClient("公会不存在");
             return;
@@ -53,7 +53,7 @@ public class GuildDissolveExec {
         league.getMembers().stream()
                 .map(m -> playerGlobalManager.getPlayerIfPresent(m.getPlayerUid()))
                 .filter(Objects::nonNull)
-                .forEach(p -> p.setLeagueUid(null));
+                .forEach(p -> p.setGuildUid(null));
 
         // 世界
         chatFacade.chatToWorld(String.format("【公告】 [%s]工会解散了", league.getName()));

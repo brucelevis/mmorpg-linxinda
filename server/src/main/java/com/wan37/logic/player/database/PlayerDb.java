@@ -117,7 +117,7 @@ public class PlayerDb {
     @JoinColumn(name = "player_uid")
     private MissionDb missionDb;
 
-    private volatile Long leagueUid;
+    private volatile Long guildUid;
 
     private volatile Long teamUid;
 
@@ -289,12 +289,12 @@ public class PlayerDb {
         this.missionDb = missionDb;
     }
 
-    public Long getLeagueUid() {
-        return leagueUid;
+    public Long getGuildUid() {
+        return guildUid;
     }
 
-    public void setLeagueUid(Long leagueUid) {
-        this.leagueUid = leagueUid;
+    public void setGuildUid(Long leagueUid) {
+        this.guildUid = leagueUid;
     }
 
     public Long getTeamUid() {

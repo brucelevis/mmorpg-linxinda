@@ -20,16 +20,16 @@ class GuildOnLogin implements GeneralEventListener<LoginEvent> {
     @Override
     public void execute(LoginEvent event) {
         Player player = event.getPlayer();
-        if (player.getLeagueUid() == null) {
+        if (player.getGuildUid() == null) {
             return;
         }
 
-        Guild league = guildGlobalManager.get(player.getLeagueUid());
+        Guild league = guildGlobalManager.get(player.getGuildUid());
         if (league != null) {
             return;
         }
 
-        player.setLeagueUid(null);
+        player.setGuildUid(null);
         player.syncClient("你的工会已解散了");
     }
 }

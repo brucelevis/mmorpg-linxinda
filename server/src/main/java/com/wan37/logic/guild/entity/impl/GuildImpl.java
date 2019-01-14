@@ -4,25 +4,28 @@ import com.wan37.logic.guild.GuildPositionEnum;
 import com.wan37.logic.guild.dao.GuildDao;
 import com.wan37.logic.guild.database.GuildGlobalDb;
 import com.wan37.logic.guild.database.GuildMemberDb;
-import com.wan37.logic.guild.entity.GuildWarehouse;
 import com.wan37.logic.guild.entity.Guild;
 import com.wan37.logic.guild.entity.GuildMember;
+import com.wan37.logic.guild.entity.GuildWarehouse;
 import com.wan37.util.NetUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.locks.Lock;
 import java.util.stream.Collectors;
 
 class GuildImpl implements Guild {
 
-    public GuildImpl(Map<Long, GuildMember> memberMap, GuildGlobalDb guildGlobalDb, GuildWarehouse warehouse, GuildDao guildDao, NetUtil netUtil) {
+    public GuildImpl(Map<Long, GuildMember> memberMap, GuildGlobalDb guildGlobalDb,
+                     GuildWarehouse warehouse, GuildDao guildDao, NetUtil netUtil, Lock lock) {
         this.memberMap = memberMap;
         this.guildGlobalDb = guildGlobalDb;
         this.warehouse = warehouse;
         this.guildDao = guildDao;
         this.netUtil = netUtil;
+        this.lock = lock;
     }
 
     @Override
@@ -99,10 +102,21 @@ class GuildImpl implements Guild {
         return warehouse;
     }
 
+    @Override
+    public void lock() {
+        lock.lock();
+    }
+
+    @Override
+    public void unlock() {
+        lock.unlock();
+    }
+
     private final Map<Long, GuildMember> memberMap;
     private final GuildGlobalDb guildGlobalDb;
     private final GuildWarehouse warehouse;
 
     private final GuildDao guildDao;
     private final NetUtil netUtil;
+    private final Lock lock;
 }
