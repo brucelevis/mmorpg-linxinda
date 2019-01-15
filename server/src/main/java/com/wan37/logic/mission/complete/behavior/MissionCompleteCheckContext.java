@@ -1,6 +1,6 @@
 package com.wan37.logic.mission.complete.behavior;
 
-import com.wan37.logic.mission.entity.PlayerMission;
+import com.wan37.logic.mission.PlayerMission;
 import com.wan37.logic.player.Player;
 
 /**

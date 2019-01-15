@@ -7,7 +7,7 @@ import com.wan37.logic.monster.config.MonsterCfg;
 import com.wan37.logic.monster.config.MonsterInitAttrCfg;
 import com.wan37.logic.monster.config.MonsterInitSkillCfg;
 import com.wan37.logic.scene.base.AbstractScene;
-import com.wan37.logic.skill.entity.Skill;
+import com.wan37.logic.skill.Skill;
 import com.wan37.logic.skill.config.SkillCfg;
 import com.wan37.util.IdUtil;
 import org.springframework.beans.factory.annotation.Autowired;

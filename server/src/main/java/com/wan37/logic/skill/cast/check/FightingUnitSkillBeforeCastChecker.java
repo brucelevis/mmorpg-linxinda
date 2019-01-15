@@ -1,12 +1,12 @@
 package com.wan37.logic.skill.cast.check;
 
 import com.wan37.logic.buff.BuffEffectEnum;
-import com.wan37.logic.buff.entity.Buff;
+import com.wan37.logic.buff.Buff;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.scene.SceneActorSceneGetter;
 import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.scene.base.FightingUnit;
-import com.wan37.logic.skill.entity.Skill;
+import com.wan37.logic.skill.Skill;
 import com.wan37.util.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

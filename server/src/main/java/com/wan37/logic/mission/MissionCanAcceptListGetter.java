@@ -2,7 +2,6 @@ package com.wan37.logic.mission;
 
 import com.wan37.config.ConfigLoader;
 import com.wan37.logic.mission.config.MissionCfg;
-import com.wan37.logic.mission.entity.Mission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

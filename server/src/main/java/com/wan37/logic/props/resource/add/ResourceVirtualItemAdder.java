@@ -2,7 +2,7 @@ package com.wan37.logic.props.resource.add;
 
 import com.wan37.config.ConfigLoader;
 import com.wan37.event.GeneralEventListenersManager;
-import com.wan37.event.entity.VirtualItemAddEvent;
+import com.wan37.event.event.VirtualItemAddEvent;
 import com.wan37.logic.currency.database.CurrencyDb;
 import com.wan37.logic.currency.database.CurrencyItemDb;
 import com.wan37.logic.player.Player;

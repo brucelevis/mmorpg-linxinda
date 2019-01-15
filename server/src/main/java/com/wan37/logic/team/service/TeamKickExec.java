@@ -2,7 +2,7 @@ package com.wan37.logic.team.service;
 
 import com.wan37.logic.player.Player;
 import com.wan37.logic.team.TeamGlobalManager;
-import com.wan37.logic.team.entity.Team;
+import com.wan37.logic.team.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

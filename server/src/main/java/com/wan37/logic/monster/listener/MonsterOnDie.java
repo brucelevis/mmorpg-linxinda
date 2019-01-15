@@ -1,6 +1,6 @@
 package com.wan37.logic.monster.listener;
 
-import com.wan37.event.entity.DieEvent;
+import com.wan37.event.event.DieEvent;
 import com.wan37.event.GeneralEventListener;
 import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.monster.Monster;

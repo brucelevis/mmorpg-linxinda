@@ -3,7 +3,7 @@ package com.wan37.logic.buff.rand;
 import com.wan37.config.ConfigLoader;
 import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.buff.BuffTargetEnum;
-import com.wan37.logic.buff.entity.Buff;
+import com.wan37.logic.buff.Buff;
 import com.wan37.logic.buff.config.BuffCfg;
 import com.wan37.logic.player.service.FightingUnitBuffAdder;
 import com.wan37.logic.scene.base.AbstractScene;

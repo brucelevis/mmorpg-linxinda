@@ -2,8 +2,8 @@ package com.wan37.logic.trade.service;
 
 import com.wan37.logic.player.Player;
 import com.wan37.logic.trade.TradeGlobalManager;
-import com.wan37.logic.trade.entity.ITrade;
-import com.wan37.logic.trade.entity.Trade;
+import com.wan37.logic.trade.ITrade;
+import com.wan37.logic.trade.Trade;
 import com.wan37.logic.trade.init.TradePlayerCreator;
 import com.wan37.util.IdUtil;
 import org.springframework.beans.factory.annotation.Autowired;

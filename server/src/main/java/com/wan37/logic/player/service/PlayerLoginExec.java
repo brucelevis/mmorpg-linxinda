@@ -1,7 +1,7 @@
 package com.wan37.logic.player.service;
 
 import com.wan37.event.GeneralEventListenersManager;
-import com.wan37.event.entity.LoginEvent;
+import com.wan37.event.event.LoginEvent;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.player.encode.PlayerInfoEncoder;

@@ -7,7 +7,7 @@ import com.wan37.logic.equipment.database.EquipExtraDb;
 import com.wan37.logic.equipment.service.EquipExtraDbGetter;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.database.PlayerDb;
-import com.wan37.logic.skill.entity.Skill;
+import com.wan37.logic.skill.Skill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

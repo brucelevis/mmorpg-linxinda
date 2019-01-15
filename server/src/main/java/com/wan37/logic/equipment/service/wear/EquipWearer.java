@@ -2,9 +2,9 @@ package com.wan37.logic.equipment.service.wear;
 
 import com.google.common.collect.ImmutableList;
 import com.wan37.config.ConfigLoader;
-import com.wan37.event.entity.EquipWearEvent;
+import com.wan37.event.event.EquipWearEvent;
 import com.wan37.event.GeneralEventListenersManager;
-import com.wan37.event.entity.StrengthChangeEvent;
+import com.wan37.event.event.StrengthChangeEvent;
 import com.wan37.logic.backpack.BackpackFacade;
 import com.wan37.logic.backpack.database.ItemDb;
 import com.wan37.logic.equipment.config.EquipCfg;

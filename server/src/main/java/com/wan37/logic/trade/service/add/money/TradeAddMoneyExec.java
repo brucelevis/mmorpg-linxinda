@@ -7,9 +7,9 @@ import com.wan37.logic.props.resource.ResourceElement;
 import com.wan37.logic.props.resource.impl.ResourceElementImpl;
 import com.wan37.logic.trade.TradeGlobalManager;
 import com.wan37.logic.trade.encode.TradeEncoder;
-import com.wan37.logic.trade.entity.ITrade;
-import com.wan37.logic.trade.entity.Trade;
-import com.wan37.logic.trade.entity.TradePlayer;
+import com.wan37.logic.trade.ITrade;
+import com.wan37.logic.trade.Trade;
+import com.wan37.logic.trade.TradePlayer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

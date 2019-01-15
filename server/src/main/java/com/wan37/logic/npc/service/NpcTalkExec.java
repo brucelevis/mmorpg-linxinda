@@ -2,11 +2,11 @@ package com.wan37.logic.npc.service;
 
 import com.wan37.config.ConfigLoader;
 import com.wan37.event.GeneralEventListenersManager;
-import com.wan37.event.entity.NpcTalkEvent;
+import com.wan37.event.event.NpcTalkEvent;
 import com.wan37.logic.mission.MissionCanAcceptListGetter;
 import com.wan37.logic.mission.config.MissionCfg;
 import com.wan37.logic.mission.encode.MissionEncoder;
-import com.wan37.logic.mission.entity.PlayerMission;
+import com.wan37.logic.mission.PlayerMission;
 import com.wan37.logic.npc.config.NpcCfg;
 import com.wan37.logic.player.Player;
 import org.springframework.beans.factory.annotation.Autowired;

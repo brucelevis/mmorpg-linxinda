@@ -2,7 +2,7 @@ package com.wan37.logic.mission.service.accept;
 
 import com.wan37.config.ConfigLoader;
 import com.wan37.logic.mission.config.MissionCfg;
-import com.wan37.logic.mission.entity.Mission;
+import com.wan37.logic.mission.Mission;
 import com.wan37.logic.player.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

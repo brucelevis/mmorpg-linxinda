@@ -1,7 +1,7 @@
 package com.wan37.logic.pk.schedule;
 
 import com.wan37.event.GeneralEventListenersManager;
-import com.wan37.event.entity.PkWinEvent;
+import com.wan37.event.event.PkWinEvent;
 import com.wan37.logic.pk.scene.ArenaSceneAbstract;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.init.PlayerReviveInitializer;

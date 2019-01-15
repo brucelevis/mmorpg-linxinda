@@ -1,6 +1,5 @@
 package com.wan37.logic.team;
 
-import com.wan37.logic.team.entity.Team;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;

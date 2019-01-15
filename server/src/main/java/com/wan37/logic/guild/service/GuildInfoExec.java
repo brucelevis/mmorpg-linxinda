@@ -2,8 +2,8 @@ package com.wan37.logic.guild.service;
 
 import com.wan37.logic.guild.GuildGlobalManager;
 import com.wan37.logic.guild.GuildPositionEnum;
-import com.wan37.logic.guild.entity.Guild;
-import com.wan37.logic.guild.entity.GuildMember;
+import com.wan37.logic.guild.Guild;
+import com.wan37.logic.guild.GuildMember;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import org.springframework.beans.factory.annotation.Autowired;

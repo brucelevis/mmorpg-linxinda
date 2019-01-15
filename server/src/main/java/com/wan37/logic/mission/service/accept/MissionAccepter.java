@@ -3,7 +3,7 @@ package com.wan37.logic.mission.service.accept;
 import com.wan37.logic.mission.complete.MissionCompleteChecker;
 import com.wan37.logic.mission.config.MissionCfg;
 import com.wan37.logic.mission.database.PlayerMissionDb;
-import com.wan37.logic.mission.entity.PlayerMission;
+import com.wan37.logic.mission.PlayerMission;
 import com.wan37.logic.player.Player;
 import com.wan37.util.DateTimeUtils;
 import com.wan37.util.IdUtil;

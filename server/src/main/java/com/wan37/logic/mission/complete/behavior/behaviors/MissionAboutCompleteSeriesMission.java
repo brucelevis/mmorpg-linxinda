@@ -4,7 +4,7 @@ import com.wan37.behavior.BehaviorLogic;
 import com.wan37.logic.mission.complete.behavior.MissionCompleteCheckBehavior;
 import com.wan37.logic.mission.complete.behavior.MissionCompleteCheckContext;
 import com.wan37.logic.mission.config.MissionCfg;
-import com.wan37.logic.mission.entity.Mission;
+import com.wan37.logic.mission.Mission;
 import org.springframework.stereotype.Service;
 
 /**

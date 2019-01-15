@@ -1,7 +1,7 @@
 package com.wan37.logic.pk.service;
 
 import com.wan37.config.ConfigLoader;
-import com.wan37.logic.pk.entity.Pk;
+import com.wan37.logic.pk.Pk;
 import com.wan37.logic.pk.init.ArenaSceneCreator;
 import com.wan37.logic.pk.scene.ArenaSceneAbstract;
 import com.wan37.logic.player.Player;

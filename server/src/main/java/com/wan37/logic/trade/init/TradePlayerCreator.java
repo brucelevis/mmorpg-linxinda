@@ -1,7 +1,7 @@
 package com.wan37.logic.trade.init;
 
 import com.wan37.logic.player.Player;
-import com.wan37.logic.trade.entity.TradePlayer;
+import com.wan37.logic.trade.TradePlayer;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;

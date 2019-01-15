@@ -1,9 +1,9 @@
 package com.wan37.logic.summoning;
 
 import com.wan37.logic.attr.config.AttrEnum;
-import com.wan37.logic.buff.entity.Buff;
+import com.wan37.logic.buff.Buff;
 import com.wan37.logic.scene.base.FightingUnit;
-import com.wan37.logic.skill.entity.Skill;
+import com.wan37.logic.skill.Skill;
 import com.wan37.logic.summoning.config.SummoningCfg;
 
 import java.util.List;

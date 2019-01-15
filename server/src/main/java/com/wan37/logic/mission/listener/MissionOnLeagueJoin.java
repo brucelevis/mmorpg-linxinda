@@ -1,10 +1,10 @@
 package com.wan37.logic.mission.listener;
 
 import com.wan37.event.GeneralEventListener;
-import com.wan37.event.entity.LeagueJoinEvent;
+import com.wan37.event.event.LeagueJoinEvent;
 import com.wan37.logic.mission.MissionTypeEnum;
 import com.wan37.logic.mission.complete.MissionCompleteChecker;
-import com.wan37.logic.mission.entity.PlayerMission;
+import com.wan37.logic.mission.PlayerMission;
 import com.wan37.logic.player.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

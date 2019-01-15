@@ -4,8 +4,8 @@ import com.wan37.config.ConfigLoader;
 import com.wan37.logic.backpack.encode.BackpackItemSimpleInfoEncoder;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.props.config.VirtualItemCfg;
-import com.wan37.logic.trade.entity.Trade;
-import com.wan37.logic.trade.entity.TradePlayer;
+import com.wan37.logic.trade.Trade;
+import com.wan37.logic.trade.TradePlayer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
 package com.wan37.logic.dungeon.complete;
 
 import com.wan37.config.ConfigLoader;
-import com.wan37.event.entity.DungeonCompleteEvent;
+import com.wan37.event.event.DungeonCompleteEvent;
 import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.chat.ChatFacade;

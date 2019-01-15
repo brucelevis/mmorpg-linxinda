@@ -1,7 +1,7 @@
 package com.wan37.logic.friend.service;
 
 import com.wan37.event.GeneralEventListenersManager;
-import com.wan37.event.entity.FriendAddEvent;
+import com.wan37.event.event.FriendAddEvent;
 import com.wan37.logic.friend.database.FriendDb;
 import com.wan37.logic.friend.database.FriendRequestDb;
 import com.wan37.logic.player.Player;

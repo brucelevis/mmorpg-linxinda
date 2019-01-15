@@ -1,6 +1,6 @@
 package com.wan37.logic.pk.service;
 
-import com.wan37.logic.pk.entity.Pk;
+import com.wan37.logic.pk.Pk;
 import com.wan37.logic.player.Player;
 import org.springframework.stereotype.Service;
 

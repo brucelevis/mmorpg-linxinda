@@ -1,7 +1,7 @@
 package com.wan37.logic.player.service;
 
 import com.wan37.logic.scene.base.FightingUnit;
-import com.wan37.logic.buff.entity.Buff;
+import com.wan37.logic.buff.Buff;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

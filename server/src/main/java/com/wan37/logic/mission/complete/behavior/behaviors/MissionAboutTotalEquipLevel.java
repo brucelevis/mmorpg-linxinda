@@ -7,7 +7,7 @@ import com.wan37.logic.equipment.database.EquipDb;
 import com.wan37.logic.mission.complete.behavior.MissionCompleteCheckBehavior;
 import com.wan37.logic.mission.complete.behavior.MissionCompleteCheckContext;
 import com.wan37.logic.mission.config.MissionCfg;
-import com.wan37.logic.mission.entity.PlayerMission;
+import com.wan37.logic.mission.PlayerMission;
 import com.wan37.logic.player.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

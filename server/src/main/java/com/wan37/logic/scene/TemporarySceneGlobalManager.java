@@ -1,7 +1,7 @@
 package com.wan37.logic.scene;
 
 import com.wan37.event.GeneralEventListenersManager;
-import com.wan37.event.entity.SceneEnterEvent;
+import com.wan37.event.event.SceneEnterEvent;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.scene.base.AbstractTemporaryScene;
 import org.springframework.beans.factory.annotation.Autowired;

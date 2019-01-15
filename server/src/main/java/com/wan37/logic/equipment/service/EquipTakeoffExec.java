@@ -3,7 +3,7 @@ package com.wan37.logic.equipment.service;
 import com.google.common.collect.ImmutableList;
 import com.wan37.config.ConfigLoader;
 import com.wan37.event.GeneralEventListenersManager;
-import com.wan37.event.entity.StrengthChangeEvent;
+import com.wan37.event.event.StrengthChangeEvent;
 import com.wan37.logic.backpack.BackpackFacade;
 import com.wan37.logic.backpack.database.ItemDb;
 import com.wan37.logic.backpack.service.find.BackpackEmptyIndexFinder;

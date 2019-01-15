@@ -2,8 +2,8 @@ package com.wan37.logic.player.listeners;
 
 import com.wan37.event.GeneralEventListener;
 import com.wan37.event.GeneralEventListenersManager;
-import com.wan37.event.entity.OfflineEvent;
-import com.wan37.event.entity.SceneLeaveEvent;
+import com.wan37.event.event.OfflineEvent;
+import com.wan37.event.event.SceneLeaveEvent;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.player.dao.PlayerDao;

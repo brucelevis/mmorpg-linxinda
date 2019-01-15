@@ -1,11 +1,11 @@
 package com.wan37.logic.team.service;
 
 import com.wan37.event.GeneralEventListenersManager;
-import com.wan37.event.entity.TeamJoinEvent;
+import com.wan37.event.event.TeamJoinEvent;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.team.TeamGlobalManager;
-import com.wan37.logic.team.entity.Team;
-import com.wan37.logic.team.entity.TeamMember;
+import com.wan37.logic.team.Team;
+import com.wan37.logic.team.TeamMember;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

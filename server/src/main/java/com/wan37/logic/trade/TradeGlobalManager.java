@@ -1,6 +1,5 @@
 package com.wan37.logic.trade;
 
-import com.wan37.logic.trade.entity.Trade;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;

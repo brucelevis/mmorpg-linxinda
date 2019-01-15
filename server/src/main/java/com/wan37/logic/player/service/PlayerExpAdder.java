@@ -2,7 +2,7 @@ package com.wan37.logic.player.service;
 
 import com.wan37.config.ConfigLoader;
 import com.wan37.event.GeneralEventListenersManager;
-import com.wan37.event.entity.LevelUpEvent;
+import com.wan37.event.event.LevelUpEvent;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.config.ExpCfg;
 import com.wan37.logic.scene.SceneActorSceneGetter;

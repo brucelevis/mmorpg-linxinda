@@ -5,8 +5,8 @@ import com.wan37.logic.faction.config.FactionCfg;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.team.TeamGlobalManager;
-import com.wan37.logic.team.entity.Team;
-import com.wan37.logic.team.entity.TeamMember;
+import com.wan37.logic.team.Team;
+import com.wan37.logic.team.TeamMember;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

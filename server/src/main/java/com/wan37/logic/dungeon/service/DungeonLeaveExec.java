@@ -1,7 +1,7 @@
 package com.wan37.logic.dungeon.service;
 
 import com.wan37.event.GeneralEventListenersManager;
-import com.wan37.event.entity.SceneLeaveEvent;
+import com.wan37.event.event.SceneLeaveEvent;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.scene.SceneFacade;
 import com.wan37.logic.scene.TemporarySceneGlobalManager;

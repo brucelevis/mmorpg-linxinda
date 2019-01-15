@@ -10,8 +10,8 @@ import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.skill.SkillTargetTypeEnum;
 import com.wan37.logic.skill.config.SkillCfg;
 import com.wan37.logic.team.TeamGlobalManager;
-import com.wan37.logic.team.entity.Team;
-import com.wan37.logic.team.entity.TeamMember;
+import com.wan37.logic.team.Team;
+import com.wan37.logic.team.TeamMember;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

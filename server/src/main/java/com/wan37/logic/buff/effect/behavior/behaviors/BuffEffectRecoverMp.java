@@ -2,7 +2,7 @@ package com.wan37.logic.buff.effect.behavior.behaviors;
 
 import com.wan37.behavior.BehaviorLogic;
 import com.wan37.logic.scene.base.FightingUnit;
-import com.wan37.logic.buff.entity.Buff;
+import com.wan37.logic.buff.Buff;
 import com.wan37.logic.buff.effect.behavior.BuffEffectBehavior;
 import com.wan37.logic.buff.effect.behavior.BuffEffectContext;
 import com.wan37.logic.scene.SceneActorSceneGetter;

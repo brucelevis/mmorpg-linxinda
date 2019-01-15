@@ -2,7 +2,6 @@ package com.wan37.logic.guild;
 
 import com.wan37.logic.guild.dao.GuildDao;
 import com.wan37.logic.guild.database.GuildGlobalDb;
-import com.wan37.logic.guild.entity.Guild;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

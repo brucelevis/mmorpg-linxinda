@@ -2,7 +2,7 @@ package com.wan37.logic.mission.listener;
 
 import com.wan37.config.ConfigLoader;
 import com.wan37.event.GeneralEventListener;
-import com.wan37.event.entity.LevelUpEvent;
+import com.wan37.event.event.LevelUpEvent;
 import com.wan37.logic.mission.MissionTypeEnum;
 import com.wan37.logic.mission.complete.MissionCompleteChecker;
 import com.wan37.logic.mission.config.MissionCfg;

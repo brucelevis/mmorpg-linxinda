@@ -2,7 +2,7 @@ package com.wan37.logic.player.listeners;
 
 import com.wan37.config.ConfigLoader;
 import com.wan37.event.GeneralEventListener;
-import com.wan37.event.entity.LoginEvent;
+import com.wan37.event.event.LoginEvent;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.init.PlayerReviveInitializer;
 import com.wan37.logic.scene.SceneTypeEnum;

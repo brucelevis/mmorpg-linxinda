@@ -11,8 +11,8 @@ import com.wan37.logic.scene.SceneTypeEnum;
 import com.wan37.logic.scene.TemporarySceneGlobalManager;
 import com.wan37.logic.scene.config.SceneCfg;
 import com.wan37.logic.team.TeamGlobalManager;
-import com.wan37.logic.team.entity.Team;
-import com.wan37.logic.team.entity.TeamMember;
+import com.wan37.logic.team.Team;
+import com.wan37.logic.team.TeamMember;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

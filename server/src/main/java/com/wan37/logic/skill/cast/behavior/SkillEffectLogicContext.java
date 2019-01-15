@@ -1,7 +1,7 @@
 package com.wan37.logic.skill.cast.behavior;
 
 import com.wan37.logic.scene.base.FightingUnit;
-import com.wan37.logic.skill.entity.Skill;
+import com.wan37.logic.skill.Skill;
 
 import java.util.List;
 

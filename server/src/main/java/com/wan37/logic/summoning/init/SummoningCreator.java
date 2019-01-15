@@ -4,7 +4,7 @@ import com.wan37.config.ConfigLoader;
 import com.wan37.logic.attr.config.AttrCfg;
 import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.skill.config.SkillCfg;
-import com.wan37.logic.skill.entity.Skill;
+import com.wan37.logic.skill.Skill;
 import com.wan37.logic.summoning.config.SummoningCfg;
 import com.wan37.logic.summoning.config.SummoningInitAttrCfg;
 import com.wan37.logic.summoning.config.SummoningInitSkillCfg;

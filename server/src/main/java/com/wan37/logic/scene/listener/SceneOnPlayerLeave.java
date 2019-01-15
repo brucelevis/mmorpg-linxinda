@@ -1,7 +1,7 @@
 package com.wan37.logic.scene.listener;
 
 import com.wan37.event.GeneralEventListener;
-import com.wan37.event.entity.SceneLeaveEvent;
+import com.wan37.event.event.SceneLeaveEvent;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.scene.SceneActorSceneGetter;
 import com.wan37.logic.scene.base.AbstractScene;

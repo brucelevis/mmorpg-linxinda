@@ -11,7 +11,7 @@ import com.wan37.logic.skill.cast.before.FightingUnitSkillBeforeCastHandler;
 import com.wan37.logic.skill.cast.behavior.SkillEffectLogicBehavior;
 import com.wan37.logic.skill.cast.behavior.SkillEffectLogicContext;
 import com.wan37.logic.skill.cast.check.FightingUnitBeCastFilters;
-import com.wan37.logic.skill.entity.Skill;
+import com.wan37.logic.skill.Skill;
 import com.wan37.logic.summoning.config.SummoningCfg;
 import com.wan37.logic.summoning.Summoning;
 import com.wan37.logic.summoning.init.SummoningCreator;

@@ -1,7 +1,7 @@
 package com.wan37.logic.player.handler;
 
 import com.wan37.event.GeneralEventListenersManager;
-import com.wan37.event.entity.OfflineEvent;
+import com.wan37.event.event.OfflineEvent;
 import com.wan37.handler.GeneralHandler;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;

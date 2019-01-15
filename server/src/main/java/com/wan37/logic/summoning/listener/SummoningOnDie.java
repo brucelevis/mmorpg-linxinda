@@ -1,6 +1,6 @@
 package com.wan37.logic.summoning.listener;
 
-import com.wan37.event.entity.DieEvent;
+import com.wan37.event.event.DieEvent;
 import com.wan37.event.GeneralEventListener;
 import com.wan37.logic.scene.SceneActorSceneGetter;
 import com.wan37.logic.scene.base.AbstractScene;
