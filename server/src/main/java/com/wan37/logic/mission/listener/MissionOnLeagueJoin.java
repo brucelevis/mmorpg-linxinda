@@ -25,7 +25,7 @@ class MissionOnLeagueJoin implements GeneralEventListener<LeagueJoinEvent> {
         Player player = leagueJoinEvent.getPlayer();
 
         player.getMission().getProceedingList().stream()
-                .filter(m -> Objects.equals(m.getMissionCfg().getType(), MissionTypeEnum.MISSION_TYPE_8.getId()))
+                .filter(m -> Objects.equals(m.getMissionCfg().getType(), MissionTypeEnum.FIRST_JOIN_GUILD.getId()))
                 .filter(m -> !m.canComplete())
                 .forEach(m -> completeImpl(player, m));
     }

@@ -109,11 +109,11 @@ public class PlayerDbInitializer {
     private void initPlayer(PlayerDb playerDb) {
         Map<Integer, PlayerEachAttrDb> attrs = playerDb.getPlayerAttrDb().getAttrs();
 
-        PlayerEachAttrDb hpDb = attrs.get(AttrEnum.ATTR_HP.getId());
+        PlayerEachAttrDb hpDb = attrs.get(AttrEnum.HP.getId());
         int hp = hpDb != null ? (int) Math.round(hpDb.getValue()) : 0;
         playerDb.setHp(hp);
 
-        PlayerEachAttrDb mpDb = attrs.get(AttrEnum.ATTR_MP.getId());
+        PlayerEachAttrDb mpDb = attrs.get(AttrEnum.MP.getId());
         int mp = mpDb != null ? (int) Math.round(mpDb.getValue()) : 0;
         playerDb.setMp(mp);
 

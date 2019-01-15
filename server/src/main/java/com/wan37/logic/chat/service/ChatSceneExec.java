@@ -19,7 +19,7 @@ public class ChatSceneExec {
     public void exec(Player player, String msg) {
         AbstractScene scene = sceneActorSceneGetter.get(player);
 
-        String content = String.format("【%s】 [%s]：%s", ChatTypeEnum.CHAT_TYPE_SCENE.getName(), player.getName(), msg);
+        String content = String.format("【%s】 [%s]：%s", ChatTypeEnum.SCENE.getName(), player.getName(), msg);
         scene.getPlayers().forEach(p -> p.syncClient(content));
     }
 }

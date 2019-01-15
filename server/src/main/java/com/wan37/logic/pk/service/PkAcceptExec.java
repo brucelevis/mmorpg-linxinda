@@ -68,7 +68,7 @@ public class PkAcceptExec {
 
                 SceneCfg sceneCfg = configLoader.load(SceneCfg.class, player.getSceneId())
                         .orElseThrow(() -> new RuntimeException("找不到当前场景配置"));
-                if (!Objects.equals(sceneCfg.getType(), SceneTypeEnum.SCENE_TYPE_1.getId())) {
+                if (!Objects.equals(sceneCfg.getType(), SceneTypeEnum.ORDINARY.getId())) {
                     player.syncClient("请切换到普通场景再尝试进入竞技场");
                     return;
                 }

@@ -22,12 +22,12 @@ public class MonsterSkillCastTargetsGetter {
 
     public List<FightingUnit> get(Monster caster, SkillCfg skillCfg, AbstractScene scene) {
         Integer targetType = skillCfg.getTargetType();
-        if (Objects.equals(targetType, SkillTargetTypeEnum.SKILL_TARGET_TYPE_1.getId())) {
+        if (Objects.equals(targetType, SkillTargetTypeEnum.MYSELF.getId())) {
             // 自己
             return ImmutableList.of(caster);
         }
 
-        if (Objects.equals(targetType, SkillTargetTypeEnum.SKILL_TARGET_TYPE_2.getId())) {
+        if (Objects.equals(targetType, SkillTargetTypeEnum.TEAM.getId())) {
             // 友方
             if (skillCfg.isEffectAll()) {
                 // 群体技能
@@ -38,7 +38,7 @@ public class MonsterSkillCastTargetsGetter {
             return ImmutableList.of(caster);
         }
 
-        if (Objects.equals(targetType, SkillTargetTypeEnum.SKILL_TARGET_TYPE_3.getId())) {
+        if (Objects.equals(targetType, SkillTargetTypeEnum.ENEMY.getId())) {
             // 对特定目标
             if (skillCfg.isEffectAll()) {
                 // AOE 群体伤害玩家

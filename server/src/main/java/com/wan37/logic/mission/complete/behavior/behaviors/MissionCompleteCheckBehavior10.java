@@ -7,7 +7,7 @@ import com.wan37.logic.mission.entity.Mission;
 import org.springframework.stereotype.Service;
 
 /**
- * @see com.wan37.logic.mission.MissionTypeEnum#MISSION_TYPE_10
+ * @see com.wan37.logic.mission.MissionTypeEnum#COMPLETE_SERIES_MISSION
  */
 @Service
 class MissionCompleteCheckBehavior10 implements MissionCompleteCheckBehavior {

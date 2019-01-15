@@ -10,34 +10,20 @@ public enum BuffTargetEnum {
     /**
      * 自己
      */
-    BUFF_TARGET_1(1, "自己"),
+    MYSELF(1),
 
     /**
      * 敌人
      */
-    BUFF_TARGET_2(2, "敌人");
+    ENEMY(2);
 
     private Integer id;
-    private String name;
 
-    BuffTargetEnum(Integer id, String name) {
+    BuffTargetEnum(Integer id) {
         this.id = id;
-        this.name = name;
     }
 
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }

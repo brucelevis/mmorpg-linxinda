@@ -30,7 +30,7 @@ public class SceneActorSceneGetter {
         SceneCfg sceneCfg = configLoader.load(SceneCfg.class, sceneActor.getSceneId())
                 .orElseThrow(() -> new RuntimeException("找不到场景配置表"));
 
-        if (Objects.equals(sceneCfg.getType(), SceneTypeEnum.SCENE_TYPE_1.getId())) {
+        if (Objects.equals(sceneCfg.getType(), SceneTypeEnum.ORDINARY.getId())) {
             // 在普通场景
             return sceneGlobalManager.querySceneById(sceneCfg.getId());
         } else {

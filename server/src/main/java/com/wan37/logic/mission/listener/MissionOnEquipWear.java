@@ -24,7 +24,7 @@ class MissionOnEquipWear implements GeneralEventListener<EquipWearEvent> {
         Player player = equipWearEvent.getPlayer();
 
         player.getMission().getProceedingList().stream()
-                .filter(m -> Objects.equals(m.getMissionCfg().getType(), MissionTypeEnum.MISSION_TYPE_6.getId()))
+                .filter(m -> Objects.equals(m.getMissionCfg().getType(), MissionTypeEnum.TOTAL_EQUIP_LEVEL.getId()))
                 .filter(m -> !m.canComplete())
                 .forEach(m -> missionCompleteChecker.check(player, m));
     }

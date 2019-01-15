@@ -105,7 +105,7 @@ public class Summoning implements FightingUnit {
 
     @Override
     public long getMaxHp() {
-        Integer hpId = AttrEnum.ATTR_HP.getId();
+        Integer hpId = AttrEnum.HP.getId();
         if (attrs.containsKey(hpId)) {
             return Math.round(attrs.get(hpId));
         }

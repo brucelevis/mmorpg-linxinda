@@ -26,7 +26,7 @@ class MissionOnDungeonComplete implements GeneralEventListener<DungeonCompleteEv
         Integer dungeonCfgId = dungeonCompleteEvent.getDungeonCfgId();
 
         player.getMission().getProceedingList().stream()
-                .filter(m -> Objects.equals(m.getMissionCfg().getType(), MissionTypeEnum.MISSION_TYPE_11.getId()))
+                .filter(m -> Objects.equals(m.getMissionCfg().getType(), MissionTypeEnum.PASS_DUNGEON.getId()))
                 .filter(m -> Objects.equals(m.getMissionCfg().getTargetId(), dungeonCfgId))
                 .filter(m -> !m.canComplete())
                 .forEach(m -> completeImpl(player, m));

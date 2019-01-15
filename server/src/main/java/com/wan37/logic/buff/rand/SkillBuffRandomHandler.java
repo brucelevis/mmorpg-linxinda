@@ -43,7 +43,7 @@ public class SkillBuffRandomHandler {
         }
 
         Buff buff = buffFactory.create(buffCfg);
-        if (Objects.equals(buff.getTarget(), BuffTargetEnum.BUFF_TARGET_1.getId())) {
+        if (Objects.equals(buff.getTarget(), BuffTargetEnum.MYSELF.getId())) {
             // 对自己施加buff
             fightingUnitBuffAdder.add(attacker, buff);
 

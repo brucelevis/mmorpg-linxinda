@@ -7,7 +7,7 @@ import com.wan37.logic.player.Player;
 import org.springframework.stereotype.Service;
 
 /**
- * @see com.wan37.logic.mission.MissionTypeEnum#MISSION_TYPE_2
+ * @see com.wan37.logic.mission.MissionTypeEnum#LEVEL_UP
  */
 @Service
 class MissionCompleteCheckBehavior2 implements MissionCompleteCheckBehavior {

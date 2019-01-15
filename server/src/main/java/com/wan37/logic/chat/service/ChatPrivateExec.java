@@ -23,7 +23,7 @@ public class ChatPrivateExec {
 
         Player to = playerGlobalManager.getPlayerByUid(toUid);
 
-        String content = String.format("【%s】 [%s]：%s", ChatTypeEnum.CHAT_TYPE_PRIVATE.getName(), from.getName(), msg);
+        String content = String.format("【%s】 [%s]：%s", ChatTypeEnum.PRIVATE.getName(), from.getName(), msg);
         to.syncClient(content);
     }
 }

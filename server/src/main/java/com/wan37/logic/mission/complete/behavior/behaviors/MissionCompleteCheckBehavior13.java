@@ -6,7 +6,7 @@ import com.wan37.logic.mission.entity.PlayerMission;
 import org.springframework.stereotype.Service;
 
 /**
- * @see com.wan37.logic.mission.MissionTypeEnum#MISSION_TYPE_13
+ * @see com.wan37.logic.mission.MissionTypeEnum#FIRST_PK_WIN
  */
 @Service
 class MissionCompleteCheckBehavior13 implements MissionCompleteCheckBehavior {

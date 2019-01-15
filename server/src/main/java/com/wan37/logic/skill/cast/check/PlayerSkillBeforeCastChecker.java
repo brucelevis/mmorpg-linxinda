@@ -30,7 +30,7 @@ public class PlayerSkillBeforeCastChecker {
     public void check(Player player, Skill skill) {
         PlayerDb playerDb = player.getPlayerDb();
         EquipDb equipDb = playerDb.getEquipDb();
-        ItemDb equipItem = equipDb.getItems().get(EquipPartEnum.PART_1.getId());
+        ItemDb equipItem = equipDb.getItems().get(EquipPartEnum.WEAPON.getId());
         if (equipItem == null) {
             player.syncClient("未佩戴武器，无法施放技能");
             return;

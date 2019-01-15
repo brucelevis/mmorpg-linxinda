@@ -29,7 +29,7 @@ public class PlayerSkillBeforeCastHandler {
 
         PlayerDb playerDb = player.getPlayerDb();
         EquipDb equipDb = playerDb.getEquipDb();
-        ItemDb equipItem = equipDb.getItems().get(EquipPartEnum.PART_1.getId());
+        ItemDb equipItem = equipDb.getItems().get(EquipPartEnum.WEAPON.getId());
         if (equipItem != null) {
             //FIXME: 写死减少装备耐久度1
             EquipExtraDb equipExtraDb = equipExtraDbGetter.get(equipItem.getExtraDb());

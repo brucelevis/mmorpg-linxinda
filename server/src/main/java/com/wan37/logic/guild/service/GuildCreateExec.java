@@ -86,7 +86,7 @@ public class GuildCreateExec {
         GuildMemberDb memberDb = new GuildMemberDb();
         memberDb.setPlayerUid(playerUid);
         memberDb.setLeagueUid(leagueUid);
-        memberDb.setPosition(GuildPositionEnum.GUILD_POSITION_1.getId());
+        memberDb.setPosition(GuildPositionEnum.CHAIRMAN.getId());
         return memberDb;
     }
 }

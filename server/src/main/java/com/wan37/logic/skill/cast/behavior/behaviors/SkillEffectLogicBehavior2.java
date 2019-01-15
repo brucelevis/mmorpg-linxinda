@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * @see com.wan37.logic.skill.SkillEffectLogicEnum#SKILL_EFFECT_LOGIC_2
+ * @see com.wan37.logic.skill.SkillEffectLogicEnum#ADD_BUFF
  */
 @Service
 class SkillEffectLogicBehavior2 implements SkillEffectLogicBehavior {

@@ -51,7 +51,7 @@ public class GuildAddExec {
             return;
         }
 
-        if (!positionCfg.getPermission().contains(GuildPermissionEnum.GUILD_PERMISSION_1.getId())) {
+        if (!positionCfg.getPermission().contains(GuildPermissionEnum.ADD_MEMBER.getId())) {
             player.syncClient("没有添加公会成员的权限");
             return;
         }
@@ -80,7 +80,7 @@ public class GuildAddExec {
     private GuildMemberDb createMember(Long playerUid) {
         GuildMemberDb memberDb = new GuildMemberDb();
         memberDb.setPlayerUid(playerUid);
-        memberDb.setPosition(GuildPositionEnum.GUILD_POSITION_4.getId());
+        memberDb.setPosition(GuildPositionEnum.ORDINARY.getId());
         return memberDb;
     }
 }

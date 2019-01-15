@@ -32,12 +32,12 @@ public class SummoningSkillCastTargetsGetter {
     public List<FightingUnit> get(Summoning summoning, SkillCfg skillCfg, AbstractScene scene) {
         Integer targetType = skillCfg.getTargetType();
         Long masterUid = summoning.getBelongUid();
-        if (Objects.equals(targetType, SkillTargetTypeEnum.SKILL_TARGET_TYPE_1.getId())) {
+        if (Objects.equals(targetType, SkillTargetTypeEnum.MYSELF.getId())) {
             // 自己
             return ImmutableList.of(summoning);
         }
 
-        if (Objects.equals(targetType, SkillTargetTypeEnum.SKILL_TARGET_TYPE_2.getId())) {
+        if (Objects.equals(targetType, SkillTargetTypeEnum.TEAM.getId())) {
             // 友方
             if (!playerGlobalManager.isOnline(masterUid)) {
                 return ImmutableList.of(summoning);
@@ -53,9 +53,9 @@ public class SummoningSkillCastTargetsGetter {
             return ImmutableList.of(master);
         }
 
-        if (Objects.equals(targetType, SkillTargetTypeEnum.SKILL_TARGET_TYPE_3.getId())) {
+        if (Objects.equals(targetType, SkillTargetTypeEnum.ENEMY.getId())) {
             // 对特定目标
-            if (Objects.equals(scene.getType(), SceneTypeEnum.SCENE_TYPE_3.getId())) {
+            if (Objects.equals(scene.getType(), SceneTypeEnum.ARENA.getId())) {
                 // 在竞技场
                 return scene.getPlayers().stream()
                         .filter(Player::isAlive)

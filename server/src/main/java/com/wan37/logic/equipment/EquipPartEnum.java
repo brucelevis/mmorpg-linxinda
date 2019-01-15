@@ -1,5 +1,7 @@
 package com.wan37.logic.equipment;
 
+import java.util.Objects;
+
 /**
  * 装备部位枚举类
  *
@@ -10,48 +12,40 @@ public enum EquipPartEnum {
     /**
      * 武器
      */
-    PART_1(1, "武器"),
+    WEAPON(1, "武器"),
 
     /**
      * 手套
      */
-    PART_2(2, "手套"),
+    GLOVE(2, "手套"),
 
     /**
      * 帽子
      */
-    PART_3(3, "帽子");
+    CAP(3, "帽子");
 
     private Integer id;
     private String name;
 
     EquipPartEnum(Integer id, String name) {
-        this.setId(id);
-        this.setName(name);
+        this.id = id;
+        this.name = name;
     }
 
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public static String getName(int id) {
+    public static String getName(Integer id) {
         for (EquipPartEnum part : EquipPartEnum.values()) {
-            if (part.getId() == id) {
+            if (Objects.equals(part.id, id)) {
                 return part.name;
             }
         }
-        return null;
+        return "NULL";
     }
 }

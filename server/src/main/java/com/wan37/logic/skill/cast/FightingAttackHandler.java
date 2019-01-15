@@ -43,7 +43,7 @@ public class FightingAttackHandler {
 
         // 护盾抵挡
         List<Buff> shieldBuffs = target.getBuffs().stream()
-                .filter(b -> Objects.equals(b.getId(), BuffEffectEnum.BUFF_EFFECT_3.getId()))
+                .filter(b -> Objects.equals(b.getId(), BuffEffectEnum.SHIELD.getId()))
                 .collect(Collectors.toList());
         for (Buff buff : shieldBuffs) {
             long shield = Long.parseLong(buff.getArg());

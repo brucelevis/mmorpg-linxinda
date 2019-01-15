@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.Comparator;
 
 /**
- * @see com.wan37.logic.mission.MissionTypeEnum#MISSION_TYPE_12
+ * @see com.wan37.logic.mission.MissionTypeEnum#GET_PERFECT_EQUIP
  */
 @Service
 class MissionCompleteCheckBehavior12 implements MissionCompleteCheckBehavior {

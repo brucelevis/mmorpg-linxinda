@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 /**
- * @see com.wan37.logic.mission.MissionTypeEnum#MISSION_TYPE_6
+ * @see com.wan37.logic.mission.MissionTypeEnum#TOTAL_EQUIP_LEVEL
  */
 @Service
 class MissionCompleteCheckBehavior6 implements MissionCompleteCheckBehavior {

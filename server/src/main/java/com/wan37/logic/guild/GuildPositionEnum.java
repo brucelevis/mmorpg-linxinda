@@ -1,5 +1,7 @@
 package com.wan37.logic.guild;
 
+import java.util.Objects;
+
 /**
  * 公会职位枚举
  *
@@ -10,53 +12,45 @@ public enum GuildPositionEnum {
     /**
      * 会长
      */
-    GUILD_POSITION_1(1, "会长"),
+    CHAIRMAN(1, "会长"),
 
     /**
      * 副会长
      */
-    GUILD_POSITION_2(2, "副会长"),
+    VICE_CHAIRMAN(2, "副会长"),
 
     /**
      * 精英
      */
-    GUILD_POSITION_3(3, "精英"),
+    ELITE(3, "精英"),
 
     /**
      * 普通成员
      */
-    GUILD_POSITION_4(4, "普通成员");
+    ORDINARY(4, "普通成员");
 
     private Integer id;
     private String name;
 
     GuildPositionEnum(Integer id, String name) {
-        this.setId(id);
-        this.setName(name);
+        this.id = id;
+        this.name = name;
     }
 
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public static String getName(int id) {
+    public static String getName(Integer id) {
         for (GuildPositionEnum position : GuildPositionEnum.values()) {
-            if (position.getId() == id) {
+            if (Objects.equals(position.id, id)) {
                 return position.name;
             }
         }
-        return "";
+        return "NULL";
     }
 }

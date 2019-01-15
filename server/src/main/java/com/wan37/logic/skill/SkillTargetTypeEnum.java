@@ -10,39 +10,25 @@ public enum SkillTargetTypeEnum {
     /**
      * 自己
      */
-    SKILL_TARGET_TYPE_1(1, "自己"),
+    MYSELF(1),
 
     /**
      * 友方
      */
-    SKILL_TARGET_TYPE_2(2, "友方"),
+    TEAM(2),
 
     /**
      * 敌人
      */
-    SKILL_TARGET_TYPE_3(3, "敌人");
+    ENEMY(3);
 
     private Integer id;
-    private String name;
 
-    SkillTargetTypeEnum(Integer id, String name) {
-        this.setId(id);
-        this.setName(name);
+    SkillTargetTypeEnum(Integer id) {
+        this.id = id;
     }
 
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }

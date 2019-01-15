@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * @see com.wan37.logic.mission.MissionTypeEnum#MISSION_TYPE_4
+ * @see com.wan37.logic.mission.MissionTypeEnum#VIRTUAL_ITEM_AMOUNT
  */
 @Service
 class MissionCompleteCheckBehavior4 implements MissionCompleteCheckBehavior {

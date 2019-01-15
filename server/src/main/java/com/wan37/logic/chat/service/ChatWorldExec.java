@@ -36,7 +36,7 @@ public class ChatWorldExec {
 
         backpackUpdateNotifier.notify(player);
 
-        String content = String.format("【%s】 [%s]：%s", ChatTypeEnum.CHAT_TYPE_WORLD.getName(), player.getName(), msg);
+        String content = String.format("【%s】 [%s]：%s", ChatTypeEnum.WORLD.getName(), player.getName(), msg);
         chatFacade.chatToWorld(content);
     }
 }

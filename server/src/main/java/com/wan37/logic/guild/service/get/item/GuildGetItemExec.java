@@ -51,7 +51,7 @@ public class GuildGetItemExec {
             return;
         }
 
-        if (!positionCfg.getPermission().contains(GuildPermissionEnum.GUILD_PERMISSION_4.getId())) {
+        if (!positionCfg.getPermission().contains(GuildPermissionEnum.GET_WAREHOUSE_ITEM.getId())) {
             player.syncClient("没有取帮会物品的权限");
             return;
         }

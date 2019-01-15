@@ -26,7 +26,7 @@ class MissionOnNpcTalk implements GeneralEventListener<NpcTalkEvent> {
         Integer npcId = npcTalkEvent.getNpcId();
 
         player.getMission().getProceedingList().stream()
-                .filter(m -> Objects.equals(m.getMissionCfg().getType(), MissionTypeEnum.MISSION_TYPE_3.getId()))
+                .filter(m -> Objects.equals(m.getMissionCfg().getType(), MissionTypeEnum.NPC_TALK.getId()))
                 .filter(m -> Objects.equals(m.getMissionCfg().getTargetId(), npcId))
                 .filter(m -> !m.canComplete())
                 .forEach(m -> completeImpl(player, m));

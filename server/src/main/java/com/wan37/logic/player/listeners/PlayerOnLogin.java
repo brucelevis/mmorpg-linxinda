@@ -46,7 +46,7 @@ class PlayerOnLogin implements GeneralEventListener<LoginEvent> {
             return;
         }
 
-        if (Objects.equals(sceneCfg.getType(), SceneTypeEnum.SCENE_TYPE_1.getId())) {
+        if (Objects.equals(sceneCfg.getType(), SceneTypeEnum.ORDINARY.getId())) {
             // 普通场景，进入
             sceneFacade.enterScene(player.getSceneId(), player);
             return;

@@ -91,7 +91,7 @@ class GuildImpl implements Guild {
     @Override
     public Long getLeaderUid() {
         return memberMap.values().stream()
-                .filter(m -> Objects.equals(m.getPosition(), GuildPositionEnum.GUILD_POSITION_1.getId()))
+                .filter(m -> Objects.equals(m.getPosition(), GuildPositionEnum.CHAIRMAN.getId()))
                 .map(GuildMember::getPlayerUid)
                 .findAny()
                 .orElseThrow(() -> new RuntimeException("公会找不到会长"));

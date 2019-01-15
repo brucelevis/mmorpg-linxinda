@@ -27,7 +27,7 @@ class MissionOnMonsterDie implements GeneralEventListener<MonsterDieEvent> {
         Monster monster = monsterDieEvent.getMonster();
 
         attacker.getMission().getProceedingList().stream()
-                .filter(m -> Objects.equals(m.getMissionCfg().getType(), MissionTypeEnum.MISSION_TYPE_1.getId()))
+                .filter(m -> Objects.equals(m.getMissionCfg().getType(), MissionTypeEnum.KILL_MONSTER.getId()))
                 .filter(m -> Objects.equals(m.getMissionCfg().getTargetId(), monster.getMonsterCfg().getId()))
                 .filter(m -> !m.canComplete())
                 .forEach(m -> completeImpl(attacker, m));

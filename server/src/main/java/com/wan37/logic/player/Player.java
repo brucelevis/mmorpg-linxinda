@@ -186,7 +186,7 @@ public class Player implements FightingUnit {
 
     @Override
     public long getMaxHp() {
-        PlayerEachAttrDb playerEachAttrDb = playerDb.getPlayerAttrDb().getAttrs().get(AttrEnum.ATTR_HP.getId());
+        PlayerEachAttrDb playerEachAttrDb = playerDb.getPlayerAttrDb().getAttrs().get(AttrEnum.HP.getId());
         return playerEachAttrDb == null ? 0 : Math.round(playerEachAttrDb.getValue());
     }
 
@@ -202,7 +202,7 @@ public class Player implements FightingUnit {
 
     @Override
     public long getMaxMp() {
-        PlayerEachAttrDb playerEachAttrDb = playerDb.getPlayerAttrDb().getAttrs().get(AttrEnum.ATTR_MP.getId());
+        PlayerEachAttrDb playerEachAttrDb = playerDb.getPlayerAttrDb().getAttrs().get(AttrEnum.MP.getId());
         return playerEachAttrDb == null ? 0 : Math.round(playerEachAttrDb.getValue());
     }
 

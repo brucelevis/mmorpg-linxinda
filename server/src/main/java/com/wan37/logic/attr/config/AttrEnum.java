@@ -10,34 +10,20 @@ public enum AttrEnum {
     /**
      * 血量
      */
-    ATTR_HP(1, "血量"),
+    HP(1),
 
     /**
      * 蓝量
      */
-    ATTR_MP(2, "蓝量");
+    MP(2);
 
     private Integer id;
-    private String name;
 
-    AttrEnum(Integer id, String name) {
-        this.setId(id);
-        this.setName(name);
+    AttrEnum(Integer id) {
+        this.id = id;
     }
 
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }

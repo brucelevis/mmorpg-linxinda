@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * @see com.wan37.logic.skill.SkillEffectLogicEnum#SKILL_EFFECT_LOGIC_4
+ * @see com.wan37.logic.skill.SkillEffectLogicEnum#SUMMONING
  */
 @Service
 class SkillEffectLogicBehavior4 implements SkillEffectLogicBehavior {

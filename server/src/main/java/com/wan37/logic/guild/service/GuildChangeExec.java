@@ -43,7 +43,7 @@ public class GuildChangeExec {
             return;
         }
 
-        if (!myPositionCfg.getPermission().contains(GuildPermissionEnum.GUILD_PERMISSION_3.getId())) {
+        if (!myPositionCfg.getPermission().contains(GuildPermissionEnum.CHANGE_PERMISSION.getId())) {
             player.syncClient("你的职位不能改变公会成员的权限");
             return;
         }

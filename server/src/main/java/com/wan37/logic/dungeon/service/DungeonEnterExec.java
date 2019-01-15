@@ -51,7 +51,7 @@ public class DungeonEnterExec {
             return;
         }
 
-        if (!Objects.equals(sceneCfg.getType(), SceneTypeEnum.SCENE_TYPE_1.getId())) {
+        if (!Objects.equals(sceneCfg.getType(), SceneTypeEnum.ORDINARY.getId())) {
             player.syncClient("请切换到普通场景再尝试进入副本");
             return;
         }

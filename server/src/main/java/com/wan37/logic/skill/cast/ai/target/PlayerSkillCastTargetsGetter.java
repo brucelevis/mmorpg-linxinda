@@ -39,12 +39,12 @@ public class PlayerSkillCastTargetsGetter {
 
     public List<FightingUnit> get(Player caster, SkillCfg skillCfg, Long targetUid) {
         Integer targetType = skillCfg.getTargetType();
-        if (Objects.equals(targetType, SkillTargetTypeEnum.SKILL_TARGET_TYPE_1.getId())) {
+        if (Objects.equals(targetType, SkillTargetTypeEnum.MYSELF.getId())) {
             // 自己
             return ImmutableList.of(caster);
         }
 
-        if (Objects.equals(targetType, SkillTargetTypeEnum.SKILL_TARGET_TYPE_2.getId())) {
+        if (Objects.equals(targetType, SkillTargetTypeEnum.TEAM.getId())) {
             // 友方
             Long teamUid = caster.getTeamUid();
             if (teamUid == null) {
@@ -77,11 +77,11 @@ public class PlayerSkillCastTargetsGetter {
             return ImmutableList.of(target);
         }
 
-        if (Objects.equals(targetType, SkillTargetTypeEnum.SKILL_TARGET_TYPE_3.getId())) {
+        if (Objects.equals(targetType, SkillTargetTypeEnum.ENEMY.getId())) {
             // 对特定目标
             AbstractScene scene = sceneActorSceneGetter.get(caster);
 
-            if (Objects.equals(scene.getSceneCfg().getType(), SceneTypeEnum.SCENE_TYPE_3.getId())) {
+            if (Objects.equals(scene.getSceneCfg().getType(), SceneTypeEnum.ARENA.getId())) {
                 // 在竞技场
                 // FIXME: 竞技场目前只有单人决斗
                 return scene.getPlayers().stream()

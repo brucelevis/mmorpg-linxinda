@@ -10,17 +10,17 @@ public enum ChatTypeEnum {
     /**
      * 当前
      */
-    CHAT_TYPE_SCENE(1, "当前"),
+    SCENE(1, "当前"),
 
     /**
      * 悄悄话
      */
-    CHAT_TYPE_PRIVATE(2, "悄悄话"),
+    PRIVATE(2, "悄悄话"),
 
     /**
      * 世界
      */
-    CHAT_TYPE_WORLD(3, "世界");
+    WORLD(3, "世界");
 
     private Integer id;
     private String name;
@@ -34,15 +34,7 @@ public enum ChatTypeEnum {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }

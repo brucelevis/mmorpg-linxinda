@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * @see com.wan37.logic.skill.SkillEffectLogicEnum#SKILL_EFFECT_LOGIC_1
+ * @see com.wan37.logic.skill.SkillEffectLogicEnum#ATTACK
  */
 @Service
 class SkillEffectLogicBehavior1 implements SkillEffectLogicBehavior {

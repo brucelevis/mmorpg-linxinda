@@ -25,7 +25,7 @@ class MissionOnTradeSuccess implements GeneralEventListener<TradeSuccessEvent> {
         Player player = tradeSuccessEvent.getPlayer();
 
         player.getMission().getProceedingList().stream()
-                .filter(m -> Objects.equals(m.getMissionCfg().getType(), MissionTypeEnum.MISSION_TYPE_9.getId()))
+                .filter(m -> Objects.equals(m.getMissionCfg().getType(), MissionTypeEnum.FIRST_SUCCESS_TRADE.getId()))
                 .filter(m -> !m.canComplete())
                 .forEach(m -> completeImpl(player, m));
     }

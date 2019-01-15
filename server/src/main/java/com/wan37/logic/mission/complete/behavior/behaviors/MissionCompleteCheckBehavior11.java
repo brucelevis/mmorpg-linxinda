@@ -7,7 +7,7 @@ import com.wan37.logic.mission.entity.PlayerMission;
 import org.springframework.stereotype.Service;
 
 /**
- * @see com.wan37.logic.mission.MissionTypeEnum#MISSION_TYPE_11
+ * @see com.wan37.logic.mission.MissionTypeEnum#PASS_DUNGEON
  */
 @Service
 class MissionCompleteCheckBehavior11 implements MissionCompleteCheckBehavior {

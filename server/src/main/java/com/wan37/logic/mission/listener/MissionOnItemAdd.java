@@ -34,7 +34,7 @@ class MissionOnItemAdd implements GeneralEventListener<ItemAddEvent> {
 
         Player player = itemAddEvent.getPlayer();
         player.getMission().getProceedingList().stream()
-                .filter(m -> Objects.equals(m.getMissionCfg().getType(), MissionTypeEnum.MISSION_TYPE_12.getId()))
+                .filter(m -> Objects.equals(m.getMissionCfg().getType(), MissionTypeEnum.GET_PERFECT_EQUIP.getId()))
                 .filter(m -> !m.canComplete())
                 .forEach(m -> missionCompleteChecker.check(player, m));
     }

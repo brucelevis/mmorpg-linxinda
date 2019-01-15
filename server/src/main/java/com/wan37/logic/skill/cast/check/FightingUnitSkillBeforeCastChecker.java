@@ -53,7 +53,7 @@ public class FightingUnitSkillBeforeCastChecker {
 
         // 检查攻击者BUFF异常状态，如眩晕，封印，击飞等
         Buff abnormality = caster.getBuffs().stream()
-                .filter(b -> Objects.equals(b.getEffectId(), BuffEffectEnum.BUFF_EFFECT_4.getId()))
+                .filter(b -> Objects.equals(b.getEffectId(), BuffEffectEnum.CANNOT_ATTACK.getId()))
                 .findAny()
                 .orElse(null);
         if (abnormality != null) {

@@ -10,44 +10,30 @@ public enum SkillEffectLogicEnum {
     /**
      * 攻击
      */
-    SKILL_EFFECT_LOGIC_1(1, "攻击"),
+    ATTACK(1),
 
     /**
      * 加Buff
      */
-    SKILL_EFFECT_LOGIC_2(2, "加Buff"),
+    ADD_BUFF(2),
 
     /**
      * 治疗
      */
-    SKILL_EFFECT_LOGIC_3(3, "治疗"),
+    CURE(3),
 
     /**
      * 召唤兽
      */
-    SKILL_EFFECT_LOGIC_4(4, "召唤兽");
+    SUMMONING(4);
 
     private Integer id;
-    private String name;
 
-    SkillEffectLogicEnum(Integer id, String name) {
-        this.setId(id);
-        this.setName(name);
+    SkillEffectLogicEnum(Integer id) {
+        this.id = id;
     }
 
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }

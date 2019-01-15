@@ -25,7 +25,7 @@ class PropsUseBehavior2 implements PropsUseBehavior {
         long cur = playerDb.getHp();
         long hp = cur + addHp;
 
-        PlayerEachAttrDb hpDb = playerDb.getPlayerAttrDb().getAttrs().get(AttrEnum.ATTR_HP.getId());
+        PlayerEachAttrDb hpDb = playerDb.getPlayerAttrDb().getAttrs().get(AttrEnum.HP.getId());
         if (hpDb == null) {
             return;
         }

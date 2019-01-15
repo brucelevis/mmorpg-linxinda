@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 /**
  * 缓慢回蓝
  *
- * @see com.wan37.logic.buff.BuffEffectEnum#BUFF_EFFECT_1
+ * @see com.wan37.logic.buff.BuffEffectEnum#BUFF_EFFECT_recover_MP
  */
 @Service
 class BuffEffectBehavior1 implements BuffEffectBehavior {

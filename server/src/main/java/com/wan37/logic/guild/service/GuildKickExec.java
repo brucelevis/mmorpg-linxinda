@@ -41,7 +41,7 @@ public class GuildKickExec {
             return;
         }
 
-        if (!positionCfg.getPermission().contains(GuildPermissionEnum.GUILD_PERMISSION_2.getId())) {
+        if (!positionCfg.getPermission().contains(GuildPermissionEnum.KICK_MEMBER.getId())) {
             player.syncClient("没有踢除公会成员的权限");
             return;
         }

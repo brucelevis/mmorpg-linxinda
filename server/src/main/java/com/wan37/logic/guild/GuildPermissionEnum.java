@@ -10,44 +10,30 @@ public enum GuildPermissionEnum {
     /**
      * 加人
      */
-    GUILD_PERMISSION_1(1, "加人"),
+    ADD_MEMBER(1),
 
     /**
      * 踢人
      */
-    GUILD_PERMISSION_2(2, "踢人"),
+    KICK_MEMBER(2),
 
     /**
      * 修改权限
      */
-    GUILD_PERMISSION_3(3, "修改权限"),
+    CHANGE_PERMISSION(3),
 
     /**
      * 取帮会仓库
      */
-    GUILD_PERMISSION_4(4, "取帮会仓库");
+    GET_WAREHOUSE_ITEM(4);
 
     private Integer id;
-    private String name;
 
-    GuildPermissionEnum(Integer id, String name) {
-        this.setId(id);
-        this.setName(name);
+    GuildPermissionEnum(Integer id) {
+        this.id = id;
     }
 
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }
