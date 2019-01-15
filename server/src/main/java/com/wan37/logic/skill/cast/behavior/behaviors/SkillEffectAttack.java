@@ -1,10 +1,13 @@
 package com.wan37.logic.skill.cast.behavior.behaviors;
 
+import com.wan37.behavior.BehaviorLogic;
+import com.wan37.logic.skill.cast.FightingAttackHandler;
 import com.wan37.logic.scene.SceneActorSceneGetter;
-import com.wan37.logic.player.service.FightingUnitHpAdder;
 import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.scene.encode.FightingUnitEncoder;
+import com.wan37.logic.skill.cast.after.FightingAfterHandler;
+import com.wan37.logic.skill.cast.before.FightingUnitBeCastBeforeHandler;
 import com.wan37.logic.skill.cast.before.FightingUnitSkillBeforeCastHandler;
 import com.wan37.logic.skill.cast.behavior.SkillEffectLogicBehavior;
 import com.wan37.logic.skill.cast.behavior.SkillEffectLogicContext;
@@ -16,25 +19,32 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * @see com.wan37.logic.skill.SkillEffectLogicEnum#CURE
+ * @see com.wan37.logic.skill.SkillEffectLogicEnum#ATTACK
  */
 @Service
-class SkillEffectLogicBehavior3 implements SkillEffectLogicBehavior {
-
-    @Autowired
-    private FightingUnitBeCastFilters fightingUnitBeCastFilters;
-
-    @Autowired
-    private FightingUnitSkillBeforeCastHandler fightingUnitSkillBeforeCastHandler;
+@BehaviorLogic(id = 1)
+class SkillEffectAttack implements SkillEffectLogicBehavior {
 
     @Autowired
     private FightingUnitEncoder fightingUnitEncoder;
 
     @Autowired
+    private FightingAfterHandler fightingAfterHandler;
+
+    @Autowired
+    private FightingAttackHandler fightingAttackHandler;
+
+    @Autowired
+    private FightingUnitBeCastFilters fightingUnitBeCastFilters;
+
+    @Autowired
     private SceneActorSceneGetter sceneActorSceneGetter;
 
     @Autowired
-    private FightingUnitHpAdder fightingUnitHpAdder;
+    private FightingUnitSkillBeforeCastHandler fightingUnitSkillBeforeCastHandler;
+
+    @Autowired
+    private FightingUnitBeCastBeforeHandler fightingUnitBeCastBeforeHandler;
 
     @Override
     public void behave(SkillEffectLogicContext context) {
@@ -45,18 +55,22 @@ class SkillEffectLogicBehavior3 implements SkillEffectLogicBehavior {
         // 技能施放者施放前处理
         fightingUnitSkillBeforeCastHandler.handle(caster, skill);
 
+        // 攻击
         AbstractScene scene = sceneActorSceneGetter.get(caster);
-        long addHp = (long) skill.getEffectValue();
-        targetList.forEach(u -> cure(caster, u, skill, scene, addHp));
+        targetList.forEach(u -> attackImpl(caster, u, skill, scene));
 
+        // 攻击后
+        targetList.forEach(u -> fightingAfterHandler.handle(caster, u, skill, scene));
+
+        // 场景生物状态更新
         targetList.forEach(u -> updateNotify(scene, u));
     }
 
-    private void cure(FightingUnit caster, FightingUnit target, Skill skill, AbstractScene scene, long addHp) {
-        fightingUnitHpAdder.add(target, addHp);
+    private void attackImpl(FightingUnit caster, FightingUnit target, Skill skill, AbstractScene scene) {
+        // 技能施放对象被施放前处理
+        fightingUnitBeCastBeforeHandler.handle(caster, target);
 
-        String msg = String.format("[%s]施放[%s]治疗了[%s]%s点hp", caster.getName(), skill.getName(), target.getName(), addHp);
-        scene.notify(msg);
+        fightingAttackHandler.handle(caster, target, skill, scene);
     }
 
     private void updateNotify(AbstractScene scene, FightingUnit unit) {

@@ -1,5 +1,6 @@
 package com.wan37.logic.buff.effect.behavior.behaviors;
 
+import com.wan37.behavior.BehaviorLogic;
 import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.buff.entity.Buff;
 import com.wan37.logic.buff.effect.behavior.BuffEffectBehavior;
@@ -14,10 +15,11 @@ import org.springframework.stereotype.Service;
 /**
  * 缓慢回蓝
  *
- * @see com.wan37.logic.buff.BuffEffectEnum#BUFF_EFFECT_recover_MP
+ * @see com.wan37.logic.buff.BuffEffectEnum#RECOVER_MP
  */
 @Service
-class BuffEffectBehavior1 implements BuffEffectBehavior {
+@BehaviorLogic(id = 1)
+class BuffEffectRecoverMp implements BuffEffectBehavior {
 
     @Autowired
     private FightingUnitMpAdder fightingUnitMpAdder;

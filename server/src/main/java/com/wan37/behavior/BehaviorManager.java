@@ -2,6 +2,9 @@ package com.wan37.behavior;
 
 import com.google.common.collect.ImmutableMap;
 import com.wan37.util.ApplicationContextUtil;
+import org.apache.log4j.Logger;
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,20 +16,13 @@ import java.util.stream.Collectors;
  * @author linda
  */
 @Service
-public class BehaviorManager {
+public class BehaviorManager implements ApplicationListener {
+
+    private static final Logger LOG = Logger.getLogger(BehaviorManager.class);
 
     private static Map<Class, Map<Integer, Behavior>> behaviorMap;
 
-    /**
-     * 切割最后一串数字的正则表达式 如：Behavior1 -> 1
-     */
-    private static final String THE_TAIL_NUMBER_REGEX = ".*[^\\d](?=(\\d+))";
-
     public Behavior get(Class clazz, Integer id) {
-        if (behaviorMap == null) {
-            init();
-        }
-
         return behaviorMap.get(clazz).get(id);
     }
 
@@ -56,8 +52,13 @@ public class BehaviorManager {
     }
 
     private Integer getLogicId(Behavior behavior) {
-        String className = behavior.getClass().getName();
-        String logicId = className.replaceAll(THE_TAIL_NUMBER_REGEX, "");
-        return Integer.parseInt(logicId);
+        return behavior.getClass().getAnnotation(BehaviorLogic.class).id();
+    }
+
+    @Override
+    public void onApplicationEvent(ApplicationEvent applicationEvent) {
+        LOG.info("初始化BehaviorMap..");
+        init();
+        LOG.info("初始化BehaviorMap完成");
     }
 }

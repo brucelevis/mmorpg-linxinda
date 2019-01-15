@@ -1,5 +1,6 @@
 package com.wan37.logic.skill.cast.behavior.behaviors;
 
+import com.wan37.behavior.BehaviorLogic;
 import com.wan37.logic.scene.SceneActorSceneGetter;
 import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.scene.base.FightingUnit;
@@ -19,7 +20,8 @@ import java.util.List;
  * @see com.wan37.logic.skill.SkillEffectLogicEnum#ADD_BUFF
  */
 @Service
-class SkillEffectLogicBehavior2 implements SkillEffectLogicBehavior {
+@BehaviorLogic(id = 2)
+class SkillEffectAddBuff implements SkillEffectLogicBehavior {
 
     @Autowired
     private FightingUnitBeCastFilters fightingUnitBeCastFilters;

@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- *
- *
  * @author linda
  */
 @Service
@@ -22,7 +20,6 @@ public class SceneActorEncoder {
     @Autowired
     private PlayerInfoEncoder playerInfoEncoder;
 
-    @Deprecated
     public String encode(SceneActor sceneActor) {
         if (sceneActor instanceof Player) {
             Player player = (Player) sceneActor;

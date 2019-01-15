@@ -1,5 +1,6 @@
 package com.wan37.logic.buff.effect.behavior.behaviors;
 
+import com.wan37.behavior.BehaviorLogic;
 import com.wan37.event.entity.DieEvent;
 import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.logic.scene.base.FightingUnit;
@@ -15,10 +16,11 @@ import org.springframework.stereotype.Service;
 /**
  * 缓慢扣血
  *
- * @see com.wan37.logic.buff.BuffEffectEnum#BUFF_EFFECT_2
+ * @see com.wan37.logic.buff.BuffEffectEnum#DECREASE_HP
  */
 @Service
-class BuffEffectBehavior2 implements BuffEffectBehavior {
+@BehaviorLogic(id = 2)
+class BuffEffectDecreaseHp implements BuffEffectBehavior {
 
     @Autowired
     private GeneralEventListenersManager generalEventListenersManager;

@@ -1,5 +1,6 @@
 package com.wan37.logic.props.use.behaviors;
 
+import com.wan37.behavior.BehaviorLogic;
 import com.wan37.logic.attr.config.AttrEnum;
 import com.wan37.logic.attr.database.PlayerEachAttrDb;
 import com.wan37.logic.player.Player;
@@ -13,7 +14,8 @@ import org.springframework.stereotype.Service;
  * 一次性回复血量
  */
 @Service
-class PropsUseBehavior2 implements PropsUseBehavior {
+@BehaviorLogic(id = 2)
+class PropsUseToRecoverHp implements PropsUseBehavior {
 
     @Override
     public void behave(PropsUseContext context) {

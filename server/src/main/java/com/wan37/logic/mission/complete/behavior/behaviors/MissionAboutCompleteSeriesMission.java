@@ -1,5 +1,6 @@
 package com.wan37.logic.mission.complete.behavior.behaviors;
 
+import com.wan37.behavior.BehaviorLogic;
 import com.wan37.logic.mission.complete.behavior.MissionCompleteCheckBehavior;
 import com.wan37.logic.mission.complete.behavior.MissionCompleteCheckContext;
 import com.wan37.logic.mission.config.MissionCfg;
@@ -10,7 +11,8 @@ import org.springframework.stereotype.Service;
  * @see com.wan37.logic.mission.MissionTypeEnum#COMPLETE_SERIES_MISSION
  */
 @Service
-class MissionCompleteCheckBehavior10 implements MissionCompleteCheckBehavior {
+@BehaviorLogic(id = 10)
+class MissionAboutCompleteSeriesMission implements MissionCompleteCheckBehavior {
 
     @Override
     public void behave(MissionCompleteCheckContext context) {

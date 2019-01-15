@@ -13,9 +13,9 @@ public enum BuffEffectEnum {
     RECOVER_MP(1),
 
     /**
-     * 持续回血
+     * 持续扣血
      */
-    RECOVER_HP(2),
+    DECREASE_HP(2),
 
     /**
      * 一次性护盾

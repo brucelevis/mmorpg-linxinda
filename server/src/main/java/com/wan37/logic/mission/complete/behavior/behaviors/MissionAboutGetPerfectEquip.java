@@ -1,5 +1,6 @@
 package com.wan37.logic.mission.complete.behavior.behaviors;
 
+import com.wan37.behavior.BehaviorLogic;
 import com.wan37.config.ConfigLoader;
 import com.wan37.logic.attr.config.AttrCfg;
 import com.wan37.logic.backpack.database.BackpackDb;
@@ -22,7 +23,8 @@ import java.util.Comparator;
  * @see com.wan37.logic.mission.MissionTypeEnum#GET_PERFECT_EQUIP
  */
 @Service
-class MissionCompleteCheckBehavior12 implements MissionCompleteCheckBehavior {
+@BehaviorLogic(id = 12)
+class MissionAboutGetPerfectEquip implements MissionCompleteCheckBehavior {
 
     @Autowired
     private ConfigLoader configLoader;

@@ -1,5 +1,6 @@
 package com.wan37.logic.props.init.behaviors;
 
+import com.wan37.behavior.BehaviorLogic;
 import com.wan37.config.ConfigLoader;
 import com.wan37.logic.equipment.config.EquipCfg;
 import com.wan37.logic.equipment.config.EquipInitAttrCfg;
@@ -18,9 +19,10 @@ import java.util.stream.Collectors;
  * 1：装备物品初始化
  */
 @Service
-class PropsInitBehavior1 implements PropsInitBehavior {
+@BehaviorLogic(id = 1)
+class PropsInitEquip implements PropsInitBehavior {
 
-    private static final Logger LOG = Logger.getLogger(PropsInitBehavior1.class);
+    private static final Logger LOG = Logger.getLogger(PropsInitEquip.class);
 
     @Autowired
     private ConfigLoader configLoader;

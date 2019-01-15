@@ -1,5 +1,6 @@
 package com.wan37.logic.props.use.behaviors;
 
+import com.wan37.behavior.BehaviorLogic;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.service.FightingUnitMpAdder;
 import com.wan37.logic.props.use.PropsUseBehavior;
@@ -12,7 +13,8 @@ import org.springframework.stereotype.Service;
  * 一次性回复蓝量
  */
 @Service
-class PropsUseBehavior1 implements PropsUseBehavior {
+@BehaviorLogic(id = 1)
+class PropsUseToRecoverMp implements PropsUseBehavior {
 
     @Autowired
     private FightingUnitMpAdder fightingUnitMpAdder;

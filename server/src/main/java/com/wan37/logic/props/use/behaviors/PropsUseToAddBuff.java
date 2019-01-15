@@ -1,6 +1,7 @@
 package com.wan37.logic.props.use.behaviors;
 
 import com.google.common.base.Objects;
+import com.wan37.behavior.BehaviorLogic;
 import com.wan37.config.ConfigLoader;
 import com.wan37.logic.buff.entity.Buff;
 import com.wan37.logic.buff.config.BuffCfg;
@@ -17,7 +18,8 @@ import java.util.List;
  * 消耗物品产生Buff类
  */
 @Service
-class PropsUseBehavior3 implements PropsUseBehavior {
+@BehaviorLogic(id = 3)
+class PropsUseToAddBuff implements PropsUseBehavior {
 
     @Autowired
     private ConfigLoader configLoader;

@@ -1,5 +1,6 @@
 package com.wan37.logic.backpack.service.item.behavior.behaviors;
 
+import com.wan37.behavior.BehaviorLogic;
 import com.wan37.config.ConfigLoader;
 import com.wan37.logic.attr.config.AttrCfg;
 import com.wan37.logic.backpack.service.item.behavior.ItemExtraEncodeBehavior;
@@ -19,7 +20,8 @@ import java.util.stream.Collectors;
  * 1：装备
  */
 @Service
-class ItemExtraEncodeBehavior1 implements ItemExtraEncodeBehavior {
+@BehaviorLogic(id = 1)
+class ItemExtraEncodeEquip implements ItemExtraEncodeBehavior {
 
     @Autowired
     private EquipExtraDbGetter equipExtraDbGetter;

@@ -1,5 +1,6 @@
 package com.wan37.logic.props.use.behaviors;
 
+import com.wan37.behavior.BehaviorLogic;
 import com.wan37.logic.backpack.database.BackpackDb;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.props.use.PropsUseBehavior;
@@ -11,7 +12,8 @@ import org.springframework.stereotype.Service;
  * 背包扩容道具
  */
 @Service
-class PropsUseBehavior4 implements PropsUseBehavior {
+@BehaviorLogic(id = 4)
+class PropsUseToExpandBackpack implements PropsUseBehavior {
 
     @Override
     public void behave(PropsUseContext context) {

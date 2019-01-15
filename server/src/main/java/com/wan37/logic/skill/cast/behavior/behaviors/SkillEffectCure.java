@@ -1,29 +1,27 @@
 package com.wan37.logic.skill.cast.behavior.behaviors;
 
-import com.wan37.config.ConfigLoader;
+import com.wan37.behavior.BehaviorLogic;
 import com.wan37.logic.scene.SceneActorSceneGetter;
+import com.wan37.logic.player.service.FightingUnitHpAdder;
 import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.scene.base.FightingUnit;
 import com.wan37.logic.scene.encode.FightingUnitEncoder;
-import com.wan37.logic.skill.cast.after.FightingAfterHandler;
 import com.wan37.logic.skill.cast.before.FightingUnitSkillBeforeCastHandler;
 import com.wan37.logic.skill.cast.behavior.SkillEffectLogicBehavior;
 import com.wan37.logic.skill.cast.behavior.SkillEffectLogicContext;
 import com.wan37.logic.skill.cast.check.FightingUnitBeCastFilters;
 import com.wan37.logic.skill.entity.Skill;
-import com.wan37.logic.summoning.config.SummoningCfg;
-import com.wan37.logic.summoning.Summoning;
-import com.wan37.logic.summoning.init.SummoningCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
- * @see com.wan37.logic.skill.SkillEffectLogicEnum#SUMMONING
+ * @see com.wan37.logic.skill.SkillEffectLogicEnum#CURE
  */
 @Service
-class SkillEffectLogicBehavior4 implements SkillEffectLogicBehavior {
+@BehaviorLogic(id = 3)
+class SkillEffectCure implements SkillEffectLogicBehavior {
 
     @Autowired
     private FightingUnitBeCastFilters fightingUnitBeCastFilters;
@@ -32,19 +30,13 @@ class SkillEffectLogicBehavior4 implements SkillEffectLogicBehavior {
     private FightingUnitSkillBeforeCastHandler fightingUnitSkillBeforeCastHandler;
 
     @Autowired
+    private FightingUnitEncoder fightingUnitEncoder;
+
+    @Autowired
     private SceneActorSceneGetter sceneActorSceneGetter;
 
     @Autowired
-    private ConfigLoader configLoader;
-
-    @Autowired
-    private SummoningCreator summoningCreator;
-
-    @Autowired
-    private FightingAfterHandler fightingAfterHandler;
-
-    @Autowired
-    private FightingUnitEncoder fightingUnitEncoder;
+    private FightingUnitHpAdder fightingUnitHpAdder;
 
     @Override
     public void behave(SkillEffectLogicContext context) {
@@ -56,22 +48,17 @@ class SkillEffectLogicBehavior4 implements SkillEffectLogicBehavior {
         fightingUnitSkillBeforeCastHandler.handle(caster, skill);
 
         AbstractScene scene = sceneActorSceneGetter.get(caster);
-        Integer cfgId = (int) skill.getEffectValue();
-        SummoningCfg summoningCfg = configLoader.load(SummoningCfg.class, cfgId)
-                .orElseThrow(() -> new RuntimeException("找不到召唤兽配置表"));
+        long addHp = (long) skill.getEffectValue();
+        targetList.forEach(u -> cure(caster, u, skill, scene, addHp));
 
-        // 创建召唤兽
-        Summoning summoning = summoningCreator.create(caster.getUid(), summoningCfg, scene);
-        scene.getSummonings().add(summoning);
-
-        String summoningNotify = String.format("[%s]施放了[%s]召唤出了[%s]", caster.getName(), skill.getName(), summoning.getName());
-        scene.notify(summoningNotify);
-
-        // 施放后
-        targetList.forEach(u -> fightingAfterHandler.handle(caster, u, skill, scene));
-
-        // 场景生物状态更新
         targetList.forEach(u -> updateNotify(scene, u));
+    }
+
+    private void cure(FightingUnit caster, FightingUnit target, Skill skill, AbstractScene scene, long addHp) {
+        fightingUnitHpAdder.add(target, addHp);
+
+        String msg = String.format("[%s]施放[%s]治疗了[%s]%s点hp", caster.getName(), skill.getName(), target.getName(), addHp);
+        scene.notify(msg);
     }
 
     private void updateNotify(AbstractScene scene, FightingUnit unit) {
