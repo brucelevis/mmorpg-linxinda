@@ -5,7 +5,7 @@ import com.wan37.logic.guild.service.donate.item.GuildDonateItemExec;
 import com.wan37.logic.guild.service.donate.item.ReqGuildDonateItem;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
-import com.wan37.server.GeneralReqMsg;
+import com.wan37.handler.GeneralReqMsg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

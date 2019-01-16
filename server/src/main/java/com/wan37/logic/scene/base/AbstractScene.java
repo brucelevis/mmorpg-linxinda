@@ -1,5 +1,6 @@
 package com.wan37.logic.scene.base;
 
+import com.wan37.handler.Command;
 import com.wan37.logic.monster.Monster;
 import com.wan37.logic.npc.Npc;
 import com.wan37.logic.player.Player;
@@ -8,6 +9,9 @@ import com.wan37.logic.summoning.Summoning;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * 场景抽象父类
@@ -15,6 +19,10 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author linda
  */
 public abstract class AbstractScene implements Runnable {
+
+    public AbstractScene() {
+        startCmdThread();
+    }
 
     protected Long uid;
 
@@ -32,6 +40,16 @@ public abstract class AbstractScene implements Runnable {
      * 地上奖励
      */
     protected Map<Long, SceneItem> items = new ConcurrentHashMap<>();
+
+    /**
+     * 场景命令队列
+     */
+    protected final Queue<Command> cmdQueue = new ConcurrentLinkedQueue<>();
+
+    /**
+     * 场景命令队列执行线程，保证命令有序执行，若命令队列为空，则等待
+     */
+    private final ExecutorService commandThread = Executors.newSingleThreadExecutor();
 
     public Long getUid() {
         return uid;
@@ -146,5 +164,40 @@ public abstract class AbstractScene implements Runnable {
         unitList.addAll(monsters);
         unitList.addAll(summonings);
         return unitList;
+    }
+
+    public void addCmd(Command command) {
+        cmdQueue.add(command);
+
+        if (!cmdQueue.isEmpty()) {
+            synchronized (cmdQueue) {
+                cmdQueue.notify();
+            }
+        }
+    }
+
+    private void startCmdThread() {
+        commandThread.execute(() -> {
+            waitIfEmpty();
+
+            while (!cmdQueue.isEmpty()) {
+                Command cmd = cmdQueue.poll();
+                cmd.execute();
+
+                waitIfEmpty();
+            }
+        });
+    }
+
+    private void waitIfEmpty() {
+        if (cmdQueue.isEmpty()) {
+            try {
+                synchronized (cmdQueue) {
+                    cmdQueue.wait();
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

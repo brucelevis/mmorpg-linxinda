@@ -1,5 +1,7 @@
-package com.wan37.server;
+package com.wan37.handler;
 
+import com.wan37.logic.player.Player;
+import com.wan37.server.ParameterTransformable;
 import io.netty.channel.Channel;
 
 /**
@@ -11,6 +13,7 @@ public class GeneralReqMsg implements ParameterTransformable {
 
     private final String[] params;
     private final Channel channel;
+    private Player player;
 
     public GeneralReqMsg(String[] params, Channel channel) {
         this.params = params;
@@ -23,6 +26,14 @@ public class GeneralReqMsg implements ParameterTransformable {
 
     public Channel getChannel() {
         return channel;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 
     @Override
