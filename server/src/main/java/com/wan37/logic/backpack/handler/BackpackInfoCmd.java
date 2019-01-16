@@ -17,6 +17,6 @@ class BackpackInfoCmd implements GeneralHandler {
 
     @Override
     public void handle(GeneralReqMsg msg) {
-        backpackInfoExec.exec(msg.getChannel());
+        backpackInfoExec.exec(msg.getPlayer());
     }
 }

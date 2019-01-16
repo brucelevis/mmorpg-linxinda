@@ -21,7 +21,7 @@ public class ItemAddExec {
     @Autowired
     private ResourceFacade resourceFacade;
 
-    public void exec(Integer cfgId, long amount, Player player) {
+    public void exec(Player player, Integer cfgId, long amount) {
         ResourceCollection res = createResource(ImmutableList.of(createElement(cfgId, amount)));
         resourceFacade.giveResource(res, player);
     }

@@ -1,11 +1,8 @@
 package com.wan37.logic.shop.handler;
 
 import com.wan37.handler.GeneralHandler;
-import com.wan37.logic.player.Player;
-import com.wan37.logic.player.PlayerGlobalManager;
-import com.wan37.logic.shop.service.ShopBuyExec;
 import com.wan37.handler.GeneralReqMsg;
-import io.netty.channel.Channel;
+import com.wan37.logic.shop.service.ShopBuyExec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,22 +15,11 @@ class ShopBuyCmd implements GeneralHandler {
     @Autowired
     private ShopBuyExec shopBuyExec;
 
-    @Autowired
-    private PlayerGlobalManager playerGlobalManager;
-
     @Override
     public void handle(GeneralReqMsg msg) {
-        Channel channel = msg.getChannel();
-        String[] params = msg.getParams();
+        Integer id = msg.getParamAsInt(1);
+        int amount = msg.getParamAsInt(2);
 
-        Integer id = Integer.parseInt(params[1]);
-        int amount = Integer.parseInt(params[2]);
-
-        Player player = playerGlobalManager.getPlayerByChannel(channel);
-        if (player == null) {
-            return;
-        }
-
-        shopBuyExec.exec(player, id, amount);
+        shopBuyExec.exec(msg.getPlayer(), id, amount);
     }
 }

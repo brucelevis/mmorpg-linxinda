@@ -20,7 +20,7 @@ public class BackpackItemInfoExec {
     @Autowired
     private BackpackItemInfoEncoder backpackItemInfoEncoder;
 
-    public void exec(Player player, long uid) {
+    public void exec(Player player, Long uid) {
         BackpackDb backpackDb = player.getPlayerDb().getBackpackDb();
         ItemDb itemDb = backpackFacade.find(backpackDb, uid).orElse(null);
         if (itemDb == null) {

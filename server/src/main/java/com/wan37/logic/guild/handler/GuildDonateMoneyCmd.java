@@ -1,10 +1,8 @@
 package com.wan37.logic.guild.handler;
 
 import com.wan37.handler.GeneralHandler;
-import com.wan37.logic.guild.service.donate.money.LeagueDonateMoneyExec;
-import com.wan37.logic.player.Player;
-import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.handler.GeneralReqMsg;
+import com.wan37.logic.guild.service.donate.money.LeagueDonateMoneyExec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,20 +13,13 @@ import org.springframework.stereotype.Service;
 class GuildDonateMoneyCmd implements GeneralHandler {
 
     @Autowired
-    private PlayerGlobalManager playerGlobalManager;
-
-    @Autowired
     private LeagueDonateMoneyExec leagueDonateMoneyExec;
 
     @Override
     public void handle(GeneralReqMsg msg) {
-        Player player = playerGlobalManager.getPlayerByChannel(msg.getChannel());
-        if (player == null) {
-            return;
-        }
-
         Integer id = msg.getParamAsInt(1);
         long amount = msg.getParamAsLong(2);
-        leagueDonateMoneyExec.exec(player, id, amount);
+
+        leagueDonateMoneyExec.exec(msg.getPlayer(), id, amount);
     }
 }

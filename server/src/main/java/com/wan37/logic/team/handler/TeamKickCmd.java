@@ -22,11 +22,8 @@ class TeamKickCmd implements GeneralHandler {
 
     @Override
     public void handle(GeneralReqMsg msg) {
-        //FIXME: 代码重复，需优化
-        Player player = playerGlobalManager.getPlayerByChannel(msg.getChannel());
-        if (player == null) {
-            return;
-        }
+        //FIXME: 代码重复
+        Player player = msg.getPlayer();
 
         Long uid = msg.getParamAsLong(1);
         Player target = playerGlobalManager.getPlayerByUid(uid);

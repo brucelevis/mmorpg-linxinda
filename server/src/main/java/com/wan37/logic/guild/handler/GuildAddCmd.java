@@ -24,10 +24,7 @@ class GuildAddCmd implements GeneralHandler {
 
     @Override
     public void handle(GeneralReqMsg msg) {
-        Player player = playerGlobalManager.getPlayerByChannel(msg.getChannel());
-        if (player == null) {
-            return;
-        }
+        Player player = msg.getPlayer();
 
         Long uid = msg.getParamAsLong(1);
         if (!playerGlobalManager.isOnline(uid)) {

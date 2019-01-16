@@ -1,10 +1,8 @@
 package com.wan37.logic.scene.handler;
 
 import com.wan37.handler.GeneralHandler;
-import com.wan37.logic.player.Player;
-import com.wan37.logic.player.PlayerGlobalManager;
-import com.wan37.logic.scene.service.SceneSwitchExec;
 import com.wan37.handler.GeneralReqMsg;
+import com.wan37.logic.scene.service.SceneSwitchExec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,17 +15,9 @@ class SceneSwitchCmd implements GeneralHandler {
     @Autowired
     private SceneSwitchExec sceneSwitchExec;
 
-    @Autowired
-    private PlayerGlobalManager playerGlobalManager;
-
     @Override
     public void handle(GeneralReqMsg msg) {
-        Player player = playerGlobalManager.getPlayerByChannel(msg.getChannel());
-        if (player == null) {
-            return;
-        }
-
         Integer sceneId = msg.getParamAsInt(1);
-        sceneSwitchExec.exec(player, sceneId);
+        sceneSwitchExec.exec(msg.getPlayer(), sceneId);
     }
 }
