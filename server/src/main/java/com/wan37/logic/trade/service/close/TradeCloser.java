@@ -4,6 +4,7 @@ import com.wan37.logic.backpack.BackpackFacade;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.player.PlayerGlobalManager;
 import com.wan37.logic.props.ResourceFacade;
+import com.wan37.logic.props.resource.ResourceCollection;
 import com.wan37.logic.props.resource.impl.ResourceCollectionImpl;
 import com.wan37.logic.props.resource.impl.ResourceElementImpl;
 import com.wan37.logic.trade.TradeGlobalManager;
@@ -36,35 +37,38 @@ public class TradeCloser {
     private PlayerGlobalManager playerGlobalManager;
 
     public void close(Trade trade) {
-        try {
-            trade.getLock().lock();
+        trade.getTradePlayerMap().values().forEach(this::closeTradeImpl);
+        tradeGlobalManager.rmTrade(trade.getUid());
+    }
 
-            trade.getTradePlayerMap().values().stream()
-                    .map(TradePlayer::getPlayer)
-                    .filter(p -> playerGlobalManager.isOnline(p.getUid()))
-                    .forEach(p -> p.syncClient("交易关闭"));
+    private void closeTradeImpl(TradePlayer tradePlayer) {
+        Player player = tradePlayer.getPlayer();
+        player.setTradeUid(null);
 
-            trade.getTradePlayerMap().values().forEach(this::closeTrade);
+        // 归还物品
+        returnBackpackItem(player, tradePlayer);
 
-            trade.getTradePlayerMap().clear();
-            tradeGlobalManager.rmTrade(trade.getUid());
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            trade.getLock().unlock();
+        // 归还钱
+        returnVirtualItem(player, tradePlayer);
+
+        // 推送
+        if (playerGlobalManager.isOnline(player.getUid())) {
+            player.syncClient("交易关闭");
         }
     }
 
-    private void closeTrade(TradePlayer tradePlayer) {
-        Player player = tradePlayer.getPlayer();
-        player.getTrade().setUid(null);
-
-        // 归还物品
+    private void returnBackpackItem(Player player, TradePlayer tradePlayer) {
         backpackFacade.add(player, new ArrayList<>(tradePlayer.getItems().values()));
+    }
 
-        // 归还钱
-        resourceFacade.giveResource(new ResourceCollectionImpl(tradePlayer.getCurrency().entrySet().stream()
+    private void returnVirtualItem(Player player, TradePlayer tradePlayer) {
+        ResourceCollection res = getTradeVirtualItem(tradePlayer);
+        resourceFacade.giveResource(res, player);
+    }
+
+    private ResourceCollection getTradeVirtualItem(TradePlayer tradePlayer) {
+        return new ResourceCollectionImpl(tradePlayer.getCurrency().entrySet().stream()
                 .map(e -> new ResourceElementImpl(e.getKey(), e.getValue()))
-                .collect(Collectors.toList())), player);
+                .collect(Collectors.toList()));
     }
 }

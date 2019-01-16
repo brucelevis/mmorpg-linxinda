@@ -8,7 +8,6 @@ import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.skill.Skill;
 import com.wan37.logic.skill.config.SkillCfg;
 import com.wan37.logic.skill.database.PlayerEachSkillDb;
-import com.wan37.logic.trade.impl.ITradeImpl;
 import io.netty.channel.Channel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,9 +44,6 @@ public class PlayerCreator {
                 .map(this::createSkill)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toMap(Skill::getId, Function.identity())));
-
-        // FIXME: 缓存过期会清掉
-        player.setTrade(new ITradeImpl(null, new ReentrantLock()));
 
         player.setMission(missionFactory.create(playerDb.getMissionDb()));
         player.setPk(new PkImpl(new ReentrantLock(), new HashMap<>(0)));

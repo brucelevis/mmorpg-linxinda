@@ -1,7 +1,7 @@
 package com.wan37.logic.trade;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.locks.Lock;
 
 /**
  * 交易实体
@@ -10,18 +10,25 @@ import java.util.concurrent.locks.Lock;
  */
 public class Trade {
 
+    /**
+     * 交易唯一id
+     */
     private Long uid;
 
-    private Long fromUid;
-
-    private Long toUid;
+    /**
+     * 发起者玩家uid
+     */
+    private Long inviterUid;
 
     /**
-     * key：playerUid
+     * 目标玩家uid
      */
-    private Map<Long, TradePlayer> tradePlayerMap;
+    private Long targetUid;
 
-    private Lock lock;
+    /**
+     * 交易中玩家
+     */
+    private Map<Long, TradePlayer> tradePlayerMap = new HashMap<>(2);
 
     public Long getUid() {
         return uid;
@@ -29,22 +36,6 @@ public class Trade {
 
     public void setUid(Long uid) {
         this.uid = uid;
-    }
-
-    public Long getFromUid() {
-        return fromUid;
-    }
-
-    public void setFromUid(Long fromUid) {
-        this.fromUid = fromUid;
-    }
-
-    public Long getToUid() {
-        return toUid;
-    }
-
-    public void setToUid(Long toUid) {
-        this.toUid = toUid;
     }
 
     public Map<Long, TradePlayer> getTradePlayerMap() {
@@ -55,11 +46,19 @@ public class Trade {
         this.tradePlayerMap = tradePlayerMap;
     }
 
-    public Lock getLock() {
-        return lock;
+    public Long getInviterUid() {
+        return inviterUid;
     }
 
-    public void setLock(Lock lock) {
-        this.lock = lock;
+    public void setInviterUid(Long inviterUid) {
+        this.inviterUid = inviterUid;
+    }
+
+    public Long getTargetUid() {
+        return targetUid;
+    }
+
+    public void setTargetUid(Long targetUid) {
+        this.targetUid = targetUid;
     }
 }

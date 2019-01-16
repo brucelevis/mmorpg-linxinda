@@ -9,7 +9,6 @@ import com.wan37.logic.mission.Mission;
 import com.wan37.logic.pk.Pk;
 import com.wan37.logic.player.database.PlayerDb;
 import com.wan37.logic.skill.Skill;
-import com.wan37.logic.trade.ITrade;
 import com.wan37.util.GeneralNotifySenderUtil;
 import io.netty.channel.Channel;
 
@@ -30,7 +29,12 @@ public class Player implements FightingUnit {
 
     private Map<Integer, Skill> skills;
     private List<Buff> buffs = new CopyOnWriteArrayList<>();
-    private ITrade trade;
+
+    /**
+     * 玩家正在交易的唯一id
+     */
+    private volatile Long tradeUid;
+
     private Mission mission;
     private Pk pk;
 
@@ -92,12 +96,12 @@ public class Player implements FightingUnit {
         return playerDb.getGuildUid();
     }
 
-    public ITrade getTrade() {
-        return trade;
+    public Long getTradeUid() {
+        return tradeUid;
     }
 
-    public void setTrade(ITrade trade) {
-        this.trade = trade;
+    public void setTradeUid(Long tradeUid) {
+        this.tradeUid = tradeUid;
     }
 
     public Mission getMission() {

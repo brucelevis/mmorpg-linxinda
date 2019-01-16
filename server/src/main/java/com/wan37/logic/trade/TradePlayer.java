@@ -13,8 +13,20 @@ import java.util.Map;
 public class TradePlayer {
 
     private Player player;
+
+    /**
+     * key：交易窗口格子编号，value：交易窗口格子
+     */
     private Map<Integer, ItemDb> items;
+
+    /**
+     * key：虚物id，value：数量
+     */
     private Map<Integer, Long> currency;
+
+    /**
+     * 是否确认提交
+     */
     private boolean commit;
 
     public Player getPlayer() {

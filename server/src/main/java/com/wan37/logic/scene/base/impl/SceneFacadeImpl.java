@@ -4,13 +4,17 @@ import com.wan37.event.GeneralEventListenersManager;
 import com.wan37.event.event.SceneEnterEvent;
 import com.wan37.event.event.SceneLeaveEvent;
 import com.wan37.logic.player.Player;
+import com.wan37.logic.scene.SceneActorSceneGetter;
 import com.wan37.logic.scene.SceneFacade;
 import com.wan37.logic.scene.SceneGlobalManager;
+import com.wan37.logic.scene.base.AbstractScene;
 import com.wan37.logic.scene.base.Scene;
 import com.wan37.logic.scene.config.SceneCfg;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 /**
  * @author linda
@@ -25,6 +29,9 @@ public class SceneFacadeImpl implements SceneFacade {
 
     @Autowired
     private GeneralEventListenersManager generalEventListenersManager;
+
+    @Autowired
+    private SceneActorSceneGetter sceneActorSceneGetter;
 
     @Override
     public void enterScene(Integer sceneId, Player player) {
@@ -61,5 +68,12 @@ public class SceneFacadeImpl implements SceneFacade {
     public void leaveScene(Player player) {
         // 离开场景推送
         generalEventListenersManager.fireEvent(new SceneLeaveEvent(player));
+    }
+
+    @Override
+    public boolean isInSameScene(Player playerA, Player playerB) {
+        AbstractScene sceneA = sceneActorSceneGetter.get(playerA);
+        AbstractScene sceneB = sceneActorSceneGetter.get(playerB);
+        return Objects.equals(sceneA, sceneB);
     }
 }

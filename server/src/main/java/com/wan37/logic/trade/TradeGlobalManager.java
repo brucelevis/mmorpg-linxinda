@@ -13,6 +13,9 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class TradeGlobalManager {
 
+    /**
+     * key：交易唯一id
+     */
     private static Map<Long, Trade> tradeMap = new ConcurrentHashMap<>();
 
     public void addTrade(Trade Trade) {

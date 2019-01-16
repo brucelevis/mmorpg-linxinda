@@ -7,7 +7,6 @@ import com.wan37.logic.backpack.encode.BackpackUpdateNotifier;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.trade.TradeGlobalManager;
 import com.wan37.logic.trade.encode.TradeEncoder;
-import com.wan37.logic.trade.ITrade;
 import com.wan37.logic.trade.Trade;
 import com.wan37.logic.trade.TradePlayer;
 import org.springframework.beans.BeanUtils;
@@ -40,6 +39,16 @@ public class TradeAddItemExec {
     private BackpackUpdateNotifier backpackUpdateNotifier;
 
     public void exec(Player player, Integer index, int amount) {
+        if (amount <= 0) {
+            player.syncClient("要交易的物品数必须为正数");
+            return;
+        }
+
+        if (player.getTradeUid() == null) {
+            player.syncClient("未在交易");
+            return;
+        }
+
         BackpackDb backpackDb = player.getPlayerDb().getBackpackDb();
         ItemDb itemDb = backpackFacade.find(backpackDb, index).orElse(null);
         if (itemDb == null) {
@@ -52,48 +61,35 @@ public class TradeAddItemExec {
             return;
         }
 
-        ITrade iTrade = player.getTrade();
-        if (iTrade.getUid() == null) {
-            player.syncClient("未在交易");
-            return;
-        }
-
-        Trade trade = tradeGlobalManager.getTrade(iTrade.getUid());
+        Trade trade = tradeGlobalManager.getTrade(player.getTradeUid());
         if (trade == null) {
             player.syncClient("交易不存在");
             return;
         }
 
-        try {
-            trade.getLock().lock();
-
-            TradePlayer me = trade.getTradePlayerMap().get(player.getUid());
-            if (me.getItems().values().size() >= MAX_CAPACITY) {
-                player.syncClient("交易框已满");
-                return;
-            }
-
-            // 复制物品进交易栏
-            ItemDb tradeItem = new ItemDb();
-            BeanUtils.copyProperties(itemDb, tradeItem);
-            tradeItem.setAmount(amount);
-            Integer newIndex = findEmptyIndex(me.getItems());
-            tradeItem.setIndex(newIndex);
-            me.getItems().put(newIndex, tradeItem);
-
-            // 扣除背包物品
-            backpackFacade.remove(backpackDb, index, amount);
-            backpackUpdateNotifier.notify(player);
-
-            // 推送
-            String notify = tradeEncoder.encode(trade);
-            trade.getTradePlayerMap().values().forEach(p -> p.getPlayer().syncClient(notify));
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            trade.getLock().unlock();
+        TradePlayer myTradePlayer = trade.getTradePlayerMap().get(player.getUid());
+        if (myTradePlayer.getItems().values().size() >= MAX_CAPACITY) {
+            player.syncClient("交易框已满");
+            return;
         }
+
+        // 复制物品进交易栏
+        ItemDb tradeItem = new ItemDb();
+        BeanUtils.copyProperties(itemDb, tradeItem);
+        tradeItem.setAmount(amount);
+        Integer newIndex = findEmptyIndex(myTradePlayer.getItems());
+        tradeItem.setIndex(newIndex);
+        myTradePlayer.getItems().put(newIndex, tradeItem);
+
+        // 扣除背包物品
+        backpackFacade.remove(backpackDb, index, amount);
+        backpackUpdateNotifier.notify(player);
+
+        // 推送
+        String notify = tradeEncoder.encode(trade);
+        trade.getTradePlayerMap().values().forEach(p -> p.getPlayer().syncClient(notify));
     }
+
 
     private Integer findEmptyIndex(Map<Integer, ItemDb> items) {
         for (int i = 1; i <= MAX_CAPACITY; i++) {

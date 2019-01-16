@@ -5,10 +5,10 @@ import com.wan37.event.event.TradeSuccessEvent;
 import com.wan37.logic.backpack.BackpackFacade;
 import com.wan37.logic.player.Player;
 import com.wan37.logic.props.ResourceFacade;
+import com.wan37.logic.props.resource.ResourceCollection;
 import com.wan37.logic.props.resource.impl.ResourceCollectionImpl;
 import com.wan37.logic.props.resource.impl.ResourceElementImpl;
 import com.wan37.logic.trade.TradeGlobalManager;
-import com.wan37.logic.trade.ITrade;
 import com.wan37.logic.trade.Trade;
 import com.wan37.logic.trade.TradePlayer;
 import com.wan37.logic.trade.service.close.TradeCloser;
@@ -40,67 +40,57 @@ public class TradeCommitExec {
     private GeneralEventListenersManager generalEventListenersManager;
 
     public void exec(Player player) {
-        ITrade iTrade = player.getTrade();
-        if (iTrade.getUid() == null) {
+        if (player.getTradeUid() == null) {
             player.syncClient("未在交易");
             return;
         }
 
-        Trade trade = tradeGlobalManager.getTrade(iTrade.getUid());
+        Trade trade = tradeGlobalManager.getTrade(player.getTradeUid());
         if (trade == null) {
             player.syncClient("交易不存在");
             return;
         }
 
-        try {
-            trade.getLock().lock();
+        // 设置提交交易标志
+        TradePlayer tradePlayer = trade.getTradePlayerMap().get(player.getUid());
+        tradePlayer.setCommit(true);
 
-            TradePlayer tradePlayer = trade.getTradePlayerMap().get(player.getUid());
-            tradePlayer.setCommit(true);
+        // 推送
+        String notify = String.format("[%s]确认了交易", player.getName());
+        trade.getTradePlayerMap().values().forEach(p -> p.getPlayer().syncClient(notify));
 
-            String notify = String.format("[%s]确认了交易", player.getName());
-            trade.getTradePlayerMap().values().forEach(p -> p.getPlayer().syncClient(notify));
-
-            if (!isAllCommit(trade)) {
-                return;
-            }
-
-            // 交易判断
-            TradePlayer from = trade.getTradePlayerMap().get(trade.getFromUid());
-            TradePlayer to = trade.getTradePlayerMap().get(trade.getToUid());
-
-            if (!canExchange(from, to)) {
-                // 交易关闭逻辑
-                tradeCloser.close(trade);
-                return;
-            }
-
-            Player toPlayer = to.getPlayer();
-            backpackFacade.add(toPlayer, new ArrayList<>(from.getItems().values()));
-            resourceFacade.giveResource(new ResourceCollectionImpl(from.getCurrency().entrySet().stream()
-                    .map(e -> new ResourceElementImpl(e.getKey(), e.getValue()))
-                    .collect(Collectors.toList())), toPlayer);
-
-
-            Player fromPlayer = from.getPlayer();
-            backpackFacade.add(fromPlayer, new ArrayList<>(to.getItems().values()));
-            resourceFacade.giveResource(new ResourceCollectionImpl(to.getCurrency().entrySet().stream()
-                    .map(e -> new ResourceElementImpl(e.getKey(), e.getValue()))
-                    .collect(Collectors.toList())), fromPlayer);
-
-            fromPlayer.syncClient("交易成功");
-            toPlayer.syncClient("交易成功");
-
-            finishTrade(trade);
-
-            // 抛出交易成功事件
-            generalEventListenersManager.fireEvent(new TradeSuccessEvent(fromPlayer));
-            generalEventListenersManager.fireEvent(new TradeSuccessEvent(toPlayer));
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            trade.getLock().unlock();
+        if (!isAllCommit(trade)) {
+            return;
         }
+
+        // 交易判断
+        TradePlayer inviter = trade.getTradePlayerMap().get(trade.getInviterUid());
+        TradePlayer target = trade.getTradePlayerMap().get(trade.getTargetUid());
+        if (!canExchange(inviter, target)) {
+            // 交易关闭逻辑
+            tradeCloser.close(trade);
+            return;
+        }
+
+        // 开始执行交易交换物品逻辑
+        Player targetPlayer = target.getPlayer();
+        backpackFacade.add(targetPlayer, new ArrayList<>(inviter.getItems().values()));
+        resourceFacade.giveResource(getTradeVirtualItem(inviter), targetPlayer);
+
+
+        Player inviterPlayer = inviter.getPlayer();
+        backpackFacade.add(inviterPlayer, new ArrayList<>(target.getItems().values()));
+        resourceFacade.giveResource(getTradeVirtualItem(target), inviterPlayer);
+
+        finishTrade(trade);
+
+        // 抛出交易成功事件
+        generalEventListenersManager.fireEvent(new TradeSuccessEvent(inviterPlayer));
+        generalEventListenersManager.fireEvent(new TradeSuccessEvent(targetPlayer));
+
+        // 交易成功推送
+        inviterPlayer.syncClient("交易成功");
+        targetPlayer.syncClient("交易成功");
     }
 
     private boolean isAllCommit(Trade trade) {
@@ -108,21 +98,21 @@ public class TradeCommitExec {
                 .allMatch(TradePlayer::isCommit);
     }
 
-    private boolean canExchange(TradePlayer from, TradePlayer to) {
-        Player fromPlayer = from.getPlayer();
-        Player toPlayer = to.getPlayer();
+    private boolean canExchange(TradePlayer inviter, TradePlayer target) {
+        Player inviterPlayer = inviter.getPlayer();
+        Player targetPlayer = target.getPlayer();
 
-        int toSpareCapacity = backpackFacade.getSpareCapacity(toPlayer);
-        if (from.getItems().size() > toSpareCapacity) {
-            String notify = String.format("[%s]背包空间不够", toPlayer.getName());
-            notify(notify, fromPlayer, toPlayer);
+        int toSpareCapacity = backpackFacade.getSpareCapacity(targetPlayer);
+        if (inviter.getItems().size() > toSpareCapacity) {
+            String notify = String.format("[%s]背包空间不够", targetPlayer.getName());
+            notify(notify, inviterPlayer, targetPlayer);
             return false;
         }
 
-        int fromSpareCapacity = backpackFacade.getSpareCapacity(fromPlayer);
-        if (to.getItems().size() > fromSpareCapacity) {
-            String notify = String.format("[%s]背包空间不够", fromPlayer.getName());
-            notify(notify, fromPlayer, toPlayer);
+        int fromSpareCapacity = backpackFacade.getSpareCapacity(inviterPlayer);
+        if (target.getItems().size() > fromSpareCapacity) {
+            String notify = String.format("[%s]背包空间不够", inviterPlayer.getName());
+            notify(notify, inviterPlayer, targetPlayer);
             return false;
         }
 
@@ -137,9 +127,15 @@ public class TradeCommitExec {
 
     private void finishTrade(Trade trade) {
         trade.getTradePlayerMap().values()
-                .forEach(p -> p.getPlayer().getTrade().setUid(null));
+                .forEach(p -> p.getPlayer().setTradeUid((null)));
 
         trade.getTradePlayerMap().clear();
         tradeGlobalManager.rmTrade(trade.getUid());
+    }
+
+    private ResourceCollection getTradeVirtualItem(TradePlayer tradePlayer) {
+        return new ResourceCollectionImpl(tradePlayer.getCurrency().entrySet().stream()
+                .map(e -> new ResourceElementImpl(e.getKey(), e.getValue()))
+                .collect(Collectors.toList()));
     }
 }

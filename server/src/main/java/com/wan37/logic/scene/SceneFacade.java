@@ -39,4 +39,13 @@ public interface SceneFacade {
      * @param player 玩家
      */
     void leaveScene(Player player);
+
+    /**
+     * 是否在同一场景
+     *
+     * @param playerA 玩家A
+     * @param playerB 玩家B
+     * @return boolean
+     */
+    boolean isInSameScene(Player playerA, Player playerB);
 }

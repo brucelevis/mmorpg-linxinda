@@ -16,10 +16,12 @@ public class TradePlayerCreator {
 
     public TradePlayer create(Player player) {
         TradePlayer tradePlayer = new TradePlayer();
+
         tradePlayer.setPlayer(player);
         tradePlayer.setItems(new HashMap<>(0));
         tradePlayer.setCurrency(new HashMap<>(0));
         tradePlayer.setCommit(false);
+
         return tradePlayer;
     }
 }
